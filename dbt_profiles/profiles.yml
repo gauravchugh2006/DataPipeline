@@ -1,0 +1,11 @@
+data_pipeline:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: postgres_dw
+      user: dwh_user
+      password: dwh_password
+      port: 5432
+      dbname: datamart
+      schema: public
