@@ -21,7 +21,7 @@ def install_package(package):
         subprocess.run([sys.executable, "-m", "pip", "install", package], check=True, capture_output=True)
         logging.info(f"Successfully installed {package}")
     except subprocess.CalledProcessError as e:
-        logging.error(f"Failed to install {package}: {e.stderr.decode()}")
+        logging.error(f"Failed to install {package}: {str(e)}")
 
 def ensure_packages():
     """Check and install missing packages."""
@@ -39,7 +39,7 @@ def run_dbt():
         subprocess.run(["dbt", "build"], check=True)
         logging.info("DBT build executed successfully.")
     except subprocess.CalledProcessError as e:
-        logging.error(f"DBT build failed: {e.stderr.decode()}")
+        logging.error(f"DBT build failed: {str(e)}")
 
 if __name__ == "__main__":
     logging.info("Starting package verification...")
