@@ -1,6 +1,6 @@
 
 # Prerequisites:
-# - Python 3.6 or higher
+### - Python 3.6 or higher
 # - Required packages: pandas, numpy, scikit-learn, matplotlib, seaborn
 # - Data files in CSV format
 
