@@ -1,3 +1,4 @@
+# version: 3.8 # version is obsolete future docker development
 networks:
   default:
     name: datahub_network
@@ -34,6 +35,8 @@ services:
       POSTGRES_USER: airflow
       POSTGRES_PASSWORD: airflow
       POSTGRES_DB: airflow
+    ports:
+      - "5439:5432"
     volumes:
       - postgres_airflow_data:/var/lib/postgresql/data
 
@@ -48,7 +51,7 @@ services:
     depends_on:
       - postgres_airflow
     ports:
-      - "8081:8081"
+      - "8082:8082"
     volumes:
       - ./dags:/opt/airflow/dags
     command: webserver
