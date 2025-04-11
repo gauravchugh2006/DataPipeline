@@ -1,18 +1,18 @@
 
 # Prerequisites:
-# - Python 3.6 or higher
-# - Required packages: pandas, numpy, scikit-learn, matplotlib, seaborn
-# - Data files in CSV format
+#### - Python 3.6 or higher
+#### - Required packages: pandas, numpy, scikit-learn, matplotlib, seaborn
+#### - Data files in CSV format
 
 # Project Structure:
-# /project_root
-#   /data                  # Contains input data files
-#   /src                   # Source code files  
-#   /notebooks            # Jupyter notebooks
-#   /models               # Saved model files
-#   /results              # Output files and visualizations
-#   requirements.txt      # Project dependencies
-#   README.md             # Project documentation
+#### /project_root
+####   /data                  # Contains input data files
+####   /src                   # Source code files  
+####   /notebooks            # Jupyter notebooks
+####   /models               # Saved model files
+####   /results              # Output files and visualizations
+####   requirements.txt      # Project dependencies
+####   README.md             # Project documentation
 
 # File Details:
 
