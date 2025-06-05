@@ -606,3 +606,1273 @@ https://docs.getdbt.com/docs/configure-your-profile
 [0m05:16:21.009641 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000020F917FA720>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000020F930177A0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000020F91011BE0>]}
 [0m05:16:21.009641 [debug] [MainThread]: Flushing usage events
 [0m05:16:21.416626 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m14:24:52.926906 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023D44806F30>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023D47427EF0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023D472F8200>]}
+
+
+============================== 14:24:52.969721 | cb1a702a-78ef-46fc-acd2-e07d452915ca ==============================
+[0m14:24:52.969721 [info ] [MainThread]: Running with dbt=1.9.6
+[0m14:24:52.971597 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'version_check': 'True', 'profiles_dir': 'C:\\Users\\Gaurav Chugh\\.dbt', 'log_path': 'C:\\Project\\DataPipeline\\dags\\dbt_project\\logs', 'fail_fast': 'False', 'debug': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'empty': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'invocation_command': 'dbt docs generate', 'log_format': 'default', 'introspect': 'True', 'target_path': 'None', 'static_parser': 'True', 'send_anonymous_usage_stats': 'True'}
+[0m14:24:53.495968 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': 'cb1a702a-78ef-46fc-acd2-e07d452915ca', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023D46C924B0>]}
+[0m14:24:53.626422 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': 'cb1a702a-78ef-46fc-acd2-e07d452915ca', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023D47425730>]}
+[0m14:24:53.633257 [info ] [MainThread]: Registered adapter: postgres=1.9.0
+[0m14:24:54.065897 [debug] [MainThread]: checksum: dd6dc1e5178459e3de3bf2eeb7c86bed4be2266c311fce8c15d86eb4ff94e7ad, vars: {}, profile: , target: , version: 1.9.6
+[0m14:24:54.231745 [info ] [MainThread]: Unable to do partial parsing because profile has changed
+[0m14:24:54.234021 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': 'cb1a702a-78ef-46fc-acd2-e07d452915ca', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023D4906BD10>]}
+[0m14:24:55.819216 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'customers' in the 'models' section of file '../../models\schema.yml'
+[0m14:24:55.824792 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'orders' in the 'models' section of file '../../models\schema.yml'
+[0m14:24:55.831039 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'products' in the 'models' section of file '../../models\schema.yml'
+[0m14:24:55.838083 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'reviews' in the 'models' section of file '../../models\schema.yml'
+[0m14:24:56.585150 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': 'cb1a702a-78ef-46fc-acd2-e07d452915ca', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023D492D8D70>]}
+[0m14:24:56.801624 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': 'cb1a702a-78ef-46fc-acd2-e07d452915ca', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023D492CCEC0>]}
+[0m14:24:56.802139 [info ] [MainThread]: Found 1 model, 18 data tests, 3 sources, 433 macros
+[0m14:24:56.803444 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'cb1a702a-78ef-46fc-acd2-e07d452915ca', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023D49216FC0>]}
+[0m14:24:56.806345 [info ] [MainThread]: 
+[0m14:24:56.806955 [info ] [MainThread]: Concurrency: 1 threads (target='dev')
+[0m14:24:56.808404 [info ] [MainThread]: 
+[0m14:24:56.810051 [debug] [MainThread]: Acquiring new postgres connection 'master'
+[0m14:24:56.811783 [debug] [ThreadPool]: Acquiring new postgres connection 'list_datamart_public'
+[0m14:24:56.952788 [debug] [ThreadPool]: Using postgres connection "list_datamart_public"
+[0m14:24:56.953881 [debug] [ThreadPool]: On list_datamart_public: BEGIN
+[0m14:24:56.954423 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m14:24:57.039181 [debug] [ThreadPool]: Postgres adapter: Got a retryable error when attempting to open a postgres connection.
+1 attempts remaining. Retrying in 0 seconds.
+Error:
+connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "dwh_user"
+
+[0m14:24:57.136247 [debug] [ThreadPool]: Postgres adapter: Error running SQL: BEGIN
+[0m14:24:57.137262 [debug] [ThreadPool]: Postgres adapter: Rolling back transaction.
+[0m14:24:57.138260 [debug] [ThreadPool]: Postgres adapter: Error running SQL: macro list_relations_without_caching
+[0m14:24:57.139273 [debug] [ThreadPool]: Postgres adapter: Rolling back transaction.
+[0m14:24:57.139273 [debug] [ThreadPool]: On list_datamart_public: No close available on handle
+[0m14:24:57.141793 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m14:24:57.142818 [debug] [MainThread]: Connection 'list_datamart_public' was properly closed.
+[0m14:24:57.143807 [error] [MainThread]: Encountered an error:
+Database Error
+  connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "dwh_user"
+  
+[0m14:24:57.145919 [debug] [MainThread]: Command `dbt docs generate` failed at 14:24:57.145919 after 4.81 seconds
+[0m14:24:57.147449 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023D4766CDA0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023D492BB080>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023D4925A750>]}
+[0m14:24:57.147449 [debug] [MainThread]: Flushing usage events
+[0m14:24:57.577918 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m23:35:52.375311 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019DF80A6F00>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019DF8A551C0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019DF8A54EC0>]}
+
+
+============================== 23:35:52.397321 | d1557795-d657-4908-bcd3-d754ef2fb93c ==============================
+[0m23:35:52.397321 [info ] [MainThread]: Running with dbt=1.9.6
+[0m23:35:52.399830 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'version_check': 'True', 'debug': 'False', 'log_path': 'C:\\Project\\DataPipeline\\dags\\dbt_project\\logs', 'profiles_dir': 'C:\\Users\\Gaurav Chugh\\.dbt', 'fail_fast': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'False', 'quiet': 'False', 'no_print': 'None', 'log_format': 'default', 'static_parser': 'True', 'introspect': 'True', 'invocation_command': 'dbt build --project-dir C:\\Project\\DataPipeline\\dags\\dbt_project', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'send_anonymous_usage_stats': 'True'}
+[0m23:35:52.895484 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': 'd1557795-d657-4908-bcd3-d754ef2fb93c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019DFC1671A0>]}
+[0m23:35:53.009732 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': 'd1557795-d657-4908-bcd3-d754ef2fb93c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019DFC235EB0>]}
+[0m23:35:53.017769 [info ] [MainThread]: Registered adapter: postgres=1.9.0
+[0m23:35:53.570644 [debug] [MainThread]: checksum: dd6dc1e5178459e3de3bf2eeb7c86bed4be2266c311fce8c15d86eb4ff94e7ad, vars: {}, profile: , target: , version: 1.9.6
+[0m23:35:53.891823 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 1 files changed.
+[0m23:35:53.893431 [debug] [MainThread]: Partial parsing: updated file: data_pipeline://../../models\customers.yml
+[0m23:35:54.021143 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'orders' in the 'models' section of file '../../models\customers.yml'
+[0m23:35:54.028435 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'products' in the 'models' section of file '../../models\customers.yml'
+[0m23:35:54.033436 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'reviews' in the 'models' section of file '../../models\customers.yml'
+[0m23:35:54.038499 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'customers' in the 'models' section of file '../../models\customers.yml'
+[0m23:35:54.197358 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': 'd1557795-d657-4908-bcd3-d754ef2fb93c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019DFC2C6FC0>]}
+[0m23:35:54.337139 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Project\DataPipeline\dags\dbt_project\target\manifest.json
+[0m23:35:54.353408 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Project\DataPipeline\dags\dbt_project\target\semantic_manifest.json
+[0m23:35:54.656322 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': 'd1557795-d657-4908-bcd3-d754ef2fb93c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019DFC2F23C0>]}
+[0m23:35:54.657839 [info ] [MainThread]: Found 1 model, 18 data tests, 3 sources, 433 macros
+[0m23:35:54.663458 [info ] [MainThread]: 
+[0m23:35:54.664459 [info ] [MainThread]: Concurrency: 1 threads (target='dev')
+[0m23:35:54.665463 [info ] [MainThread]: 
+[0m23:35:54.666975 [debug] [MainThread]: Acquiring new postgres connection 'master'
+[0m23:35:54.669499 [debug] [ThreadPool]: Acquiring new postgres connection 'list_datamart'
+[0m23:35:54.921821 [debug] [ThreadPool]: Using postgres connection "list_datamart"
+[0m23:35:54.924072 [debug] [ThreadPool]: On list_datamart: /* {"app": "dbt", "dbt_version": "1.9.6", "profile_name": "data_pipeline", "target_name": "dev", "connection_name": "list_datamart"} */
+
+    select distinct nspname from pg_namespace
+  
+[0m23:35:54.925098 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m23:35:55.025551 [debug] [ThreadPool]: SQL status: SELECT 4 in 0.100 seconds
+[0m23:35:55.027302 [debug] [ThreadPool]: On list_datamart: Close
+[0m23:35:55.030644 [debug] [ThreadPool]: Acquiring new postgres connection 'list_datamart_public'
+[0m23:35:55.038173 [debug] [ThreadPool]: Using postgres connection "list_datamart_public"
+[0m23:35:55.038704 [debug] [ThreadPool]: On list_datamart_public: BEGIN
+[0m23:35:55.038704 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m23:35:55.061555 [debug] [ThreadPool]: SQL status: BEGIN in 0.022 seconds
+[0m23:35:55.062112 [debug] [ThreadPool]: Using postgres connection "list_datamart_public"
+[0m23:35:55.062661 [debug] [ThreadPool]: On list_datamart_public: /* {"app": "dbt", "dbt_version": "1.9.6", "profile_name": "data_pipeline", "target_name": "dev", "connection_name": "list_datamart_public"} */
+select
+      'datamart' as database,
+      tablename as name,
+      schemaname as schema,
+      'table' as type
+    from pg_tables
+    where schemaname ilike 'public'
+    union all
+    select
+      'datamart' as database,
+      viewname as name,
+      schemaname as schema,
+      'view' as type
+    from pg_views
+    where schemaname ilike 'public'
+    union all
+    select
+      'datamart' as database,
+      matviewname as name,
+      schemaname as schema,
+      'materialized_view' as type
+    from pg_matviews
+    where schemaname ilike 'public'
+  
+[0m23:35:55.094146 [debug] [ThreadPool]: SQL status: SELECT 0 in 0.031 seconds
+[0m23:35:55.095799 [debug] [ThreadPool]: On list_datamart_public: ROLLBACK
+[0m23:35:55.097994 [debug] [ThreadPool]: On list_datamart_public: Close
+[0m23:35:55.106664 [debug] [MainThread]: Using postgres connection "master"
+[0m23:35:55.107766 [debug] [MainThread]: On master: BEGIN
+[0m23:35:55.108327 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m23:35:55.155977 [debug] [MainThread]: SQL status: BEGIN in 0.048 seconds
+[0m23:35:55.157115 [debug] [MainThread]: Using postgres connection "master"
+[0m23:35:55.157819 [debug] [MainThread]: On master: /* {"app": "dbt", "dbt_version": "1.9.6", "profile_name": "data_pipeline", "target_name": "dev", "connection_name": "master"} */
+with relation as (
+        select
+            pg_rewrite.ev_class as class,
+            pg_rewrite.oid as id
+        from pg_rewrite
+    ),
+    class as (
+        select
+            oid as id,
+            relname as name,
+            relnamespace as schema,
+            relkind as kind
+        from pg_class
+    ),
+    dependency as (
+        select distinct
+            pg_depend.objid as id,
+            pg_depend.refobjid as ref
+        from pg_depend
+    ),
+    schema as (
+        select
+            pg_namespace.oid as id,
+            pg_namespace.nspname as name
+        from pg_namespace
+        where nspname != 'information_schema' and nspname not like 'pg\_%'
+    ),
+    referenced as (
+        select
+            relation.id AS id,
+            referenced_class.name ,
+            referenced_class.schema ,
+            referenced_class.kind
+        from relation
+        join class as referenced_class on relation.class=referenced_class.id
+        where referenced_class.kind in ('r', 'v', 'm')
+    ),
+    relationships as (
+        select
+            referenced.name as referenced_name,
+            referenced.schema as referenced_schema_id,
+            dependent_class.name as dependent_name,
+            dependent_class.schema as dependent_schema_id,
+            referenced.kind as kind
+        from referenced
+        join dependency on referenced.id=dependency.id
+        join class as dependent_class on dependency.ref=dependent_class.id
+        where
+            (referenced.name != dependent_class.name or
+             referenced.schema != dependent_class.schema)
+    )
+
+    select
+        referenced_schema.name as referenced_schema,
+        relationships.referenced_name as referenced_name,
+        dependent_schema.name as dependent_schema,
+        relationships.dependent_name as dependent_name
+    from relationships
+    join schema as dependent_schema on relationships.dependent_schema_id=dependent_schema.id
+    join schema as referenced_schema on relationships.referenced_schema_id=referenced_schema.id
+    group by referenced_schema, referenced_name, dependent_schema, dependent_name
+    order by referenced_schema, referenced_name, dependent_schema, dependent_name;
+[0m23:35:55.178034 [debug] [MainThread]: SQL status: SELECT 0 in 0.020 seconds
+[0m23:35:55.181230 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'd1557795-d657-4908-bcd3-d754ef2fb93c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019DFC879D90>]}
+[0m23:35:55.182934 [debug] [MainThread]: On master: ROLLBACK
+[0m23:35:55.186318 [debug] [MainThread]: Using postgres connection "master"
+[0m23:35:55.186871 [debug] [MainThread]: On master: BEGIN
+[0m23:35:55.191180 [debug] [MainThread]: SQL status: BEGIN in 0.003 seconds
+[0m23:35:55.191735 [debug] [MainThread]: On master: COMMIT
+[0m23:35:55.192272 [debug] [MainThread]: Using postgres connection "master"
+[0m23:35:55.192801 [debug] [MainThread]: On master: COMMIT
+[0m23:35:55.196005 [debug] [MainThread]: SQL status: COMMIT in 0.002 seconds
+[0m23:35:55.196592 [debug] [MainThread]: On master: Close
+[0m23:35:55.228578 [debug] [Thread-1 (]: Began running node test.data_pipeline.source_accepted_values_raw_payments_payment_method__Credit_Card__PayPal__Bank_Transfer.52bf7791a6
+[0m23:35:55.230416 [info ] [Thread-1 (]: 1 of 19 START test source_accepted_values_raw_payments_payment_method__Credit_Card__PayPal__Bank_Transfer  [RUN]
+[0m23:35:55.232588 [debug] [Thread-1 (]: Acquiring new postgres connection 'test.data_pipeline.source_accepted_values_raw_payments_payment_method__Credit_Card__PayPal__Bank_Transfer.52bf7791a6'
+[0m23:35:55.233269 [debug] [Thread-1 (]: Began compiling node test.data_pipeline.source_accepted_values_raw_payments_payment_method__Credit_Card__PayPal__Bank_Transfer.52bf7791a6
+[0m23:35:55.266428 [debug] [Thread-1 (]: Writing injected SQL for node "test.data_pipeline.source_accepted_values_raw_payments_payment_method__Credit_Card__PayPal__Bank_Transfer.52bf7791a6"
+[0m23:35:55.269970 [debug] [Thread-1 (]: Began executing node test.data_pipeline.source_accepted_values_raw_payments_payment_method__Credit_Card__PayPal__Bank_Transfer.52bf7791a6
+[0m23:35:55.298656 [debug] [Thread-1 (]: Writing runtime sql for node "test.data_pipeline.source_accepted_values_raw_payments_payment_method__Credit_Card__PayPal__Bank_Transfer.52bf7791a6"
+[0m23:35:55.299663 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_accepted_values_raw_payments_payment_method__Credit_Card__PayPal__Bank_Transfer.52bf7791a6"
+[0m23:35:55.301174 [debug] [Thread-1 (]: On test.data_pipeline.source_accepted_values_raw_payments_payment_method__Credit_Card__PayPal__Bank_Transfer.52bf7791a6: BEGIN
+[0m23:35:55.303042 [debug] [Thread-1 (]: Opening a new connection, currently in state init
+[0m23:35:55.329048 [debug] [Thread-1 (]: SQL status: BEGIN in 0.026 seconds
+[0m23:35:55.329582 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_accepted_values_raw_payments_payment_method__Credit_Card__PayPal__Bank_Transfer.52bf7791a6"
+[0m23:35:55.330700 [debug] [Thread-1 (]: On test.data_pipeline.source_accepted_values_raw_payments_payment_method__Credit_Card__PayPal__Bank_Transfer.52bf7791a6: /* {"app": "dbt", "dbt_version": "1.9.6", "profile_name": "data_pipeline", "target_name": "dev", "node_id": "test.data_pipeline.source_accepted_values_raw_payments_payment_method__Credit_Card__PayPal__Bank_Transfer.52bf7791a6"} */
+
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+with all_values as (
+
+    select
+        payment_method as value_field,
+        count(*) as n_records
+
+    from "datamart"."raw"."payments"
+    group by payment_method
+
+)
+
+select *
+from all_values
+where value_field not in (
+    'Credit Card','PayPal','Bank Transfer'
+)
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m23:35:55.333902 [debug] [Thread-1 (]: Postgres adapter: Postgres error: relation "raw.payments" does not exist
+LINE 20:     from "datamart"."raw"."payments"
+                  ^
+
+[0m23:35:55.334992 [debug] [Thread-1 (]: On test.data_pipeline.source_accepted_values_raw_payments_payment_method__Credit_Card__PayPal__Bank_Transfer.52bf7791a6: ROLLBACK
+[0m23:35:55.337122 [debug] [Thread-1 (]: On test.data_pipeline.source_accepted_values_raw_payments_payment_method__Credit_Card__PayPal__Bank_Transfer.52bf7791a6: Close
+[0m23:35:55.404047 [debug] [Thread-1 (]: Database Error in test source_accepted_values_raw_payments_payment_method__Credit_Card__PayPal__Bank_Transfer (../../models\sources.yml)
+  relation "raw.payments" does not exist
+  LINE 20:     from "datamart"."raw"."payments"
+                    ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_accepted_values_raw_pay_81e9ba7a9392ec12ec328aa660bf3829.sql
+[0m23:35:55.405566 [error] [Thread-1 (]: 1 of 19 ERROR source_accepted_values_raw_payments_payment_method__Credit_Card__PayPal__Bank_Transfer  [[31mERROR[0m in 0.17s]
+[0m23:35:55.407077 [debug] [Thread-1 (]: Finished running node test.data_pipeline.source_accepted_values_raw_payments_payment_method__Credit_Card__PayPal__Bank_Transfer.52bf7791a6
+[0m23:35:55.408091 [debug] [Thread-1 (]: Began running node test.data_pipeline.source_accepted_values_raw_payments_payment_status__Completed__Failed__Pending.251d1a1dcc
+[0m23:35:55.409094 [debug] [Thread-4 (]: Marking all children of 'test.data_pipeline.source_accepted_values_raw_payments_payment_method__Credit_Card__PayPal__Bank_Transfer.52bf7791a6' to be skipped because of status 'error'.  Reason: Database Error in test source_accepted_values_raw_payments_payment_method__Credit_Card__PayPal__Bank_Transfer (../../models\sources.yml)
+  relation "raw.payments" does not exist
+  LINE 20:     from "datamart"."raw"."payments"
+                    ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_accepted_values_raw_pay_81e9ba7a9392ec12ec328aa660bf3829.sql.
+[0m23:35:55.410553 [info ] [Thread-1 (]: 2 of 19 START test source_accepted_values_raw_payments_payment_status__Completed__Failed__Pending  [RUN]
+[0m23:35:55.416082 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.data_pipeline.source_accepted_values_raw_payments_payment_method__Credit_Card__PayPal__Bank_Transfer.52bf7791a6, now test.data_pipeline.source_accepted_values_raw_payments_payment_status__Completed__Failed__Pending.251d1a1dcc)
+[0m23:35:55.417078 [debug] [Thread-1 (]: Began compiling node test.data_pipeline.source_accepted_values_raw_payments_payment_status__Completed__Failed__Pending.251d1a1dcc
+[0m23:35:55.435322 [debug] [Thread-1 (]: Writing injected SQL for node "test.data_pipeline.source_accepted_values_raw_payments_payment_status__Completed__Failed__Pending.251d1a1dcc"
+[0m23:35:55.439905 [debug] [Thread-1 (]: Began executing node test.data_pipeline.source_accepted_values_raw_payments_payment_status__Completed__Failed__Pending.251d1a1dcc
+[0m23:35:55.447554 [debug] [Thread-1 (]: Writing runtime sql for node "test.data_pipeline.source_accepted_values_raw_payments_payment_status__Completed__Failed__Pending.251d1a1dcc"
+[0m23:35:55.450554 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_accepted_values_raw_payments_payment_status__Completed__Failed__Pending.251d1a1dcc"
+[0m23:35:55.451569 [debug] [Thread-1 (]: On test.data_pipeline.source_accepted_values_raw_payments_payment_status__Completed__Failed__Pending.251d1a1dcc: BEGIN
+[0m23:35:55.452558 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m23:35:55.492409 [debug] [Thread-1 (]: SQL status: BEGIN in 0.040 seconds
+[0m23:35:55.493345 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_accepted_values_raw_payments_payment_status__Completed__Failed__Pending.251d1a1dcc"
+[0m23:35:55.494119 [debug] [Thread-1 (]: On test.data_pipeline.source_accepted_values_raw_payments_payment_status__Completed__Failed__Pending.251d1a1dcc: /* {"app": "dbt", "dbt_version": "1.9.6", "profile_name": "data_pipeline", "target_name": "dev", "node_id": "test.data_pipeline.source_accepted_values_raw_payments_payment_status__Completed__Failed__Pending.251d1a1dcc"} */
+
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+with all_values as (
+
+    select
+        payment_status as value_field,
+        count(*) as n_records
+
+    from "datamart"."raw"."payments"
+    group by payment_status
+
+)
+
+select *
+from all_values
+where value_field not in (
+    'Completed','Failed','Pending'
+)
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m23:35:55.497515 [debug] [Thread-1 (]: Postgres adapter: Postgres error: relation "raw.payments" does not exist
+LINE 20:     from "datamart"."raw"."payments"
+                  ^
+
+[0m23:35:55.498074 [debug] [Thread-1 (]: On test.data_pipeline.source_accepted_values_raw_payments_payment_status__Completed__Failed__Pending.251d1a1dcc: ROLLBACK
+[0m23:35:55.500449 [debug] [Thread-1 (]: On test.data_pipeline.source_accepted_values_raw_payments_payment_status__Completed__Failed__Pending.251d1a1dcc: Close
+[0m23:35:55.503432 [debug] [Thread-1 (]: Database Error in test source_accepted_values_raw_payments_payment_status__Completed__Failed__Pending (../../models\sources.yml)
+  relation "raw.payments" does not exist
+  LINE 20:     from "datamart"."raw"."payments"
+                    ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_accepted_values_raw_pay_9e076b3898151400e6c50cdfdb2e3b16.sql
+[0m23:35:55.504932 [error] [Thread-1 (]: 2 of 19 ERROR source_accepted_values_raw_payments_payment_status__Completed__Failed__Pending  [[31mERROR[0m in 0.09s]
+[0m23:35:55.508865 [debug] [Thread-1 (]: Finished running node test.data_pipeline.source_accepted_values_raw_payments_payment_status__Completed__Failed__Pending.251d1a1dcc
+[0m23:35:55.509431 [debug] [Thread-1 (]: Began running node test.data_pipeline.source_accepted_values_raw_raw_data_payment_status__Paid__Pending__Refunded.596345ab21
+[0m23:35:55.513250 [debug] [Thread-4 (]: Marking all children of 'test.data_pipeline.source_accepted_values_raw_payments_payment_status__Completed__Failed__Pending.251d1a1dcc' to be skipped because of status 'error'.  Reason: Database Error in test source_accepted_values_raw_payments_payment_status__Completed__Failed__Pending (../../models\sources.yml)
+  relation "raw.payments" does not exist
+  LINE 20:     from "datamart"."raw"."payments"
+                    ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_accepted_values_raw_pay_9e076b3898151400e6c50cdfdb2e3b16.sql.
+[0m23:35:55.510961 [info ] [Thread-1 (]: 3 of 19 START test source_accepted_values_raw_raw_data_payment_status__Paid__Pending__Refunded  [RUN]
+[0m23:35:55.514526 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.data_pipeline.source_accepted_values_raw_payments_payment_status__Completed__Failed__Pending.251d1a1dcc, now test.data_pipeline.source_accepted_values_raw_raw_data_payment_status__Paid__Pending__Refunded.596345ab21)
+[0m23:35:55.516036 [debug] [Thread-1 (]: Began compiling node test.data_pipeline.source_accepted_values_raw_raw_data_payment_status__Paid__Pending__Refunded.596345ab21
+[0m23:35:55.526076 [debug] [Thread-1 (]: Writing injected SQL for node "test.data_pipeline.source_accepted_values_raw_raw_data_payment_status__Paid__Pending__Refunded.596345ab21"
+[0m23:35:55.528591 [debug] [Thread-1 (]: Began executing node test.data_pipeline.source_accepted_values_raw_raw_data_payment_status__Paid__Pending__Refunded.596345ab21
+[0m23:35:55.531101 [debug] [Thread-1 (]: Writing runtime sql for node "test.data_pipeline.source_accepted_values_raw_raw_data_payment_status__Paid__Pending__Refunded.596345ab21"
+[0m23:35:55.533115 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_accepted_values_raw_raw_data_payment_status__Paid__Pending__Refunded.596345ab21"
+[0m23:35:55.533115 [debug] [Thread-1 (]: On test.data_pipeline.source_accepted_values_raw_raw_data_payment_status__Paid__Pending__Refunded.596345ab21: BEGIN
+[0m23:35:55.534117 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m23:35:55.577859 [debug] [Thread-1 (]: SQL status: BEGIN in 0.043 seconds
+[0m23:35:55.578458 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_accepted_values_raw_raw_data_payment_status__Paid__Pending__Refunded.596345ab21"
+[0m23:35:55.579863 [debug] [Thread-1 (]: On test.data_pipeline.source_accepted_values_raw_raw_data_payment_status__Paid__Pending__Refunded.596345ab21: /* {"app": "dbt", "dbt_version": "1.9.6", "profile_name": "data_pipeline", "target_name": "dev", "node_id": "test.data_pipeline.source_accepted_values_raw_raw_data_payment_status__Paid__Pending__Refunded.596345ab21"} */
+
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+with all_values as (
+
+    select
+        payment_status as value_field,
+        count(*) as n_records
+
+    from "datamart"."raw"."raw_data"
+    group by payment_status
+
+)
+
+select *
+from all_values
+where value_field not in (
+    'Paid','Pending','Refunded'
+)
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m23:35:55.582842 [debug] [Thread-1 (]: Postgres adapter: Postgres error: relation "raw.raw_data" does not exist
+LINE 20:     from "datamart"."raw"."raw_data"
+                  ^
+
+[0m23:35:55.583365 [debug] [Thread-1 (]: On test.data_pipeline.source_accepted_values_raw_raw_data_payment_status__Paid__Pending__Refunded.596345ab21: ROLLBACK
+[0m23:35:55.587330 [debug] [Thread-1 (]: On test.data_pipeline.source_accepted_values_raw_raw_data_payment_status__Paid__Pending__Refunded.596345ab21: Close
+[0m23:35:55.592297 [debug] [Thread-1 (]: Database Error in test source_accepted_values_raw_raw_data_payment_status__Paid__Pending__Refunded (../../models\sources.yml)
+  relation "raw.raw_data" does not exist
+  LINE 20:     from "datamart"."raw"."raw_data"
+                    ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_accepted_values_raw_raw_76585dff0454bdaee97924d29f62e64d.sql
+[0m23:35:55.593308 [error] [Thread-1 (]: 3 of 19 ERROR source_accepted_values_raw_raw_data_payment_status__Paid__Pending__Refunded  [[31mERROR[0m in 0.08s]
+[0m23:35:55.594686 [debug] [Thread-1 (]: Finished running node test.data_pipeline.source_accepted_values_raw_raw_data_payment_status__Paid__Pending__Refunded.596345ab21
+[0m23:35:55.595973 [debug] [Thread-1 (]: Began running node test.data_pipeline.source_not_null_raw_payments_order_id.def3cb6fc9
+[0m23:35:55.596986 [debug] [Thread-4 (]: Marking all children of 'test.data_pipeline.source_accepted_values_raw_raw_data_payment_status__Paid__Pending__Refunded.596345ab21' to be skipped because of status 'error'.  Reason: Database Error in test source_accepted_values_raw_raw_data_payment_status__Paid__Pending__Refunded (../../models\sources.yml)
+  relation "raw.raw_data" does not exist
+  LINE 20:     from "datamart"."raw"."raw_data"
+                    ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_accepted_values_raw_raw_76585dff0454bdaee97924d29f62e64d.sql.
+[0m23:35:55.598216 [info ] [Thread-1 (]: 4 of 19 START test source_not_null_raw_payments_order_id ....................... [RUN]
+[0m23:35:55.599523 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.data_pipeline.source_accepted_values_raw_raw_data_payment_status__Paid__Pending__Refunded.596345ab21, now test.data_pipeline.source_not_null_raw_payments_order_id.def3cb6fc9)
+[0m23:35:55.600180 [debug] [Thread-1 (]: Began compiling node test.data_pipeline.source_not_null_raw_payments_order_id.def3cb6fc9
+[0m23:35:55.615328 [debug] [Thread-1 (]: Writing injected SQL for node "test.data_pipeline.source_not_null_raw_payments_order_id.def3cb6fc9"
+[0m23:35:55.624468 [debug] [Thread-1 (]: Began executing node test.data_pipeline.source_not_null_raw_payments_order_id.def3cb6fc9
+[0m23:35:55.630008 [debug] [Thread-1 (]: Writing runtime sql for node "test.data_pipeline.source_not_null_raw_payments_order_id.def3cb6fc9"
+[0m23:35:55.634533 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_not_null_raw_payments_order_id.def3cb6fc9"
+[0m23:35:55.634533 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_payments_order_id.def3cb6fc9: BEGIN
+[0m23:35:55.635535 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m23:35:55.667927 [debug] [Thread-1 (]: SQL status: BEGIN in 0.032 seconds
+[0m23:35:55.668578 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_not_null_raw_payments_order_id.def3cb6fc9"
+[0m23:35:55.669835 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_payments_order_id.def3cb6fc9: /* {"app": "dbt", "dbt_version": "1.9.6", "profile_name": "data_pipeline", "target_name": "dev", "node_id": "test.data_pipeline.source_not_null_raw_payments_order_id.def3cb6fc9"} */
+
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select order_id
+from "datamart"."raw"."payments"
+where order_id is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m23:35:55.673431 [debug] [Thread-1 (]: Postgres adapter: Postgres error: relation "raw.payments" does not exist
+LINE 17: from "datamart"."raw"."payments"
+              ^
+
+[0m23:35:55.676027 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_payments_order_id.def3cb6fc9: ROLLBACK
+[0m23:35:55.680676 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_payments_order_id.def3cb6fc9: Close
+[0m23:35:55.685348 [debug] [Thread-1 (]: Database Error in test source_not_null_raw_payments_order_id (../../models\sources.yml)
+  relation "raw.payments" does not exist
+  LINE 17: from "datamart"."raw"."payments"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_payments_order_id.sql
+[0m23:35:55.686362 [error] [Thread-1 (]: 4 of 19 ERROR source_not_null_raw_payments_order_id ............................ [[31mERROR[0m in 0.09s]
+[0m23:35:55.687368 [debug] [Thread-1 (]: Finished running node test.data_pipeline.source_not_null_raw_payments_order_id.def3cb6fc9
+[0m23:35:55.688380 [debug] [Thread-1 (]: Began running node test.data_pipeline.source_not_null_raw_payments_payment_id.a7f5b41ef5
+[0m23:35:55.689383 [debug] [Thread-4 (]: Marking all children of 'test.data_pipeline.source_not_null_raw_payments_order_id.def3cb6fc9' to be skipped because of status 'error'.  Reason: Database Error in test source_not_null_raw_payments_order_id (../../models\sources.yml)
+  relation "raw.payments" does not exist
+  LINE 17: from "datamart"."raw"."payments"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_payments_order_id.sql.
+[0m23:35:55.690381 [info ] [Thread-1 (]: 5 of 19 START test source_not_null_raw_payments_payment_id ..................... [RUN]
+[0m23:35:55.691629 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.data_pipeline.source_not_null_raw_payments_order_id.def3cb6fc9, now test.data_pipeline.source_not_null_raw_payments_payment_id.a7f5b41ef5)
+[0m23:35:55.692640 [debug] [Thread-1 (]: Began compiling node test.data_pipeline.source_not_null_raw_payments_payment_id.a7f5b41ef5
+[0m23:35:55.699460 [debug] [Thread-1 (]: Writing injected SQL for node "test.data_pipeline.source_not_null_raw_payments_payment_id.a7f5b41ef5"
+[0m23:35:55.701462 [debug] [Thread-1 (]: Began executing node test.data_pipeline.source_not_null_raw_payments_payment_id.a7f5b41ef5
+[0m23:35:55.707975 [debug] [Thread-1 (]: Writing runtime sql for node "test.data_pipeline.source_not_null_raw_payments_payment_id.a7f5b41ef5"
+[0m23:35:55.709989 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_not_null_raw_payments_payment_id.a7f5b41ef5"
+[0m23:35:55.711506 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_payments_payment_id.a7f5b41ef5: BEGIN
+[0m23:35:55.712529 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m23:35:55.743362 [debug] [Thread-1 (]: SQL status: BEGIN in 0.031 seconds
+[0m23:35:55.744149 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_not_null_raw_payments_payment_id.a7f5b41ef5"
+[0m23:35:55.744954 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_payments_payment_id.a7f5b41ef5: /* {"app": "dbt", "dbt_version": "1.9.6", "profile_name": "data_pipeline", "target_name": "dev", "node_id": "test.data_pipeline.source_not_null_raw_payments_payment_id.a7f5b41ef5"} */
+
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select payment_id
+from "datamart"."raw"."payments"
+where payment_id is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m23:35:55.748382 [debug] [Thread-1 (]: Postgres adapter: Postgres error: relation "raw.payments" does not exist
+LINE 17: from "datamart"."raw"."payments"
+              ^
+
+[0m23:35:55.748382 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_payments_payment_id.a7f5b41ef5: ROLLBACK
+[0m23:35:55.751593 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_payments_payment_id.a7f5b41ef5: Close
+[0m23:35:55.756034 [debug] [Thread-1 (]: Database Error in test source_not_null_raw_payments_payment_id (../../models\sources.yml)
+  relation "raw.payments" does not exist
+  LINE 17: from "datamart"."raw"."payments"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_payments_payment_id.sql
+[0m23:35:55.757213 [error] [Thread-1 (]: 5 of 19 ERROR source_not_null_raw_payments_payment_id .......................... [[31mERROR[0m in 0.07s]
+[0m23:35:55.758424 [debug] [Thread-1 (]: Finished running node test.data_pipeline.source_not_null_raw_payments_payment_id.a7f5b41ef5
+[0m23:35:55.759445 [debug] [Thread-1 (]: Began running node test.data_pipeline.source_not_null_raw_products_category.9265557239
+[0m23:35:55.760464 [debug] [Thread-4 (]: Marking all children of 'test.data_pipeline.source_not_null_raw_payments_payment_id.a7f5b41ef5' to be skipped because of status 'error'.  Reason: Database Error in test source_not_null_raw_payments_payment_id (../../models\sources.yml)
+  relation "raw.payments" does not exist
+  LINE 17: from "datamart"."raw"."payments"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_payments_payment_id.sql.
+[0m23:35:55.761456 [info ] [Thread-1 (]: 6 of 19 START test source_not_null_raw_products_category ....................... [RUN]
+[0m23:35:55.762516 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.data_pipeline.source_not_null_raw_payments_payment_id.a7f5b41ef5, now test.data_pipeline.source_not_null_raw_products_category.9265557239)
+[0m23:35:55.763486 [debug] [Thread-1 (]: Began compiling node test.data_pipeline.source_not_null_raw_products_category.9265557239
+[0m23:35:55.771339 [debug] [Thread-1 (]: Writing injected SQL for node "test.data_pipeline.source_not_null_raw_products_category.9265557239"
+[0m23:35:55.773433 [debug] [Thread-1 (]: Began executing node test.data_pipeline.source_not_null_raw_products_category.9265557239
+[0m23:35:55.777458 [debug] [Thread-1 (]: Writing runtime sql for node "test.data_pipeline.source_not_null_raw_products_category.9265557239"
+[0m23:35:55.779932 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_not_null_raw_products_category.9265557239"
+[0m23:35:55.779932 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_products_category.9265557239: BEGIN
+[0m23:35:55.781448 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m23:35:55.810028 [debug] [Thread-1 (]: SQL status: BEGIN in 0.028 seconds
+[0m23:35:55.810028 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_not_null_raw_products_category.9265557239"
+[0m23:35:55.811600 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_products_category.9265557239: /* {"app": "dbt", "dbt_version": "1.9.6", "profile_name": "data_pipeline", "target_name": "dev", "node_id": "test.data_pipeline.source_not_null_raw_products_category.9265557239"} */
+
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select category
+from "datamart"."raw"."products"
+where category is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m23:35:55.815150 [debug] [Thread-1 (]: Postgres adapter: Postgres error: relation "raw.products" does not exist
+LINE 17: from "datamart"."raw"."products"
+              ^
+
+[0m23:35:55.816291 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_products_category.9265557239: ROLLBACK
+[0m23:35:55.819455 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_products_category.9265557239: Close
+[0m23:35:55.823691 [debug] [Thread-1 (]: Database Error in test source_not_null_raw_products_category (../../models\sources.yml)
+  relation "raw.products" does not exist
+  LINE 17: from "datamart"."raw"."products"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_products_category.sql
+[0m23:35:55.824910 [error] [Thread-1 (]: 6 of 19 ERROR source_not_null_raw_products_category ............................ [[31mERROR[0m in 0.06s]
+[0m23:35:55.826745 [debug] [Thread-1 (]: Finished running node test.data_pipeline.source_not_null_raw_products_category.9265557239
+[0m23:35:55.827286 [debug] [Thread-1 (]: Began running node test.data_pipeline.source_not_null_raw_products_price.ce9a7bfd3b
+[0m23:35:55.828873 [debug] [Thread-4 (]: Marking all children of 'test.data_pipeline.source_not_null_raw_products_category.9265557239' to be skipped because of status 'error'.  Reason: Database Error in test source_not_null_raw_products_category (../../models\sources.yml)
+  relation "raw.products" does not exist
+  LINE 17: from "datamart"."raw"."products"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_products_category.sql.
+[0m23:35:55.828208 [info ] [Thread-1 (]: 7 of 19 START test source_not_null_raw_products_price .......................... [RUN]
+[0m23:35:55.830899 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.data_pipeline.source_not_null_raw_products_category.9265557239, now test.data_pipeline.source_not_null_raw_products_price.ce9a7bfd3b)
+[0m23:35:55.831922 [debug] [Thread-1 (]: Began compiling node test.data_pipeline.source_not_null_raw_products_price.ce9a7bfd3b
+[0m23:35:55.839085 [debug] [Thread-1 (]: Writing injected SQL for node "test.data_pipeline.source_not_null_raw_products_price.ce9a7bfd3b"
+[0m23:35:55.840083 [debug] [Thread-1 (]: Began executing node test.data_pipeline.source_not_null_raw_products_price.ce9a7bfd3b
+[0m23:35:55.845095 [debug] [Thread-1 (]: Writing runtime sql for node "test.data_pipeline.source_not_null_raw_products_price.ce9a7bfd3b"
+[0m23:35:55.846119 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_not_null_raw_products_price.ce9a7bfd3b"
+[0m23:35:55.847145 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_products_price.ce9a7bfd3b: BEGIN
+[0m23:35:55.847145 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m23:35:55.880470 [debug] [Thread-1 (]: SQL status: BEGIN in 0.032 seconds
+[0m23:35:55.881144 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_not_null_raw_products_price.ce9a7bfd3b"
+[0m23:35:55.882411 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_products_price.ce9a7bfd3b: /* {"app": "dbt", "dbt_version": "1.9.6", "profile_name": "data_pipeline", "target_name": "dev", "node_id": "test.data_pipeline.source_not_null_raw_products_price.ce9a7bfd3b"} */
+
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select price
+from "datamart"."raw"."products"
+where price is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m23:35:55.885003 [debug] [Thread-1 (]: Postgres adapter: Postgres error: relation "raw.products" does not exist
+LINE 17: from "datamart"."raw"."products"
+              ^
+
+[0m23:35:55.886219 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_products_price.ce9a7bfd3b: ROLLBACK
+[0m23:35:55.888234 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_products_price.ce9a7bfd3b: Close
+[0m23:35:55.892899 [debug] [Thread-1 (]: Database Error in test source_not_null_raw_products_price (../../models\sources.yml)
+  relation "raw.products" does not exist
+  LINE 17: from "datamart"."raw"."products"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_products_price.sql
+[0m23:35:55.893512 [error] [Thread-1 (]: 7 of 19 ERROR source_not_null_raw_products_price ............................... [[31mERROR[0m in 0.06s]
+[0m23:35:55.895508 [debug] [Thread-1 (]: Finished running node test.data_pipeline.source_not_null_raw_products_price.ce9a7bfd3b
+[0m23:35:55.896340 [debug] [Thread-1 (]: Began running node test.data_pipeline.source_not_null_raw_products_product_id.b984a33cae
+[0m23:35:55.896340 [debug] [Thread-4 (]: Marking all children of 'test.data_pipeline.source_not_null_raw_products_price.ce9a7bfd3b' to be skipped because of status 'error'.  Reason: Database Error in test source_not_null_raw_products_price (../../models\sources.yml)
+  relation "raw.products" does not exist
+  LINE 17: from "datamart"."raw"."products"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_products_price.sql.
+[0m23:35:55.898893 [info ] [Thread-1 (]: 8 of 19 START test source_not_null_raw_products_product_id ..................... [RUN]
+[0m23:35:55.902515 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.data_pipeline.source_not_null_raw_products_price.ce9a7bfd3b, now test.data_pipeline.source_not_null_raw_products_product_id.b984a33cae)
+[0m23:35:55.904088 [debug] [Thread-1 (]: Began compiling node test.data_pipeline.source_not_null_raw_products_product_id.b984a33cae
+[0m23:35:55.913135 [debug] [Thread-1 (]: Writing injected SQL for node "test.data_pipeline.source_not_null_raw_products_product_id.b984a33cae"
+[0m23:35:55.916318 [debug] [Thread-1 (]: Began executing node test.data_pipeline.source_not_null_raw_products_product_id.b984a33cae
+[0m23:35:55.922398 [debug] [Thread-1 (]: Writing runtime sql for node "test.data_pipeline.source_not_null_raw_products_product_id.b984a33cae"
+[0m23:35:55.922958 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_not_null_raw_products_product_id.b984a33cae"
+[0m23:35:55.925485 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_products_product_id.b984a33cae: BEGIN
+[0m23:35:55.927263 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m23:35:55.958682 [debug] [Thread-1 (]: SQL status: BEGIN in 0.032 seconds
+[0m23:35:55.959273 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_not_null_raw_products_product_id.b984a33cae"
+[0m23:35:55.959978 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_products_product_id.b984a33cae: /* {"app": "dbt", "dbt_version": "1.9.6", "profile_name": "data_pipeline", "target_name": "dev", "node_id": "test.data_pipeline.source_not_null_raw_products_product_id.b984a33cae"} */
+
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select product_id
+from "datamart"."raw"."products"
+where product_id is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m23:35:55.964343 [debug] [Thread-1 (]: Postgres adapter: Postgres error: relation "raw.products" does not exist
+LINE 17: from "datamart"."raw"."products"
+              ^
+
+[0m23:35:55.966010 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_products_product_id.b984a33cae: ROLLBACK
+[0m23:35:55.970937 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_products_product_id.b984a33cae: Close
+[0m23:35:55.973973 [debug] [Thread-1 (]: Database Error in test source_not_null_raw_products_product_id (../../models\sources.yml)
+  relation "raw.products" does not exist
+  LINE 17: from "datamart"."raw"."products"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_products_product_id.sql
+[0m23:35:55.975936 [error] [Thread-1 (]: 8 of 19 ERROR source_not_null_raw_products_product_id .......................... [[31mERROR[0m in 0.07s]
+[0m23:35:55.977003 [debug] [Thread-1 (]: Finished running node test.data_pipeline.source_not_null_raw_products_product_id.b984a33cae
+[0m23:35:55.978207 [debug] [Thread-1 (]: Began running node test.data_pipeline.source_not_null_raw_products_product_name.2fb02dfa51
+[0m23:35:55.980646 [debug] [Thread-4 (]: Marking all children of 'test.data_pipeline.source_not_null_raw_products_product_id.b984a33cae' to be skipped because of status 'error'.  Reason: Database Error in test source_not_null_raw_products_product_id (../../models\sources.yml)
+  relation "raw.products" does not exist
+  LINE 17: from "datamart"."raw"."products"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_products_product_id.sql.
+[0m23:35:55.978834 [info ] [Thread-1 (]: 9 of 19 START test source_not_null_raw_products_product_name ................... [RUN]
+[0m23:35:55.982943 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.data_pipeline.source_not_null_raw_products_product_id.b984a33cae, now test.data_pipeline.source_not_null_raw_products_product_name.2fb02dfa51)
+[0m23:35:55.983625 [debug] [Thread-1 (]: Began compiling node test.data_pipeline.source_not_null_raw_products_product_name.2fb02dfa51
+[0m23:35:55.994220 [debug] [Thread-1 (]: Writing injected SQL for node "test.data_pipeline.source_not_null_raw_products_product_name.2fb02dfa51"
+[0m23:35:55.996734 [debug] [Thread-1 (]: Began executing node test.data_pipeline.source_not_null_raw_products_product_name.2fb02dfa51
+[0m23:35:56.003229 [debug] [Thread-1 (]: Writing runtime sql for node "test.data_pipeline.source_not_null_raw_products_product_name.2fb02dfa51"
+[0m23:35:56.006320 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_not_null_raw_products_product_name.2fb02dfa51"
+[0m23:35:56.007323 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_products_product_name.2fb02dfa51: BEGIN
+[0m23:35:56.008862 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m23:35:56.044851 [debug] [Thread-1 (]: SQL status: BEGIN in 0.036 seconds
+[0m23:35:56.047839 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_not_null_raw_products_product_name.2fb02dfa51"
+[0m23:35:56.048984 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_products_product_name.2fb02dfa51: /* {"app": "dbt", "dbt_version": "1.9.6", "profile_name": "data_pipeline", "target_name": "dev", "node_id": "test.data_pipeline.source_not_null_raw_products_product_name.2fb02dfa51"} */
+
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select product_name
+from "datamart"."raw"."products"
+where product_name is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m23:35:56.051217 [debug] [Thread-1 (]: Postgres adapter: Postgres error: relation "raw.products" does not exist
+LINE 17: from "datamart"."raw"."products"
+              ^
+
+[0m23:35:56.051781 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_products_product_name.2fb02dfa51: ROLLBACK
+[0m23:35:56.053415 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_products_product_name.2fb02dfa51: Close
+[0m23:35:56.056660 [debug] [Thread-1 (]: Database Error in test source_not_null_raw_products_product_name (../../models\sources.yml)
+  relation "raw.products" does not exist
+  LINE 17: from "datamart"."raw"."products"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_products_product_name.sql
+[0m23:35:56.057759 [error] [Thread-1 (]: 9 of 19 ERROR source_not_null_raw_products_product_name ........................ [[31mERROR[0m in 0.07s]
+[0m23:35:56.058562 [debug] [Thread-1 (]: Finished running node test.data_pipeline.source_not_null_raw_products_product_name.2fb02dfa51
+[0m23:35:56.058562 [debug] [Thread-1 (]: Began running node test.data_pipeline.source_not_null_raw_raw_data_customer_id.e7d23030b3
+[0m23:35:56.059577 [debug] [Thread-4 (]: Marking all children of 'test.data_pipeline.source_not_null_raw_products_product_name.2fb02dfa51' to be skipped because of status 'error'.  Reason: Database Error in test source_not_null_raw_products_product_name (../../models\sources.yml)
+  relation "raw.products" does not exist
+  LINE 17: from "datamart"."raw"."products"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_products_product_name.sql.
+[0m23:35:56.060577 [info ] [Thread-1 (]: 10 of 19 START test source_not_null_raw_raw_data_customer_id ................... [RUN]
+[0m23:35:56.061596 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.data_pipeline.source_not_null_raw_products_product_name.2fb02dfa51, now test.data_pipeline.source_not_null_raw_raw_data_customer_id.e7d23030b3)
+[0m23:35:56.061596 [debug] [Thread-1 (]: Began compiling node test.data_pipeline.source_not_null_raw_raw_data_customer_id.e7d23030b3
+[0m23:35:56.066119 [debug] [Thread-1 (]: Writing injected SQL for node "test.data_pipeline.source_not_null_raw_raw_data_customer_id.e7d23030b3"
+[0m23:35:56.067625 [debug] [Thread-1 (]: Began executing node test.data_pipeline.source_not_null_raw_raw_data_customer_id.e7d23030b3
+[0m23:35:56.069634 [debug] [Thread-1 (]: Writing runtime sql for node "test.data_pipeline.source_not_null_raw_raw_data_customer_id.e7d23030b3"
+[0m23:35:56.071142 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_not_null_raw_raw_data_customer_id.e7d23030b3"
+[0m23:35:56.072157 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_raw_data_customer_id.e7d23030b3: BEGIN
+[0m23:35:56.073161 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m23:35:56.108371 [debug] [Thread-1 (]: SQL status: BEGIN in 0.035 seconds
+[0m23:35:56.108933 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_not_null_raw_raw_data_customer_id.e7d23030b3"
+[0m23:35:56.109555 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_raw_data_customer_id.e7d23030b3: /* {"app": "dbt", "dbt_version": "1.9.6", "profile_name": "data_pipeline", "target_name": "dev", "node_id": "test.data_pipeline.source_not_null_raw_raw_data_customer_id.e7d23030b3"} */
+
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select customer_id
+from "datamart"."raw"."raw_data"
+where customer_id is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m23:35:56.111831 [debug] [Thread-1 (]: Postgres adapter: Postgres error: relation "raw.raw_data" does not exist
+LINE 17: from "datamart"."raw"."raw_data"
+              ^
+
+[0m23:35:56.112919 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_raw_data_customer_id.e7d23030b3: ROLLBACK
+[0m23:35:56.115230 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_raw_data_customer_id.e7d23030b3: Close
+[0m23:35:56.118986 [debug] [Thread-1 (]: Database Error in test source_not_null_raw_raw_data_customer_id (../../models\sources.yml)
+  relation "raw.raw_data" does not exist
+  LINE 17: from "datamart"."raw"."raw_data"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_raw_data_customer_id.sql
+[0m23:35:56.120101 [error] [Thread-1 (]: 10 of 19 ERROR source_not_null_raw_raw_data_customer_id ........................ [[31mERROR[0m in 0.06s]
+[0m23:35:56.120617 [debug] [Thread-1 (]: Finished running node test.data_pipeline.source_not_null_raw_raw_data_customer_id.e7d23030b3
+[0m23:35:56.121241 [debug] [Thread-1 (]: Began running node test.data_pipeline.source_not_null_raw_raw_data_order_date.8fd09fb7bc
+[0m23:35:56.121893 [debug] [Thread-4 (]: Marking all children of 'test.data_pipeline.source_not_null_raw_raw_data_customer_id.e7d23030b3' to be skipped because of status 'error'.  Reason: Database Error in test source_not_null_raw_raw_data_customer_id (../../models\sources.yml)
+  relation "raw.raw_data" does not exist
+  LINE 17: from "datamart"."raw"."raw_data"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_raw_data_customer_id.sql.
+[0m23:35:56.123055 [info ] [Thread-1 (]: 11 of 19 START test source_not_null_raw_raw_data_order_date .................... [RUN]
+[0m23:35:56.123770 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.data_pipeline.source_not_null_raw_raw_data_customer_id.e7d23030b3, now test.data_pipeline.source_not_null_raw_raw_data_order_date.8fd09fb7bc)
+[0m23:35:56.124423 [debug] [Thread-1 (]: Began compiling node test.data_pipeline.source_not_null_raw_raw_data_order_date.8fd09fb7bc
+[0m23:35:56.129888 [debug] [Thread-1 (]: Writing injected SQL for node "test.data_pipeline.source_not_null_raw_raw_data_order_date.8fd09fb7bc"
+[0m23:35:56.131397 [debug] [Thread-1 (]: Began executing node test.data_pipeline.source_not_null_raw_raw_data_order_date.8fd09fb7bc
+[0m23:35:56.135415 [debug] [Thread-1 (]: Writing runtime sql for node "test.data_pipeline.source_not_null_raw_raw_data_order_date.8fd09fb7bc"
+[0m23:35:56.136415 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_not_null_raw_raw_data_order_date.8fd09fb7bc"
+[0m23:35:56.137414 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_raw_data_order_date.8fd09fb7bc: BEGIN
+[0m23:35:56.137414 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m23:35:56.170640 [debug] [Thread-1 (]: SQL status: BEGIN in 0.032 seconds
+[0m23:35:56.171306 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_not_null_raw_raw_data_order_date.8fd09fb7bc"
+[0m23:35:56.172487 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_raw_data_order_date.8fd09fb7bc: /* {"app": "dbt", "dbt_version": "1.9.6", "profile_name": "data_pipeline", "target_name": "dev", "node_id": "test.data_pipeline.source_not_null_raw_raw_data_order_date.8fd09fb7bc"} */
+
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select order_date
+from "datamart"."raw"."raw_data"
+where order_date is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m23:35:56.175531 [debug] [Thread-1 (]: Postgres adapter: Postgres error: relation "raw.raw_data" does not exist
+LINE 17: from "datamart"."raw"."raw_data"
+              ^
+
+[0m23:35:56.176240 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_raw_data_order_date.8fd09fb7bc: ROLLBACK
+[0m23:35:56.178879 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_raw_data_order_date.8fd09fb7bc: Close
+[0m23:35:56.182864 [debug] [Thread-1 (]: Database Error in test source_not_null_raw_raw_data_order_date (../../models\sources.yml)
+  relation "raw.raw_data" does not exist
+  LINE 17: from "datamart"."raw"."raw_data"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_raw_data_order_date.sql
+[0m23:35:56.184015 [error] [Thread-1 (]: 11 of 19 ERROR source_not_null_raw_raw_data_order_date ......................... [[31mERROR[0m in 0.06s]
+[0m23:35:56.185416 [debug] [Thread-1 (]: Finished running node test.data_pipeline.source_not_null_raw_raw_data_order_date.8fd09fb7bc
+[0m23:35:56.186039 [debug] [Thread-1 (]: Began running node test.data_pipeline.source_not_null_raw_raw_data_order_id.bd97ab0ff6
+[0m23:35:56.187221 [debug] [Thread-4 (]: Marking all children of 'test.data_pipeline.source_not_null_raw_raw_data_order_date.8fd09fb7bc' to be skipped because of status 'error'.  Reason: Database Error in test source_not_null_raw_raw_data_order_date (../../models\sources.yml)
+  relation "raw.raw_data" does not exist
+  LINE 17: from "datamart"."raw"."raw_data"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_raw_data_order_date.sql.
+[0m23:35:56.187810 [info ] [Thread-1 (]: 12 of 19 START test source_not_null_raw_raw_data_order_id ...................... [RUN]
+[0m23:35:56.189497 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.data_pipeline.source_not_null_raw_raw_data_order_date.8fd09fb7bc, now test.data_pipeline.source_not_null_raw_raw_data_order_id.bd97ab0ff6)
+[0m23:35:56.190148 [debug] [Thread-1 (]: Began compiling node test.data_pipeline.source_not_null_raw_raw_data_order_id.bd97ab0ff6
+[0m23:35:56.196209 [debug] [Thread-1 (]: Writing injected SQL for node "test.data_pipeline.source_not_null_raw_raw_data_order_id.bd97ab0ff6"
+[0m23:35:56.198745 [debug] [Thread-1 (]: Began executing node test.data_pipeline.source_not_null_raw_raw_data_order_id.bd97ab0ff6
+[0m23:35:56.201260 [debug] [Thread-1 (]: Writing runtime sql for node "test.data_pipeline.source_not_null_raw_raw_data_order_id.bd97ab0ff6"
+[0m23:35:56.203193 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_not_null_raw_raw_data_order_id.bd97ab0ff6"
+[0m23:35:56.203760 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_raw_data_order_id.bd97ab0ff6: BEGIN
+[0m23:35:56.204309 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m23:35:56.226799 [debug] [Thread-1 (]: SQL status: BEGIN in 0.022 seconds
+[0m23:35:56.227462 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_not_null_raw_raw_data_order_id.bd97ab0ff6"
+[0m23:35:56.228365 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_raw_data_order_id.bd97ab0ff6: /* {"app": "dbt", "dbt_version": "1.9.6", "profile_name": "data_pipeline", "target_name": "dev", "node_id": "test.data_pipeline.source_not_null_raw_raw_data_order_id.bd97ab0ff6"} */
+
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select order_id
+from "datamart"."raw"."raw_data"
+where order_id is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m23:35:56.230549 [debug] [Thread-1 (]: Postgres adapter: Postgres error: relation "raw.raw_data" does not exist
+LINE 17: from "datamart"."raw"."raw_data"
+              ^
+
+[0m23:35:56.231106 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_raw_data_order_id.bd97ab0ff6: ROLLBACK
+[0m23:35:56.232836 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_raw_data_order_id.bd97ab0ff6: Close
+[0m23:35:56.236290 [debug] [Thread-1 (]: Database Error in test source_not_null_raw_raw_data_order_id (../../models\sources.yml)
+  relation "raw.raw_data" does not exist
+  LINE 17: from "datamart"."raw"."raw_data"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_raw_data_order_id.sql
+[0m23:35:56.236832 [error] [Thread-1 (]: 12 of 19 ERROR source_not_null_raw_raw_data_order_id ........................... [[31mERROR[0m in 0.05s]
+[0m23:35:56.237916 [debug] [Thread-1 (]: Finished running node test.data_pipeline.source_not_null_raw_raw_data_order_id.bd97ab0ff6
+[0m23:35:56.238485 [debug] [Thread-1 (]: Began running node test.data_pipeline.source_not_null_raw_raw_data_total_amount.45226b5b6e
+[0m23:35:56.239042 [debug] [Thread-4 (]: Marking all children of 'test.data_pipeline.source_not_null_raw_raw_data_order_id.bd97ab0ff6' to be skipped because of status 'error'.  Reason: Database Error in test source_not_null_raw_raw_data_order_id (../../models\sources.yml)
+  relation "raw.raw_data" does not exist
+  LINE 17: from "datamart"."raw"."raw_data"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_raw_data_order_id.sql.
+[0m23:35:56.239607 [info ] [Thread-1 (]: 13 of 19 START test source_not_null_raw_raw_data_total_amount .................. [RUN]
+[0m23:35:56.240722 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.data_pipeline.source_not_null_raw_raw_data_order_id.bd97ab0ff6, now test.data_pipeline.source_not_null_raw_raw_data_total_amount.45226b5b6e)
+[0m23:35:56.241284 [debug] [Thread-1 (]: Began compiling node test.data_pipeline.source_not_null_raw_raw_data_total_amount.45226b5b6e
+[0m23:35:56.246369 [debug] [Thread-1 (]: Writing injected SQL for node "test.data_pipeline.source_not_null_raw_raw_data_total_amount.45226b5b6e"
+[0m23:35:56.247472 [debug] [Thread-1 (]: Began executing node test.data_pipeline.source_not_null_raw_raw_data_total_amount.45226b5b6e
+[0m23:35:56.250235 [debug] [Thread-1 (]: Writing runtime sql for node "test.data_pipeline.source_not_null_raw_raw_data_total_amount.45226b5b6e"
+[0m23:35:56.251250 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_not_null_raw_raw_data_total_amount.45226b5b6e"
+[0m23:35:56.251250 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_raw_data_total_amount.45226b5b6e: BEGIN
+[0m23:35:56.252250 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m23:35:56.278680 [debug] [Thread-1 (]: SQL status: BEGIN in 0.026 seconds
+[0m23:35:56.279445 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_not_null_raw_raw_data_total_amount.45226b5b6e"
+[0m23:35:56.280122 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_raw_data_total_amount.45226b5b6e: /* {"app": "dbt", "dbt_version": "1.9.6", "profile_name": "data_pipeline", "target_name": "dev", "node_id": "test.data_pipeline.source_not_null_raw_raw_data_total_amount.45226b5b6e"} */
+
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+
+
+select total_amount
+from "datamart"."raw"."raw_data"
+where total_amount is null
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m23:35:56.283317 [debug] [Thread-1 (]: Postgres adapter: Postgres error: relation "raw.raw_data" does not exist
+LINE 17: from "datamart"."raw"."raw_data"
+              ^
+
+[0m23:35:56.283869 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_raw_data_total_amount.45226b5b6e: ROLLBACK
+[0m23:35:56.286762 [debug] [Thread-1 (]: On test.data_pipeline.source_not_null_raw_raw_data_total_amount.45226b5b6e: Close
+[0m23:35:56.290376 [debug] [Thread-1 (]: Database Error in test source_not_null_raw_raw_data_total_amount (../../models\sources.yml)
+  relation "raw.raw_data" does not exist
+  LINE 17: from "datamart"."raw"."raw_data"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_raw_data_total_amount.sql
+[0m23:35:56.290923 [error] [Thread-1 (]: 13 of 19 ERROR source_not_null_raw_raw_data_total_amount ....................... [[31mERROR[0m in 0.05s]
+[0m23:35:56.292209 [debug] [Thread-1 (]: Finished running node test.data_pipeline.source_not_null_raw_raw_data_total_amount.45226b5b6e
+[0m23:35:56.293307 [debug] [Thread-1 (]: Began running node test.data_pipeline.source_positive_values_raw_products_price.d8701c9fb9
+[0m23:35:56.294464 [debug] [Thread-4 (]: Marking all children of 'test.data_pipeline.source_not_null_raw_raw_data_total_amount.45226b5b6e' to be skipped because of status 'error'.  Reason: Database Error in test source_not_null_raw_raw_data_total_amount (../../models\sources.yml)
+  relation "raw.raw_data" does not exist
+  LINE 17: from "datamart"."raw"."raw_data"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_raw_data_total_amount.sql.
+[0m23:35:56.294464 [info ] [Thread-1 (]: 14 of 19 START test source_positive_values_raw_products_price .................. [RUN]
+[0m23:35:56.296015 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.data_pipeline.source_not_null_raw_raw_data_total_amount.45226b5b6e, now test.data_pipeline.source_positive_values_raw_products_price.d8701c9fb9)
+[0m23:35:56.296878 [debug] [Thread-1 (]: Began compiling node test.data_pipeline.source_positive_values_raw_products_price.d8701c9fb9
+[0m23:35:56.327746 [debug] [Thread-1 (]: Compilation Error in test source_positive_values_raw_products_price (../../models\sources.yml)
+  'test_positive_values' is undefined. This can happen when calling a macro that does not exist. Check for typos and/or install package dependencies with "dbt deps".
+[0m23:35:56.328932 [error] [Thread-1 (]: 14 of 19 ERROR source_positive_values_raw_products_price ....................... [[31mERROR[0m in 0.03s]
+[0m23:35:56.330102 [debug] [Thread-1 (]: Finished running node test.data_pipeline.source_positive_values_raw_products_price.d8701c9fb9
+[0m23:35:56.330755 [debug] [Thread-1 (]: Began running node test.data_pipeline.source_positive_values_raw_raw_data_total_amount.fe8c89a6b3
+[0m23:35:56.331314 [debug] [Thread-4 (]: Marking all children of 'test.data_pipeline.source_positive_values_raw_products_price.d8701c9fb9' to be skipped because of status 'error'.  Reason: Compilation Error in test source_positive_values_raw_products_price (../../models\sources.yml)
+  'test_positive_values' is undefined. This can happen when calling a macro that does not exist. Check for typos and/or install package dependencies with "dbt deps"..
+[0m23:35:56.331879 [info ] [Thread-1 (]: 15 of 19 START test source_positive_values_raw_raw_data_total_amount ........... [RUN]
+[0m23:35:56.332443 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.data_pipeline.source_positive_values_raw_products_price.d8701c9fb9, now test.data_pipeline.source_positive_values_raw_raw_data_total_amount.fe8c89a6b3)
+[0m23:35:56.333019 [debug] [Thread-1 (]: Began compiling node test.data_pipeline.source_positive_values_raw_raw_data_total_amount.fe8c89a6b3
+[0m23:35:56.340489 [debug] [Thread-1 (]: Compilation Error in test source_positive_values_raw_raw_data_total_amount (../../models\sources.yml)
+  'test_positive_values' is undefined. This can happen when calling a macro that does not exist. Check for typos and/or install package dependencies with "dbt deps".
+[0m23:35:56.342708 [error] [Thread-1 (]: 15 of 19 ERROR source_positive_values_raw_raw_data_total_amount ................ [[31mERROR[0m in 0.01s]
+[0m23:35:56.344693 [debug] [Thread-1 (]: Finished running node test.data_pipeline.source_positive_values_raw_raw_data_total_amount.fe8c89a6b3
+[0m23:35:56.345877 [debug] [Thread-1 (]: Began running node test.data_pipeline.source_unique_raw_payments_payment_id.ad2e113533
+[0m23:35:56.346443 [debug] [Thread-4 (]: Marking all children of 'test.data_pipeline.source_positive_values_raw_raw_data_total_amount.fe8c89a6b3' to be skipped because of status 'error'.  Reason: Compilation Error in test source_positive_values_raw_raw_data_total_amount (../../models\sources.yml)
+  'test_positive_values' is undefined. This can happen when calling a macro that does not exist. Check for typos and/or install package dependencies with "dbt deps"..
+[0m23:35:56.346443 [info ] [Thread-1 (]: 16 of 19 START test source_unique_raw_payments_payment_id ...................... [RUN]
+[0m23:35:56.348482 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.data_pipeline.source_positive_values_raw_raw_data_total_amount.fe8c89a6b3, now test.data_pipeline.source_unique_raw_payments_payment_id.ad2e113533)
+[0m23:35:56.349087 [debug] [Thread-1 (]: Began compiling node test.data_pipeline.source_unique_raw_payments_payment_id.ad2e113533
+[0m23:35:56.358822 [debug] [Thread-1 (]: Writing injected SQL for node "test.data_pipeline.source_unique_raw_payments_payment_id.ad2e113533"
+[0m23:35:56.360538 [debug] [Thread-1 (]: Began executing node test.data_pipeline.source_unique_raw_payments_payment_id.ad2e113533
+[0m23:35:56.363359 [debug] [Thread-1 (]: Writing runtime sql for node "test.data_pipeline.source_unique_raw_payments_payment_id.ad2e113533"
+[0m23:35:56.365486 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_unique_raw_payments_payment_id.ad2e113533"
+[0m23:35:56.365998 [debug] [Thread-1 (]: On test.data_pipeline.source_unique_raw_payments_payment_id.ad2e113533: BEGIN
+[0m23:35:56.367325 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m23:35:56.390872 [debug] [Thread-1 (]: SQL status: BEGIN in 0.024 seconds
+[0m23:35:56.392013 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_unique_raw_payments_payment_id.ad2e113533"
+[0m23:35:56.392013 [debug] [Thread-1 (]: On test.data_pipeline.source_unique_raw_payments_payment_id.ad2e113533: /* {"app": "dbt", "dbt_version": "1.9.6", "profile_name": "data_pipeline", "target_name": "dev", "node_id": "test.data_pipeline.source_unique_raw_payments_payment_id.ad2e113533"} */
+
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+select
+    payment_id as unique_field,
+    count(*) as n_records
+
+from "datamart"."raw"."payments"
+where payment_id is not null
+group by payment_id
+having count(*) > 1
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m23:35:56.394260 [debug] [Thread-1 (]: Postgres adapter: Postgres error: relation "raw.payments" does not exist
+LINE 18: from "datamart"."raw"."payments"
+              ^
+
+[0m23:35:56.394805 [debug] [Thread-1 (]: On test.data_pipeline.source_unique_raw_payments_payment_id.ad2e113533: ROLLBACK
+[0m23:35:56.396460 [debug] [Thread-1 (]: On test.data_pipeline.source_unique_raw_payments_payment_id.ad2e113533: Close
+[0m23:35:56.400311 [debug] [Thread-1 (]: Database Error in test source_unique_raw_payments_payment_id (../../models\sources.yml)
+  relation "raw.payments" does not exist
+  LINE 18: from "datamart"."raw"."payments"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_unique_raw_payments_payment_id.sql
+[0m23:35:56.401548 [error] [Thread-1 (]: 16 of 19 ERROR source_unique_raw_payments_payment_id ........................... [[31mERROR[0m in 0.05s]
+[0m23:35:56.402696 [debug] [Thread-1 (]: Finished running node test.data_pipeline.source_unique_raw_payments_payment_id.ad2e113533
+[0m23:35:56.403293 [debug] [Thread-1 (]: Began running node test.data_pipeline.source_unique_raw_products_product_id.518dac90ba
+[0m23:35:56.403969 [debug] [Thread-4 (]: Marking all children of 'test.data_pipeline.source_unique_raw_payments_payment_id.ad2e113533' to be skipped because of status 'error'.  Reason: Database Error in test source_unique_raw_payments_payment_id (../../models\sources.yml)
+  relation "raw.payments" does not exist
+  LINE 18: from "datamart"."raw"."payments"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_unique_raw_payments_payment_id.sql.
+[0m23:35:56.404561 [info ] [Thread-1 (]: 17 of 19 START test source_unique_raw_products_product_id ...................... [RUN]
+[0m23:35:56.405709 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.data_pipeline.source_unique_raw_payments_payment_id.ad2e113533, now test.data_pipeline.source_unique_raw_products_product_id.518dac90ba)
+[0m23:35:56.406262 [debug] [Thread-1 (]: Began compiling node test.data_pipeline.source_unique_raw_products_product_id.518dac90ba
+[0m23:35:56.411173 [debug] [Thread-1 (]: Writing injected SQL for node "test.data_pipeline.source_unique_raw_products_product_id.518dac90ba"
+[0m23:35:56.412309 [debug] [Thread-1 (]: Began executing node test.data_pipeline.source_unique_raw_products_product_id.518dac90ba
+[0m23:35:56.416150 [debug] [Thread-1 (]: Writing runtime sql for node "test.data_pipeline.source_unique_raw_products_product_id.518dac90ba"
+[0m23:35:56.418448 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_unique_raw_products_product_id.518dac90ba"
+[0m23:35:56.419032 [debug] [Thread-1 (]: On test.data_pipeline.source_unique_raw_products_product_id.518dac90ba: BEGIN
+[0m23:35:56.419596 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m23:35:56.461925 [debug] [Thread-1 (]: SQL status: BEGIN in 0.042 seconds
+[0m23:35:56.463620 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_unique_raw_products_product_id.518dac90ba"
+[0m23:35:56.465421 [debug] [Thread-1 (]: On test.data_pipeline.source_unique_raw_products_product_id.518dac90ba: /* {"app": "dbt", "dbt_version": "1.9.6", "profile_name": "data_pipeline", "target_name": "dev", "node_id": "test.data_pipeline.source_unique_raw_products_product_id.518dac90ba"} */
+
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+select
+    product_id as unique_field,
+    count(*) as n_records
+
+from "datamart"."raw"."products"
+where product_id is not null
+group by product_id
+having count(*) > 1
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m23:35:56.468255 [debug] [Thread-1 (]: Postgres adapter: Postgres error: relation "raw.products" does not exist
+LINE 18: from "datamart"."raw"."products"
+              ^
+
+[0m23:35:56.469636 [debug] [Thread-1 (]: On test.data_pipeline.source_unique_raw_products_product_id.518dac90ba: ROLLBACK
+[0m23:35:56.474074 [debug] [Thread-1 (]: On test.data_pipeline.source_unique_raw_products_product_id.518dac90ba: Close
+[0m23:35:56.481308 [debug] [Thread-1 (]: Database Error in test source_unique_raw_products_product_id (../../models\sources.yml)
+  relation "raw.products" does not exist
+  LINE 18: from "datamart"."raw"."products"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_unique_raw_products_product_id.sql
+[0m23:35:56.482451 [error] [Thread-1 (]: 17 of 19 ERROR source_unique_raw_products_product_id ........................... [[31mERROR[0m in 0.08s]
+[0m23:35:56.484172 [debug] [Thread-1 (]: Finished running node test.data_pipeline.source_unique_raw_products_product_id.518dac90ba
+[0m23:35:56.485881 [debug] [Thread-1 (]: Began running node test.data_pipeline.source_unique_raw_raw_data_order_id.667867dacd
+[0m23:35:56.486509 [debug] [Thread-4 (]: Marking all children of 'test.data_pipeline.source_unique_raw_products_product_id.518dac90ba' to be skipped because of status 'error'.  Reason: Database Error in test source_unique_raw_products_product_id (../../models\sources.yml)
+  relation "raw.products" does not exist
+  LINE 18: from "datamart"."raw"."products"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_unique_raw_products_product_id.sql.
+[0m23:35:56.487219 [info ] [Thread-1 (]: 18 of 19 START test source_unique_raw_raw_data_order_id ........................ [RUN]
+[0m23:35:56.488361 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly test.data_pipeline.source_unique_raw_products_product_id.518dac90ba, now test.data_pipeline.source_unique_raw_raw_data_order_id.667867dacd)
+[0m23:35:56.488942 [debug] [Thread-1 (]: Began compiling node test.data_pipeline.source_unique_raw_raw_data_order_id.667867dacd
+[0m23:35:56.500333 [debug] [Thread-1 (]: Writing injected SQL for node "test.data_pipeline.source_unique_raw_raw_data_order_id.667867dacd"
+[0m23:35:56.502184 [debug] [Thread-1 (]: Began executing node test.data_pipeline.source_unique_raw_raw_data_order_id.667867dacd
+[0m23:35:56.592852 [debug] [Thread-1 (]: Writing runtime sql for node "test.data_pipeline.source_unique_raw_raw_data_order_id.667867dacd"
+[0m23:35:56.595118 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_unique_raw_raw_data_order_id.667867dacd"
+[0m23:35:56.596220 [debug] [Thread-1 (]: On test.data_pipeline.source_unique_raw_raw_data_order_id.667867dacd: BEGIN
+[0m23:35:56.597236 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m23:35:56.621502 [debug] [Thread-1 (]: SQL status: BEGIN in 0.024 seconds
+[0m23:35:56.622044 [debug] [Thread-1 (]: Using postgres connection "test.data_pipeline.source_unique_raw_raw_data_order_id.667867dacd"
+[0m23:35:56.623143 [debug] [Thread-1 (]: On test.data_pipeline.source_unique_raw_raw_data_order_id.667867dacd: /* {"app": "dbt", "dbt_version": "1.9.6", "profile_name": "data_pipeline", "target_name": "dev", "node_id": "test.data_pipeline.source_unique_raw_raw_data_order_id.667867dacd"} */
+
+    select
+      count(*) as failures,
+      count(*) != 0 as should_warn,
+      count(*) != 0 as should_error
+    from (
+      
+    
+  
+    
+    
+
+select
+    order_id as unique_field,
+    count(*) as n_records
+
+from "datamart"."raw"."raw_data"
+where order_id is not null
+group by order_id
+having count(*) > 1
+
+
+
+  
+  
+      
+    ) dbt_internal_test
+[0m23:35:56.626415 [debug] [Thread-1 (]: Postgres adapter: Postgres error: relation "raw.raw_data" does not exist
+LINE 18: from "datamart"."raw"."raw_data"
+              ^
+
+[0m23:35:56.627432 [debug] [Thread-1 (]: On test.data_pipeline.source_unique_raw_raw_data_order_id.667867dacd: ROLLBACK
+[0m23:35:56.630363 [debug] [Thread-1 (]: On test.data_pipeline.source_unique_raw_raw_data_order_id.667867dacd: Close
+[0m23:35:56.635602 [debug] [Thread-1 (]: Database Error in test source_unique_raw_raw_data_order_id (../../models\sources.yml)
+  relation "raw.raw_data" does not exist
+  LINE 18: from "datamart"."raw"."raw_data"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_unique_raw_raw_data_order_id.sql
+[0m23:35:56.636147 [error] [Thread-1 (]: 18 of 19 ERROR source_unique_raw_raw_data_order_id ............................. [[31mERROR[0m in 0.15s]
+[0m23:35:56.637248 [debug] [Thread-1 (]: Finished running node test.data_pipeline.source_unique_raw_raw_data_order_id.667867dacd
+[0m23:35:56.637809 [debug] [Thread-4 (]: Marking all children of 'test.data_pipeline.source_unique_raw_raw_data_order_id.667867dacd' to be skipped because of status 'error'.  Reason: Database Error in test source_unique_raw_raw_data_order_id (../../models\sources.yml)
+  relation "raw.raw_data" does not exist
+  LINE 18: from "datamart"."raw"."raw_data"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_unique_raw_raw_data_order_id.sql.
+[0m23:35:56.638914 [debug] [Thread-1 (]: Began running node model.data_pipeline.raw_to_normalized
+[0m23:35:56.639477 [info ] [Thread-1 (]: 19 of 19 SKIP relation public.raw_to_normalized ................................ [[33mSKIP[0m]
+[0m23:35:56.640040 [debug] [Thread-1 (]: Finished running node model.data_pipeline.raw_to_normalized
+[0m23:35:56.640760 [debug] [Thread-4 (]: Marking all children of 'model.data_pipeline.raw_to_normalized' to be skipped because of status 'skipped'. 
+[0m23:35:56.642822 [debug] [MainThread]: Using postgres connection "master"
+[0m23:35:56.643396 [debug] [MainThread]: On master: BEGIN
+[0m23:35:56.643971 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m23:35:56.674872 [debug] [MainThread]: SQL status: BEGIN in 0.031 seconds
+[0m23:35:56.676019 [debug] [MainThread]: On master: COMMIT
+[0m23:35:56.676680 [debug] [MainThread]: Using postgres connection "master"
+[0m23:35:56.676680 [debug] [MainThread]: On master: COMMIT
+[0m23:35:56.681764 [debug] [MainThread]: SQL status: COMMIT in 0.004 seconds
+[0m23:35:56.682917 [debug] [MainThread]: On master: Close
+[0m23:35:56.684036 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m23:35:56.685173 [debug] [MainThread]: Connection 'list_datamart' was properly closed.
+[0m23:35:56.685743 [debug] [MainThread]: Connection 'list_datamart_public' was properly closed.
+[0m23:35:56.687346 [debug] [MainThread]: Connection 'test.data_pipeline.source_unique_raw_raw_data_order_id.667867dacd' was properly closed.
+[0m23:35:56.688415 [info ] [MainThread]: 
+[0m23:35:56.690207 [info ] [MainThread]: Finished running 18 data tests, 1 view model in 0 hours 0 minutes and 2.02 seconds (2.02s).
+[0m23:35:56.695588 [debug] [MainThread]: Command end result
+[0m23:35:56.722416 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Project\DataPipeline\dags\dbt_project\target\manifest.json
+[0m23:35:56.726405 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Project\DataPipeline\dags\dbt_project\target\semantic_manifest.json
+[0m23:35:56.737311 [debug] [MainThread]: Wrote artifact RunExecutionResult to C:\Project\DataPipeline\dags\dbt_project\target\run_results.json
+[0m23:35:56.738445 [info ] [MainThread]: 
+[0m23:35:56.739442 [info ] [MainThread]: [31mCompleted with 18 errors, 0 partial successes, and 0 warnings:[0m
+[0m23:35:56.740443 [info ] [MainThread]: 
+[0m23:35:56.741793 [error] [MainThread]:   Database Error in test source_accepted_values_raw_payments_payment_method__Credit_Card__PayPal__Bank_Transfer (../../models\sources.yml)
+  relation "raw.payments" does not exist
+  LINE 20:     from "datamart"."raw"."payments"
+                    ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_accepted_values_raw_pay_81e9ba7a9392ec12ec328aa660bf3829.sql
+[0m23:35:56.742785 [info ] [MainThread]: 
+[0m23:35:56.742785 [error] [MainThread]:   Database Error in test source_accepted_values_raw_payments_payment_status__Completed__Failed__Pending (../../models\sources.yml)
+  relation "raw.payments" does not exist
+  LINE 20:     from "datamart"."raw"."payments"
+                    ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_accepted_values_raw_pay_9e076b3898151400e6c50cdfdb2e3b16.sql
+[0m23:35:56.743791 [info ] [MainThread]: 
+[0m23:35:56.745406 [error] [MainThread]:   Database Error in test source_accepted_values_raw_raw_data_payment_status__Paid__Pending__Refunded (../../models\sources.yml)
+  relation "raw.raw_data" does not exist
+  LINE 20:     from "datamart"."raw"."raw_data"
+                    ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_accepted_values_raw_raw_76585dff0454bdaee97924d29f62e64d.sql
+[0m23:35:56.746428 [info ] [MainThread]: 
+[0m23:35:56.747427 [error] [MainThread]:   Database Error in test source_not_null_raw_payments_order_id (../../models\sources.yml)
+  relation "raw.payments" does not exist
+  LINE 17: from "datamart"."raw"."payments"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_payments_order_id.sql
+[0m23:35:56.747943 [info ] [MainThread]: 
+[0m23:35:56.748755 [error] [MainThread]:   Database Error in test source_not_null_raw_payments_payment_id (../../models\sources.yml)
+  relation "raw.payments" does not exist
+  LINE 17: from "datamart"."raw"."payments"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_payments_payment_id.sql
+[0m23:35:56.749779 [info ] [MainThread]: 
+[0m23:35:56.749779 [error] [MainThread]:   Database Error in test source_not_null_raw_products_category (../../models\sources.yml)
+  relation "raw.products" does not exist
+  LINE 17: from "datamart"."raw"."products"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_products_category.sql
+[0m23:35:56.751291 [info ] [MainThread]: 
+[0m23:35:56.752308 [error] [MainThread]:   Database Error in test source_not_null_raw_products_price (../../models\sources.yml)
+  relation "raw.products" does not exist
+  LINE 17: from "datamart"."raw"."products"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_products_price.sql
+[0m23:35:56.752308 [info ] [MainThread]: 
+[0m23:35:56.753306 [error] [MainThread]:   Database Error in test source_not_null_raw_products_product_id (../../models\sources.yml)
+  relation "raw.products" does not exist
+  LINE 17: from "datamart"."raw"."products"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_products_product_id.sql
+[0m23:35:56.754306 [info ] [MainThread]: 
+[0m23:35:56.754306 [error] [MainThread]:   Database Error in test source_not_null_raw_products_product_name (../../models\sources.yml)
+  relation "raw.products" does not exist
+  LINE 17: from "datamart"."raw"."products"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_products_product_name.sql
+[0m23:35:56.756077 [info ] [MainThread]: 
+[0m23:35:56.757715 [error] [MainThread]:   Database Error in test source_not_null_raw_raw_data_customer_id (../../models\sources.yml)
+  relation "raw.raw_data" does not exist
+  LINE 17: from "datamart"."raw"."raw_data"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_raw_data_customer_id.sql
+[0m23:35:56.758745 [info ] [MainThread]: 
+[0m23:35:56.759738 [error] [MainThread]:   Database Error in test source_not_null_raw_raw_data_order_date (../../models\sources.yml)
+  relation "raw.raw_data" does not exist
+  LINE 17: from "datamart"."raw"."raw_data"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_raw_data_order_date.sql
+[0m23:35:56.759738 [info ] [MainThread]: 
+[0m23:35:56.761256 [error] [MainThread]:   Database Error in test source_not_null_raw_raw_data_order_id (../../models\sources.yml)
+  relation "raw.raw_data" does not exist
+  LINE 17: from "datamart"."raw"."raw_data"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_raw_data_order_id.sql
+[0m23:35:56.762767 [info ] [MainThread]: 
+[0m23:35:56.764156 [error] [MainThread]:   Database Error in test source_not_null_raw_raw_data_total_amount (../../models\sources.yml)
+  relation "raw.raw_data" does not exist
+  LINE 17: from "datamart"."raw"."raw_data"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_not_null_raw_raw_data_total_amount.sql
+[0m23:35:56.765731 [info ] [MainThread]: 
+[0m23:35:56.767257 [error] [MainThread]:   Compilation Error in test source_positive_values_raw_products_price (../../models\sources.yml)
+  'test_positive_values' is undefined. This can happen when calling a macro that does not exist. Check for typos and/or install package dependencies with "dbt deps".
+[0m23:35:56.768279 [info ] [MainThread]: 
+[0m23:35:56.769333 [error] [MainThread]:   Compilation Error in test source_positive_values_raw_raw_data_total_amount (../../models\sources.yml)
+  'test_positive_values' is undefined. This can happen when calling a macro that does not exist. Check for typos and/or install package dependencies with "dbt deps".
+[0m23:35:56.770352 [info ] [MainThread]: 
+[0m23:35:56.771355 [error] [MainThread]:   Database Error in test source_unique_raw_payments_payment_id (../../models\sources.yml)
+  relation "raw.payments" does not exist
+  LINE 18: from "datamart"."raw"."payments"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_unique_raw_payments_payment_id.sql
+[0m23:35:56.773351 [info ] [MainThread]: 
+[0m23:35:56.775353 [error] [MainThread]:   Database Error in test source_unique_raw_products_product_id (../../models\sources.yml)
+  relation "raw.products" does not exist
+  LINE 18: from "datamart"."raw"."products"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_unique_raw_products_product_id.sql
+[0m23:35:56.776660 [info ] [MainThread]: 
+[0m23:35:56.778764 [error] [MainThread]:   Database Error in test source_unique_raw_raw_data_order_id (../../models\sources.yml)
+  relation "raw.raw_data" does not exist
+  LINE 18: from "datamart"."raw"."raw_data"
+                ^
+  compiled code at target\run\data_pipeline\../../models\sources.yml\source_unique_raw_raw_data_order_id.sql
+[0m23:35:56.779778 [info ] [MainThread]: 
+[0m23:35:56.781334 [info ] [MainThread]: Done. PASS=0 WARN=0 ERROR=18 SKIP=1 TOTAL=19
+[0m23:35:56.786018 [debug] [MainThread]: Command `dbt build` failed at 23:35:56.785503 after 4.79 seconds
+[0m23:35:56.787962 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019DFAE519D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019DFAD810A0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000019DFA2D7410>]}
+[0m23:35:56.789151 [debug] [MainThread]: Flushing usage events
+[0m23:35:57.238268 [debug] [MainThread]: An error was encountered while trying to flush usage events

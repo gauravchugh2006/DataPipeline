@@ -1,0 +1,6 @@
+order_id,customer_id,order_date,total_amount,order_level_payment_status,product_id,product_name,category,price,payment_id,payment_method,transaction_payment_status
+1,101,2023-01-01 10:00:00,150.00,Paid,201,Laptop,Electronics,1200.00,301,Credit Card,Completed
+1,101,2023-01-01 10:00:00,150.00,Paid,202,Mouse,Electronics,30.00,301,Credit Card,Completed
+2,102,2023-01-02 11:30:00,50.00,Pending,203,T-Shirt,Clothing,25.00,302,PayPal,Pending
+3,103,2023-01-03 12:45:00,200.00,Paid,204,Headphones,Electronics,180.00,303,Bank Transfer,Completed
+3,103,2023-01-03 12:45:00,200.00,Paid,205,Keyboard,Electronics,60.00,303,Bank Transfer,Completed
