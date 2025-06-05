@@ -1,0 +1,77 @@
+version: 2
+sources:
+  - name: raw
+    description: "Raw data source for eCommerce platform before processing and transformations."
+    schema: raw  # Ensure this matches the actual schema in PostgreSQL
+    tables:
+      - name: raw_data
+        description: "Raw order transactions from the eCommerce store."
+        columns:
+          - name: order_id
+            description: "Unique identifier for each order."
+            tests:
+              - not_null
+              - unique
+          - name: customer_id
+            description: "Unique identifier for the customer who placed the order."
+            tests:
+              - not_null
+          - name: order_date
+            description: "Timestamp of when the order was placed."
+            tests:
+              - not_null
+          - name: total_amount
+            description: "Total monetary value of the order."
+            tests:
+              - not_null
+              - positive_values
+          - name: payment_status
+            description: "Current payment status (e.g., 'Paid', 'Pending', 'Refunded')."
+            tests:
+              - accepted_values:
+                  values: ["Paid", "Pending", "Refunded"]
+
+      - name: products
+        description: "Product catalog listing all available items for sale."
+        columns:
+          - name: product_id
+            description: "Unique identifier for each product."
+            tests:
+              - not_null
+              - unique
+          - name: product_name
+            description: "Name of the product as listed in the catalog."
+            tests:
+              - not_null
+          - name: category
+            description: "Category the product belongs to (e.g., Electronics, Clothing)."
+            tests:
+              - not_null
+          - name: price
+            description: "Price of the product."
+            tests:
+              - not_null
+              - positive_values
+
+      - name: payments
+        description: "Raw payment transactions processed for orders."
+        columns:
+          - name: payment_id
+            description: "Unique identifier for each payment transaction."
+            tests:
+              - not_null
+              - unique
+          - name: order_id
+            description: "Order ID associated with the payment."
+            tests:
+              - not_null
+          - name: payment_method
+            description: "Payment method used (e.g., Credit Card, PayPal, Bank Transfer)."
+            tests:
+              - accepted_values:
+                  values: ["Credit Card", "PayPal", "Bank Transfer"]
+          - name: payment_status
+            description: "Current status of the payment."
+            tests:
+              - accepted_values:
+                  values: ["Completed", "Failed", "Pending"]

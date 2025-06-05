@@ -2,5 +2,5 @@ name: 'data_pipeline'
 version: '1.0'
 config-version: 2
 profile: 'data_pipeline'
-model-paths: ["models"]
+model-paths: ["../../models"]
 target-path: "target"

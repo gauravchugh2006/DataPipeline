@@ -27,7 +27,7 @@ with DAG('data_pipeline',
 
     dbt_run_task = BashOperator(
         task_id='dbt_run',
-        bash_command='dbt run --project-dir /opt/airflow/dags/dbt_project'
+        bash_command='dbt debug && dbt run --project-dir /opt/airflow/dags/dbt_project'
     )
 
     quality_check_task = BashOperator(

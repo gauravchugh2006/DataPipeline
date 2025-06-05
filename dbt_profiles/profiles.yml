@@ -3,7 +3,7 @@ data_pipeline:
   outputs:
     dev:
       type: postgres
-      host: postgres_dw
+      host: localhost # Changed postgres_dw to localhost
       user: dwh_user
       password: dwh_password
       port: 5432

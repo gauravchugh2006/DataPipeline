@@ -1,6 +1,7 @@
 import subprocess
 import sys
 import logging
+import os
 
 # List of required packages
 REQUIRED_PACKAGES = [
@@ -11,7 +12,10 @@ REQUIRED_PACKAGES = [
     "pandas",  # DataFrame processing
     "sqlalchemy"  # SQL toolkit
 ]
-
+# Get the current script directory to locate the DBT project
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DBT_PROJECT_DIR = os.path.join(BASE_DIR, "dbt_project")
+# DBT_PROJECT_DIR = "/opt/airflow/dags/dbt_project" # Update this based on your container setup
 # Set up logging
 logging.basicConfig(filename="dbt_setup.log", level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
@@ -36,7 +40,7 @@ def ensure_packages():
 def run_dbt():
     """Run DBT build after package verification."""
     try:
-        subprocess.run(["dbt", "build"], check=True)
+        subprocess.run(["dbt", "build","--project-dir", DBT_PROJECT_DIR], check=True)
         logging.info("DBT build executed successfully.")
     except subprocess.CalledProcessError as e:
         logging.error(f"DBT build failed: {str(e)}")

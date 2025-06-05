@@ -2,3 +2,76 @@
 dags/json/*.jsonl
 dags/csv/*.jsonl
 dags/dbt_project/dbt_setup.log
+# General temporary files
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Python environment & cache
+venv/
+*.pyc
+__pycache__/
+*.pyo
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Docker-related exclusions
+.env
+docker-compose.override.yml
+*.pid
+*.sock
+
+# PostgreSQL database dumps & temp files
+*.sql
+*.db
+*.sqlite
+pgdata/
+pg_wal/
+pg_stat_tmp/
+
+# DBT specific exclusions
+dbt_packages/
+target/
+dbt_debug.log
+dbt.log
+
+# Airflow-related exclusions
+airflow.db
+airflow_logs/
+dags/__pycache__/
+dags/*.log
+dags/*.tmp
+
+# Kafka & Zookeeper exclusions
+kafka-logs/
+zookeeper/
+
+# MinIO storage exclusions
+minio_data/
+minio_config.json
+
+# Neo4j exclusions
+neo4j/data/
+neo4j/logs/
+neo4j/import/
+
+# Node.js modules (if applicable)
+node_modules/
+package-lock.json
+
+# Git ignored system files
+.DS_Store
+Thumbs.db
+# Ignore logs and temporary files
+logs/
+*.log
+airflow-data/logs/
+
+# Ignore DBT-generated files
+dags/dbt_project/logs/
+dags/dbt_project/target/
+
+dags/dbt_project/logs/dbt.log
