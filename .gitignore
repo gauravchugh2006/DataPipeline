@@ -1,4 +1,6 @@
 # Ignore all JSONL files in dags/json (use with caution)
+# Ignore JSONL files
+*.jsonl
 dags/json/*.jsonl
 dags/csv/*.jsonl
 dags/dbt_project/dbt_setup.log
