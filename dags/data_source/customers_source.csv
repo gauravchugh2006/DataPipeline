@@ -1,0 +1,109 @@
+customer_id,first_name,last_name,email,phone,address,signup_date
+101,John,Doe,john.doe@example.com,+11234567890,"123 Main St, Anytown, USA",2022-12-15 08:00:00
+102,Jane,Smith,jane.smith@example.com,+19876543210,"456 Oak Ave, Otherville, USA",2023-01-01 09:30:00
+103,Peter,Jones,peter.jones@example.com,+15551234567,"789 Pine Ln, Somewhere, USA",2023-01-02 10:00:00
+104,Alice,Brown,alice.brown@example.com,+12223334444,"101 Maple Rd, Nowhere, USA",2023-01-03 11:00:00
+105,Mohan,Doe,mohan.doe@example.com,+11234567889,"125 Main St, Anytown, USA",2022-11-15 08:00:00
+106,Jack,Smith,jack.smith@example.com,+19876543219,"458 Oak Ave, Otherville, USA",2023-02-01 09:30:00
+107,Poter,Jones,poter.jones@example.com,+15551234569,"787 Pine Ln, Somewhere, USA",2023-03-02 10:00:00
+108,Anna,Brown,anna.brown@example.com,+12223334449,"114 Maple Rd, Nowhere, USA",2023-04-03 11:00:00
+109,Michael,Thompson,michael.thompson1000@example.com,+19478623970,"110 Elm St, Riverdale, USA",2022-11-17 11:26:26
+110,Jessica,Davis,jessica.davis110@example.com,+19967740298,"939 Elm St, Anytown, USA",2023-12-21 12:53:07
+1002,Susan,Davis,susan.davis1002@example.com,+15504447205,"638 Pine Ln, Somewhere, USA",2022-07-14 10:38:20
+1003,Susan,Jones,susan.jones1003@example.com,+16112526306,"828 Cedar Dr, Gotham, USA",2022-10-22 19:01:35
+1004,Charles,Smith,charles.smith1004@example.com,+14003082916,"792 Cedar Dr, Central City, USA",2023-08-05 07:15:59
+1005,John,Williams,john.williams1005@example.com,+13459499331,"363 Poplar Dr, Central City, USA",2023-09-30 03:15:01
+1006,Patricia,Jackson,patricia.jackson1006@example.com,+18910306693,"486 Pine Ln, Nowhere, USA",2023-05-19 06:29:32
+1007,Robert,Miller,robert.miller1007@example.com,+17989252565,"649 Pine Ln, Central City, USA",2022-11-25 19:41:57
+1008,Mary,Wilson,mary.wilson1008@example.com,+15614169141,"259 Spruce Ln, Smallville, USA",2023-03-20 19:54:00
+1009,Karen,Thomas,karen.thomas1009@example.com,+17644816859,"803 Main St, Otherville, USA",2023-03-31 08:47:31
+1010,David,Clark,david.clark1010@example.com,+12373014188,"269 Elm St, Central City, USA",2023-07-12 01:55:46
+1011,Richard,Clark,richard.clark1011@example.com,+11782995709,"147 Willow Way, Nowhere, USA",2023-02-27 06:00:06
+1012,James,Thompson,james.thompson1012@example.com,+16877083792,"201 Elm St, Riverdale, USA",2023-02-06 06:31:11
+1013,Sarah,Harris,sarah.harris1013@example.com,+15137192746,"241 Poplar Dr, Metropolis, USA",2023-02-22 16:02:17
+1014,Robert,Jones,robert.jones1014@example.com,+12744147293,"853 Main St, Gotham, USA",2023-04-27 18:17:52
+1015,Elizabeth,Robinson,elizabeth.robinson1015@example.com,+16171573346,"549 Elm St, Metropolis, USA",2023-09-29 12:13:28
+1016,Jennifer,Clark,jennifer.clark1016@example.com,+14182476413,"110 Spruce Ln, Springfield, USA",2022-07-09 20:38:43
+1017,William,Robinson,william.robinson1017@example.com,+11255568334,"473 Cedar Dr, Metropolis, USA",2022-04-13 21:01:03
+1018,Michael,Williams,michael.williams1018@example.com,+18756812037,"442 Pine Ln, Somewhere, USA",2023-10-07 16:49:42
+1019,Richard,Thomas,richard.thomas1019@example.com,+12498010731,"646 Willow Way, Central City, USA",2023-07-17 22:53:53
+1020,David,Jackson,david.jackson1020@example.com,+11011137946,"736 Cedar Dr, Somewhere, USA",2022-08-07 01:35:25
+1021,Robert,Williams,robert.williams1021@example.com,+14599221271,"915 Birch Ct, Central City, USA",2023-01-28 05:19:37
+1022,Susan,Wilson,susan.wilson1022@example.com,+19987112488,"799 Oak Ave, Smallville, USA",2022-01-23 20:46:52
+1023,Mary,Jones,mary.jones1023@example.com,+15435554351,"745 Main St, Central City, USA",2022-07-12 12:59:24
+1024,John,Harris,john.harris1024@example.com,+18632525144,"981 Cedar Dr, Smallville, USA",2023-08-16 07:29:22
+1025,Mary,Taylor,mary.taylor1025@example.com,+12500025438,"260 Willow Way, Anytown, USA",2022-01-03 22:02:52
+1026,James,Taylor,james.taylor1026@example.com,+11831531041,"242 Maple Rd, Otherville, USA",2023-09-27 00:30:14
+1027,Charles,Brown,charles.brown1027@example.com,+18090893970,"113 Elm St, Gotham, USA",2023-01-11 18:42:13
+1028,Charles,Martin,charles.martin1028@example.com,+16441895989,"575 Maple Rd, Central City, USA",2022-12-05 18:54:41
+1029,Sarah,Miller,sarah.miller1029@example.com,+14997054610,"574 Elm St, Otherville, USA",2022-11-25 22:37:22
+1030,Karen,Robinson,karen.robinson1030@example.com,+12679485704,"159 Main St, Central City, USA",2023-03-15 02:52:17
+1031,Susan,Brown,susan.brown1031@example.com,+19864154746,"935 Pine Ln, Otherville, USA",2023-07-15 06:12:53
+1032,Robert,Harris,robert.harris1032@example.com,+12602549198,"374 Pine Ln, Otherville, USA",2023-05-20 03:09:36
+1033,Robert,Anderson,robert.anderson1033@example.com,+15123172257,"675 Maple Rd, Metropolis, USA",2022-08-26 10:59:13
+1034,James,Garcia,james.garcia1034@example.com,+18536705926,"249 Birch Ct, Gotham, USA",2023-05-04 04:38:39
+1035,Robert,Williams,robert.williams1035@example.com,+18640302651,"615 Willow Way, Otherville, USA",2023-07-23 22:22:43
+1036,Susan,Thomas,susan.thomas1036@example.com,+18723909832,"892 Elm St, Gotham, USA",2023-09-19 19:31:10
+1037,Jennifer,Davis,jennifer.davis1037@example.com,+19732864089,"801 Spruce Ln, Gotham, USA",2023-07-08 23:50:03
+1038,Jessica,Taylor,jessica.taylor1038@example.com,+17568185648,"734 Poplar Dr, Riverdale, USA",2023-11-21 21:53:59
+1039,Joseph,Brown,joseph.brown1039@example.com,+14306510872,"598 Pine Ln, Otherville, USA",2024-01-01 12:27:58
+1040,Michael,Harris,michael.harris1040@example.com,+17790194387,"932 Cedar Dr, Nowhere, USA",2022-07-02 00:08:06
+1041,Robert,Moore,robert.moore1041@example.com,+15085550268,"351 Pine Ln, Riverdale, USA",2022-09-08 13:27:54
+1042,Susan,Thompson,susan.thompson1042@example.com,+13042677530,"223 Cedar Dr, Gotham, USA",2022-04-18 01:35:15
+1043,Charles,Thompson,charles.thompson1043@example.com,+14131465284,"633 Cedar Dr, Anytown, USA",2023-12-17 09:06:07
+1044,Patricia,Wilson,patricia.wilson1044@example.com,+16161888932,"236 Pine Ln, Smallville, USA",2022-11-15 06:53:42
+1045,Patricia,Davis,patricia.davis1045@example.com,+12009422709,"299 Pine Ln, Smallville, USA",2023-03-21 18:20:33
+1046,Jennifer,Harris,jennifer.harris1046@example.com,+19113512116,"443 Main St, Central City, USA",2023-11-29 21:54:05
+1047,Richard,Anderson,richard.anderson1047@example.com,+17429175445,"487 Maple Rd, Springfield, USA",2023-06-02 12:22:20
+1048,Jennifer,Garcia,jennifer.garcia1048@example.com,+15208547535,"988 Willow Way, Nowhere, USA",2022-11-26 02:25:40
+1049,Charles,White,charles.white1049@example.com,+15534571426,"381 Oak Ave, Otherville, USA",2023-02-09 21:23:21
+1050,William,Miller,william.miller1050@example.com,+15348416571,"935 Maple Rd, Gotham, USA",2023-03-25 03:21:18
+1051,Karen,Taylor,karen.taylor1051@example.com,+13742375032,"865 Main St, Otherville, USA",2022-10-01 01:20:59
+1052,Joseph,Brown,joseph.brown1052@example.com,+19171777931,"951 Pine Ln, Riverdale, USA",2023-02-28 00:39:11
+1053,Charles,Thomas,charles.thomas1053@example.com,+11301822359,"229 Poplar Dr, Smallville, USA",2022-04-19 00:50:04
+1054,Jennifer,Harris,jennifer.harris1054@example.com,+19152385391,"485 Birch Ct, Metropolis, USA",2023-07-05 23:32:17
+1055,Charles,Martin,charles.martin1055@example.com,+14330388806,"290 Pine Ln, Central City, USA",2022-02-10 19:10:43
+1056,Elizabeth,Harris,elizabeth.harris1056@example.com,+12451097330,"392 Pine Ln, Springfield, USA",2022-08-09 21:48:57
+1057,Michael,Jackson,michael.jackson1057@example.com,+18077328103,"126 Main St, Otherville, USA",2023-06-25 14:52:37
+1058,Elizabeth,Harris,elizabeth.harris1058@example.com,+14306459613,"529 Spruce Ln, Riverdale, USA",2022-12-18 00:03:30
+1059,William,Clark,william.clark1059@example.com,+14031665273,"571 Oak Ave, Central City, USA",2023-02-05 22:38:08
+1060,Thomas,Martinez,thomas.martinez1060@example.com,+19947051056,"897 Spruce Ln, Nowhere, USA",2023-09-13 19:34:11
+1061,Linda,Martin,linda.martin1061@example.com,+16216020788,"290 Maple Rd, Somewhere, USA",2022-07-14 19:45:28
+1062,Joseph,Taylor,joseph.taylor1062@example.com,+19418398613,"551 Main St, Smallville, USA",2022-02-24 22:38:39
+1063,Jennifer,Jackson,jennifer.jackson1063@example.com,+16501740466,"827 Birch Ct, Riverdale, USA",2023-02-18 18:13:19
+1064,Michael,Jackson,michael.jackson1064@example.com,+17644898967,"984 Birch Ct, Metropolis, USA",2022-05-16 16:44:00
+1065,Charles,Wilson,charles.wilson1065@example.com,+12009586890,"348 Main St, Central City, USA",2022-03-16 21:32:30
+1066,Susan,Miller,susan.miller1066@example.com,+11371335489,"169 Birch Ct, Gotham, USA",2022-03-15 19:30:04
+1067,William,Wilson,william.wilson1067@example.com,+16562706261,"849 Pine Ln, Somewhere, USA",2023-07-01 18:41:31
+1068,David,Thompson,david.thompson1068@example.com,+14042513246,"978 Birch Ct, Somewhere, USA",2022-07-25 00:45:24
+1069,Elizabeth,Miller,elizabeth.miller1069@example.com,+15029767541,"276 Pine Ln, Otherville, USA",2022-06-07 22:07:01
+1070,Michael,Thompson,michael.thompson1070@example.com,+15762706600,"494 Maple Rd, Springfield, USA",2022-03-17 14:01:25
+1071,Robert,Moore,robert.moore1071@example.com,+15791593051,"551 Birch Ct, Otherville, USA",2022-01-13 06:42:26
+1072,William,Thompson,william.thompson1072@example.com,+12121175240,"331 Spruce Ln, Central City, USA",2023-06-12 17:17:36
+1073,Michael,Taylor,michael.taylor1073@example.com,+15055412043,"646 Oak Ave, Gotham, USA",2022-11-12 16:39:12
+1074,James,Anderson,james.anderson1074@example.com,+14108734086,"607 Maple Rd, Gotham, USA",2022-02-07 23:12:01
+1075,Elizabeth,Clark,elizabeth.clark1075@example.com,+18182455013,"290 Cedar Dr, Nowhere, USA",2022-10-02 00:51:47
+1076,Joseph,Jones,joseph.jones1076@example.com,+18796193826,"210 Maple Rd, Otherville, USA",2023-09-22 03:08:48
+1077,Susan,Miller,susan.miller1077@example.com,+14213984673,"100 Cedar Dr, Riverdale, USA",2023-07-26 14:28:35
+1078,Barbara,Smith,barbara.smith1078@example.com,+12000181777,"393 Cedar Dr, Metropolis, USA",2022-09-28 23:53:13
+1079,Elizabeth,Martinez,elizabeth.martinez1079@example.com,+14609550667,"477 Pine Ln, Metropolis, USA",2023-08-15 08:16:36
+1080,Michael,Jones,michael.jones1080@example.com,+13730132010,"990 Main St, Anytown, USA",2022-01-04 00:43:42
+1081,Patricia,Thomas,patricia.thomas1081@example.com,+18018770920,"304 Elm St, Riverdale, USA",2023-03-06 14:30:21
+1082,Jessica,Jones,jessica.jones1082@example.com,+19490713448,"195 Pine Ln, Smallville, USA",2022-03-10 00:38:09
+1083,Charles,Moore,charles.moore1083@example.com,+14042630022,"972 Pine Ln, Otherville, USA",2022-03-11 11:14:52
+1084,Mary,Harris,mary.harris1084@example.com,+16644940070,"542 Main St, Central City, USA",2023-05-25 16:43:41
+1085,Barbara,Thompson,barbara.thompson1085@example.com,+12300500067,"997 Poplar Dr, Riverdale, USA",2023-11-30 10:13:33
+1086,Patricia,Jones,patricia.jones1086@example.com,+16655270665,"554 Main St, Gotham, USA",2023-04-30 17:07:06
+1087,Charles,Taylor,charles.taylor1087@example.com,+13611007225,"968 Oak Ave, Gotham, USA",2023-08-03 04:40:42
+1088,Linda,Moore,linda.moore1088@example.com,+14459489686,"823 Willow Way, Springfield, USA",2022-09-25 04:08:13
+1089,Jessica,Moore,jessica.moore1089@example.com,+15217040173,"562 Willow Way, Springfield, USA",2023-06-30 20:45:49
+1090,Robert,Brown,robert.brown1090@example.com,+18628917176,"690 Cedar Dr, Central City, USA",2022-01-16 17:25:51
+1091,James,Anderson,james.anderson1091@example.com,+13066650310,"630 Spruce Ln, Nowhere, USA",2022-09-20 09:36:25
+1092,Mary,Martin,mary.martin1092@example.com,+15423102940,"109 Elm St, Central City, USA",2023-05-27 21:36:41
+1093,David,Thomas,david.thomas1093@example.com,+19473022838,"609 Pine Ln, Otherville, USA",2023-06-14 10:04:26
+1094,William,Wilson,william.wilson1094@example.com,+13665399903,"953 Main St, Metropolis, USA",2022-04-02 17:15:45
+1095,William,Thomas,william.thomas1095@example.com,+17412425967,"935 Pine Ln, Somewhere, USA",2023-08-07 21:31:50
+1096,Jessica,Brown,jessica.brown1096@example.com,+18499264548,"123 Cedar Dr, Riverdale, USA",2023-12-12 16:30:31
+1097,Thomas,Miller,thomas.miller1097@example.com,+16638036433,"376 Willow Way, Gotham, USA",2022-09-15 09:44:44
+1098,William,Davis,william.davis1098@example.com,+15909091547,"240 Main St, Smallville, USA",2023-07-23 02:47:10
+1099,Richard,Garcia,richard.garcia1099@example.com,+15012212758,"305 Spruce Ln, Gotham, USA",2023-04-21 14:10:37

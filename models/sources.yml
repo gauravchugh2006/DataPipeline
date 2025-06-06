@@ -2,7 +2,7 @@ version: 2
 sources:
   - name: raw
     description: "Raw data source for eCommerce platform before processing and transformations."
-    schema: raw  # Ensure this matches the actual schema in PostgreSQL
+    schema: raw   # Ensure this matches the actual schema in PostgreSQL
     tables:
       - name: raw_data
         description: "Raw order transactions from the eCommerce store."
@@ -75,3 +75,20 @@ sources:
             tests:
               - accepted_values:
                   values: ["Completed", "Failed", "Pending"]
+
+      - name: customers_source # NEW SOURCE TABLE
+        description: "Raw customer demographic and contact information."
+        columns:
+          - name: customer_id
+            description: "Unique identifier for each customer."
+            tests:
+              - not_null
+              - unique
+          - name: email
+            description: "Customer's email address; should be unique."
+            tests:
+              - unique
+          - name: signup_date
+            description: "Timestamp when the customer signed up."
+            tests:
+              - not_null

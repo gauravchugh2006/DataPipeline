@@ -7,7 +7,7 @@ DATABASE_URI = "postgresql+psycopg2://dwh_user:dwh_password@localhost:5432/datam
 def enrich_data():
     engine = create_engine(DATABASE_URI)
     # Read the transformed (normalized) data from DBT output; adjust table name as needed.
-    df = pd.read_sql("SELECT * FROM raw_to_normalized", engine)
+    df = pd.read_sql("SELECT * FROM customers", engine)
     
     # Example enrichment: aggregate a metric by category.
     if "category" in df.columns and "sales" in df.columns:

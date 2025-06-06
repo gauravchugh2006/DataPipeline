@@ -64,7 +64,7 @@ services:
       start_period: 30s
     restart: always
 
-  # ✅ Airflow Common Settings
+  # ✅ Airflow Common Settings (defines common properties for Airflow services)
   x-airflow-common: &airflow-common
     image: apache/airflow:2.3.4
     environment:
@@ -80,8 +80,38 @@ services:
       - ./airflow-data/logs:/opt/airflow/logs
       - ./airflow-data/plugins:/opt/airflow/plugins
       - ./airflow-data/airflow.cfg:/opt/airflow/airflow.cfg
+    # depends_on for general common settings is removed here; specific dependencies are set per service.
+
+  # ✅ Airflow Init Service (NEW - This service will run once to initialize the DB and create a user)
+  airflow-init:
+    <<: *airflow-common
+    container_name: airflow_init
+    command: >
+      bash -cx '
+      AIRFLOW_HOME=/opt/airflow
+      # Wait for Postgres to be ready and accept connections
+      echo "Waiting for Postgres to be ready..."
+      until PGPASSWORD=airflow pg_isready -h postgres_airflow -p 5432 -U airflow; do
+        echo "Postgres not ready yet, sleeping 5 seconds..."
+        sleep 5
+      done
+      echo "Postgres is ready. Initializing Airflow DB..."
+      # Run db init
+      airflow db init
+      echo "Airflow DB initialized. Creating admin user..."
+      # Create admin user. `|| true` prevents the script from failing if the user already exists.
+      airflow users create \
+          --username airflow \
+          --firstname Air \
+          --lastname Flow \
+          --role Admin \
+          --email airflow@example.com \
+          -p airflow || true
+      echo "Airflow initialization tasks complete."
+      '
     depends_on:
-      - postgres_airflow
+      postgres_airflow:
+        condition: service_healthy # Ensure postgres_airflow reports as healthy before running init commands
 
   # ✅ Airflow Webserver
   airflow-webserver:
@@ -89,14 +119,20 @@ services:
     container_name: airflow_webserver
     command: airflow webserver
     ports:
-      - "8085:8085"
+      - "8082:8080" # Your previously corrected port mapping (host:container)
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully # Webserver only starts after init is successful
 
   # ✅ Airflow Scheduler
   airflow-scheduler:
     <<: *airflow-common
     container_name: airflow_scheduler
     command: airflow scheduler
-    restart: always
+    restart: always # Scheduler should always restart if it fails
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully # Scheduler only starts after init is successful
 
   # ✅ Kafka Broker
   broker:
@@ -166,6 +202,11 @@ services:
     volumes:
       - zkdata:/var/lib/zookeeper/data
       - zklogs:/var/lib/zookeeper/log
+
+  # DataHub Components (rest of your existing DataHub services)
+  # ... (ensure these are still present if you omitted them for brevity in your pasted compose)
+  # datapipeline-datahub-gms-1, datapipeline-datahub-frontend-react-1, etc.
+  # Ensure their dependencies are correctly defined as well, especially on broker/kafka/zookeeper if applicable.
 
 volumes:
   broker: null
