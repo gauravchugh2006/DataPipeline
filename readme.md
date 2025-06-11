@@ -13,7 +13,32 @@
 ####   /results              # Output files and visualizations
 ####   requirements.txt      # Project dependencies
 ####   README.md             # Project documentation
-
+project-root/
+│
+├── docker-compose.yml         # Spins up the entire stack (Airflow, PostgreSQL, MinIO, etc.)
+├── dags/                      # Contains Airflow DAGs and ETL scripts
+│   ├── data_pipeline_dag.py   # Orchestrates extraction, loading, transformation, quality checks, enrichment, and notification
+│   ├── extract_to_minio.py    # Uploads CSV to object storage (MinIO)
+│   ├── load_to_postgres.py    # Loads CSV into PostgreSQL
+│   ├── data_quality_check.py  # Validates data with Great Expectations
+│   ├── data_enrichment.py     # Aggregates and enriches data (e.g., computes KPIs)
+│   ├── data_source/
+│   │   ├── customers_source.csv # Ecommerce Platform customers csv data
+│   │   └── sample_data.csv    # Sample orders data from 10 customers for 3 months
+│   └── dbt_project/           # Contains DBT configuration and models for data transformation
+│       ├── dbt_project.yml  
+│       ├── models/ 
+│       │   ├── raw_to_normalized.sql
+│       │   └── staging/
+│       │        ├── stg_customers.sql
+│       │        ├── stg_orders.sql
+│       │        ├── stg_payments.sql
+│       │        ├── stg_products.sql
+│       │        └── stg_raw_data.sql
+│       └── schema.yml         # Documentation and tests for transformed data
+├── data_source/               # Raw input files (e.g., sample_data.csv)
+├── datahub_ingestion.yml      # Configuration for DataHub metadata ingestion
+└── README.md                  # Project documentation
 # File Details:
 
 # data_preprocessing.py

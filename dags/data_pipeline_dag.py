@@ -1,3 +1,7 @@
+# This DAG orchestrates a data pipeline that extracts data, loads it into a database,
+# runs transformations with dbt, performs data quality checks, enriches the data, and sends a notification.
+## data_pipeline_dag.py
+import os
 from airflow import DAG
 from airflow.operators.bash import BashOperator
 from airflow.providers.slack.operators.slack_webhook import SlackWebhookOperator

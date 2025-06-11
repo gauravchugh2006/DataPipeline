@@ -64,7 +64,7 @@ services:
       start_period: 30s
     restart: always
 
-  # ✅ Airflow Common Settings
+  # ✅ Airflow Common Settings (defines common properties for Airflow services)
   x-airflow-common: &airflow-common
     image: apache/airflow:2.3.4
     environment:
@@ -80,8 +80,29 @@ services:
       - ./airflow-data/logs:/opt/airflow/logs
       - ./airflow-data/plugins:/opt/airflow/plugins
       - ./airflow-data/airflow.cfg:/opt/airflow/airflow.cfg
+
+  # ✅ Airflow Init Service (This service will run once to initialize the DB and create a user)
+  airflow-init:
+    <<: *airflow-common
+    container_name: airflow_init
+    command: |
+      bash -cx '
+      AIRFLOW_HOME=/opt/airflow
+      echo "Waiting for Postgres to be ready..."
+      until PGPASSWORD=airflow pg_isready -h postgres_airflow -p 5432 -U airflow
+      do
+        echo "Postgres not ready yet, sleeping 5 seconds..."
+        sleep 5
+      done
+      echo "Postgres is ready. Initializing Airflow DB..."
+      airflow db init
+      echo "Airflow DB initialized. Creating admin user..."
+      airflow users create --username airflow --firstname Air --lastname Flow --role Admin --email airflow@example.com -p airflow || true
+      echo "Airflow initialization tasks complete."
+      '
     depends_on:
-      - postgres_airflow
+      postgres_airflow:
+        condition: service_healthy
 
   # ✅ Airflow Webserver
   airflow-webserver:
@@ -90,6 +111,9 @@ services:
     command: airflow webserver
     ports:
       - "8082:8080"
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
 
   # ✅ Airflow Scheduler
   airflow-scheduler:
@@ -97,6 +121,9 @@ services:
     container_name: airflow_scheduler
     command: airflow scheduler
     restart: always
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
 
   # ✅ Kafka Broker
   broker:
@@ -135,11 +162,11 @@ services:
       - NEO4J_dbms_allow__upgrade=true
       - NEO4JLABS_PLUGINS=["apoc"]
     healthcheck:
-      interval: 1s
-      retries: 5
-      start_period: 5s
+      interval: 5s
+      retries: 10
+      start_period: 60s
       test: wget http://neo4j:7474
-      timeout: 5s
+      timeout: 20s
     hostname: neo4j
     image: neo4j:4.4.9-community
     ports:
@@ -167,6 +194,239 @@ services:
       - zkdata:/var/lib/zookeeper/data
       - zklogs:/var/lib/zookeeper/log
 
+  # DataHub Setup Services (CRITICAL FOR DATAHUB FUNCTIONALITY)
+  elasticsearch-setup:
+    container_name: elasticsearch_setup
+    image: acryldata/datahub-elasticsearch-setup:head
+    depends_on:
+      datapipeline-elasticsearch-1:
+        condition: service_healthy
+    environment:
+      - ELASTICSEARCH_HOST=elasticsearch
+      - ELASTICSEARCH_PORT=9200
+      - ELASTICSEARCH_PROTOCOL=http
+      - ELASTICSEARCH_USE_SSL=false
+      - USE_AWS_ELASTICSEARCH=false
+    labels:
+      datahub_setup_job: true
+
+  kafka-setup:
+    container_name: kafka_setup
+    image: acryldata/datahub-kafka-setup:head
+    depends_on:
+      broker:
+        condition: service_healthy
+      datapipeline-schema-registry-1:
+        condition: service_healthy
+    environment:
+      - KAFKA_BOOTSTRAP_SERVER=broker:29092
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - USE_CONFLUENT_SCHEMA_REGISTRY=TRUE
+      - DATAHUB_PRECREATE_TOPICS=true
+    labels:
+      datahub_setup_job: true
+
+  mysql-setup:
+    container_name: mysql_setup
+    image: acryldata/datahub-mysql-setup:head
+    depends_on:
+      datapipeline-mysql-1:
+        condition: service_healthy
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_USERNAME=datahub
+      - MYSQL_PASSWORD=datahub
+      - DATAHUB_DB_NAME=datahub
+    labels:
+      datahub_setup_job: true
+
+  datahub-upgrade:
+    container_name: datahub_upgrade
+    image: acryldata/datahub-upgrade:head
+    depends_on:
+      elasticsearch-setup:
+        condition: service_completed_successfully
+      kafka-setup:
+        condition: service_completed_successfully
+      mysql-setup:
+        condition: service_completed_successfully
+    environment:
+      - EBEAN_DATASOURCE_USERNAME=datahub
+      - EBEAN_DATASOURCE_PASSWORD=datahub
+      - EBEAN_DATASOURCE_HOST=mysql:3306
+      - EBEAN_DATASOURCE_URL=jdbc:mysql://mysql:3306/datahub?verifyServerCertificate=false&useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8
+      - EBEAN_DATASOURCE_DRIVER=com.mysql.jdbc.Driver
+      - KAFKA_BOOTSTRAP_SERVER=broker:29092
+      - KAFKA_SCHEMAREGISTRY_URL=http://schema-registry:8081
+      - ELASTICSEARCH_HOST=elasticsearch
+      - ELASTICSEARCH_PORT=9200
+      - GRAPH_SERVICE_IMPL=neo4j
+      - NEO4J_URI=bolt://neo4j:7687
+      # RE-ADDED these two variables as they are needed for internal logic in datahub-upgrade
+      - DATAHUB_GMS_HOST=datahub-gms
+      - DATAHUB_GMS_PORT=8080
+      - ENTITY_REGISTRY_CONFIG_PATH=/datahub/datahub-gms/resources/entity-registry.yml
+      - COMMAND=SystemUpdate
+    labels:
+      datahub_setup_job: true
+
+  # DataHub GMS (Main Metadata Service)
+  datapipeline-datahub-gms-1:
+    image: acryldata/datahub-gms:head
+    container_name: datapipeline-datahub-gms-1
+    hostname: datahub-gms
+    depends_on:
+      datahub-upgrade: # GMS depends on upgrade job completing successfully
+        condition: service_completed_successfully
+      broker:
+        condition: service_healthy
+      neo4j:
+        condition: service_healthy
+      zookeeper:
+        condition: service_healthy
+      datapipeline-elasticsearch-1:
+        condition: service_healthy
+      datapipeline-mysql-1:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      - DATAHUB_GMS_HOST=datahub-gms
+      - DATAHUB_GMS_PORT=8080
+      - DATAHUB_GMS_OPTS=-Xmx2g
+      - SPRING_CONFIG_LOCATION=/etc/datahub-gms/application.yml
+      - JAVA_OPTS="-Xmx2g -Xms2g"
+
+      # MySQL Connection for GMS
+      - EBEAN_DATASOURCE_DRIVER=com.mysql.jdbc.Driver
+      - EBEAN_DATASOURCE_USERNAME=datahub
+      - EBEAN_DATASOURCE_PASSWORD=datahub
+      - EBEAN_DATASOURCE_URL=jdbc:mysql://mysql:3306/datahub?verifyServerCertificate=false&useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8
+      - EBEAN_DATASOURCE_HOST=mysql:3306
+
+      # Graph Backend
+      - GRAPH_SERVICE_IMPL=neo4j
+      - NEO4J_URI=bolt://neo4j:7687
+
+      # Search Backend
+      - ELASTICSEARCH_HOST=elasticsearch
+      - ELASTICSEARCH_PORT=9200
+
+      # Kafka and Schema Registry
+      - KAFKA_BOOTSTRAP_SERVER=broker:29092
+      - KAFKA_SCHEMAREGISTRY_URL=http://schema-registry:8081
+
+      - DATAHUB_SERVER_TYPE=quickstart
+      - DATAHUB_TELEMETRY_ENABLED=true
+      - MAE_CONSUMER_ENABLED=true
+      - MCE_CONSUMER_ENABLED=true
+      - PE_CONSUMER_ENABLED=true
+      - METADATA_SERVICE_AUTH_ENABLED=false
+      - UI_INGESTION_ENABLED=true
+    volumes:
+      - ./datahub-config:/etc/datahub-gms
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://datahub-gms:8080/health"]
+      interval: 15s
+      timeout: 10s
+      retries: 40
+      start_period: 480s
+
+  # DataHub Frontend (React UI)
+  datapipeline-datahub-frontend-react-1:
+    image: acryldata/datahub-frontend-react:head
+    container_name: datapipeline-datahub-frontend-react-1
+    hostname: datahub-frontend-react
+    depends_on:
+      datapipeline-datahub-gms-1:
+        condition: service_healthy
+    ports:
+      - "9002:9002"
+    environment:
+      - DATAHUB_GMS_URL=http://datahub-gms:8080
+      - DATAHUB_SECRET=YouKnowNothing
+      - JAVA_OPTS=-Xms512m -Xmx512m -Dhttp.port=9002
+    volumes:
+    - ${HOME}/.datahub/plugins:/etc/datahub/plugins
+
+  # DataHub Actions
+  datapipeline-datahub-actions-1:
+    image: acryldata/datahub-actions:head
+    container_name: datapipeline-datahub-actions-1
+    depends_on:
+      datapipeline-datahub-gms-1:
+        condition: service_healthy
+      broker:
+        condition: service_healthy
+    environment:
+      - DATAHUB_GMS_URL=http://datahub-gms:8080
+      - KAFKA_BOOTSTRAP_SERVER=broker:29092
+      - SCHEMA_REGISTRY_URL=http://schema-registry:8081
+      - DATAHUB_SYSTEM_CLIENT_ID=__datahub_system
+      - DATAHUB_SYSTEM_CLIENT_SECRET=JohnSnowKnowsNothing
+
+  datapipeline-schema-registry-1:
+    image: confluentinc/cp-schema-registry:7.4.0
+    container_name: datapipeline-schema-registry-1
+    hostname: schema-registry
+    depends_on:
+      zookeeper:
+        condition: service_healthy
+      broker:
+        condition: service_healthy
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: broker:29092
+    healthcheck:
+      test: ["CMD", "nc", "-z", "schema-registry", "8081"]
+      interval: 1s
+      retries: 10
+      start_period: 60s
+      timeout: 5s
+
+  datapipeline-elasticsearch-1:
+    image: elasticsearch:7.10.1
+    container_name: datapipeline-elasticsearch-1
+    hostname: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sS --fail http://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=0s || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+
+  datapipeline-mysql-1:
+    image: mariadb:10.5.8
+    container_name: datapipeline-mysql-1
+    hostname: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: datahub
+      MYSQL_DATABASE: datahub
+      MYSQL_USER: datahub
+      MYSQL_PASSWORD: datahub
+      MYSQL_ROOT_HOST: "%"
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_bin --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "mysql", "-u", "datahub", "-pdatahub"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - mysqldata:/var/lib/mysql
+
 volumes:
   broker: null
   neo4jdata: null
@@ -175,3 +435,5 @@ volumes:
   minio_data: null
   postgres_airflow_data: null
   postgres_dw_data: null
+  esdata: null
+  mysqldata: null

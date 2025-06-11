@@ -1,0 +1,21 @@
+# This file defines the packages used in the dbt project.
+packages:
+  # Provides a rich set of utility macros (e.g., pivoting, incremental models, etc.)
+  - package: dbt-labs/dbt_utils
+    version: [">=0.8.0", "<0.9.0"]
+
+  # Facilitates advanced date manipulation functions and macros, useful for temporal logic
+  - package: godatadriven/dbt_date
+    version: "0.14.1"
+
+  # Future prospective packages:
+  # This package provides a set of best practices for dbt model design and refactoring.
+  # - package: fivetran/dbt_modeling
+  #   version: [">=0.2.0", "<0.3.0"] !! NOT FOUND in PACKAGES INDEX
+
+  # Additional packages related to lineage tracking or enhanced documentation can be added as needed.
+  # For example, if a lineage or enhanced docs package becomes available:
+  # - package: dbt-labs/dbt_lineage
+  #   version: "0.1.0"
+  # - package: dbt-labs/dbt_docs_utils
+  #   version: "0.1.0"

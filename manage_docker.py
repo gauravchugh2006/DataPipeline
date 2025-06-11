@@ -3,8 +3,9 @@ import json
 import time
 import os
 import sys
+import logging
 
-# --- Configuration ---
+# ── Configuration ────────────────────────────────────────────────────────────
 # Adjust this to your actual project root directory
 # For Windows, use raw string or double backslashes: r"C:\Project\DataPipeline" or "C:\\Project\\DataPipeline"
 PROJECT_ROOT = "C:\\Project\\DataPipeline"
@@ -13,20 +14,22 @@ PROJECT_ROOT = "C:\\Project\\DataPipeline"
 # otherwise it defaults to the directory name where docker-compose.yml resides.
 # Based on your `docker ps` output, 'datapipeline' seems to be your project name.
 DOCKER_COMPOSE_PROJECT_NAME = "datapipeline"
+LOG_FILE = os.path.join(PROJECT_ROOT, "manage_docker.log")
 
-# Name of the Airflow webserver container, used for `docker exec` commands
-AIRFLOW_WEBSERVER_CONTAINER_NAME = "airflow_webserver"
+# ── Logging Setup ────────────────────────────────────────────────────────────
+logging.basicConfig(
+    filename=LOG_FILE,
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+)
 
-# --- Helper Functions ---
-
-def run_command(command, cwd=None, check_output=False, suppress_error=False):
+# ── Helper: generic command runner (your original kept) ──────────────────────
+def run_command(
+    command, cwd=None, check_output=False, suppress_error=False
+):
     """
-    Executes a shell command.
-    :param command: The command string to execute.
-    :param cwd: Working directory for the command.
-    :param check_output: If True, captures and returns stdout.
-    :param suppress_error: If True, prints stderr but doesn't raise exception for non-zero exit codes.
-    :return: stdout (if check_output) or boolean success status.
+    Executes a shell command and returns output or boolean success.
+    (UNCHANGED except we now add logging)
     """
     try:
         if check_output:
@@ -35,32 +38,46 @@ def run_command(command, cwd=None, check_output=False, suppress_error=False):
                 cwd=cwd,
                 capture_output=True,
                 text=True,
-                check=True, # Raise CalledProcessError for non-zero exit code
-                shell=True
+                check=True,
+                shell=True,
             )
+            logging.info(f"CMD OK: {command}")
             return result.stdout.strip()
         else:
             result = subprocess.run(
                 command,
                 cwd=cwd,
-                check=False, # Don't raise an exception immediately
+                check=False,
                 shell=True,
-                capture_output=True # Capture output to display stderr if non-zero exit
+                capture_output=True,
             )
             if result.returncode != 0 and not suppress_error:
-                print(f"Command '{command}' failed with exit code {result.returncode}.")
-                print(f"Stderr: {result.stderr.decode().strip()}")
-            return result.returncode == 0 # True if command succeeded, False otherwise
+                print(
+                    f"Command '{command}' failed ({result.returncode}).\n"
+                    f"Stderr: {result.stderr.strip()}"
+                )
+                logging.warning(
+                    f"CMD FAIL {result.returncode}: {command}\n"
+                    f"STDERR: {result.stderr.strip()}"
+                )
+            else:
+                logging.info(f"CMD OK: {command}")
+            return result.returncode == 0
     except subprocess.CalledProcessError as e:
         if not suppress_error:
-            print(f"Command failed (CalledProcessError): {command}")
-            print(f"STDOUT: {e.stdout.strip()}")
-            print(f"STDERR: {e.stderr.strip()}")
+            print(f"❌ Command failed: {command}\n{e.stderr.strip()}")
+        logging.error(f"CALLEDPROC ERROR on '{command}': {e.stderr.strip()}")
         return False
     except Exception as e:
-        print(f"An unexpected error occurred while running command '{command}': {e}")
+        print(f"Unexpected error running '{command}': {e}")
+        logging.error(f"UNEXPECTED ERR on '{command}': {e}")
         return False
 
+# small wrapper that always returns stdout string (unchanged except logging)
+def run_command2(command, cwd=None, check_output=False, suppress_error=False):
+    return run_command(command, cwd, check_output, suppress_error)
+
+# ── Helper: list networks (unchanged) ────────────────────────────────────────
 def get_project_networks(project_name):
     """Returns a list of network names associated with a given Docker Compose project."""
     try:
@@ -69,7 +86,7 @@ def get_project_networks(project_name):
             f"docker network ls -q --filter label=com.docker.compose.project={project_name}",
             check_output=True, suppress_error=True
         )
-        if not network_ids_raw:
+        if not isinstance(network_ids_raw, str) or not network_ids_raw.strip():
             return []
         network_ids = network_ids_raw.splitlines()
 
@@ -77,7 +94,7 @@ def get_project_networks(project_name):
         network_names = []
         for net_id in network_ids:
             net_inspect_output = run_command(f"docker network inspect {net_id}", check_output=True, suppress_error=True)
-            if net_inspect_output:
+            if isinstance(net_inspect_output, str):
                 net_info = json.loads(net_inspect_output)
                 if net_info and 'Name' in net_info[0]:
                     network_names.append(net_info[0]['Name'])
@@ -86,6 +103,7 @@ def get_project_networks(project_name):
         print(f"Error getting networks for project {project_name}: {e}")
         return []
 
+# (The entire cleanup_docker_compose_project function is kept AS-IS) ----------
 def cleanup_docker_compose_project(project_dir, project_name):
     """
     Attempts to bring down a Docker Compose project and forcefully remove
@@ -115,7 +133,7 @@ def cleanup_docker_compose_project(project_dir, project_name):
     )
     container_ids_raw = run_command(project_container_ids_cmd, check_output=True, suppress_error=True)
     
-    if container_ids_raw:
+    if isinstance(container_ids_raw, str) and container_ids_raw.strip():
         container_ids = container_ids_raw.splitlines()
         print(f"Found {len(container_ids)} container(s) linked to project '{project_name}'. Stopping and removing...")
         for container_id in container_ids:
@@ -159,102 +177,104 @@ def cleanup_docker_compose_project(project_dir, project_name):
     print("\n--- Cleanup process finished. ---")
     return final_compose_down_success # Return status of the last `docker-compose down` attempt
 
+# ── NEW: retry wrapper for Airflow DB init ───────────────────────────────────
+def retry_airflow_db_init(retries=3, delay=5):
+    attempts = 0
+    while attempts < retries:
+        attempts += 1
+        print(f"📌 Airflow DB init (attempt {attempts}/{retries}) …")
+        ok = run_command(
+            f"docker-compose run --rm airflow airflow db init",
+            cwd=PROJECT_ROOT,
+        )
+        if ok:
+            print("✅ Airflow DB initialized.")
+            logging.info("Airflow DB init succeeded.")
+            return True
+        logging.warning(f"Airflow DB init failed attempt {attempts}.")
+        time.sleep(delay)
+    print("❌ Airflow DB init failed after retries!")
+    logging.error("Airflow DB init failed after all retries.")
+    return False
+
+# ── Check Airflow tables (your function + logging) ───────────────────────────
+def check_airflow_tables():
+    print("\n🔍 Checking Airflow metadata tables …")
+    cmd = (
+        'docker-compose exec postgres_airflow '
+        'psql -U airflow -d airflow -c "\\dt"'
+    )
+    tables_output = run_command2(cmd, cwd=PROJECT_ROOT, check_output=True, suppress_error=True)
+    logging.info(f"Airflow tables output:\n{tables_output}")
+
+    if isinstance(tables_output, str) and "dag_run" in tables_output:
+        print("✅ Airflow tables exist.")
+        logging.info("Airflow tables verified.")
+    else:
+        print("⚠️  Tables missing; retrying init.")
+        logging.warning("Airflow tables missing; will retry init.")
+        retry_airflow_db_init()
+        # one more verification pass
+        tables_output = run_command2(cmd, cwd=PROJECT_ROOT, check_output=True, suppress_error=True)
+        if isinstance(tables_output, str) and "dag_run" in tables_output:
+            print("✅ Tables present after retry.")
+            logging.info("Tables present after retry.")
+        else:
+            print("❌ Still missing tables!")
+            logging.error("Tables still missing after retry.")
+
+# ── NEW: Kafka health check (topic list) ────────────────────────────────────
+def check_kafka_health():
+    print("\n🔍 Checking Kafka topics …")
+    cmd = (
+        "docker-compose exec broker "
+        "kafka-topics --list --bootstrap-server broker:29092"
+    )
+    topics = run_command2(cmd, cwd=PROJECT_ROOT, check_output=True, suppress_error=True)
+    logging.info(f"Kafka topics:\n{topics}")
+
+    if isinstance(topics, str) and "MetadataChangeEvent" in topics:
+        print("✅ Kafka topic 'MetadataChangeEvent' found.")
+        logging.info("Kafka health OK.")
+    else:
+        print("⚠️  Kafka topic not found; DataHub ingestion may not be running.")
+        logging.warning("Kafka health check failed.")
+
+# ── Start project (extends your original) ───────────────────────────────────
 def start_docker_compose_project(project_dir, project_name):
-    """Starts a Docker Compose project in detached mode."""
     print(f"\n--- Starting Docker Compose Project: '{project_name}' ---")
     print(f"Working directory: {project_dir}")
-    start_success = run_command(f"docker-compose -p {project_name} up -d", cwd=project_dir)
-    if start_success:
-        print(f"Docker Compose project '{project_name}' started successfully.")
-    else:
-        print(f"Error: Failed to start Docker Compose project '{project_name}'. Please check logs.")
-    return start_success
+    started = run_command(f"docker-compose -p {project_name} up -d", cwd=project_dir)
+    if not started:
+        print("❌ Failed to start services.")
+        logging.error("Docker-compose up failed.")
+        return False
 
-def initialize_airflow_db(container_name):
-    """Initializes the Airflow metadata database."""
-    print(f"\n--- Initializing Airflow Database in '{container_name}' ---")
-    # Wait for the database to be ready
-    print("Waiting for Airflow webserver container to be fully running and responsive (up to 180 seconds)...") # Increased total wait
+    print("✅ Containers up. Waiting 10 s …")
+    logging.info("Docker services started.")
+    time.sleep(10)
 
-    max_retries = 15 # Increased retries
-    retry_delay = 12 # 12 seconds * 15 retries = 180 seconds max wait
-    
-    container_ready = False
-    for i in range(max_retries):
-        print(f"  Attempt {i+1}/{max_retries}: Checking container status and Airflow CLI readiness...")
-        try:
-            # Check container status using `docker ps --format` to get the 'Status' column
-            ps_output = run_command(f"docker ps --filter name={container_name} --format '{{.Status}}'", check_output=True, suppress_error=True)
-            if not ps_output:
-                print(f"  Container '{container_name}' not found or not listed by `docker ps`. Retrying in {retry_delay}s...")
-                time.sleep(retry_delay)
-                continue
-            
-            # ps_output will contain something like "Up 45 seconds" or "Restarting (1) 3 seconds ago"
-            # We are looking for "Up X (healthy)" or "Up X"
-            if "Up" not in ps_output: # Check if 'Up' is present in the status string
-                print(f"  Container '{container_name}' is not in 'Up' state. Current Status: '{ps_output}'. Retrying in {retry_delay}s...")
-                time.sleep(retry_delay)
-                continue
+    # Airflow DB init with retries
+    retry_airflow_db_init()
+    # Verify tables
+    check_airflow_tables()
+    # Kafka health
+    check_kafka_health()
 
-            # If container is 'Up', check if Airflow CLI is responsive
-            # This needs to be run only if the container is confirmed to be 'Up'
-            health_check_command = f"docker exec {container_name} airflow version"
-            health_check_output = run_command(health_check_command, check_output=True, suppress_error=True)
-            
-            if "Airflow" in health_check_output and "version" in health_check_output: # More specific keyword check
-                print(f"  Container '{container_name}' is 'Up' and Airflow CLI responsive.")
-                container_ready = True
-                break # Exit loop, container and CLI are ready
-            else:
-                print(f"  Container '{container_name}' is 'Up' but Airflow CLI not fully responsive yet. (Output: {health_check_output[:50]}...) Retrying in {retry_delay}s...")
-                time.sleep(retry_delay)
+    # UI links
+    print("\n🌐 Airflow  : http://localhost:8082")
+    print("🌐 DataHub  : http://localhost:9002")
+    print("🌐 MinIO    : http://localhost:9001")
+    logging.info("UI links displayed.")
+    return True
 
-        except Exception as e:
-            print(f"  An unexpected error occurred during readiness check: {e}. Retrying in {retry_delay}s...")
-            time.sleep(retry_delay)
+# ── Main ────────────────────────────────────────────────────────────────────
+if __name__ == "__main__":
+    print("🚀 Managing Docker-based Data Pipeline …")
+    print("Starting Docker Compose management script (cleanup & down services)...")
 
-    if not container_ready:
-        print(f"WARNING: Airflow webserver container '{container_name}' did not become fully ready within the timeout.")
-        # If it didn't become ready, let's dump its logs to help diagnose
-        print(f"--- Dumping logs for '{container_name}' for diagnosis ---")
-        logs = run_command(f"docker logs {container_name}", check_output=True, suppress_error=True)
-        print(logs if logs else "No logs available or error fetching logs.")
-        print("--- End of logs ---")
-        print("  Skipping database initialization and user creation due to unready webserver.")
-        return # Exit the function if webserver isn't ready
-
-    # Run the `airflow db init` command inside the webserver container
-    init_command = f"docker exec {container_name} airflow db init"
-    print(f"Executing: {init_command}")
-    init_success = run_command(init_command)
-    if init_success:
-        print("Airflow database initialized successfully.")
-    else:
-        print("WARNING: Airflow database initialization failed. Airflow may not function correctly.")
-
-def create_airflow_user(container_name):
-    """Creates an Airflow admin user."""
-    print(f"\n--- Creating Airflow Admin User in '{container_name}' ---")
-    # Airflow 2.x user creation command.
-    # Assumes default username 'airflow' and password 'airflow'.
-    # Adjust as necessary.
-    create_user_command = (
-        f"docker exec {container_name} airflow users create "
-        f"--username airflow --firstname Air --lastname Flow --role Admin --email airflow@example.com -p airflow"
-    )
-    print(f"Executing: {create_user_command}")
-    # Suppress error for this command as it might fail if user already exists
-    create_user_success = run_command(create_user_command, suppress_error=True)
-    if create_user_success:
-        print("Airflow admin user 'airflow' created successfully (or already existed).")
-    else:
-        print("WARNING: Failed to create Airflow admin user. It might already exist, or there's an issue.")
-
-
-# --- Main execution logic ---
-if __name__ == '__main__':
-    print("Starting Docker Compose management script...")
+    # Step 1: Perform cleanup and bring down services
+    logging.info("Cleanup and bring down services Script start.")
 
     # Step 1: Perform cleanup and bring down services
     cleanup_success = cleanup_docker_compose_project(PROJECT_ROOT, DOCKER_COMPOSE_PROJECT_NAME)
@@ -268,19 +288,19 @@ if __name__ == '__main__':
         print("\nWaiting 10 seconds before starting services to ensure resources are free...")
         time.sleep(10)
 
-    # Step 2: Bring up the services with the new configuration
+    # Step 2: Bring up the services with the new configuration.
+    # Airflow DB init and user creation are now handled by docker-compose.yml itself via `airflow-init` service.
     start_success = start_docker_compose_project(PROJECT_ROOT, DOCKER_COMPOSE_PROJECT_NAME)
 
     if start_success:
-        # Step 3: Initialize Airflow DB and create user after services are up
-        # The `initialize_airflow_db` function now includes its own robust wait logic
-        initialize_airflow_db(AIRFLOW_WEBSERVER_CONTAINER_NAME)
-        create_airflow_user(AIRFLOW_WEBSERVER_CONTAINER_NAME) # User creation runs after DB init
-
-        print("\nDocker environment re-launched and Airflow setup complete. Please check:")
-        print(f"  - Docker Desktop to ensure all containers are green (Up).")
-        print(f"  - Airflow UI: http://localhost:8082 (give it another minute to fully load after DB init)")
+        print("\n✅Docker environment re-launched. Please check:")
+        print(f"  - Docker Desktop to ensure all containers are green (Up), including 'airflow_init' (which will exit).")
+        print(f"  - Airflow UI: http://localhost:8082 (give it 1-2 minutes to fully load, as init service runs first)")
         print(f"  - DataHub UI: http://localhost:9002")
         print(f"  - MinIO UI: http://localhost:9001")
+        logging.info("Environment relaunched OK.")
     else:
-        print("\nFailed to start Docker Compose project. Please review the output and logs.")
+        print("\n ❌Failed to start Docker Compose project. Please review the output and logs.")
+        logging.error("Failed to relaunch environment.")
+    sys.exit(0 if start_success else 1)
+# ── End of manage_docker.py ─────────────────────────────────────────────────
