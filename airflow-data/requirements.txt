@@ -1,34 +1,41 @@
 # Core DBT dependencies
 dbt-core==1.9.3
 dbt-postgres==1.9.3
-psycopg2-binary==2.9.9
+psycopg2-binary==2.9.9 # PostgreSQL driver for Python, used by dbt and sqlalchemy
 
 # Airflow dependencies
 apache-airflow==2.3.4
-apache-airflow-providers-postgres
-apache-airflow-providers-slack
-apache-airflow-providers-amazon
-apache-airflow-providers-docker
-apache-airflow-providers-kafka
-apache-airflow-providers-elasticsearch
+apache-airflow-providers-postgres # For Airflow's connection to Postgres
+apache-airflow-providers-slack # For SlackWebhookOperator
+apache-airflow-providers-amazon # If you plan to use AWS services (e.g., S3, EMR)
+apache-airflow-providers-docker # If you plan to use DockerOperator
+apache-airflow-providers-kafka # For Kafka-related operators/hooks if needed
+apache-airflow-providers-elasticsearch # If you plan to use Elasticsearch operators/hooks
+pendulum==2.1.2 # Explicitly add pendulum for DAG start_date (used in Airflow 2+)
 
 # Data processing & validation
-pandas==2.0.3
-numpy==1.24.4
-sqlalchemy==2.0.10
-great-expectations==0.16.14
+pandas==2.2.0
+numpy==1.26.0
+requests==2.31.0 # For HTTP requests in various scripts
+sqlalchemy==2.0.10 # Database toolkit Used by load_to_postgres.py, data_quality_check.py, data_enrichment.py
+great-expectations==0.16.14 # Used by data_quality_check.py
 
 # Cloud & Object Storage (MinIO, AWS)
-boto3==1.33.0
-botocore==1.33.0
+boto3==1.33.0 # Used by extract_to_minio.py, load_to_postgres.py
+botocore==1.33.0 # Dependency of boto3,AWS SDK (for MinIO S3 operations)
+minio==7.2.0            # MinIO Python client
 
 # Kafka & Messaging
-confluent-kafka==2.2.0
+confluent-kafka==2.2.0 # For KafkaProducer in simulate_web_events.py
+kafka-python==2.0.2 # Often used alongside confluent-kafka or as an alternative, good to have both
 
 # Metadata Management (DataHub)
-acryl-datahub==0.9.5
-neo4j==5.12.0
-
+acryl-datahub==0.9.5 # DataHub client for metadata ingestion 'datahub ingest' command
+neo4j==5.12.0 # If direct Neo4j client is needed in Airflow container (e.g., for custom scripts)
+# Spark (if pyspark is used directly in Airflow tasks, or for spark-submit)
+# Note: pyspark here is for the client-side/driver program. The actual Spark cluster
+# will have its own PySpark installation.
+pyspark==3.2.0 # Match your Spark cluster version (from previous turns, you used 3.2.0 in realtime_reco_engine.py)
 # Logging & Utilities
 loguru==0.7.2
 python-dotenv==1.0.0
