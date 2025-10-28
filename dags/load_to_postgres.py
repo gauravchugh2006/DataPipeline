@@ -1,25 +1,30 @@
 #!/usr/bin/env python3
+import logging
+import os
+from io import BytesIO
+
 import boto3
 import pandas as pd
-from io import BytesIO
 from sqlalchemy import create_engine, text
-import logging
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-MINIO_ENDPOINT = "localhost:9000"
-ACCESS_KEY = "minioadmin"
-SECRET_KEY = "minioadmin"
-BUCKET_NAME = "raw-data"
+MINIO_ENDPOINT = os.getenv("MINIO_ENDPOINT", "minio:9000")
+ACCESS_KEY = os.getenv("MINIO_ACCESS_KEY", "minioadmin")
+SECRET_KEY = os.getenv("MINIO_SECRET_KEY", "minioadmin")
+BUCKET_NAME = os.getenv("MINIO_BUCKET", "raw-data")
 # Define the objects (files) to download and their corresponding PostgreSQL table names
 FILES_TO_PROCESS = {
     "sample_data.csv": "raw_data",          # Main transactional data
     "customers_source.csv": "customers_source"  # Customer detail data
 }
 
-POSTGRES_CONN = "postgresql+psycopg2://dwh_user:dwh_password@localhost:5432/datamart"
-RAW_SCHEMA = "raw"  # The schema where raw tables will be loaded
+POSTGRES_CONN = os.getenv(
+    "POSTGRES_DWH_CONN",
+    "postgresql+psycopg2://dwh_user:dwh_password@postgres_dw:5432/datamart",
+)
+RAW_SCHEMA = os.getenv("RAW_SCHEMA", "raw")
 
 def download_file_from_minio(object_name):
     """

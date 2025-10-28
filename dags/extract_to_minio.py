@@ -1,20 +1,23 @@
 #!/usr/bin/env python3
-import boto3, hashlib
-from botocore.exceptions import ClientError
+import hashlib
 import logging
 import os
+
+import boto3
+from botocore.exceptions import ClientError
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-MINIO_ENDPOINT = "localhost:9000"
-ACCESS_KEY = "minioadmin"
-SECRET_KEY = "minioadmin"
-BUCKET_NAME = "raw-data"
-# Define the files to upload
+MINIO_ENDPOINT = os.getenv("MINIO_ENDPOINT", "minio:9000")
+ACCESS_KEY = os.getenv("MINIO_ACCESS_KEY", "minioadmin")
+SECRET_KEY = os.getenv("MINIO_SECRET_KEY", "minioadmin")
+BUCKET_NAME = os.getenv("MINIO_BUCKET", "raw-data")
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FILES_TO_UPLOAD = {
-    "sample_data.csv": "data_source/sample_data.csv",
-    "customers_source.csv": "data_source/customers_source.csv"
+    "sample_data.csv": os.path.join(BASE_DIR, "data_source", "sample_data.csv"),
+    "customers_source.csv": os.path.join(BASE_DIR, "data_source", "customers_source.csv"),
 }
 
 def get_file_md5(file_path):
@@ -37,7 +40,7 @@ def main():
     Connects to MinIO, creates a bucket if it doesn't exist,
     and uploads files if they are new or changed.
     """
-    logging.info(f"Connecting to MinIO at {MINIO_ENDPOINT}...")
+    logging.info("Connecting to MinIO at %s...", MINIO_ENDPOINT)
     s3 = boto3.client('s3',
                       endpoint_url=f"http://{MINIO_ENDPOINT}",
                       aws_access_key_id=ACCESS_KEY,
@@ -51,17 +54,17 @@ def main():
     except ClientError as e:
         error_code = int(e.response['Error']['Code'])
         if error_code == 404:
-            logging.info(f"Bucket '{BUCKET_NAME}' not found. Creating it...")
+            logging.info("Bucket '%s' not found. Creating it...", BUCKET_NAME)
             s3.create_bucket(Bucket=BUCKET_NAME)
-            logging.info(f"Bucket '{BUCKET_NAME}' created successfully.")
+            logging.info("Bucket '%s' created successfully.", BUCKET_NAME)
         else:
-            logging.error(f"Error checking/creating bucket: {e}")
+            logging.error("Error checking/creating bucket: %s", e)
             raise
 
     # Iterate through each file to upload
     for object_name, file_path in FILES_TO_UPLOAD.items():
         if not os.path.exists(file_path):
-            logging.warning(f"Skipping upload for '{file_path}': File does not exist locally.")
+            logging.warning("Skipping upload for '%s': File does not exist locally.", file_path)
             continue
 
         try:
@@ -74,24 +77,24 @@ def main():
         try:
             response = s3.head_object(Bucket=BUCKET_NAME, Key=object_name)
             etag = response['ETag'].strip('"')
-            logging.info(f"Found existing object '{object_name}' with ETag: {etag}")
+            logging.info("Found existing object '%s' with ETag: %s", object_name, etag)
         except ClientError as e:
             error_code = int(e.response['Error']['Code'])
             if error_code == 404:
-                logging.info(f"Object '{object_name}' not found in bucket. Will upload.")
+                logging.info("Object '%s' not found in bucket. Will upload.", object_name)
             else:
-                logging.warning(f"Unexpected error when checking object in MinIO for '{object_name}': {e}")
-        
+                logging.warning("Unexpected error when checking object in MinIO for '%s': %s", object_name, e)
+
         if etag != file_md5:
-            logging.info(f"File '{file_path}' new or changed. Uploading new version as '{object_name}'...")
+            logging.info("File '%s' new or changed. Uploading new version as '%s'...", file_path, object_name)
             try:
                 s3.upload_file(file_path, BUCKET_NAME, object_name)
-                logging.info(f"Successfully uploaded '{file_path}' to '{BUCKET_NAME}/{object_name}'.")
+                logging.info("Successfully uploaded '%s' to '%s/%s'.", file_path, BUCKET_NAME, object_name)
             except Exception as e:
-                logging.error(f"Error uploading file '{file_path}' to Minio: {e}")
+                logging.error("Error uploading file '%s' to Minio: %s", file_path, e)
                 raise
         else:
-            logging.info(f"No changes detected for '{file_path}'. Skipping upload.")
+            logging.info("No changes detected for '%s'. Skipping upload.", file_path)
 
 if __name__ == '__main__':
     main()

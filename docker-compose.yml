@@ -20,6 +20,7 @@ x-airflow-common: &airflow-common
     - ./airflow-data/logs:/opt/airflow/logs
     - ./airflow-data/plugins:/opt/airflow/plugins
     - ./airflow-data/airflow.cfg:/opt/airflow/airflow.cfg
+    - ./dbt_profiles:/opt/airflow/.dbt
 
 services:
 
@@ -72,9 +73,10 @@ services:
       - "8082:8082"
     volumes:
       - ./dags:/opt/airflow/dags
-      - ./logs:/opt/airflow/logs
-      - ./plugins:/opt/airflow/plugins
+      - ./airflow-data/logs:/opt/airflow/logs
+      - ./airflow-data/plugins:/opt/airflow/plugins
       - ./airflow-data/airflow.cfg:/opt/airflow/airflow.cfg
+      - ./dbt_profiles:/opt/airflow/.dbt
     command: webserver
 
   # ✅ Airflow Init Service (runs once after everything is set up)
