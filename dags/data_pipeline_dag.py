@@ -4,7 +4,7 @@
 # This DAG orchestrates a data pipeline that extracts data, loads it into a database,
 import os
 from airflow import DAG
-from airflow.operators.bash import BashOperator # Correct import path for BashOperator
+from airflow.wh.bash import BashOperator # Correct import path for BashOperator
 from airflow.providers.slack.operators.slack_webhook import SlackWebhookOperator
 # from airflow.utils.dates import days_ago # Deprecated in newer Airflow versions
 from datetime import timedelta

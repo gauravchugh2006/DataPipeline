@@ -13699,3 +13699,192 @@ having count(*) > 1
 [0m12:54:25.422778 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002C864CA2360>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002C8698CFDA0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002C8651F2480>]}
 [0m12:54:25.423372 [debug] [MainThread]: Flushing usage events
 [0m12:54:25.842153 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m15:21:36.016812 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EC88631AF0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EC85B52BD0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EC88614170>]}
+
+
+============================== 15:21:36.027404 | 17efc3d8-1c54-4cf7-bb9b-7139aef80698 ==============================
+[0m15:21:36.027404 [info ] [MainThread]: Running with dbt=1.9.6
+[0m15:21:36.031417 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'debug': 'False', 'profiles_dir': 'C:\\Users\\Gaurav Chugh\\.dbt', 'log_path': 'C:\\Project\\DataPipeline\\dags\\dbt_project\\logs', 'version_check': 'True', 'fail_fast': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'None', 'quiet': 'False', 'no_print': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'invocation_command': 'dbt test', 'introspect': 'True', 'log_format': 'default', 'target_path': 'None', 'static_parser': 'True', 'send_anonymous_usage_stats': 'True'}
+[0m15:21:36.298205 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '17efc3d8-1c54-4cf7-bb9b-7139aef80698', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EC8A0C6ED0>]}
+[0m15:21:36.352156 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '17efc3d8-1c54-4cf7-bb9b-7139aef80698', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EC8880CFB0>]}
+[0m15:21:36.359029 [info ] [MainThread]: Registered adapter: postgres=1.9.0
+[0m15:21:36.567540 [debug] [MainThread]: checksum: dd6dc1e5178459e3de3bf2eeb7c86bed4be2266c311fce8c15d86eb4ff94e7ad, vars: {}, profile: , target: , version: 1.9.6
+[0m15:21:36.791483 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m15:21:36.791483 [debug] [MainThread]: Partial parsing enabled, no changes found, skipping parsing
+[0m15:21:36.820344 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '17efc3d8-1c54-4cf7-bb9b-7139aef80698', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EC8A1334D0>]}
+[0m15:21:36.884184 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Project\DataPipeline\dags\dbt_project\target\manifest.json
+[0m15:21:36.962328 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Project\DataPipeline\dags\dbt_project\target\semantic_manifest.json
+[0m15:21:37.085792 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '17efc3d8-1c54-4cf7-bb9b-7139aef80698', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EC8A0C4F20>]}
+[0m15:21:37.085792 [info ] [MainThread]: Found 10 models, 23 data tests, 4 sources, 766 macros
+[0m15:21:37.092835 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '17efc3d8-1c54-4cf7-bb9b-7139aef80698', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EC8A14C770>]}
+[0m15:21:37.092835 [info ] [MainThread]: 
+[0m15:21:37.092835 [info ] [MainThread]: Concurrency: 1 threads (target='dev')
+[0m15:21:37.092835 [info ] [MainThread]: 
+[0m15:21:37.092835 [debug] [MainThread]: Acquiring new postgres connection 'master'
+[0m15:21:37.100153 [debug] [ThreadPool]: Acquiring new postgres connection 'list_datamart_public'
+[0m15:21:37.251577 [debug] [ThreadPool]: Using postgres connection "list_datamart_public"
+[0m15:21:37.251577 [debug] [ThreadPool]: On list_datamart_public: BEGIN
+[0m15:21:37.251577 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m15:21:37.317141 [debug] [ThreadPool]: Postgres adapter: Got a retryable error when attempting to open a postgres connection.
+1 attempts remaining. Retrying in 0 seconds.
+Error:
+connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "dwh_user"
+
+[0m15:21:37.360270 [debug] [ThreadPool]: Postgres adapter: Error running SQL: BEGIN
+[0m15:21:37.360270 [debug] [ThreadPool]: Postgres adapter: Rolling back transaction.
+[0m15:21:37.360270 [debug] [ThreadPool]: Postgres adapter: Error running SQL: macro list_relations_without_caching
+[0m15:21:37.360270 [debug] [ThreadPool]: Postgres adapter: Rolling back transaction.
+[0m15:21:37.360270 [debug] [ThreadPool]: On list_datamart_public: No close available on handle
+[0m15:21:37.366948 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m15:21:37.368198 [debug] [MainThread]: Connection 'list_datamart_public' was properly closed.
+[0m15:21:37.368198 [info ] [MainThread]: 
+[0m15:21:37.374935 [info ] [MainThread]: Finished running  in 0 hours 0 minutes and 0.28 seconds (0.28s).
+[0m15:21:37.374935 [error] [MainThread]: Encountered an error:
+Database Error
+  connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "dwh_user"
+  
+[0m15:21:37.378817 [debug] [MainThread]: Command `dbt test` failed at 15:21:37.378284 after 1.58 seconds
+[0m15:21:37.378817 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EC887D4CB0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EC8A7AD640>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001EC8A2893D0>]}
+[0m15:21:37.378817 [debug] [MainThread]: Flushing usage events
+[0m15:21:37.777354 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m15:22:47.796804 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E983D62B70>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E986781C70>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E98694C170>]}
+
+
+============================== 15:22:47.802798 | 56b92b3a-cdde-49b8-991b-85ca1d6a499a ==============================
+[0m15:22:47.802798 [info ] [MainThread]: Running with dbt=1.9.6
+[0m15:22:47.803802 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'debug': 'False', 'version_check': 'True', 'log_path': 'C:\\Project\\DataPipeline\\dags\\dbt_project\\logs', 'fail_fast': 'False', 'profiles_dir': 'C:\\Users\\Gaurav Chugh\\.dbt', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'empty': 'None', 'log_format': 'default', 'introspect': 'True', 'static_parser': 'True', 'invocation_command': 'dbt docs generate', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'send_anonymous_usage_stats': 'True'}
+[0m15:22:47.947794 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '56b92b3a-cdde-49b8-991b-85ca1d6a499a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E987EA9850>]}
+[0m15:22:47.996442 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '56b92b3a-cdde-49b8-991b-85ca1d6a499a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E986DA4A10>]}
+[0m15:22:47.996442 [info ] [MainThread]: Registered adapter: postgres=1.9.0
+[0m15:22:48.191725 [debug] [MainThread]: checksum: dd6dc1e5178459e3de3bf2eeb7c86bed4be2266c311fce8c15d86eb4ff94e7ad, vars: {}, profile: , target: , version: 1.9.6
+[0m15:22:48.328483 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m15:22:48.329264 [debug] [MainThread]: Partial parsing enabled, no changes found, skipping parsing
+[0m15:22:48.369483 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '56b92b3a-cdde-49b8-991b-85ca1d6a499a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E987EDDB20>]}
+[0m15:22:48.404919 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '56b92b3a-cdde-49b8-991b-85ca1d6a499a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E98844AAE0>]}
+[0m15:22:48.405429 [info ] [MainThread]: Found 10 models, 23 data tests, 4 sources, 766 macros
+[0m15:22:48.405429 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '56b92b3a-cdde-49b8-991b-85ca1d6a499a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E9882E42F0>]}
+[0m15:22:48.408077 [info ] [MainThread]: 
+[0m15:22:48.409138 [info ] [MainThread]: Concurrency: 1 threads (target='dev')
+[0m15:22:48.410273 [info ] [MainThread]: 
+[0m15:22:48.415253 [debug] [MainThread]: Acquiring new postgres connection 'master'
+[0m15:22:48.419072 [debug] [ThreadPool]: Acquiring new postgres connection 'list_datamart_public'
+[0m15:22:48.484363 [debug] [ThreadPool]: Using postgres connection "list_datamart_public"
+[0m15:22:48.484363 [debug] [ThreadPool]: On list_datamart_public: BEGIN
+[0m15:22:48.484363 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m15:22:48.525524 [debug] [ThreadPool]: Postgres adapter: Got a retryable error when attempting to open a postgres connection.
+1 attempts remaining. Retrying in 0 seconds.
+Error:
+connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "dwh_user"
+
+[0m15:22:48.581636 [debug] [ThreadPool]: Postgres adapter: Error running SQL: BEGIN
+[0m15:22:48.581636 [debug] [ThreadPool]: Postgres adapter: Rolling back transaction.
+[0m15:22:48.581636 [debug] [ThreadPool]: Postgres adapter: Error running SQL: macro list_relations_without_caching
+[0m15:22:48.581636 [debug] [ThreadPool]: Postgres adapter: Rolling back transaction.
+[0m15:22:48.581636 [debug] [ThreadPool]: On list_datamart_public: No close available on handle
+[0m15:22:48.581636 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m15:22:48.581636 [debug] [MainThread]: Connection 'list_datamart_public' was properly closed.
+[0m15:22:48.581636 [error] [MainThread]: Encountered an error:
+Database Error
+  connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "dwh_user"
+  
+[0m15:22:48.585271 [debug] [MainThread]: Command `dbt docs generate` failed at 15:22:48.585271 after 1.08 seconds
+[0m15:22:48.585271 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E9866B2F30>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E98895F920>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E98892BDA0>]}
+[0m15:22:48.586306 [debug] [MainThread]: Flushing usage events
+[0m15:22:49.060967 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m15:25:08.796492 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018564E72060>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000185648AC6B0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000185648AC620>]}
+
+
+============================== 15:25:08.798687 | 47edbc37-8451-4234-a66e-e28dc9a1453b ==============================
+[0m15:25:08.798687 [info ] [MainThread]: Running with dbt=1.9.6
+[0m15:25:08.800696 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'debug': 'False', 'profiles_dir': 'C:\\Users\\Gaurav Chugh\\.dbt', 'log_path': 'C:\\Project\\DataPipeline\\dags\\dbt_project\\logs', 'version_check': 'True', 'fail_fast': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'None', 'quiet': 'False', 'no_print': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'static_parser': 'True', 'invocation_command': 'dbt docs generate', 'introspect': 'True', 'target_path': 'None', 'log_format': 'default', 'send_anonymous_usage_stats': 'True'}
+[0m15:25:08.950735 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '47edbc37-8451-4234-a66e-e28dc9a1453b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018565172E40>]}
+[0m15:25:08.994625 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '47edbc37-8451-4234-a66e-e28dc9a1453b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018565301160>]}
+[0m15:25:08.994625 [info ] [MainThread]: Registered adapter: postgres=1.9.0
+[0m15:25:09.190670 [debug] [MainThread]: checksum: dd6dc1e5178459e3de3bf2eeb7c86bed4be2266c311fce8c15d86eb4ff94e7ad, vars: {}, profile: , target: , version: 1.9.6
+[0m15:25:09.331887 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m15:25:09.333895 [debug] [MainThread]: Partial parsing enabled, no changes found, skipping parsing
+[0m15:25:09.366834 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '47edbc37-8451-4234-a66e-e28dc9a1453b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018565025940>]}
+[0m15:25:09.393583 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '47edbc37-8451-4234-a66e-e28dc9a1453b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018566AB4920>]}
+[0m15:25:09.393583 [info ] [MainThread]: Found 10 models, 23 data tests, 4 sources, 766 macros
+[0m15:25:09.393583 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '47edbc37-8451-4234-a66e-e28dc9a1453b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018566B7E780>]}
+[0m15:25:09.398833 [info ] [MainThread]: 
+[0m15:25:09.398833 [info ] [MainThread]: Concurrency: 1 threads (target='dev')
+[0m15:25:09.398833 [info ] [MainThread]: 
+[0m15:25:09.401350 [debug] [MainThread]: Acquiring new postgres connection 'master'
+[0m15:25:09.404358 [debug] [ThreadPool]: Acquiring new postgres connection 'list_datamart_public'
+[0m15:25:09.492862 [debug] [ThreadPool]: Using postgres connection "list_datamart_public"
+[0m15:25:09.493369 [debug] [ThreadPool]: On list_datamart_public: BEGIN
+[0m15:25:09.493369 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m15:25:09.544728 [debug] [ThreadPool]: Postgres adapter: Got a retryable error when attempting to open a postgres connection.
+1 attempts remaining. Retrying in 0 seconds.
+Error:
+connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "dwh_user"
+
+[0m15:25:09.593337 [debug] [ThreadPool]: Postgres adapter: Error running SQL: BEGIN
+[0m15:25:09.593337 [debug] [ThreadPool]: Postgres adapter: Rolling back transaction.
+[0m15:25:09.594424 [debug] [ThreadPool]: Postgres adapter: Error running SQL: macro list_relations_without_caching
+[0m15:25:09.594424 [debug] [ThreadPool]: Postgres adapter: Rolling back transaction.
+[0m15:25:09.594424 [debug] [ThreadPool]: On list_datamart_public: No close available on handle
+[0m15:25:09.596431 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m15:25:09.597484 [debug] [MainThread]: Connection 'list_datamart_public' was properly closed.
+[0m15:25:09.598009 [error] [MainThread]: Encountered an error:
+Database Error
+  connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "dwh_user"
+  
+[0m15:25:09.598009 [debug] [MainThread]: Command `dbt docs generate` failed at 15:25:09.598009 after 1.00 seconds
+[0m15:25:09.598009 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018564E9B5C0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018566F9F7A0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018566865E80>]}
+[0m15:25:09.598009 [debug] [MainThread]: Flushing usage events
+[0m15:25:10.036144 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m15:28:09.685684 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000016E020F1640>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000016E020F10D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000016E020F2030>]}
+
+
+============================== 15:28:09.690679 | d2037caf-f333-4d94-9f5b-950d29b6b24e ==============================
+[0m15:28:09.690679 [info ] [MainThread]: Running with dbt=1.9.6
+[0m15:28:09.693049 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': 'C:\\Users\\Gaurav Chugh\\.dbt', 'version_check': 'True', 'warn_error': 'None', 'log_path': 'C:\\Project\\DataPipeline\\dags\\dbt_project\\logs', 'debug': 'False', 'fail_fast': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'empty': 'False', 'log_format': 'default', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'invocation_command': 'dbt build --project-dir C:\\Project\\DataPipeline\\dags\\dbt_project', 'target_path': 'None', 'introspect': 'True', 'send_anonymous_usage_stats': 'True'}
+[0m15:28:09.898422 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': 'd2037caf-f333-4d94-9f5b-950d29b6b24e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000016E0257CFB0>]}
+[0m15:28:09.960860 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': 'd2037caf-f333-4d94-9f5b-950d29b6b24e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000016E01505AF0>]}
+[0m15:28:09.960860 [info ] [MainThread]: Registered adapter: postgres=1.9.0
+[0m15:28:10.233982 [debug] [MainThread]: checksum: dd6dc1e5178459e3de3bf2eeb7c86bed4be2266c311fce8c15d86eb4ff94e7ad, vars: {}, profile: , target: , version: 1.9.6
+[0m15:28:10.472244 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m15:28:10.472797 [debug] [MainThread]: Partial parsing enabled, no changes found, skipping parsing
+[0m15:28:10.521940 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': 'd2037caf-f333-4d94-9f5b-950d29b6b24e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000016E03A8EF60>]}
+[0m15:28:10.625722 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Project\DataPipeline\dags\dbt_project\target\manifest.json
+[0m15:28:10.679965 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Project\DataPipeline\dags\dbt_project\target\semantic_manifest.json
+[0m15:28:10.752007 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': 'd2037caf-f333-4d94-9f5b-950d29b6b24e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000016E03A8EEA0>]}
+[0m15:28:10.753008 [info ] [MainThread]: Found 10 models, 23 data tests, 4 sources, 766 macros
+[0m15:28:10.759006 [info ] [MainThread]: 
+[0m15:28:10.760867 [info ] [MainThread]: Concurrency: 1 threads (target='dev')
+[0m15:28:10.760867 [info ] [MainThread]: 
+[0m15:28:10.761873 [debug] [MainThread]: Acquiring new postgres connection 'master'
+[0m15:28:10.767871 [debug] [ThreadPool]: Acquiring new postgres connection 'list_datamart'
+[0m15:28:10.869502 [debug] [ThreadPool]: Using postgres connection "list_datamart"
+[0m15:28:10.869502 [debug] [ThreadPool]: On list_datamart: /* {"app": "dbt", "dbt_version": "1.9.6", "profile_name": "data_pipeline", "target_name": "dev", "connection_name": "list_datamart"} */
+
+    select distinct nspname from pg_namespace
+  
+[0m15:28:10.869502 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m15:28:10.938052 [debug] [ThreadPool]: Postgres adapter: Got a retryable error when attempting to open a postgres connection.
+1 attempts remaining. Retrying in 0 seconds.
+Error:
+connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "dwh_user"
+
+[0m15:28:11.009525 [debug] [ThreadPool]: Postgres adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.9.6", "profile_name": "data_pipeline", "target_name": "dev", "connection_name": "list_datamart"} */
+
+    select distinct nspname from pg_namespace
+  
+[0m15:28:11.010531 [debug] [ThreadPool]: Postgres adapter: Rolling back transaction.
+[0m15:28:11.010531 [debug] [ThreadPool]: Postgres adapter: Error running SQL: macro list_schemas
+[0m15:28:11.011900 [debug] [ThreadPool]: Postgres adapter: Rolling back transaction.
+[0m15:28:11.011900 [debug] [ThreadPool]: On list_datamart: No close available on handle
+[0m15:28:11.012745 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m15:28:11.013507 [debug] [MainThread]: Connection 'list_datamart' was properly closed.
+[0m15:28:11.014021 [info ] [MainThread]: 
+[0m15:28:11.014021 [info ] [MainThread]: Finished running  in 0 hours 0 minutes and 0.25 seconds (0.25s).
+[0m15:28:11.015029 [error] [MainThread]: Encountered an error:
+Database Error
+  connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "dwh_user"
+  
+[0m15:28:11.016260 [debug] [MainThread]: Command `dbt build` failed at 15:28:11.016260 after 1.58 seconds
+[0m15:28:11.017258 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000016E7FF010A0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000016E04145CD0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000016E044DB050>]}
+[0m15:28:11.017258 [debug] [MainThread]: Flushing usage events
+[0m15:28:11.455376 [debug] [MainThread]: An error was encountered while trying to flush usage events
