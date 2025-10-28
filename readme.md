@@ -213,3 +213,4 @@ customer_id,first_name,last_name,email,phone,address,signup_date
 1028,Charles,Martin,charles.martin1028@example.com,+16441895989,"575 Maple Rd, Central City, USA",2022-12-05 18:54:41
 1029,Sarah,Miller,sarah.miller1029@example.com,+14997054610,"574 Elm St, Otherville, USA",2022-11-25 22:37:22
 1030,Karen,Robinson,karen.robinson1030@example.com,+12679485704,"159 Main St, Central City, USA",2023-03-15 02:52:17
+new branch add
