@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    tables:
+      - name: raw_data
+      - name: products
+      - name: payments
+      - name: customers_source

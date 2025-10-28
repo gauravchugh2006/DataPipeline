@@ -20,28 +20,22 @@ project-root/
 │   ├── data_pipeline_dag.py   # Orchestrates extraction, loading, transformation, quality checks, enrichment, and notification
 │   ├── extract_to_minio.py    # Uploads CSV to object storage (MinIO)
 │   ├── load_to_postgres.py    # Loads CSV into PostgreSQL
-│   ├── data_quality_check.py  # Validates data with Great Expectations
+│   ├── data_quality_check.py  # Validates data with lightweight Pandas checks
 │   ├── data_enrichment.py     # Aggregates and enriches data (e.g., computes KPIs)
 │   ├── data_source/
 │   │   ├── customers_source.csv # Ecommerce Platform customers csv data
 │   │   └── sample_data.csv    # Sample orders data from 10-20 customers for past 3 months
 │   └── dbt_project/           # Contains DBT configuration and models for data transformation
 │       ├── dbt_project.yml  
-│       ├── models/ 
-│       │   ├── raw_to_normalized.sql
-│       │   ├── marts/
-│       │   |    ├── customers.sql
-│       │   |    ├── orders.sql
-│       │   |    ├── payments.sql
-│       │   |    ├── products.sql
-│       │   |    └── reviews.sql
-│       │   └── staging/
-│       │        ├── stg_customers.sql
-│       │        ├── stg_orders.sql
-│       │        ├── stg_payments.sql
-│       │        ├── stg_products.sql
-│       │        └── stg_raw_data.sql
-│       └── schema.yml         # Documentation and tests for transformed data
+│       ├── models/
+│       │   ├── staging/       # Raw-layer staging models sourced from MinIO data
+│       │   │   ├── stg_customers.sql
+│       │   │   ├── stg_order_items.sql
+│       │   │   ├── stg_payments.sql
+│       │   │   └── stg_products.sql
+│       │   └── marts/         # Analytics-friendly models and metrics
+│       │       ├── fact_order_items.sql
+│       │       └── order_metrics.sql
 ├── data_source/               # Raw input files (e.g., sample_data.csv, customers_source.csv)
 ├── datahub_ingestion.yml      # Configuration for DataHub metadata ingestion
 └── README.md                  # Project documentation
@@ -121,7 +115,7 @@ This project implements an end-to-end data pipeline that not only handles the co
 - **Extraction:** Reads data from a CSV source and uploads it into an S3-compatible object store (MinIO) if the file contents have changed.
 - **Loading:** Downloads the data from MinIO and loads it into a PostgreSQL data warehouse.
 - **Transformation:** Uses DBT to transform raw data into normalized tables with tests and documentation.
-- **Data Quality Validation:** Runs automated quality checks with Great Expectations to ensure key business rules are met.
+- **Data Quality Validation:** Runs automated Pandas-based checks to ensure key business rules (nulls, duplicates, negative values) are caught early.
 - **Data Enrichment:** Aggregates key performance indicators (KPIs) from transformed data to support dashboard analytics.
 - **Orchestration:** Airflow manages the pipeline tasks in a directed acyclic graph (DAG) to ensure proper execution order.
 - **Metadata & Dashboarding:** DataHub ingests metadata while Superset provides interactive dashboards.
@@ -132,15 +126,34 @@ This project implements an end-to-end data pipeline that not only handles the co
 
 Ensure you have the following installed on your Windows machine:
 
-- **Windows 10/11**  
+- **Windows 10/11**
 - **Docker Desktop for Windows**  
   - Docker Compose support (v2 or later)
 - **Git**  
   - [Git LFS](https://git-lfs.github.com/) if you plan on tracking large files  
-- **Python 3.11** (for custom scripts and local testing)  
-- **Development Tools:**  
-  - A text/code editor (e.g., Visual Studio Code)  
+- **Python 3.11** (for custom scripts and local testing)
+- **Development Tools:**
+  - A text/code editor (e.g., Visual Studio Code)
   - (Optional) Overleaf or a LaTeX editor if you require advanced documentation formatting
+
+---
+
+## Quick start (Docker Compose)
+
+1. (Optional) Create a `.env` file to override connection values defined in `docker-compose.yml`.
+2. Start the full stack (Postgres, MinIO, Airflow, etc.):
+   ```bash
+   docker compose up -d --build
+   ```
+3. Initialize Airflow metadata and create the admin account (only required the first time):
+   ```bash
+   docker compose run --rm airflow-init
+   ```
+4. Trigger the pipeline from the Airflow UI at http://localhost:8082/ (enable the `data_pipeline` DAG and trigger a run).
+5. Inspect results:
+   - Raw tables in Postgres (`postgres_dw`, database `datamart`, schema `raw`).
+   - dbt models in schema `analytics`.
+   - Enriched KPIs in `analytics.category_kpis`.
 
 ---
 

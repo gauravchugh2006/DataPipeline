@@ -1,24 +1,43 @@
-#!/usr/bin/env python3
+"""Generate additional KPIs from the dbt models and persist them in Postgres."""
+import logging
+import os
+
 import pandas as pd
 from sqlalchemy import create_engine
 
-DATABASE_URI = "postgresql+psycopg2://dwh_user:dwh_password@localhost:5432/datamart"
+DATABASE_URI = os.getenv(
+    "POSTGRES_DWH_CONN",
+    "postgresql+psycopg2://dwh_user:dwh_password@postgres_dw:5432/datamart",
+)
+SOURCE_TABLE = os.getenv("DBT_METRICS_TABLE", "analytics.order_metrics")
+TARGET_TABLE = os.getenv("ENRICHED_TABLE", "analytics.category_kpis")
 
-def enrich_data():
+if "." in TARGET_TABLE:
+    TARGET_SCHEMA, TARGET_NAME = TARGET_TABLE.split(".", 1)
+else:  # pragma: no cover - fallback for unexpected configuration
+    TARGET_SCHEMA, TARGET_NAME = "public", TARGET_TABLE
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+
+
+def enrich_data() -> None:
     engine = create_engine(DATABASE_URI)
-    # Read the transformed (normalized) data from DBT output; adjust table name as needed.
-    df = pd.read_sql("SELECT * FROM customers", engine)
-    
-    # Example enrichment: aggregate a metric by category.
-    if "category" in df.columns and "sales" in df.columns:
-        kpi = df.groupby("category").agg(total_sales=("sales", "sum")).reset_index()
-    else:
-        # Fallback: just count the number of rows per unique column1 value.
-        kpi = df.groupby("column1").size().reset_index(name="row_count")
 
-    # Write the aggregated KPIs to a new table in the data warehouse
-    kpi.to_sql("kpi_metrics", engine, if_exists="replace", index=False)
-    print("Data enrichment complete. KPI metrics stored in 'kpi_metrics'.")
+    logging.info("Loading metrics from %s", SOURCE_TABLE)
+    df_metrics = pd.read_sql(f"SELECT * FROM {SOURCE_TABLE}", engine)
 
-if __name__ == '__main__':
+    if df_metrics.empty:
+        logging.warning("No metrics found to enrich; exiting without writing output.")
+        return
+
+    enriched = df_metrics.assign(
+        average_order_value=lambda df: df["total_revenue"] / df["orders"],
+    )
+
+    logging.info("Writing enriched KPIs to %s.%s", TARGET_SCHEMA, TARGET_NAME)
+    enriched.to_sql(TARGET_NAME, engine, schema=TARGET_SCHEMA, if_exists="replace", index=False)
+    logging.info("Data enrichment complete.")
+
+
+if __name__ == "__main__":
     enrich_data()
