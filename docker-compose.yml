@@ -6,7 +6,7 @@ networks:
 
 # Define the custom Airflow settings that will be reused (the anchor must be defined first)
 x-airflow-common: &airflow-common
-  image: apache/airflow:2.3.4
+  image: apache/airflow:2.3.4-python3.10
   environment:
     - AIRFLOW__CORE__EXECUTOR=LocalExecutor
     - AIRFLOW__CORE__FERNET_KEY=ehE_UybKeIGETmag57Fy1MBeAIQRWDt7NS9zcl017Yg=
@@ -18,7 +18,7 @@ x-airflow-common: &airflow-common
     - AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow/dags
     - AIRFLOW__WEBSERVER__WEB_SERVER_PORT=8082
     - AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG=1
-    - _PIP_ADDITIONAL_REQUIREMENTS=pandas==1.5.3 psycopg2-binary==2.9.5 boto3==1.26.76 dbt-core==1.4.5 dbt-postgres==1.4.5 minio==7.1.13
+    - _PIP_ADDITIONAL_REQUIREMENTS=pandas==2.0.3 psycopg2-binary==2.9.5 boto3==1.28.85 dbt-core==1.5.6 dbt-postgres==1.4.5 minio==7.1.13
   volumes:
     - ./dags:/opt/airflow/dags:rw
     - ./airflow-data/logs:/opt/airflow/logs:rw
@@ -64,7 +64,7 @@ services:
 
   ### 🚀 Apache Airflow ###
   airflow:
-    image: apache/airflow:2.3.4
+    image: apache/airflow:2.3.4-python3.10
     container_name: airflow
     restart: always
     environment:
@@ -85,7 +85,7 @@ services:
 
   # ✅ Airflow Init Service (runs once after everything is set up)
   airflow-init:
-    image: apache/airflow:2.3.4       # Use the same version as your primary Airflow service
+    image: apache/airflow:2.3.4-python3.10       # Use the same version as your primary Airflow service
     container_name: airflow_init
     restart: "no"                   # Do not restart—run once and exit
     environment:
