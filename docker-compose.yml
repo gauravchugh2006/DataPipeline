@@ -11,16 +11,20 @@ x-airflow-common: &airflow-common
     - AIRFLOW__CORE__EXECUTOR=LocalExecutor
     - AIRFLOW__CORE__FERNET_KEY=ehE_UybKeIGETmag57Fy1MBeAIQRWDt7NS9zcl017Yg=
     - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres_airflow/airflow
-    - AIRFLOW__CORE__LOAD_EXAMPLES=False
+    - AIRFLOW__CORE__LOAD_EXAMPLES=True
     - AIRFLOW__CORE__DAGS_ARE_PAUSED_CREATION=True
     - AIRFLOW__CORE__LOGGING_LEVEL=INFO
     - AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK=True
+    - AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow/dags
+    - AIRFLOW__WEBSERVER__WEB_SERVER_PORT=8082
+    - AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG=1
+    - _PIP_ADDITIONAL_REQUIREMENTS=pandas==1.5.3 psycopg2-binary==2.9.5 boto3==1.26.76 dbt-core==1.4.5 dbt-postgres==1.4.5 minio==7.1.13
   volumes:
-    - ./dags:/opt/airflow/dags
-    - ./airflow-data/logs:/opt/airflow/logs
-    - ./airflow-data/plugins:/opt/airflow/plugins
-    - ./airflow-data/airflow.cfg:/opt/airflow/airflow.cfg
-    - ./dbt_profiles:/opt/airflow/.dbt
+    - ./dags:/opt/airflow/dags:rw
+    - ./airflow-data/logs:/opt/airflow/logs:rw
+    - ./airflow-data/plugins:/opt/airflow/plugins:rw
+    - ./airflow-data/airflow.cfg:/opt/airflow/airflow.cfg:rw
+    - ./dbt_profiles:/opt/airflow/.dbt:rw
 
 services:
 
@@ -66,7 +70,7 @@ services:
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres_airflow/airflow
-      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__LOAD_EXAMPLES: "true"
     depends_on:
       - postgres_airflow
     ports:
@@ -87,7 +91,7 @@ services:
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres_airflow/airflow
-      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__LOAD_EXAMPLES: "true"
     command: >
       bash -cx '
       echo "Waiting for Postgres to be ready...";
@@ -245,6 +249,16 @@ services:
       DATAHUB_GMS_PORT: 8080
       DATAHUB_SECRET: YouKnowNothing
       KAFKA_BOOTSTRAP_SERVER: broker:29092
+      EBEAN_DATASOURCE_USERNAME: dwh_user
+      EBEAN_DATASOURCE_PASSWORD: dwh_password
+      EBEAN_DATASOURCE_HOST: postgres_dw
+      EBEAN_DATASOURCE_PORT: 5432
+      EBEAN_DATASOURCE_URL: jdbc:postgresql://postgres_dw:5432/datamart
+      EBEAN_DATASOURCE_DRIVER: org.postgresql.Driver
+      NEO4J_HOST: neo4j:7687
+      NEO4J_URI: bolt://neo4j:7687
+      NEO4J_USERNAME: neo4j
+      NEO4J_PASSWORD: datahub
     ports:
       - "8080:8080"
     depends_on:

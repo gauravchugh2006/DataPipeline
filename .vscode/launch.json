@@ -1,0 +1,18 @@
+{
+    // Launch configuration for debugging Airflow DAGs with Python
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Airflow DAG (Python)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/dags/<your_dag_file>.py", // Replace with your DAG file path
+            "console": "integratedTerminal",
+            "env": {
+                "AIRFLOW_HOME": "${workspaceFolder}/airflow"
+            },
+            "args": [],
+            "justMyCode": false
+        }
+    ]
+}
