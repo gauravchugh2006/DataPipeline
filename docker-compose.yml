@@ -145,11 +145,11 @@ services:
       POSTGRES_PASSWORD: dwh_password
       POSTGRES_DB: datamart
     healthcheck:
-     test: ["CMD", "pg_isready", "-U", "dwh_user"]
+     test: ["CMD-SHELL", "pg_isready -U dwh_user -d datamart -h localhost || exit 1"]
      interval: 10s
-     retries: 5
-     start_period: 15s
      timeout: 5s
+     retries: 5
+     start_period: 30s
     restart: always
     ports:
       - "5432:5432"
