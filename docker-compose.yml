@@ -18,7 +18,7 @@ x-airflow-common: &airflow-common
     - AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow/dags
     - AIRFLOW__WEBSERVER__WEB_SERVER_PORT=8082
     - AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG=1
-    - _PIP_ADDITIONAL_REQUIREMENTS=pandas==2.0.3 psycopg2-binary==2.9.5 boto3==1.28.85 dbt-core==1.5.6 dbt-postgres==1.4.5 minio==7.1.13
+    - _PIP_ADDITIONAL_REQUIREMENTS=pandas==2.0.3 psycopg2-binary==2.9.5 boto3==1.26.76 dbt-core==1.4.5 dbt-postgres==1.4.5 minio==7.1.13
   volumes:
     - ./dags:/opt/airflow/dags:rw
     - ./airflow-data/logs:/opt/airflow/logs:rw
@@ -131,8 +131,8 @@ services:
       MINIO_ROOT_PASSWORD: minioadmin
     command: server /data --console-address ":9001"
     ports:
-      - "9000:9000"
-      - "9001:9001"
+      - "9000:9000" # → Connects to container port 9000 (API Server) / Used for S3-compatible object storage operations
+      - "9001:9001"  # → Connects to container port 9001 (Console) / Admin Dashboard
     volumes:
       - minio_data:/data
 
