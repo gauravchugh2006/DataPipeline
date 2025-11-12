@@ -35,11 +35,16 @@ with DAG(
         "MINIO_ACCESS_KEY": os.getenv("MINIO_ACCESS_KEY", "minioadmin"),
         "MINIO_SECRET_KEY": os.getenv("MINIO_SECRET_KEY", "minioadmin"),
         "MINIO_BUCKET": os.getenv("MINIO_BUCKET", "raw-data"),
-        "POSTGRES_DWH_CONN": os.getenv(
-            "POSTGRES_DWH_CONN",
-            "postgresql+psycopg2://dwh_user:dwh_password@postgres_dw:5432/datamart",
-        ),
     }
+
+    postgres_conn = os.getenv("POSTGRES_DWH_CONN")
+    if postgres_conn:
+        common_env["POSTGRES_DWH_CONN"] = postgres_conn
+    else:
+        for var in ("POSTGRES_DWH_USER", "POSTGRES_DWH_PASSWORD", "POSTGRES_DWH_HOST", "POSTGRES_DWH_DB"):
+            value = os.getenv(var)
+            if value:
+                common_env[var] = value
 
     extract_task = BashOperator(
         task_id="extract_data",

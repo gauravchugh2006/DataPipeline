@@ -5,12 +5,26 @@ import os
 import pandas as pd
 from sqlalchemy import create_engine
 
-DATABASE_URI = os.getenv(
-    "POSTGRES_DWH_CONN",
-    "postgresql+psycopg2://dwh_user:dwh_password@postgres_dw:5432/datamart",
-)
 SOURCE_TABLE = os.getenv("DBT_METRICS_TABLE", "analytics.order_metrics")
 TARGET_TABLE = os.getenv("ENRICHED_TABLE", "analytics.category_kpis")
+
+
+def resolve_database_uri() -> str:
+    conn = os.getenv("POSTGRES_DWH_CONN")
+    if conn:
+        return conn
+
+    password = os.getenv("POSTGRES_DWH_PASSWORD")
+    if not password:
+        raise ValueError(
+            "POSTGRES_DWH_PASSWORD environment variable must be set when POSTGRES_DWH_CONN is not provided."
+        )
+
+    user = os.getenv("POSTGRES_DWH_USER", "dwh_user")
+    host = os.getenv("POSTGRES_DWH_HOST", "postgres_dw")
+    database = os.getenv("POSTGRES_DWH_DB", "datamart")
+    port = os.getenv("POSTGRES_DWH_PORT", "5432")
+    return f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}"
 
 if "." in TARGET_TABLE:
     TARGET_SCHEMA, TARGET_NAME = TARGET_TABLE.split(".", 1)
@@ -21,7 +35,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 
 
 def enrich_data() -> None:
-    engine = create_engine(DATABASE_URI)
+    engine = create_engine(resolve_database_uri())
 
     logging.info("Loading metrics from %s", SOURCE_TABLE)
     df_metrics = pd.read_sql(f"SELECT * FROM {SOURCE_TABLE}", engine)
