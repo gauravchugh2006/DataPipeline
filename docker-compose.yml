@@ -165,10 +165,15 @@ services:
       - postgres_sonar
     environment:
       SONAR_JDBC_URL: jdbc:postgresql://postgres_sonar:5432/sonar
-      SONAR_JDBC_USERNAME: sonar
-      SONAR_JDBC_PASSWORD: sonar
+      SONAR_JDBC_USERNAME: sonar    # ← This is the DATABASE user
+      SONAR_JDBC_PASSWORD: sonar    # ← This is the DATABASE password
+      SONARQUBE_JDBC_USERNAME: sonar
+      SONARQUBE_JDBC_PASSWORD: sonar
+    # Add this to set a custom admin password:
+    # Note: This only works on first initialization, before password is set
+    # SONARQUBE_ADMIN_PASSWORD: your_secure_password (default is user 'admin' and password 'admin')
     ports:
-      - "9000:9000"
+      - "9003:9000"  # ✅ Host port 9003 → Container port 9000 (SonarQube Web Interface)
 
   ### 🐘 PostgreSQL for SonarQube ###
   postgres_sonar:
