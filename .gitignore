@@ -78,3 +78,10 @@ dags/dbt_project/logs/
 dags/dbt_project/target/
 
 dags/dbt_project/logs/dbt.log
+.scannerwork/
+.sonar/
+.bamboo/
+.scannerwork/**/reports/
+.scannerwork/**/out/
+.sonar/**/reports/
+.sonar/**/out/
