@@ -59,6 +59,8 @@ DataPipeline/
 ✅ SonarQube shows code quality metrics for both data-pipeline-qa and data-pipeline-prod
 ✅ Airflow UI accessible at http://qa-ec2-ip:8080 and http://prod-ec2-ip:8080
 ✅ Docker containers running on both EC2 instances (docker-compose ps)
+✅ Unit tests executed with `pytest --cov=dags --cov-report xml` and the resulting
+  `coverage.xml` archived as a build artefact for SonarQube quality gates
 ✅ Email alerts sent on build success/failure
 
 ## This Setup Gives You

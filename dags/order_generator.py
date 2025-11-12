@@ -1,18 +1,53 @@
-"""Utilities for generating synthetic ecommerce orders and customers."""
+"""Utilities for generating synthetic ecommerce orders and customers.
+
+The generator previously relied on module-level ``Path`` objects that were
+resolved when the module was imported.  That made it difficult to reuse the
+logic in tests or in alternative environments because the CSV location was
+effectively hard coded.  The scheduler tasks that execute this module are
+mounted inside the Airflow container, while unit tests run in an isolated
+temporary directory.  To support both use cases we resolve the paths lazily on
+each call, optionally honouring the ``DATA_PIPELINE_SOURCE_DIR`` environment
+variable.
+
+During local development this means you can point the generator at a sandbox
+directory without modifying source code and unit tests can provide fixture data
+without polluting the real CSV files that drive the demo pipeline.
+"""
 from __future__ import annotations
 
 import csv
 import json
+import os
 import random
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, Iterable, List
 
-DATA_DIR = Path(__file__).resolve().parent / "data_source"
-ORDERS_FILE = DATA_DIR / "sample_data.csv"
-CUSTOMERS_FILE = DATA_DIR / "customers_source.csv"
-STATE_FILE = DATA_DIR / "order_generation_state.json"
+
+DATA_SOURCE_ENV = "DATA_PIPELINE_SOURCE_DIR"
+DEFAULT_DATA_DIR = Path(__file__).resolve().parent / "data_source"
+
+
+def _resolve_data_dir() -> Path:
+    """Return the directory that stores the CSV sources for order generation."""
+
+    override = os.getenv(DATA_SOURCE_ENV)
+    if override:
+        return Path(override).expanduser().resolve()
+    return DEFAULT_DATA_DIR
+
+
+def _orders_file() -> Path:
+    return _resolve_data_dir() / "sample_data.csv"
+
+
+def _customers_file() -> Path:
+    return _resolve_data_dir() / "customers_source.csv"
+
+
+def _state_file() -> Path:
+    return _resolve_data_dir() / "order_generation_state.json"
 
 ORDER_COLUMNS = [
     "order_id",
@@ -190,17 +225,17 @@ class OrderRow:
         }
 
 
-def _load_state() -> Dict[str, int]:
-    if not STATE_FILE.exists():
+def _load_state(state_path: Path) -> Dict[str, int]:
+    if not state_path.exists():
         return {"next_customer_batch_size": 2}
     try:
-        return json.loads(STATE_FILE.read_text())
+        return json.loads(state_path.read_text())
     except json.JSONDecodeError:
         return {"next_customer_batch_size": 2}
 
 
-def _save_state(state: Dict[str, int]) -> None:
-    STATE_FILE.write_text(json.dumps(state))
+def _save_state(state: Dict[str, int], state_path: Path) -> None:
+    state_path.write_text(json.dumps(state))
 
 
 def _read_int_column(rows: Iterable[Dict[str, str]], column: str) -> List[int]:
@@ -294,16 +329,20 @@ def generate_orders() -> None:
     appended to ``sample_data.csv``.
     """
 
-    if not ORDERS_FILE.exists():
-        raise FileNotFoundError(f"Orders file not found: {ORDERS_FILE}")
-    if not CUSTOMERS_FILE.exists():
-        raise FileNotFoundError(f"Customers file not found: {CUSTOMERS_FILE}")
+    orders_file = _orders_file()
+    customers_file = _customers_file()
+    state_file = _state_file()
 
-    with ORDERS_FILE.open("r", newline="") as csvfile:
+    if not orders_file.exists():
+        raise FileNotFoundError(f"Orders file not found: {orders_file}")
+    if not customers_file.exists():
+        raise FileNotFoundError(f"Customers file not found: {customers_file}")
+
+    with orders_file.open("r", newline="") as csvfile:
         order_reader = csv.DictReader(csvfile)
         existing_orders = list(order_reader)
 
-    with CUSTOMERS_FILE.open("r", newline="") as csvfile:
+    with customers_file.open("r", newline="") as csvfile:
         customer_reader = csv.DictReader(csvfile)
         existing_customers = list(customer_reader)
 
@@ -315,7 +354,7 @@ def generate_orders() -> None:
     existing_customer_ids = _read_int_column(existing_customers, "customer_id")
     original_customer_ids = list(existing_customer_ids)
 
-    state = _load_state()
+    state = _load_state(state_file)
     next_batch_size = state.get("next_customer_batch_size", 2)
     next_batch_size = 2 if next_batch_size not in (2, 3) else next_batch_size
     next_state_size = 3 if next_batch_size == 2 else 2
@@ -329,7 +368,7 @@ def generate_orders() -> None:
 
     # Append new customers first so subsequent batches treat them as existing.
     if new_customers:
-        _append_rows(CUSTOMERS_FILE, CUSTOMER_COLUMNS, new_customers)
+        _append_rows(customers_file, CUSTOMER_COLUMNS, new_customers)
         existing_customer_ids.extend(int(row["customer_id"]) for row in new_customers)
 
     base_timestamp = datetime.utcnow()
@@ -368,10 +407,10 @@ def generate_orders() -> None:
             )
         )
 
-    _append_rows(ORDERS_FILE, ORDER_COLUMNS, (row.to_dict() for row in order_rows))
+    _append_rows(orders_file, ORDER_COLUMNS, (row.to_dict() for row in order_rows))
 
     state["next_customer_batch_size"] = next_state_size
-    _save_state(state)
+    _save_state(state, state_file)
 
 
 if __name__ == "__main__":
