@@ -10,19 +10,22 @@ from airflow.providers.slack.operators.slack_webhook import SlackWebhookOperator
 AIRFLOW_HOME = os.getenv("AIRFLOW_HOME", "/opt/airflow")
 DBT_PROJECT_DIR = os.path.join(AIRFLOW_HOME, "dags", "dbt_project")
 DBT_PROFILES_DIR = os.getenv("DBT_PROFILES_DIR", "/opt/airflow/.dbt")
+DATA_PIPELINE_SCHEDULE = os.getenv("DATA_PIPELINE_SCHEDULE", "*/5 * * * *")
+START_OFFSET_MINUTES = int(os.getenv("DATA_PIPELINE_START_OFFSET_MINUTES", "5"))
 
 
 default_args = {
     "owner": "airflow",
-    "start_date": pendulum.datetime(2024, 1, 1, tz="UTC"),
+    "start_date": pendulum.now("UTC").subtract(minutes=START_OFFSET_MINUTES),
     "retry_delay": timedelta(minutes=5),
     "retries": 3,
+    "depends_on_past": False,
 }
 
 with DAG(
     dag_id="data_pipeline",
     default_args=default_args,
-    schedule_interval="@daily",
+    schedule_interval=DATA_PIPELINE_SCHEDULE,
     catchup=False,
     is_paused_upon_creation=False,
     tags=["ecommerce", "data_pipeline"],
