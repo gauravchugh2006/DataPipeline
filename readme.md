@@ -204,6 +204,12 @@ docker compose --profile zap up zap-baseline
 docker compose --profile zap up zap-full
 ```
 
+## CI/CD Pipeline
+
+See [CI/CD Documentation](./README-CI-CD.md) for complete setup and deployment instructions.
+
+
+
 Reports are written to `security-reports/` as HTML, JSON, and XML files. Adjust the target URL in `docker-compose.yml` if you
 want to scan a different service (for example Superset or a custom API).
 
