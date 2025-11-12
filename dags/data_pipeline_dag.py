@@ -24,6 +24,7 @@ with DAG(
     default_args=default_args,
     schedule_interval="@daily",
     catchup=False,
+    is_paused_upon_creation=False,
     tags=["ecommerce", "data_pipeline"],
 ) as dag:
     common_env = {

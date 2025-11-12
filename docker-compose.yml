@@ -12,7 +12,7 @@ x-airflow-common: &airflow-common
     - AIRFLOW__CORE__FERNET_KEY=ehE_UybKeIGETmag57Fy1MBeAIQRWDt7NS9zcl017Yg=
     - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres_airflow/airflow
     - AIRFLOW__CORE__LOAD_EXAMPLES=True
-    - AIRFLOW__CORE__DAGS_ARE_PAUSED_CREATION=True
+    - AIRFLOW__CORE__DAGS_ARE_PAUSED_CREATION=False
     - AIRFLOW__CORE__LOGGING_LEVEL=INFO
     - AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK=True
     - AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow/dags
@@ -162,9 +162,9 @@ services:
     container_name: sonarqube
     restart: always
     depends_on:
-      - postgres
+      - postgres_sonar
     environment:
-      SONAR_JDBC_URL: jdbc:postgresql://postgres:5432/sonar
+      SONAR_JDBC_URL: jdbc:postgresql://postgres_sonar:5432/sonar
       SONAR_JDBC_USERNAME: sonar
       SONAR_JDBC_PASSWORD: sonar
     ports:
@@ -194,11 +194,11 @@ services:
   zap-baseline:
     image: ghcr.io/zaproxy/zaproxy:weekly
     depends_on:
-      - web
+      - airflow
     working_dir: /zap/wrk
     command: >
       zap-baseline.py
-      -t http://web:5000
+      -t http://airflow:8082
       -r zap-baseline.html
       -J zap-report.json
       -x zap-report.xml
@@ -212,11 +212,11 @@ services:
   zap-full:
     image: ghcr.io/zaproxy/zaproxy:weekly
     depends_on:
-      - web
+      - airflow
     working_dir: /zap/wrk
     command: >
       zap-full-scan.py
-      -t http://web:5000
+      -t http://airflow:8082
       -r zap-full.html
       -J zap-full.json
       -x zap-full.xml
