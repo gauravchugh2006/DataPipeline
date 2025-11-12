@@ -13,6 +13,7 @@ with DAG(
     start_date=pendulum.datetime(2024, 1, 1, tz="UTC"),
     schedule_interval="*/3 * * * *",
     catchup=False,
+    is_paused_upon_creation=False,
     tags=["ecommerce", "orders", "demo"],
 ) as dag:
     generate_orders_task = PythonOperator(

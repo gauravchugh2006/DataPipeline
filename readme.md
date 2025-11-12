@@ -149,11 +149,63 @@ Ensure you have the following installed on your Windows machine:
    ```bash
    docker compose run --rm airflow-init
    ```
-4. Trigger the pipeline from the Airflow UI at http://localhost:8082/ (enable the `data_pipeline` DAG and trigger a run).
+4. Monitor progress in the Airflow UI at http://localhost:8082/ (the DAGs start automatically; pause/resume from the toggle if needed).
 5. Inspect results:
    - Raw tables in Postgres (`postgres_dw`, database `datamart`, schema `raw`).
    - dbt models in schema `analytics`.
    - Enriched KPIs in `analytics.category_kpis`.
+
+### DAG auto-activation
+
+Airflow inside the compose stack now ships with `AIRFLOW__CORE__DAGS_ARE_PAUSED_CREATION=False` and the core DAGs
+(`data_pipeline` and `generate_random_orders`) are created with `is_paused_upon_creation=False`. As soon as the scheduler is
+healthy the generator DAG will begin writing fresh CSV data every three minutes and the main pipeline will execute on its
+configured cadence without any manual clicks in the UI.
+
+If you need to temporarily pause the automation, toggle the DAG switch in the Airflow UI.
+
+### Find the active repository quickly
+
+When you have multiple checkouts open it can be hard to remember which project is in a given terminal. From anywhere inside
+the repository run:
+
+```bash
+git rev-parse --show-toplevel
+# or just the folder name
+basename "$(git rev-parse --show-toplevel)"
+```
+
+This prints the absolute path (or only the directory name) of the Git repository that the current shell is operating in.
+
+### Local SonarQube scan workflow
+
+1. Start the supporting containers and wait for SonarQube to finish booting (first run can take a few minutes):
+   ```bash
+   docker compose up -d postgres_sonar sonarqube
+   ```
+2. Open http://localhost:9000 and create a token (default credentials: `admin` / `admin`).
+3. Install the [SonarScanner CLI](https://docs.sonarsource.com/sonarqube/latest/analyzing-source-code/scanners/sonarscanner/).
+4. Run an analysis from the project root, passing the generated token:
+   ```bash
+   sonar-scanner -Dsonar.login=<your-token>
+   ```
+   The bundled `sonar-project.properties` is already aligned with the repository layout.
+
+### OWASP ZAP baseline and full scans
+
+The docker compose file defines ZAP services under the `zap` profile so that they only run when explicitly requested. After
+the stack (especially the Airflow webserver) is healthy, launch a scan against the Airflow UI:
+
+```bash
+# Baseline passive scan
+docker compose --profile zap up zap-baseline
+
+# Full active scan (longer and intrusive)
+docker compose --profile zap up zap-full
+```
+
+Reports are written to `security-reports/` as HTML, JSON, and XML files. Adjust the target URL in `docker-compose.yml` if you
+want to scan a different service (for example Superset or a custom API).
 
 ---
 
