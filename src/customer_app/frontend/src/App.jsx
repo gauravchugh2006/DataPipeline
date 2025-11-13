@@ -10,11 +10,11 @@ import DashboardPage from "./pages/DashboardPage.jsx";
 import AdminPage from "./pages/AdminPage.jsx";
 
 const PrivateRoute = ({ children, roles }) => {
-  const { user } = useAuth();
-  if (!user) {
+  const { profile } = useAuth();
+  if (!profile) {
     return <Navigate to="/dashboard" replace />;
   }
-  if (roles && !roles.includes(user.role)) {
+  if (roles && !roles.includes(profile.role)) {
     return <Navigate to="/" replace />;
   }
   return children;

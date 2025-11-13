@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { apiClient } from "../hooks/useProducts.js";
 import { useAuth } from "../context/AuthContext.jsx";
 
-const STATUSES = ["pending", "preparing", "ready", "completed", "cancelled"];
+const ORDER_STATUSES = ["Paid", "Pending", "Refunded"];
+const TRANSACTION_STATUSES = ["Completed", "Pending", "Refunded"];
 
 const AdminPage = () => {
   const { token } = useAuth();
@@ -20,14 +21,26 @@ const AdminPage = () => {
     loadOrders();
   }, [token]);
 
-  const updateStatus = async (orderId, status) => {
+  const updateStatus = async (orderId, status, transactionStatus) => {
     await apiClient.patch(
       `/orders/${orderId}/status`,
-      { status },
+      { status, transactionStatus },
       { headers: { Authorization: `Bearer ${token}` } }
     );
     setOrders((prev) =>
-      prev.map((order) => (order.id === orderId ? { ...order, status } : order))
+      prev.map((order) =>
+        order.id === orderId
+          ? {
+              ...order,
+              paymentStatus: status,
+              payment: order.payment
+                ? { ...order.payment, status: transactionStatus || order.payment.status }
+                : transactionStatus
+                ? { method: "Manual", status: transactionStatus }
+                : order.payment,
+            }
+          : order
+      )
     );
   };
 
@@ -46,25 +59,42 @@ const AdminPage = () => {
               <div>
                 <p className="text-sm uppercase text-cafe-primary/50">Order #{order.id}</p>
                 <p className="text-sm text-cafe-primary/70">
-                  Customer: {order.customer_name || order.user_id}
+                  Customer: {
+                    order.customer
+                      ? [order.customer.firstName, order.customer.lastName].filter(Boolean).join(" ")
+                      : `#${order.customerId}`
+                  }
                 </p>
               </div>
-              <select
-                value={order.status}
-                onChange={(event) => updateStatus(order.id, event.target.value)}
-                className="rounded-2xl border border-cafe-primary/10 px-4 py-2"
-              >
-                {STATUSES.map((status) => (
-                  <option key={status} value={status}>
-                    {status}
-                  </option>
-                ))}
-              </select>
+              <div className="flex flex-wrap gap-2">
+                <select
+                  value={order.paymentStatus}
+                  onChange={(event) => updateStatus(order.id, event.target.value, order.payment?.status)}
+                  className="rounded-2xl border border-cafe-primary/10 px-4 py-2"
+                >
+                  {ORDER_STATUSES.map((status) => (
+                    <option key={status} value={status}>
+                      {status}
+                    </option>
+                  ))}
+                </select>
+                <select
+                  value={order.payment?.status || "Pending"}
+                  onChange={(event) => updateStatus(order.id, order.paymentStatus, event.target.value)}
+                  className="rounded-2xl border border-cafe-primary/10 px-4 py-2"
+                >
+                  {TRANSACTION_STATUSES.map((status) => (
+                    <option key={status} value={status}>
+                      {status}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
             <ul className="mt-4 text-sm text-cafe-primary/80 space-y-1">
               {order.items.map((item) => (
-                <li key={`${order.id}-${item.variantId}`}>
-                  {item.quantity} × {item.productName} — €{Number(item.unitPrice).toFixed(2)}
+                <li key={`${order.id}-${item.productId}`}>
+                  {item.quantity || 1} × {item.productName} — €{Number(item.price).toFixed(2)}
                 </li>
               ))}
             </ul>

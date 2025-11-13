@@ -1,119 +1,200 @@
-export const createOrder = async (pool, { userId, status = "pending", items }) => {
-  const connection = await pool.getConnection();
+const SORT_COLUMNS = {
+  order_date: "o.order_date",
+  total: "o.total_amount",
+  status: "o.payment_status",
+  payment: "p.transaction_status",
+};
+
+const buildFilters = ({
+  status,
+  paymentMethod,
+  transactionStatus,
+  search,
+  startDate,
+  endDate,
+  customerId,
+}, role, requesterId) => {
+  const conditions = [];
+  const params = [];
+
+  if (role !== "admin") {
+    conditions.push("o.customer_id = ?");
+    params.push(requesterId);
+  } else if (customerId) {
+    conditions.push("o.customer_id = ?");
+    params.push(Number(customerId));
+  }
+
+  if (status) {
+    conditions.push("o.payment_status = ?");
+    params.push(status);
+  }
+
+  if (paymentMethod) {
+    conditions.push("p.payment_method = ?");
+    params.push(paymentMethod);
+  }
+
+  if (transactionStatus) {
+    conditions.push("p.transaction_status = ?");
+    params.push(transactionStatus);
+  }
+
+  if (startDate) {
+    conditions.push("o.order_date >= ?");
+    params.push(startDate);
+  }
+
+  if (endDate) {
+    conditions.push("o.order_date <= ?");
+    params.push(endDate);
+  }
+
+  if (search) {
+    conditions.push("(o.id = ? OR pr.name LIKE ?)");
+    params.push(Number.isNaN(Number(search)) ? 0 : Number(search));
+    params.push(`%${search}%`);
+  }
+
+  const whereClause = conditions.length ? `WHERE ${conditions.join(" AND ")}` : "";
+  return { whereClause, params };
+};
+
+const parseItems = (raw) => {
+  if (!raw) {
+    return [];
+  }
   try {
-    await connection.beginTransaction();
-    const subtotal = items.reduce(
-      (acc, item) => acc + Number(item.unitPrice) * Number(item.quantity),
-      0
-    );
-    const tax = subtotal * 0.08;
-    const total = subtotal + tax;
-
-    const [orderResult] = await connection.query(
-      `INSERT INTO orders (user_id, status, subtotal, tax, total) VALUES (?, ?, ?, ?, ?)`,
-      [userId, status, subtotal, tax, total]
-    );
-
-    const orderId = orderResult.insertId;
-
-    for (const item of items) {
-      await connection.query(
-        `INSERT INTO order_items (order_id, product_variant_id, quantity, unit_price)
-         VALUES (?, ?, ?, ?)`,
-        [orderId, item.variantId, item.quantity, item.unitPrice]
-      );
-    }
-
-    await connection.commit();
-    return { id: orderId, subtotal, tax, total };
+    return JSON.parse(raw);
   } catch (error) {
-    await connection.rollback();
-    throw error;
-  } finally {
-    connection.release();
+    return [];
   }
 };
 
-export const listOrders = async (pool, { userId, role }) => {
-  const params = [];
-  let whereClause = "";
-  if (role !== "admin") {
-    whereClause = "WHERE o.user_id = ?";
-    params.push(userId);
-  }
+export const listOrders = async (
+  pool,
+  { userId, role, filters = {} }
+) => {
+  const page = Math.max(Number(filters.page) || 1, 1);
+  const pageSize = Math.min(Math.max(Number(filters.pageSize) || 10, 1), 100);
+  const offset = (page - 1) * pageSize;
+
+  const sortColumn = SORT_COLUMNS[filters.sortBy] || SORT_COLUMNS.order_date;
+  const sortDirection = (filters.sortDir || "desc").toLowerCase() === "asc" ? "ASC" : "DESC";
+
+  const { whereClause, params } = buildFilters(filters, role, userId);
+
+  const baseQuery = `
+    FROM orders o
+    JOIN customers c ON c.id = o.customer_id
+    LEFT JOIN payments p ON p.order_id = o.id
+    LEFT JOIN order_items oi ON oi.order_id = o.id
+    LEFT JOIN products pr ON pr.id = oi.product_id
+    ${whereClause}
+  `;
+
+  const [countRows] = await pool.query(
+    `SELECT COUNT(DISTINCT o.id) AS total ${baseQuery}`,
+    params
+  );
+  const total = Number(countRows[0]?.total || 0);
 
   const [rows] = await pool.query(
     `SELECT
         o.id,
-        o.status,
-        o.subtotal,
-        o.tax,
-        o.total,
-        o.created_at,
-        u.name AS customer_name,
+        o.customer_id,
+        o.order_date,
+        o.total_amount,
+        o.payment_status,
+        c.first_name,
+        c.last_name,
+        c.email,
+        p.id AS payment_id,
+        p.payment_method,
+        p.transaction_status,
         JSON_ARRAYAGG(
           JSON_OBJECT(
-            'variantId', oi.product_variant_id,
+            'productId', oi.product_id,
+            'productName', oi.product_name,
+            'category', oi.category,
+            'price', oi.price,
             'quantity', oi.quantity,
-            'unitPrice', oi.unit_price,
-            'productName', p.name,
-            'color', v.color,
-            'size', v.size
+            'imageUrl', pr.image_url
           )
         ) AS items
-      FROM orders o
-      JOIN order_items oi ON oi.order_id = o.id
-      JOIN product_variants v ON v.id = oi.product_variant_id
-      JOIN products p ON p.id = v.product_id
-      JOIN users u ON u.id = o.user_id
-      ${whereClause}
+      ${baseQuery}
       GROUP BY o.id
-      ORDER BY o.created_at DESC`,
-    params
+      ORDER BY ${sortColumn} ${sortDirection}
+      LIMIT ? OFFSET ?`,
+    [...params, pageSize, offset]
   );
 
-  return rows.map((row) => ({
-    ...row,
-    customer_name: row.customer_name,
-    items: JSON.parse(row.items || "[]"),
+  const items = rows.map((row) => ({
+    id: row.id,
+    customerId: row.customer_id,
+    orderDate: row.order_date,
+    totalAmount: Number(row.total_amount),
+    paymentStatus: row.payment_status,
+    customer: {
+      firstName: row.first_name,
+      lastName: row.last_name,
+      email: row.email,
+    },
+    payment: row.payment_id
+      ? {
+          id: row.payment_id,
+          method: row.payment_method,
+          status: row.transaction_status,
+        }
+      : null,
+    items: parseItems(row.items),
   }));
+
+  const totalPages = Math.max(Math.ceil(total / pageSize), 1);
+
+  return {
+    items,
+    page,
+    pageSize,
+    total,
+    totalPages,
+  };
 };
 
 export const getOrderById = async (pool, orderId, { userId, role }) => {
-  const params = [orderId];
-  let accessClause = "";
-  if (role !== "admin") {
-    accessClause = "AND o.user_id = ?";
-    params.push(userId);
-  }
+  const filters = { search: String(orderId) };
+  const { whereClause, params } = buildFilters(filters, role, userId);
+  params.push(Number(orderId));
 
   const [rows] = await pool.query(
     `SELECT
         o.id,
-        o.status,
-        o.subtotal,
-        o.tax,
-        o.total,
-        o.created_at,
-        o.user_id,
-        u.name AS customer_name,
+        o.customer_id,
+        o.order_date,
+        o.total_amount,
+        o.payment_status,
+        c.first_name,
+        c.last_name,
+        c.email,
+        p.id AS payment_id,
+        p.payment_method,
+        p.transaction_status,
         JSON_ARRAYAGG(
           JSON_OBJECT(
-            'variantId', oi.product_variant_id,
+            'productId', oi.product_id,
+            'productName', oi.product_name,
+            'category', oi.category,
+            'price', oi.price,
             'quantity', oi.quantity,
-            'unitPrice', oi.unit_price,
-            'productName', p.name,
-            'color', v.color,
-            'size', v.size
+            'imageUrl', pr.image_url
           )
         ) AS items
       FROM orders o
-      JOIN order_items oi ON oi.order_id = o.id
-      JOIN product_variants v ON v.id = oi.product_variant_id
-      JOIN products p ON p.id = v.product_id
-      JOIN users u ON u.id = o.user_id
-      WHERE o.id = ?
-      ${accessClause}
+      JOIN customers c ON c.id = o.customer_id
+      LEFT JOIN payments p ON p.order_id = o.id
+      LEFT JOIN order_items oi ON oi.order_id = o.id
+      LEFT JOIN products pr ON pr.id = oi.product_id
+      ${whereClause ? `${whereClause} AND o.id = ?` : "WHERE o.id = ?"}
       GROUP BY o.id`,
     params
   );
@@ -122,18 +203,102 @@ export const getOrderById = async (pool, orderId, { userId, role }) => {
     return null;
   }
 
-  const order = rows[0];
+  const row = rows[0];
   return {
-    ...order,
-    customer_name: order.customer_name,
-    items: JSON.parse(order.items || "[]"),
+    id: row.id,
+    customerId: row.customer_id,
+    orderDate: row.order_date,
+    totalAmount: Number(row.total_amount),
+    paymentStatus: row.payment_status,
+    customer: {
+      firstName: row.first_name,
+      lastName: row.last_name,
+      email: row.email,
+    },
+    payment: row.payment_id
+      ? {
+          id: row.payment_id,
+          method: row.payment_method,
+          status: row.transaction_status,
+        }
+      : null,
+    items: parseItems(row.items),
   };
 };
 
-export const updateOrderStatus = async (pool, orderId, status) => {
+export const createOrder = async (
+  pool,
+  { customerId, items, totalAmount, paymentStatus = "Pending", payment }
+) => {
+  const connection = await pool.getConnection();
+  try {
+    await connection.beginTransaction();
+
+    const orderDate = new Date();
+    const [result] = await connection.query(
+      `INSERT INTO orders (id, customer_id, order_date, total_amount, payment_status)
+       VALUES (NULL, ?, ?, ?, ?)`,
+      [customerId, orderDate, totalAmount, paymentStatus]
+    );
+    const orderId = result.insertId;
+
+    for (const item of items) {
+      await connection.query(
+        `INSERT INTO order_items (order_id, product_id, product_name, category, price, quantity)
+         VALUES (?, ?, ?, ?, ?, ?)
+         ON DUPLICATE KEY UPDATE price = VALUES(price), quantity = VALUES(quantity)`,
+        [
+          orderId,
+          item.productId,
+          item.productName,
+          item.category,
+          item.price,
+          item.quantity || 1,
+        ]
+      );
+    }
+
+    if (payment && payment.method) {
+      await connection.query(
+        `INSERT INTO payments (id, order_id, payment_method, transaction_status)
+         VALUES (?, ?, ?, ?)
+         ON DUPLICATE KEY UPDATE payment_method = VALUES(payment_method), transaction_status = VALUES(transaction_status)`,
+        [
+          payment.id || null,
+          orderId,
+          payment.method,
+          payment.status || paymentStatus,
+        ]
+      );
+    }
+
+    await connection.commit();
+    return getOrderById(pool, orderId, { userId: customerId, role: "customer" });
+  } catch (error) {
+    await connection.rollback();
+    throw error;
+  } finally {
+    connection.release();
+  }
+};
+
+export const updateOrderStatus = async (
+  pool,
+  orderId,
+  status,
+  paymentStatus
+) => {
   const [result] = await pool.query(
-    `UPDATE orders SET status = ?, updated_at = NOW() WHERE id = ?`,
+    `UPDATE orders SET payment_status = ?, updated_at = NOW() WHERE id = ?`,
     [status, orderId]
   );
+
+  if (paymentStatus) {
+    await pool.query(
+      `UPDATE payments SET transaction_status = ?, recorded_at = NOW() WHERE order_id = ?`,
+      [paymentStatus, orderId]
+    );
+  }
+
   return result.affectedRows > 0;
 };

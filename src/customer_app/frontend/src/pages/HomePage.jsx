@@ -1,35 +1,40 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 
 import Hero from "../components/Hero.jsx";
 import ProductFilters from "../components/ProductFilters.jsx";
-import FilterPills from "../components/FilterPills.jsx";
 import ProductGrid from "../components/ProductGrid.jsx";
 import { useProducts } from "../hooks/useProducts.js";
 
 const HomePage = () => {
-  const [filters, setFilters] = useState({ limit: 9, offset: 0 });
-  const { data = [], isLoading } = useProducts(filters);
+  const [filters, setFilters] = useState({ page: 1, pageSize: 25, sort: "name" });
+  const { data, isLoading } = useProducts(filters);
 
-  const clearFilter = (key) => {
-    if (key === "all") {
-      setFilters({ limit: 9, offset: 0 });
-    } else {
-      setFilters((prev) => ({ ...prev, [key]: "", offset: 0 }));
-    }
+  const resetFilters = () => setFilters({ page: 1, pageSize: 25, sort: "name" });
+
+  const handleFilterChange = (next) => {
+    setFilters((prev) => ({ ...prev, ...next }));
   };
 
-  const nextFilters = useMemo(
-    () => ({ ...filters, offset: Number(filters.offset || 0) }),
-    [filters]
-  );
+  const handlePageChange = (page) => {
+    setFilters((prev) => ({ ...prev, page }));
+  };
 
   return (
     <div>
       <Hero />
-      <section className="container mx-auto px-6 py-16 space-y-8">
-        <ProductFilters filters={nextFilters} onChange={setFilters} />
-        <FilterPills filters={nextFilters} onClear={clearFilter} />
-        <ProductGrid products={data} isLoading={isLoading} />
+      <section className="container mx-auto px-6 py-16">
+        <div className="grid gap-8 xl:grid-cols-[280px,1fr]">
+          <ProductFilters filters={filters} onChange={handleFilterChange} onReset={resetFilters} />
+          <div className="bg-white rounded-3xl p-6 card-shadow space-y-4">
+            <div>
+              <h2 className="text-2xl font-semibold">Browse the collection</h2>
+              <p className="text-sm text-cafe-primary/70">
+                Scroll through 25 curated products per page with quick filters on the side.
+              </p>
+            </div>
+            <ProductGrid data={data} isLoading={isLoading} onPageChange={handlePageChange} />
+          </div>
+        </div>
       </section>
     </div>
   );

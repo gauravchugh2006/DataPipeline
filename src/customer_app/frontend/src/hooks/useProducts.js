@@ -10,7 +10,7 @@ export const useProducts = (filters) => {
     queryKey: ["products", filters],
     queryFn: async () => {
       const { data } = await api.get("/products", { params: filters });
-      return data.items;
+      return data;
     },
     keepPreviousData: true,
   });

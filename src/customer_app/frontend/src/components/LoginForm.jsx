@@ -5,16 +5,18 @@ import { apiClient } from "../hooks/useProducts.js";
 import { useAuth } from "../context/AuthContext.jsx";
 
 const LoginForm = () => {
-  const { setToken } = useAuth();
+  const { setSession } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    reset,
   } = useForm();
 
   const onSubmit = async (values) => {
     const { data } = await apiClient.post("/auth/login", values);
-    setToken(data.token);
+    setSession(data.token, data.profile);
+    reset();
   };
 
   return (

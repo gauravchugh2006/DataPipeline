@@ -14,18 +14,16 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   const filters = {
     category: req.query.category,
-    color: req.query.color,
-    size: req.query.size,
     minPrice: req.query.minPrice,
     maxPrice: req.query.maxPrice,
     search: req.query.search,
     sort: req.query.sort,
-    limit: req.query.limit,
-    offset: req.query.offset,
+    page: req.query.page,
+    pageSize: req.query.pageSize,
   };
 
-  const products = await listProducts(req.db, filters);
-  res.json({ items: products });
+  const result = await listProducts(req.db, filters);
+  res.json(result);
 });
 
 router.get("/:id", async (req, res) => {

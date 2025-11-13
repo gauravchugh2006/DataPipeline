@@ -10,13 +10,13 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_ITEM": {
       const existing = state.items.find(
-        (item) => item.variantId === action.payload.variantId
+        (item) => item.productId === action.payload.productId
       );
       if (existing) {
         return {
           ...state,
           items: state.items.map((item) =>
-            item.variantId === action.payload.variantId
+            item.productId === action.payload.productId
               ? { ...item, quantity: item.quantity + action.payload.quantity }
               : item
           ),
@@ -30,7 +30,7 @@ const reducer = (state, action) => {
     case "REMOVE_ITEM":
       return {
         ...state,
-        items: state.items.filter((item) => item.variantId !== action.payload),
+        items: state.items.filter((item) => item.productId !== action.payload),
       };
     case "CLEAR":
       return initialState;
