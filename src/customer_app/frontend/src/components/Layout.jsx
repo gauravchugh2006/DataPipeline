@@ -7,7 +7,7 @@ import { useCart } from "../context/CartContext.jsx";
 import CartDrawer from "./cart/CartDrawer.jsx";
 
 const Layout = ({ children }) => {
-  const { user, logout, personalizeTheme, theme } = useAuth();
+  const { profile, logout, personalizeTheme, theme } = useAuth();
   const { items } = useCart();
   const [open, setOpen] = useState(false);
 
@@ -28,7 +28,7 @@ const Layout = ({ children }) => {
           <nav className="flex items-center gap-6 text-sm uppercase tracking-wide">
             <NavLink to="/" className={({ isActive }) => (isActive ? "text-cafe-accent" : "hover:text-cafe-accent")}>Home</NavLink>
             <NavLink to="/dashboard" className={({ isActive }) => (isActive ? "text-cafe-accent" : "hover:text-cafe-accent")}>Dashboard</NavLink>
-            {user?.role === "admin" && (
+            {profile?.role === "admin" && (
               <NavLink to="/admin" className={({ isActive }) => (isActive ? "text-cafe-accent" : "hover:text-cafe-accent")}>Admin</NavLink>
             )}
             <button
@@ -49,7 +49,7 @@ const Layout = ({ children }) => {
             >
               {theme === "sunrise" ? <FaSun /> : <FaMoon />}
             </button>
-            {user ? (
+            {profile ? (
               <button
                 onClick={logout}
                 className="text-sm text-cafe-primary underline decoration-cafe-accent decoration-2"
