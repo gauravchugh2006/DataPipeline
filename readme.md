@@ -57,15 +57,23 @@ if (!(Test-Path "$env:USERPROFILE\.kube\config")) { New-Item "$env:USERPROFILE\.
    git rev-parse --show-toplevel         # absolute path
    basename "$(git rev-parse --show-toplevel)"  # repository name only
    ```
-2. **Bootstrap the services**
+2. **Provide secrets securely**
+   ```bash
+   cp .env.example .env                   # edit the placeholders with strong values
+   ```
+   The `.env` file is git-ignored and feeds Docker Compose, helper scripts, and
+   Airflow utility code.  Alternatively, export the environment variables in your
+   shell before launching the stack.
+3. **Bootstrap the services**
    ```bash
    docker compose up -d --build
    docker compose run --rm airflow-init  # first run only
    ```
-3. Airflow UI: http://localhost:8082 (default credentials `airflow` / `airflow`).
-4. Postgres data warehouse: `localhost:5432`, database `datamart`, user
-   `dwh_user`, password `dwh_password`.
-5. MinIO console: http://localhost:9001 (user `minioadmin`, password
+4. Airflow UI: http://localhost:8082 (default username `airflow`).  Use the
+   password you configured in `.env` (`AIRFLOW_DB_PASSWORD`).
+5. Postgres data warehouse: `localhost:5432`, database `datamart`, user
+   `dwh_user` unless overridden in `.env`.
+6. MinIO console: http://localhost:9001 (user `minioadmin`, password
    `minioadmin`).
 
 Both DAGs ship with `is_paused_upon_creation=False`.  The order generator appends
@@ -108,10 +116,13 @@ Airflow jobs.
    ```bash
    docker compose up -d postgres_sonar sonarqube
    ```
-2. Browse to http://localhost:9003, create a token, and run:
+2. Browse to http://localhost:9003, create a token, and export it before
+   running the scanner:
    ```bash
-   sonar-scanner -Dsonar.login=<your-token>
+   export SONAR_TOKEN=<your-token>
+   sonar-scanner
    ```
+   (On PowerShell use `$env:SONAR_TOKEN = '<your-token>'`.)
 3. Review the issues and coverage trends in the SonarQube UI.
 
 The bundled configuration scans `dags/` and `src/` while excluding the `tests`
@@ -138,6 +149,64 @@ CI runner.
 
 ---
 
+## Secret hygiene and validation workflow
+
+The repository no longer ships with embedded credentials.  Use the following
+checklist to configure, validate, and promote secret-aware deployments:
+
+### Local validation
+
+1. Create and populate `.env` (or export the equivalent environment variables)
+   with strong secrets for:
+   * `AIRFLOW_DB_PASSWORD`
+   * `POSTGRES_DWH_PASSWORD`
+   * `MYSQL_ROOT_PASSWORD`
+   * `SONAR_DB_PASSWORD`
+   * `SONAR_TOKEN` (runtime export only)
+2. Run the helper script with your local secrets:
+   ```powershell
+   $env:MYSQL_ROOT_PASSWORD='...'
+   $env:AIRFLOW_DB_PASSWORD='...'
+   powershell -ExecutionPolicy Bypass -File build_setup_install.ps1
+   ```
+   or, on Bash-compatible shells:
+   ```bash
+   export MYSQL_ROOT_PASSWORD=...
+   export AIRFLOW_DB_PASSWORD=...
+   pwsh ./build_setup_install.ps1
+   ```
+3. Trigger the data load directly to verify the Python code reads variables from
+   the environment:
+   ```bash
+   export POSTGRES_DWH_PASSWORD=...
+   python dags/load_to_postgres.py
+   ```
+4. Bring up Docker Compose with the `.env` file and confirm secrets were
+   injected:
+   ```bash
+   docker compose --env-file .env config | grep PASSWORD
+   docker compose up -d
+   ```
+5. Run the Sonar scan locally with the exported `SONAR_TOKEN` to confirm the
+   configuration works without hardcoded tokens.
+
+### AWS EC2 deployment checks
+
+1. Store the same secrets in AWS Secrets Manager or Systems Manager Parameter
+   Store.  Grant the EC2 instance profile permission to read them.
+2. During provisioning (UserData, Ansible, or your chosen orchestration), fetch
+   the secrets and export them before launching services:
+   ```bash
+   export AIRFLOW_DB_PASSWORD=$(aws secretsmanager get-secret-value ...)
+   export POSTGRES_DWH_PASSWORD=$(aws secretsmanager get-secret-value ...)
+   ```
+3. Ensure generated files on the instance (e.g. `/opt/data-pipeline/.env`) are
+   readable only by the service account (`chmod 600`).
+4. Start the Docker Compose stack and re-run the Python loader to confirm AWS
+   secrets are accessible.
+5. Trigger the CI/CD pipeline or execute `sonar-scanner` with the token supplied
+   via your CI secret store to validate the remote quality gate.
+
 ## Troubleshooting tips
 
 * **Missing schemas or tables** – wait for the first successful run of the
@@ -148,7 +217,8 @@ CI runner.
   pristine CSVs from version control.
 * **SonarScanner fails to authenticate** – ensure the host/port in
   `sonar-project.properties` matches the forwarded port (`9003` by default) and
-  regenerate the token after resetting SonarQube.
+  regenerate the token after resetting SonarQube.  Double-check that
+  `SONAR_TOKEN` is exported in the shell that launches the scanner.
 
 ---
 

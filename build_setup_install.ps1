@@ -1,3 +1,16 @@
+param(
+    [string]$MySqlPassword = $env:MYSQL_ROOT_PASSWORD,
+    [string]$AirflowDbPassword = $env:AIRFLOW_DB_PASSWORD
+)
+
+if (-not $MySqlPassword) {
+    throw "MySQL root password must be provided via the MySqlPassword parameter or MYSQL_ROOT_PASSWORD environment variable."
+}
+
+if (-not $AirflowDbPassword) {
+    throw "Airflow database password must be provided via the AirflowDbPassword parameter or AIRFLOW_DB_PASSWORD environment variable."
+}
+
 Write-Host "Starting Docker Compose services..."
 docker-compose up -d
 
@@ -13,7 +26,7 @@ function Check-Service {
 }
 
 function Check-MySQL-Health {
-    $health = docker exec -it mysql mysqladmin ping -h mysql -u root --password=datahub 2>&1 | Select-String "mysqld is alive"
+    $health = docker exec -it mysql mysqladmin ping -h mysql -u root --password=$MySqlPassword 2>&1 | Select-String "mysqld is alive"
     return $health -ne $null
 }
 

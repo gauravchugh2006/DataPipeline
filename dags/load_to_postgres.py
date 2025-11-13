@@ -20,11 +20,28 @@ FILES_TO_PROCESS = {
     "customers_source.csv": "customers_source"  # Customer detail data
 }
 
-POSTGRES_CONN = os.getenv(
-    "POSTGRES_DWH_CONN",
-    "postgresql+psycopg2://dwh_user:dwh_password@postgres_dw:5432/datamart",
-)
 RAW_SCHEMA = os.getenv("RAW_SCHEMA", "raw")
+AWS_REGION = os.getenv("AWS_REGION")
+
+
+def resolve_postgres_conn() -> str:
+    """Build the SQLAlchemy connection string from environment variables."""
+    conn = os.getenv("POSTGRES_DWH_CONN")
+    if conn:
+        return conn
+
+    password = os.getenv("POSTGRES_DWH_PASSWORD")
+    if not password:
+        raise ValueError(
+            "POSTGRES_DWH_PASSWORD environment variable must be set when POSTGRES_DWH_CONN is not provided."
+        )
+
+    user = os.getenv("POSTGRES_DWH_USER", "dwh_user")
+    host = os.getenv("POSTGRES_DWH_HOST", "postgres_dw")
+    database = os.getenv("POSTGRES_DWH_DB", "datamart")
+    port = os.getenv("POSTGRES_DWH_PORT", "5432")
+
+    return f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}"
 
 def download_file_from_minio(object_name):
     """
@@ -32,13 +49,14 @@ def download_file_from_minio(object_name):
     Returns the file content as bytes.
     """
     logging.info(f"Attempting to download '{object_name}' from MinIO bucket '{BUCKET_NAME}'...")
-    s3 = boto3.client(
-        's3',
-        endpoint_url=f"http://{MINIO_ENDPOINT}",
-        aws_access_key_id=ACCESS_KEY,
-        aws_secret_access_key=SECRET_KEY,
-        region_name='us-east-1'
-    )
+    boto_kwargs = {
+        "endpoint_url": f"http://{MINIO_ENDPOINT}",
+        "aws_access_key_id": ACCESS_KEY,
+        "aws_secret_access_key": SECRET_KEY,
+    }
+    if AWS_REGION:
+        boto_kwargs["region_name"] = AWS_REGION
+    s3 = boto3.client('s3', **boto_kwargs)
     try:
         response = s3.get_object(Bucket=BUCKET_NAME, Key=object_name)
         file_data = response['Body'].read()
@@ -60,7 +78,7 @@ def load_data_to_postgres():
       - customers_source: customer_id, email, signup_date
     """
     try:
-        engine = create_engine(POSTGRES_CONN)
+        engine = create_engine(resolve_postgres_conn())
 
         # Ensure the raw schema exists in PostgreSQL
         conn = engine.connect()
