@@ -44,37 +44,40 @@ export const listProducts = async (pool, filters = {}) => {
   const sortClause = buildSort(filters.sort);
 
   const [rows] = await pool.query(
-    `SELECT
-        p.id,
-        p.slug,
-        p.name,
-        p.category,
-        p.description,
-        p.hero_image,
-        p.rating,
-        p.review_count,
-        JSON_ARRAYAGG(
-          JSON_OBJECT(
-            'id', v.id,
-            'color', v.color,
-            'size', v.size,
-            'price', v.price,
-            'inventory', v.inventory
-          )
-        ) AS variants
-      FROM products p
-      JOIN product_variants v ON v.product_id = p.id
-      ${whereClause}
-      GROUP BY p.id
-      ${sortClause}
-      LIMIT ? OFFSET ?`,
-    [...params, Number(filters.limit || 20), Number(filters.offset || 0)]
+  `SELECT
+      p.id,
+      p.slug,
+      p.name,
+      p.category,
+      p.description,
+      p.hero_image,
+      p.rating,
+      p.review_count,
+      JSON_ARRAYAGG(
+        JSON_OBJECT(
+          'id', v.id,
+          'color', v.color,
+          'size', v.size,
+          'price', v.price,
+          'inventory', v.inventory
+        )
+      ) AS variants
+    FROM products p
+    JOIN product_variants v ON v.product_id = p.id
+    ${whereClause}
+    GROUP BY p.id
+    ${sortClause}
+    LIMIT ? OFFSET ?`,
+  [...params, Number(filters.limit || 20), Number(filters.offset || 0)]
   );
 
-  return rows.map((row) => ({
-    ...row,
-    variants: JSON.parse(row.variants || "[]"),
-  }));
+return rows.map((row) => ({
+  ...row,
+  variants:
+    typeof row.variants === "string"
+      ? JSON.parse(row.variants || "[]")
+      : row.variants || [],
+}));
 };
 
 export const getProductById = async (pool, productId) => {
