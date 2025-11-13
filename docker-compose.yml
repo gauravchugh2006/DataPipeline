@@ -203,7 +203,7 @@ services:
     working_dir: /zap/wrk
     command: >
       zap-baseline.py
-      -t http://airflow:8080
+      -t http://airflow:8082
       -r zap-baseline.html
       -J zap-report.json
       -x zap-report.xml
