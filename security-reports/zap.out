@@ -1,0 +1,1173 @@
+Found Java version 17.0.17
+Available memory: 15707 MB
+Using JVM args: -Xmx3926m
+672 [main] INFO  org.parosproxy.paros.Constant - Copying default configuration to /home/zap/.ZAP_D/config.xml
+924 [main] INFO  org.parosproxy.paros.Constant - Creating directory /home/zap/.ZAP_D/session
+934 [main] INFO  org.parosproxy.paros.Constant - Creating directory /home/zap/.ZAP_D/dirbuster
+945 [main] INFO  org.parosproxy.paros.Constant - Creating directory /home/zap/.ZAP_D/fuzzers
+955 [main] INFO  org.parosproxy.paros.Constant - Creating directory /home/zap/.ZAP_D/plugin
+1181 [main] INFO  org.zaproxy.zap.DaemonBootstrap - ZAP D-2025-11-10 started 12/11/2025, 21:02:56 with home: /home/zap/.ZAP_D/ cores: 22 maxMemory: 3 GB
+1229 [main] INFO  org.parosproxy.paros.common.AbstractParam - Setting config database.recoverylog = false was null
+1242 [main] INFO  org.parosproxy.paros.common.AbstractParam - Setting config api.disablekey = true was null
+1253 [main] INFO  org.parosproxy.paros.common.AbstractParam - Setting config api.addrs.addr.name = .* was null
+1260 [main] INFO  org.parosproxy.paros.common.AbstractParam - Setting config api.addrs.addr.regex = true was null
+1265 [main] INFO  org.parosproxy.paros.common.AbstractParam - Setting config spider.maxDuration = 10 was null
+1267 [main] INFO  org.parosproxy.paros.common.AbstractParam - Setting config stats.pkg.fullscan-api = 1 was null
+5168 [ZAP-daemon] INFO  org.zaproxy.zap.control.ExtensionFactory - Installed add-ons: [[id=accessControl, version=11.0.0], [id=alertFilters, version=26.0.0], [id=ascanrules, version=76.0.0], [id=ascanrulesBeta, version=64.0.0], [id=authhelper, version=0.33.0], [id=automation, version=0.57.0], [id=bruteforce, version=19.0.0], [id=callhome, version=0.18.0], [id=client, version=0.19.0], [id=commonlib, version=1.39.0], [id=coreLang, version=16.0.0], [id=database, version=0.9.0], [id=diff, version=18.0.0], [id=directorylistv1, version=10.0.0], [id=domxss, version=23.0.0], [id=encoder, version=1.8.0], [id=exim, version=0.16.0], [id=formhandler, version=6.8.0], [id=fuzz, version=13.17.0], [id=gettingStarted, version=20.0.0], [id=graaljs, version=0.12.0], [id=graphql, version=0.29.0], [id=grpc, version=0.3.0], [id=help, version=22.0.0], [id=hud, version=0.20.0], [id=invoke, version=17.0.0], [id=network, version=0.24.0], [id=oast, version=0.24.0], [id=onlineMenu, version=15.0.0], [id=openapi, version=48.0.0], [id=plugnhack, version=14.0.0], [id=postman, version=0.8.0], [id=pscan, version=0.6.0], [id=pscanrules, version=70.0.0], [id=pscanrulesBeta, version=48.0.0], [id=quickstart, version=53.0.0], [id=replacer, version=21.0.0], [id=reports, version=0.43.0], [id=requester, version=7.9.0], [id=retest, version=0.12.0], [id=retire, version=0.51.0], [id=reveal, version=11.0.0], [id=scanpolicies, version=0.7.0], [id=scripts, version=45.16.0], [id=selenium, version=15.42.0], [id=sequence, version=9.0.0], [id=soap, version=29.0.0], [id=spider, version=0.18.0], [id=spiderAjax, version=23.28.0], [id=tips, version=16.0.0], [id=webdriverlinux, version=166.0.0], [id=webdrivermacos, version=166.0.0], [id=webdriverwindows, version=167.0.0], [id=websocket, version=35.0.0], [id=zest, version=48.11.0]]
+5266 [ZAP-daemon] INFO  org.zaproxy.zap.control.ExtensionFactory - Loading extensions
+5837 [ZAP-daemon] INFO  org.zaproxy.addon.network.internal.TlsUtils - Using supported SSL/TLS protocols: [TLSv1.2, TLSv1.3]
+6245 [ZAP-daemon] INFO  org.zaproxy.zap.control.ExtensionFactory - Extensions loaded
+6548 [ZAP-daemon] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:hsqldb:file:/home/zap/.ZAP_D/session/untitled1 (HSQL Database Engine 2.7)
+6618 [ZAP-daemon] INFO  org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory - Schema history table "PUBLIC"."AUTHHELPER_FLYWAY_SCHEMA_HISTORY" does not exist yet
+6629 [ZAP-daemon] INFO  org.flywaydb.core.internal.command.DbValidate - Successfully validated 6 migrations (execution time 00:00.027s)
+6644 [ZAP-daemon] INFO  org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory - Creating Schema History table "PUBLIC"."AUTHHELPER_FLYWAY_SCHEMA_HISTORY" with baseline ...
+6703 [ZAP-daemon] INFO  org.flywaydb.core.internal.command.DbBaseline - Successfully baselined schema with version: 0
+6727 [ZAP-daemon] INFO  org.flywaydb.core.internal.command.DbMigrate - Current version of schema "PUBLIC": 0
+6784 [ZAP-daemon] INFO  org.flywaydb.core.internal.command.DbMigrate - Migrating schema "PUBLIC" to version "1 - Create tables"
+6824 [ZAP-daemon] INFO  org.flywaydb.core.internal.command.DbMigrate - Migrating schema "PUBLIC" to version "2 - Create storage tables"
+6855 [ZAP-daemon] INFO  org.flywaydb.core.internal.command.DbMigrate - Migrating schema "PUBLIC" to version "3 - Improve diags"
+6877 [ZAP-daemon] INFO  org.flywaydb.core.internal.command.DbMigrate - Migrating schema "PUBLIC" to version "4 - Web element selector"
+6890 [ZAP-daemon] INFO  org.flywaydb.core.internal.command.DbMigrate - Migrating schema "PUBLIC" to version "5 - Af plan"
+6899 [ZAP-daemon] INFO  org.flywaydb.core.internal.command.DbMigrate - Migrating schema "PUBLIC" to version "6 - Auth report data"
+6924 [ZAP-daemon] INFO  org.flywaydb.core.internal.command.DbMigrate - Successfully applied 6 migrations to schema "PUBLIC", now at version v6 (execution time 00:00.046s)
+7629 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Auto-update Extension - Allows ZAP to check for updates
+7631 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Options Extension - Options Extension
+7632 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Edit Menu Extension - Edit Menu Extension
+7632 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing API Extension - Provides a rest based API for controlling and accessing ZAP
+7639 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing History Extension - History Extension
+7640 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing ExtensionReveal - Show hidden fields and enable disabled fields
+7641 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Search Extension - Search messages for strings and regular expressions
+7642 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Breakpoint Extension - Allows you to intercept and modify requests and responses
+7644 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Passive Scan Extension - Passive scanner
+7645 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Alerts Extension - Allows you to view and manage alerts
+7646 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Active Scan Extension - Active scanner, heavily based on the original Paros active scanner, but with additional tests added
+7650 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing ExtensionSequence - ExtensionSequence
+7651 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Standard Menus Extension - A set of common popup menus for miscellaneous tasks
+7652 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing ExtensionBruteForce - Forced browsing of files and directories using code from the OWASP DirBuster tool
+7656 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Compare Extension - Compares 2 sessions and generates an HTML file showing the differences
+7657 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing ExtensionInvoke - Invoke external applications passing context related information such as URLs and parameters
+7657 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Anti-CSRF Extension - Handles anti cross site request forgery (CSRF) tokens
+7662 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Authentication Extension - Authentication Extension
+7667 [ZAP-daemon] INFO  org.zaproxy.zap.extension.authentication.ExtensionAuthentication - Loaded authentication method types: [Form-based Authentication, HTTP/NTLM Authentication, Manual Authentication, Script-based Authentication, JSON-based Authentication]
+7672 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Users Extension - Users Extension
+7673 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Parameters Extension - Summarise and analyse FORM and URL parameters as well as cookies
+7676 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Script Extension - Script integration
+7680 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing ExtensionScripts - Scripting console, supports all JSR 223 scripting languages
+7684 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Forced User Extension - Forced User Extension
+7692 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing HTTP Sessions Extension - Extension handling HTTP sessions
+7694 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing ExtensionZest - Zest is a specialized scripting language, originally, from Mozilla specifically designed to be used in security tools
+7758 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing ExtensionDiff - ExtensionDiff
+7759 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing HTTP Panel Post Table View Extension - HTTP Panel Post Table View Extension
+7760 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Encoder Addon - Adds support for scriptable encoders to ZAP.
+7761 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing ExtensionPlugNHack - Simple browser configuration
+7762 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Session Management Extension - Session Management Extension
+7765 [ZAP-daemon] INFO  org.zaproxy.zap.extension.sessions.ExtensionSessionManagement - Loaded session management method types: [Cookie-based Session Management, HTTP Authentication Session Management, Script-based Session Management]
+7768 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing HTTP Panel Form Table View Extension - HTTP Panel Form Table View Extension
+7768 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing WebSockets Support - Capture messages from WebSockets with the ability to set breakpoints.
+7777 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing SOAP/WSDL Support - Allows you to import a WSDL file containing operations which ZAP will access, adding them to the Sites tree.
+7779 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Core UI Extension - Core UI related functionality.
+7780 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Authorization Extension - Authorization Extension
+7780 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Requester - Allows to manually edit and send messages.
+7782 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing AJAX Spider - AJAX Spider, uses Crawljax
+7786 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing WebDriver Provider - Provides WebDrivers to control several browsers using Selenium and includes HtmlUnit browser.
+7798 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing ExtensionAccessControl - Add-on that adds a set of tools for testing access control in web applications.
+7800 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Refresh Sites Tree Extension - Adds menu item to refresh the Sites tree
+7801 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Help Extension - ZAP User Guide
+7802 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Call Home - Handles all of the calls to ZAP services
+7803 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Network Extension - Provides core networking capabilities.
+7823 [ZAP-daemon] INFO  org.zaproxy.addon.network.ConnectionOptions - Unsafe SSL/TLS renegotiation disabled.
+7826 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Extension Configuration Extension - Allows you to configure which extensions are loaded when ZAP starts
+7827 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Combined HTTP Panels Extension - Combined HTTP Panels Extension
+7827 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing HTTP Panel Hex View Extension - HTTP Panel Hex View Extension
+7828 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing HTTP Panel Image View Extension - HTTP Panel Image View Extension
+7828 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing HTTP Panel Query Table View Extension - HTTP Panel Query Table View Extension
+7829 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing HTTP Panel Syntax Highlighter View Extension - HTTP Panel Syntax Highlighter View Extension
+7830 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Keyboard Configuration Extension - Adds support for configurable keyboard shortcuts for all of the ZAP menus.
+7830 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Scanner Rule Configuration Extension - Active and passive rule configuration
+7832 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Statistics Extension - Statistics
+7834 [ZAP-daemon] INFO  org.zaproxy.zap.extension.stats.ExtensionStats - Start recording in memory stats
+7835 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Custom Pages Extension - Custom Pages Definition
+7836 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Authentication Helper - Authentication Helper
+7838 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Client Spider Browser Based Authentication Support - Enables browser based authentication when performing an authenticated Client Spider scan.
+7840 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Authentication Helper Reports - Authentication Helper Reports
+7841 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing AJAX Spider Browser Based Authentication Support - Enables browser based authentication when performing an authenticated AJAX Spider scan.
+7843 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing ExtensionTipsAndTricks - Tips and Tricks
+7843 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Scripts Automation Framework Integration - Scripts Automation
+7849 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Ajax Spider Automation - Ajax Spider Automation Framework Integration
+7853 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Spider Extension - Spider used for automatically finding URIs on a site.
+7879 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Spider Automation - Spider Automation Integration
+7883 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Passive Scanner Extension - Provides core passive scanning capabilities.
+7901 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Passive Scanner Automation Framework Extension - Provides jobs and result data related to the passive scanner.
+7903 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing ExtensionFormHandler - This extension allows a user to change the default values used for generated content (e.g. spiders, importers).
+7905 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Active Scan Rules - Release status active scan rules
+7906 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Database Extension - Provides databases and persistence capabilities.
+7907 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Passive Scan Rules - beta - Beta status passive scan rules
+7907 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Out-of-band Application Security Testing - Adds Out-of-band Application Security Testing functionality.
+7912 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing OAST Scripts - Adds OAST scripts.
+7914 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Import/Export - Import and Export functionality supporting multiple formats.
+7916 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Import/Export Automation - Import/Export Automation Framework Integration
+7919 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing ExtensionOnlineMenu - The Online menu links
+7919 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Retest - Facilitates the verification of presence/absence of certain alerts.
+7920 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing ExtensionCoreLang - Translations of the core language files
+7921 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Automation Framework - Provides functionality to simplify using ZAP in an automated manner
+7923 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Client Message Editor - Provides the Client Message Editor dialogue.
+7924 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing ExtensionHUD - Heads Up Display
+8161 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing ExtensionHUDlaunch - ExtensionHUDlaunch
+8162 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Report Generator - Templated and themed report generation functionality
+8163 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Report Generation Automation Integration - Report Generation Automation Integration
+8165 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing OpenAPI Import - Allows you to spider and import OpenAPI (Swagger) definitions 
+8167 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing OpenAPI Automation - OpenAPI Automation Framework Integration
+8170 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing OpenAPI Spider - OpenAPI Spider Integration
+8172 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Match and Replace - Easy way to replace strings in requests and responses
+8177 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Replacer Automation - Replacer Automation Framework Integration
+8179 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing ExtensionGettingStarted - The ZAP Getting Started Guide
+8180 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing WebSocket Fuzzer - Allows to fuzz WebSocket messages.
+8181 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing WebSocket Message Editor - Provides the WebSocket Message Editor dialogues.
+8181 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing gRPC Support - Allows you to inspect, attack gRPC endpoints, and decode protobuf messages
+8183 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing gRPC Websocket Support - Provides the WebSocket gRPC view and edit features
+8184 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Passive Scan Rules - Release status passive scan rules.
+8185 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Advance Fuzzer - Provides the foundation for concrete message types (for example, HTTP, WebSockets) expose fuzzer implementations.
+8186 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing HTTP Fuzzer - Allows to fuzz HTTP messages.
+8187 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing ExtensionDomXSS - DOM XSS Active Scan Rule
+8243 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Postman Import - Allows you to spider and import Postman collections
+8245 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Postman Automation - Postman Automation Framework Integration
+8246 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Common Library - A library of shared functionality
+8247 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing ExtensionGraphQl - Allows you to inspect and attack GraphQL endpoints.
+8251 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing GraphQL Automation - GraphQL Automation Framework Integration
+8253 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing GraphQL Spider - GraphQL Spider Integration
+8253 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing GraalVM JavaScript Engine Extension - Provides the GraalVM JavaScript engine for ZAP scripting.
+8261 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Quick Start panel  - Adds the Quick Start panel for scanning and exploring applications
+8263 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Quick Start Ajax Spider integration - Add the option to use the Ajax Spider in the Quick Start scan
+8264 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Quick Start HUD Integration - HUD integration for the quick start panel
+8264 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Quick Start Browser Launcher - Launch browsers preset proxying through ZAP
+8265 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Quick Start Spider Integration - Adds the option to use the traditional Spider in the Quick Start scan.
+8266 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing SOAP Automation - SOAP Automation Framework Integration
+8267 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing SOAP Spider - SOAP Spider Integration
+8267 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing ExtensionAlertFilters - Context alert rules filter
+8268 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Alert Filters Automation - Alert Filters Automation Framework Integration
+8269 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Active Scan Rules - beta - Beta status active scan rules
+8270 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Sequence Automation - Sequence Automation Framework Integration
+8272 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing ExtensionClientIntegration - Client Side Integration
+8275 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Client Spider Automation - Client Spider Automation Framework Integration
+8277 [ZAP-daemon] INFO  org.parosproxy.paros.extension.ExtensionLoader - Initializing Client Zest Script Recording Support - Allows recording client events as Zest scripts.
+8294 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Authentication Request Identified
+8295 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Session Management Response Identified
+8295 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Verification Request Identified
+8297 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Script Passive Scan Rules
+8298 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Vulnerable JS Library (Powered by Retire.js)
+8310 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Content Cacheability
+8311 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: In Page Banner Information Leak
+8312 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Dangerous JS Functions
+8312 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Java Serialization Object
+8313 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Permissions Policy Header Not Set
+8313 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: HTTP Parameter Override
+8313 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Insufficient Site Isolation Against Spectre Vulnerability
+8314 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Source Code Disclosure
+8314 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Sub Resource Integrity Attribute Missing
+8340 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Anti-clickjacking Header
+8341 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Application Error Disclosure
+8341 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Big Redirect Detected (Potential Sensitive Information Leak)
+8341 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Re-examine Cache-control Directives
+8342 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Charset Mismatch
+8342 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Content Security Policy (CSP) Header Not Set
+8342 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: CSP
+8343 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Content-Type Header Missing
+8343 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Cookie No HttpOnly Flag
+8343 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Loosely Scoped Cookie
+8343 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Cookie without SameSite Attribute
+8344 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Cookie Without Secure Flag
+8344 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Cross-Domain Misconfiguration
+8344 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Cross-Domain JavaScript Source File Inclusion
+8344 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Absence of Anti-CSRF Tokens
+8344 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Directory Browsing
+8345 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Hash Disclosure
+8345 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Heartbleed OpenSSL Vulnerability (Indicative)
+8345 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Private IP Disclosure
+8345 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Session ID in URL Rewrite
+8346 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Information Disclosure - Debug Error Messages
+8346 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Information Disclosure - Sensitive Information in URL
+8346 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Information Disclosure - Sensitive Information in HTTP Referrer Header
+8347 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Information Disclosure - Suspicious Comments
+8347 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Weak Authentication Method
+8347 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: HTTP to HTTPS Insecure Transition in Form Post
+8348 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: HTTPS to HTTP Insecure Transition in Form Post
+8348 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Insecure JSF ViewState
+8348 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Reverse Tabnabbing
+8351 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Secure Pages Include Mixed Content
+8351 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Modern Web Application
+8353 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: PII Disclosure
+8354 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Script Served From Malicious Domain (polyfill)
+8354 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Retrieved from Cache
+8354 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: HTTP Server Response Header
+8355 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Strict-Transport-Security Header
+8355 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Timestamp Disclosure
+8356 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: User Controllable Charset
+8356 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Cookie Poisoning
+8357 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: User Controllable HTML Element Attribute (Potential XSS)
+8357 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: User Controllable JavaScript Event (XSS)
+8357 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Off-site Redirect
+8358 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Username Hash Found
+8358 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Viewstate
+8358 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: X-AspNet-Version Response Header
+8359 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: X-Backend-Server Header Information Leak
+8359 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: X-ChromeLogger-Data (XCOLD) Header Information Leak
+8359 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: X-Content-Type-Options Header Missing
+8360 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: X-Debug-Token Information Leak
+8360 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Server Leaks Information via "X-Powered-By" HTTP Response Header Field(s)
+8360 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: ZAP is Out of Date
+8361 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: WSDL File Detection
+8362 [ZAP-daemon] INFO  org.zaproxy.addon.pscan.internal.ScanRuleManager - Loaded passive scan rule: Stats Passive Scan Rule
+8544 [ZAP-daemon] INFO  org.zaproxy.addon.oast.services.callback.CallbackService - Started callback service on 0.0.0.0:46519
+8557 [ZAP-daemon] INFO  org.zaproxy.addon.network.ExtensionNetwork - Creating new root CA certificate.
+8920 [ZAP-daemon] INFO  org.zaproxy.addon.network.ExtensionNetwork - New root CA certificate created.
+9941 [ZAP-daemon] INFO  org.parosproxy.paros.CommandLine - Add-on update check complete
+9944 [ZAP-daemon] INFO  org.parosproxy.paros.CommandLine - Add-on already installed: /zap/./plugin/pscanrulesBeta-beta-48.zap
+9944 [ZAP-daemon] INFO  org.parosproxy.paros.CommandLine - Add-on already installed: /zap/./plugin/ascanrulesBeta-beta-64.zap
+9956 [ZAP-daemon] INFO  org.zaproxy.addon.network.ExtensionNetwork - ZAP is now listening on 0.0.0.0:59363
+13624 [ZAP-SpiderInitThread-0] INFO  org.zaproxy.addon.spider.SpiderThread - Starting spidering scan on http://airflow:8082 at 2025-11-12T21:03:08.962+0000
+13630 [ZAP-SpiderInitThread-0] INFO  org.zaproxy.addon.spider.Spider - Spider initializing...
+13638 [ZAP-SpiderInitThread-0] INFO  org.zaproxy.addon.spider.Spider - Starting spider...
+14001 [ZAP-SpiderThreadPool-0-thread-34] INFO  org.zaproxy.addon.spider.Spider - Spidering process is complete. Shutting down...
+14003 [ZAP-SpiderShutdownThread-0] INFO  org.zaproxy.addon.spider.SpiderThread - Spider scanning complete: true on http://airflow:8082 at 2025-11-12T21:03:09.341+0000
+15806 [ZAP-PassiveScan-17] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Content Cacheability as it has raised more than 10 alerts.
+15926 [ZAP-PassiveScan-18] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Content Cacheability as it has raised more than 10 alerts.
+15864 [ZAP-PassiveScan-12] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Content Cacheability as it has raised more than 10 alerts.
+15863 [ZAP-PassiveScan-19] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Content Cacheability as it has raised more than 10 alerts.
+15862 [ZAP-PassiveScan-11] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Content Cacheability as it has raised more than 10 alerts.
+15847 [ZAP-PassiveScan-14] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Content Cacheability as it has raised more than 10 alerts.
+15846 [ZAP-PassiveScan-1] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Content Cacheability as it has raised more than 10 alerts.
+15846 [ZAP-PassiveScan-6] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Content Cacheability as it has raised more than 10 alerts.
+15845 [ZAP-PassiveScan-8] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Content Cacheability as it has raised more than 10 alerts.
+15845 [ZAP-PassiveScan-13] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Content Cacheability as it has raised more than 10 alerts.
+15833 [ZAP-PassiveScan-10] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Content Cacheability as it has raised more than 10 alerts.
+15832 [ZAP-PassiveScan-5] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Content Cacheability as it has raised more than 10 alerts.
+16046 [ZAP-PassiveScan-10] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Insufficient Site Isolation Against Spectre Vulnerability as it has raised more than 10 alerts.
+16047 [ZAP-PassiveScan-5] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Insufficient Site Isolation Against Spectre Vulnerability as it has raised more than 10 alerts.
+15831 [ZAP-PassiveScan-3] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Content Cacheability as it has raised more than 10 alerts.
+15829 [ZAP-PassiveScan-15] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Content Cacheability as it has raised more than 10 alerts.
+15815 [ZAP-PassiveScan-22] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Content Cacheability as it has raised more than 10 alerts.
+15815 [ZAP-PassiveScan-20] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Content Cacheability as it has raised more than 10 alerts.
+15813 [ZAP-PassiveScan-16] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Content Cacheability as it has raised more than 10 alerts.
+16052 [ZAP-PassiveScan-15] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Permissions Policy Header Not Set as it has raised more than 10 alerts.
+16043 [ZAP-PassiveScan-13] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Insufficient Site Isolation Against Spectre Vulnerability as it has raised more than 10 alerts.
+16042 [ZAP-PassiveScan-8] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Insufficient Site Isolation Against Spectre Vulnerability as it has raised more than 10 alerts.
+16039 [ZAP-PassiveScan-6] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Insufficient Site Isolation Against Spectre Vulnerability as it has raised more than 10 alerts.
+16038 [ZAP-PassiveScan-1] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Insufficient Site Isolation Against Spectre Vulnerability as it has raised more than 10 alerts.
+16032 [ZAP-PassiveScan-14] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Insufficient Site Isolation Against Spectre Vulnerability as it has raised more than 10 alerts.
+16031 [ZAP-PassiveScan-11] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Insufficient Site Isolation Against Spectre Vulnerability as it has raised more than 10 alerts.
+16031 [ZAP-PassiveScan-9] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Permissions Policy Header Not Set as it has raised more than 10 alerts.
+16022 [ZAP-PassiveScan-18] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Insufficient Site Isolation Against Spectre Vulnerability as it has raised more than 10 alerts.
+16022 [ZAP-PassiveScan-19] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Insufficient Site Isolation Against Spectre Vulnerability as it has raised more than 10 alerts.
+16021 [ZAP-PassiveScan-2] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Session Management Response Identified as it has raised more than 10 alerts.
+16020 [ZAP-PassiveScan-17] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Session Management Response Identified as it has raised more than 10 alerts.
+16017 [ZAP-PassiveScan-7] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Insufficient Site Isolation Against Spectre Vulnerability as it has raised more than 10 alerts.
+16014 [ZAP-PassiveScan-12] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Insufficient Site Isolation Against Spectre Vulnerability as it has raised more than 10 alerts.
+15993 [ZAP-PassiveScan-21] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Insufficient Site Isolation Against Spectre Vulnerability as it has raised more than 10 alerts.
+16124 [ZAP-PassiveScan-18] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule X-Content-Type-Options Header Missing as it has raised more than 10 alerts.
+16122 [ZAP-PassiveScan-19] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule X-Content-Type-Options Header Missing as it has raised more than 10 alerts.
+16121 [ZAP-PassiveScan-9] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule X-Content-Type-Options Header Missing as it has raised more than 10 alerts.
+16110 [ZAP-PassiveScan-1] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule X-Content-Type-Options Header Missing as it has raised more than 10 alerts.
+16108 [ZAP-PassiveScan-20] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule X-Content-Type-Options Header Missing as it has raised more than 10 alerts.
+16107 [ZAP-PassiveScan-14] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule X-Content-Type-Options Header Missing as it has raised more than 10 alerts.
+16106 [ZAP-PassiveScan-11] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule X-Content-Type-Options Header Missing as it has raised more than 10 alerts.
+16098 [ZAP-PassiveScan-6] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule X-Content-Type-Options Header Missing as it has raised more than 10 alerts.
+16097 [ZAP-PassiveScan-8] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule X-Content-Type-Options Header Missing as it has raised more than 10 alerts.
+16094 [ZAP-PassiveScan-5] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule X-Content-Type-Options Header Missing as it has raised more than 10 alerts.
+16094 [ZAP-PassiveScan-13] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule X-Content-Type-Options Header Missing as it has raised more than 10 alerts.
+16076 [ZAP-PassiveScan-16] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Permissions Policy Header Not Set as it has raised more than 10 alerts.
+16072 [ZAP-PassiveScan-4] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule Permissions Policy Header Not Set as it has raised more than 10 alerts.
+16071 [ZAP-PassiveScan-22] INFO  org.zaproxy.addon.pscan.internal.scanner.PassiveScanTaskHelper - Disabling passive scan rule X-Content-Type-Options Header Missing as it has raised more than 10 alerts.
+18664 [ZAP-IO-Server-1-1] INFO  org.parosproxy.paros.core.scanner.Scanner - scanner with ID 0 started
+18778 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - Scanning 43 node(s) from http://airflow:8082
+18779 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | PathTraversalScanRule strength MEDIUM threshold MEDIUM
+21802 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | PathTraversalScanRule in 3.024s with 165 message(s) sent and 0 alert(s) raised.
+21806 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | RemoteFileIncludeScanRule strength MEDIUM threshold MEDIUM
+23119 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | RemoteFileIncludeScanRule in 1.313s with 110 message(s) sent and 0 alert(s) raised.
+23120 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | SourceCodeDisclosureWebInfScanRule strength MEDIUM threshold MEDIUM
+23121 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | HeartBleedActiveScanRule strength MEDIUM threshold MEDIUM
+23122 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | SourceCodeDisclosureCve20121823ScanRule strength MEDIUM threshold MEDIUM
+23223 [ZAP-ActiveScanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | SourceCodeDisclosureWebInfScanRule in 0.103s with 4 message(s) sent and 0 alert(s) raised.
+32136 [ZAP-ActiveScanner-1] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | HeartBleedActiveScanRule in 9.015s with 3 message(s) sent and 0 alert(s) raised.
+32138 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | SourceCodeDisclosureCve20121823ScanRule in 9.016s with 20 message(s) sent and 0 alert(s) raised.
+32139 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | RemoteCodeExecutionCve20121823ScanRule strength MEDIUM threshold MEDIUM
+32406 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | RemoteCodeExecutionCve20121823ScanRule in 0.267s with 86 message(s) sent and 0 alert(s) raised.
+32406 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | ExternalRedirectScanRule strength MEDIUM threshold MEDIUM
+33512 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | ExternalRedirectScanRule in 1.106s with 99 message(s) sent and 0 alert(s) raised.
+33513 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | ServerSideIncludeScanRule strength MEDIUM threshold MEDIUM
+34126 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | ServerSideIncludeScanRule in 0.613s with 44 message(s) sent and 0 alert(s) raised.
+34135 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | CrossSiteScriptingScanRule strength MEDIUM threshold MEDIUM
+34982 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | CrossSiteScriptingScanRule in 0.847s with 55 message(s) sent and 0 alert(s) raised.
+34983 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | PersistentXssPrimeScanRule strength MEDIUM threshold MEDIUM
+35131 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | PersistentXssPrimeScanRule in 0.148s with 11 message(s) sent and 0 alert(s) raised.
+35131 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | PersistentXssSpiderScanRule strength MEDIUM threshold MEDIUM
+35293 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | PersistentXssSpiderScanRule in 0.162s with 45 message(s) sent and 0 alert(s) raised.
+35294 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | PersistentXssScanRule strength MEDIUM threshold MEDIUM
+35375 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | PersistentXssScanRule in 0.082s with 0 message(s) sent and 0 alert(s) raised.
+35376 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | SqlInjectionScanRule strength MEDIUM threshold MEDIUM
+38399 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | SqlInjectionScanRule in 3.023s with 242 message(s) sent and 0 alert(s) raised.
+38406 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | SqlInjectionMySqlTimingScanRule strength MEDIUM threshold MEDIUM
+39699 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | SqlInjectionMySqlTimingScanRule in 1.292s with 110 message(s) sent and 0 alert(s) raised.
+39700 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | SqlInjectionHypersonicTimingScanRule strength MEDIUM threshold MEDIUM
+40863 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | SqlInjectionHypersonicTimingScanRule in 1.164s with 110 message(s) sent and 0 alert(s) raised.
+40869 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | SqlInjectionOracleTimingScanRule strength MEDIUM threshold MEDIUM
+41441 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | SqlInjectionOracleTimingScanRule in 0.572s with 55 message(s) sent and 0 alert(s) raised.
+41442 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | SqlInjectionPostgreSqlTimingScanRule strength MEDIUM threshold MEDIUM
+42033 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | SqlInjectionPostgreSqlTimingScanRule in 0.591s with 55 message(s) sent and 0 alert(s) raised.
+42034 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | SqlInjectionSqLiteTimingScanRule strength MEDIUM threshold MEDIUM
+43415 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | SqlInjectionSqLiteTimingScanRule in 1.38s with 96 message(s) sent and 0 alert(s) raised.
+43415 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | DomXssScanRule strength MEDIUM threshold MEDIUM
+101762 [Thread-832] INFO  org.zaproxy.zap.extension.domxss.DomXssScanRule - Reaper thread starting
+286115 [ZAP-ActiveScanner-13] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [12e0a875-f0a8-45f9-9ecc-04bea540f71c, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1774, moz:profile: /tmp/rust_mozprofileMN8en9, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:33493/sessio...}
+Session ID: 12e0a875-f0a8-45f9-9ecc-04bea540f71c
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [12e0a875-f0a8-45f9-9ecc-04bea540f71c, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1774, moz:profile: /tmp/rust_mozprofileMN8en9, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:33493/sessio...}
+Session ID: 12e0a875-f0a8-45f9-9ecc-04bea540f71c
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+286115 [ZAP-ActiveScanner-25] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [f1b39785-ec36-4fab-bab7-a5981a349090, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1620, moz:profile: /tmp/rust_mozprofileYe6I17, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:35571/sessio...}
+Session ID: f1b39785-ec36-4fab-bab7-a5981a349090
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [f1b39785-ec36-4fab-bab7-a5981a349090, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1620, moz:profile: /tmp/rust_mozprofileYe6I17, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:35571/sessio...}
+Session ID: f1b39785-ec36-4fab-bab7-a5981a349090
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+287808 [ZAP-ActiveScanner-33] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [878102c0-dae5-4f74-a9f6-0df5be5edc31, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1643, moz:profile: /tmp/rust_mozprofileCrJQ53, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:42817/sessio...}
+Session ID: 878102c0-dae5-4f74-a9f6-0df5be5edc31
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [878102c0-dae5-4f74-a9f6-0df5be5edc31, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1643, moz:profile: /tmp/rust_mozprofileCrJQ53, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:42817/sessio...}
+Session ID: 878102c0-dae5-4f74-a9f6-0df5be5edc31
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+298472 [ZAP-ActiveScanner-41] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [b6cf89bc-c19f-4cc6-af6e-ea5e174e0864, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1757, moz:profile: /tmp/rust_mozprofile5boTKW, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:46499/sessio...}
+Session ID: b6cf89bc-c19f-4cc6-af6e-ea5e174e0864
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [b6cf89bc-c19f-4cc6-af6e-ea5e174e0864, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1757, moz:profile: /tmp/rust_mozprofile5boTKW, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:46499/sessio...}
+Session ID: b6cf89bc-c19f-4cc6-af6e-ea5e174e0864
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+298502 [ZAP-ActiveScanner-24] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [79558dce-b2dd-4eb6-9d1f-90e4f543040d, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1619, moz:profile: /tmp/rust_mozprofilepmfvj1, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:35745/sessio...}
+Session ID: 79558dce-b2dd-4eb6-9d1f-90e4f543040d
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [79558dce-b2dd-4eb6-9d1f-90e4f543040d, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1619, moz:profile: /tmp/rust_mozprofilepmfvj1, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:35745/sessio...}
+Session ID: 79558dce-b2dd-4eb6-9d1f-90e4f543040d
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+298510 [ZAP-ActiveScanner-34] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [7a629d8c-dd4e-4832-8b6a-8a7405a82493, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1706, moz:profile: /tmp/rust_mozprofileDWzYem, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:41015/sessio...}
+Session ID: 7a629d8c-dd4e-4832-8b6a-8a7405a82493
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [7a629d8c-dd4e-4832-8b6a-8a7405a82493, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1706, moz:profile: /tmp/rust_mozprofileDWzYem, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:41015/sessio...}
+Session ID: 7a629d8c-dd4e-4832-8b6a-8a7405a82493
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+298488 [ZAP-ActiveScanner-16] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [3ac0df52-a9cb-4bda-9638-83bb8a73ce4c, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1695, moz:profile: /tmp/rust_mozprofileqw5qFj, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:33079/sessio...}
+Session ID: 3ac0df52-a9cb-4bda-9638-83bb8a73ce4c
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [3ac0df52-a9cb-4bda-9638-83bb8a73ce4c, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1695, moz:profile: /tmp/rust_mozprofileqw5qFj, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:33079/sessio...}
+Session ID: 3ac0df52-a9cb-4bda-9638-83bb8a73ce4c
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+298529 [ZAP-ActiveScanner-26] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [25879ebc-133a-41e0-8708-64712e8f823b, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1749, moz:profile: /tmp/rust_mozprofileMu0Fns, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:45257/sessio...}
+Session ID: 25879ebc-133a-41e0-8708-64712e8f823b
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [25879ebc-133a-41e0-8708-64712e8f823b, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1749, moz:profile: /tmp/rust_mozprofileMu0Fns, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:45257/sessio...}
+Session ID: 25879ebc-133a-41e0-8708-64712e8f823b
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+300788 [ZAP-ActiveScanner-32] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [6342a58b-2392-413a-bc6a-8f85276ee7c0, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1694, moz:profile: /tmp/rust_mozprofilesIqB2r, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:40355/sessio...}
+Session ID: 6342a58b-2392-413a-bc6a-8f85276ee7c0
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [6342a58b-2392-413a-bc6a-8f85276ee7c0, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1694, moz:profile: /tmp/rust_mozprofilesIqB2r, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:40355/sessio...}
+Session ID: 6342a58b-2392-413a-bc6a-8f85276ee7c0
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+301390 [ZAP-ActiveScanner-28] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [b680b34a-257a-42c1-819b-a451657608bc, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1764, moz:profile: /tmp/rust_mozprofilerUP5oA, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:36551/sessio...}
+Session ID: b680b34a-257a-42c1-819b-a451657608bc
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [b680b34a-257a-42c1-819b-a451657608bc, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1764, moz:profile: /tmp/rust_mozprofilerUP5oA, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:36551/sessio...}
+Session ID: b680b34a-257a-42c1-819b-a451657608bc
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+301614 [ZAP-ActiveScanner-23] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [6688d2a1-4c43-4c63-a7b9-5e8a037bcfd4, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1711, moz:profile: /tmp/rust_mozprofile6qvdyX, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:40591/sessio...}
+Session ID: 6688d2a1-4c43-4c63-a7b9-5e8a037bcfd4
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [6688d2a1-4c43-4c63-a7b9-5e8a037bcfd4, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1711, moz:profile: /tmp/rust_mozprofile6qvdyX, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:40591/sessio...}
+Session ID: 6688d2a1-4c43-4c63-a7b9-5e8a037bcfd4
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+301892 [ZAP-ActiveScanner-35] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [346a63ac-5087-4ce9-b1d7-ea4cf0d20ce5, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1641, moz:profile: /tmp/rust_mozprofile5SLRNv, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:45781/sessio...}
+Session ID: 346a63ac-5087-4ce9-b1d7-ea4cf0d20ce5
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [346a63ac-5087-4ce9-b1d7-ea4cf0d20ce5, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1641, moz:profile: /tmp/rust_mozprofile5SLRNv, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:45781/sessio...}
+Session ID: 346a63ac-5087-4ce9-b1d7-ea4cf0d20ce5
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+302822 [ZAP-ActiveScanner-17] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [7825a139-431d-4991-becc-757c42d9512d, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1612, moz:profile: /tmp/rust_mozprofileZLo87q, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:38961/sessio...}
+Session ID: 7825a139-431d-4991-becc-757c42d9512d
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [7825a139-431d-4991-becc-757c42d9512d, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1612, moz:profile: /tmp/rust_mozprofileZLo87q, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:38961/sessio...}
+Session ID: 7825a139-431d-4991-becc-757c42d9512d
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+302970 [ZAP-ActiveScanner-10] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [6fb2c0d9-b6e8-4383-ab92-c6081899c266, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1642, moz:profile: /tmp/rust_mozprofilerCluA2, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:34551/sessio...}
+Session ID: 6fb2c0d9-b6e8-4383-ab92-c6081899c266
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [6fb2c0d9-b6e8-4383-ab92-c6081899c266, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1642, moz:profile: /tmp/rust_mozprofilerCluA2, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:34551/sessio...}
+Session ID: 6fb2c0d9-b6e8-4383-ab92-c6081899c266
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+303635 [ZAP-DomXssReaper] ERROR org.zaproxy.zap.ZAP.UncaughtExceptionLogger - Exception in thread "ZAP-DomXssReaper"
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [878102c0-dae5-4f74-a9f6-0df5be5edc31, quit {}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1643, moz:profile: /tmp/rust_mozprofileCrJQ53, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:42817/sessio...}
+Session ID: 878102c0-dae5-4f74-a9f6-0df5be5edc31
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.lambda$execute$1(DriverCommandExecutor.java:126) ~[?:?]
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768) ~[?:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[?:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[?:?]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+304532 [ZAP-ActiveScanner-14] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [f75ad867-3812-49d1-8848-c4731519f4a3, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1777, moz:profile: /tmp/rust_mozprofileJ6gQqm, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:40883/sessio...}
+Session ID: f75ad867-3812-49d1-8848-c4731519f4a3
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [f75ad867-3812-49d1-8848-c4731519f4a3, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1777, moz:profile: /tmp/rust_mozprofileJ6gQqm, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:40883/sessio...}
+Session ID: f75ad867-3812-49d1-8848-c4731519f4a3
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+304864 [ZAP-ActiveScanner-38] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [314256fd-532f-4031-bad6-9401847696db, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1652, moz:profile: /tmp/rust_mozprofileX7kY9D, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:39695/sessio...}
+Session ID: 314256fd-532f-4031-bad6-9401847696db
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [314256fd-532f-4031-bad6-9401847696db, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1652, moz:profile: /tmp/rust_mozprofileX7kY9D, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:39695/sessio...}
+Session ID: 314256fd-532f-4031-bad6-9401847696db
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+304890 [ZAP-ActiveScanner-18] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [42ad44a4-f85b-49fa-9b88-745e7fdb3a7b, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1690, moz:profile: /tmp/rust_mozprofile5Usys3, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:35217/sessio...}
+Session ID: 42ad44a4-f85b-49fa-9b88-745e7fdb3a7b
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [42ad44a4-f85b-49fa-9b88-745e7fdb3a7b, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1690, moz:profile: /tmp/rust_mozprofile5Usys3, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:35217/sessio...}
+Session ID: 42ad44a4-f85b-49fa-9b88-745e7fdb3a7b
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+304951 [ZAP-ActiveScanner-30] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [eaa128b6-d4bb-4a07-ad9a-74f62cc7e576, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1693, moz:profile: /tmp/rust_mozprofileuS8KDY, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:41213/sessio...}
+Session ID: eaa128b6-d4bb-4a07-ad9a-74f62cc7e576
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [eaa128b6-d4bb-4a07-ad9a-74f62cc7e576, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1693, moz:profile: /tmp/rust_mozprofileuS8KDY, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:41213/sessio...}
+Session ID: eaa128b6-d4bb-4a07-ad9a-74f62cc7e576
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+306472 [ZAP-ActiveScanner-21] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [1c5b640c-cfb1-4cdc-be15-6207c2575f42, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1681, moz:profile: /tmp/rust_mozprofile7E3wFn, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:42097/sessio...}
+Session ID: 1c5b640c-cfb1-4cdc-be15-6207c2575f42
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [1c5b640c-cfb1-4cdc-be15-6207c2575f42, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1681, moz:profile: /tmp/rust_mozprofile7E3wFn, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:42097/sessio...}
+Session ID: 1c5b640c-cfb1-4cdc-be15-6207c2575f42
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+308437 [ZAP-ActiveScanner-12] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [d0b5c4ae-e7c1-43f1-978d-f6e91d9d0014, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1766, moz:profile: /tmp/rust_mozprofile0e76yM, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:39451/sessio...}
+Session ID: d0b5c4ae-e7c1-43f1-978d-f6e91d9d0014
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [d0b5c4ae-e7c1-43f1-978d-f6e91d9d0014, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1766, moz:profile: /tmp/rust_mozprofile0e76yM, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:39451/sessio...}
+Session ID: d0b5c4ae-e7c1-43f1-978d-f6e91d9d0014
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+313288 [ZAP-ActiveScanner-39] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [d8a106e9-e87f-4c7d-a18f-e79380621a46, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1644, moz:profile: /tmp/rust_mozprofileTqyM5A, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:36133/sessio...}
+Session ID: d8a106e9-e87f-4c7d-a18f-e79380621a46
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [d8a106e9-e87f-4c7d-a18f-e79380621a46, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1644, moz:profile: /tmp/rust_mozprofileTqyM5A, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:36133/sessio...}
+Session ID: d8a106e9-e87f-4c7d-a18f-e79380621a46
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+313595 [ZAP-ActiveScanner-22] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [9d7a79fc-8100-40cf-9227-e4e5485f4063, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1648, moz:profile: /tmp/rust_mozprofileMZ8B5z, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:40113/sessio...}
+Session ID: 9d7a79fc-8100-40cf-9227-e4e5485f4063
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [9d7a79fc-8100-40cf-9227-e4e5485f4063, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1648, moz:profile: /tmp/rust_mozprofileMZ8B5z, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:40113/sessio...}
+Session ID: 9d7a79fc-8100-40cf-9227-e4e5485f4063
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+316815 [ZAP-ActiveScanner-1] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [11f7e606-9f0f-41e6-a847-7706bc42331d, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1699, moz:profile: /tmp/rust_mozprofilepV13sZ, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:40637/sessio...}
+Session ID: 11f7e606-9f0f-41e6-a847-7706bc42331d
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [11f7e606-9f0f-41e6-a847-7706bc42331d, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1699, moz:profile: /tmp/rust_mozprofilepV13sZ, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:40637/sessio...}
+Session ID: 11f7e606-9f0f-41e6-a847-7706bc42331d
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+335075 [ZAP-ActiveScanner-3] ERROR org.zaproxy.zap.extension.domxss.DomXssScanRule - Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [b9384f20-7ac1-4df0-8b6f-05644eedab6c, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1719, moz:profile: /tmp/rust_mozprofile5kGBJB, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:34621/sessio...}
+Session ID: b9384f20-7ac1-4df0-8b6f-05644eedab6c
+org.openqa.selenium.NoSuchSessionException: Tried to run command without establishing a connection
+Build info: version: '4.38.0', revision: '6b412e825c*'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.167.4-microsoft-standard-WSL2', java.version: '17.0.17'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Command: [b9384f20-7ac1-4df0-8b6f-05644eedab6c, get {url=about:blank}]
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 140.4.0, moz:accessibilityChecks: false, moz:buildID: 20251009121631, moz:geckodriverVersion: 0.36.0, moz:headless: true, moz:platformVersion: 5.15.167.4-microsoft-standa..., moz:processID: 1719, moz:profile: /tmp/rust_mozprofile5kGBJB, moz:shutdownTimeout: 60000, moz:webdriverClick: true, moz:windowless: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, userAgent: Mozilla/5.0 (X11; Linux x86..., webSocketUrl: ws://127.0.0.1:34621/sessio...}
+Session ID: b9384f20-7ac1-4df0-8b6f-05644eedab6c
+	at jdk.internal.reflect.GeneratedConstructorAccessor148.newInstance(Unknown Source) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500) ~[?:?]
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:481) ~[?:?]
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138) ~[?:?]
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50) ~[?:?]
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216) ~[?:?]
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557) ~[?:?]
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.returnDriver(DomXssScanRule.java:381) ~[?:?]
+	at org.zaproxy.zap.extension.domxss.DomXssScanRule.scan(DomXssScanRule.java:700) ~[?:?]
+	at org.parosproxy.paros.core.scanner.AbstractPlugin.run(AbstractPlugin.java:402) [zap-D-2025-11-10.jar:D-2025-11-10]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+485637 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | DomXssScanRule in 442.222s with 5433 message(s) sent and 0 alert(s) raised.
+499748 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | SqlInjectionMsSqlTimingScanRule strength MEDIUM threshold MEDIUM
+502099 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | SqlInjectionMsSqlTimingScanRule in 2.352s with 110 message(s) sent and 0 alert(s) raised.
+502107 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | Log4ShellScanRule strength MEDIUM threshold MEDIUM
+502119 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - skipped plugin [no Active Scan OAST service is selected] http://airflow:8082 | Log4ShellScanRule in 0.012s with 0 message(s) sent and 0 alert(s) raised.
+502140 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | Spring4ShellScanRule strength MEDIUM threshold MEDIUM
+502620 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | Spring4ShellScanRule in 0.48s with 89 message(s) sent and 0 alert(s) raised.
+502622 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | CodeInjectionScanRule strength MEDIUM threshold MEDIUM
+504639 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | CodeInjectionScanRule in 2.018s with 88 message(s) sent and 0 alert(s) raised.
+504669 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | CommandInjectionScanRule strength MEDIUM threshold MEDIUM
+509478 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | CommandInjectionScanRule in 4.809s with 209 message(s) sent and 0 alert(s) raised.
+509588 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | XpathInjectionScanRule strength MEDIUM threshold MEDIUM
+510399 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | XpathInjectionScanRule in 0.81s with 33 message(s) sent and 0 alert(s) raised.
+510477 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | XxeScanRule strength MEDIUM threshold MEDIUM
+510633 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | XxeScanRule in 0.156s with 0 message(s) sent and 0 alert(s) raised.
+510634 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | PaddingOracleScanRule strength MEDIUM threshold MEDIUM
+510811 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | PaddingOracleScanRule in 0.177s with 0 message(s) sent and 0 alert(s) raised.
+510846 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | CloudMetadataScanRule strength MEDIUM threshold MEDIUM
+510848 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | SstiScanRule strength MEDIUM threshold MEDIUM
+511076 [ZAP-ActiveScanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | CloudMetadataScanRule in 0.23s with 9 message(s) sent and 0 alert(s) raised.
+514027 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | SstiScanRule in 3.179s with 154 message(s) sent and 0 alert(s) raised.
+514028 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | SstiBlindScanRule strength MEDIUM threshold MEDIUM
+516643 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | SstiBlindScanRule in 2.614s with 132 message(s) sent and 0 alert(s) raised.
+516653 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | CommandInjectionTimingScanRule strength MEDIUM threshold MEDIUM
+520351 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | CommandInjectionTimingScanRule in 3.698s with 176 message(s) sent and 0 alert(s) raised.
+520362 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | DirectoryBrowsingScanRule strength MEDIUM threshold MEDIUM
+520758 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | DirectoryBrowsingScanRule in 0.395s with 45 message(s) sent and 0 alert(s) raised.
+520771 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | BufferOverflowScanRule strength MEDIUM threshold MEDIUM
+521095 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | BufferOverflowScanRule in 0.325s with 11 message(s) sent and 0 alert(s) raised.
+521096 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | FormatStringScanRule strength MEDIUM threshold MEDIUM
+521915 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | FormatStringScanRule in 0.818s with 33 message(s) sent and 0 alert(s) raised.
+521923 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | CrlfInjectionScanRule strength MEDIUM threshold MEDIUM
+523520 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | CrlfInjectionScanRule in 1.598s with 77 message(s) sent and 0 alert(s) raised.
+523538 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | ParameterTamperScanRule strength MEDIUM threshold MEDIUM
+525345 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | ParameterTamperScanRule in 1.807s with 41 message(s) sent and 0 alert(s) raised.
+525346 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | ElmahScanRule strength MEDIUM threshold MEDIUM
+525348 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | TraceAxdScanRule strength MEDIUM threshold MEDIUM
+525377 [ZAP-ActiveScanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | ElmahScanRule in 0.031s with 1 message(s) sent and 0 alert(s) raised.
+525573 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | TraceAxdScanRule in 0.225s with 18 message(s) sent and 0 alert(s) raised.
+525574 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | HtAccessScanRule strength MEDIUM threshold MEDIUM
+525721 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | HtAccessScanRule in 0.147s with 10 message(s) sent and 0 alert(s) raised.
+525722 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | EnvFileScanRule strength MEDIUM threshold MEDIUM
+525898 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | EnvFileScanRule in 0.175s with 10 message(s) sent and 0 alert(s) raised.
+525899 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | HiddenFilesScanRule strength MEDIUM threshold MEDIUM
+525930 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | SpringActuatorScanRule strength MEDIUM threshold MEDIUM
+525933 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | XsltInjectionScanRule strength MEDIUM threshold MEDIUM
+525976 [ZAP-ActiveScanner-1] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | SpringActuatorScanRule in 0.046s with 2 message(s) sent and 0 alert(s) raised.
+527329 [ZAP-ActiveScanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | HiddenFilesScanRule in 1.429s with 52 message(s) sent and 0 alert(s) raised.
+528283 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | XsltInjectionScanRule in 2.35s with 56 message(s) sent and 0 alert(s) raised.
+528294 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | GetForPostScanRule strength MEDIUM threshold MEDIUM
+528435 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | GetForPostScanRule in 0.141s with 2 message(s) sent and 0 alert(s) raised.
+528436 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | UserAgentScanRule strength MEDIUM threshold MEDIUM
+532203 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | UserAgentScanRule in 3.766s with 540 message(s) sent and 84 alert(s) raised.
+532233 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | ScriptsActiveScanner strength MEDIUM threshold MEDIUM
+532239 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - skipped plugin [no scripts enabled] http://airflow:8082 | ScriptsActiveScanner in 0.006s with 0 message(s) sent and 0 alert(s) raised.
+532249 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | SourceCodeDisclosureGitScanRule strength MEDIUM threshold MEDIUM
+532482 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | SourceCodeDisclosureGitScanRule in 0.234s with 0 message(s) sent and 0 alert(s) raised.
+532494 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | SourceCodeDisclosureFileInclusionScanRule strength MEDIUM threshold MEDIUM
+533116 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | SourceCodeDisclosureFileInclusionScanRule in 0.623s with 10 message(s) sent and 0 alert(s) raised.
+533156 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | ShellShockScanRule strength MEDIUM threshold MEDIUM
+533816 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | ShellShockScanRule in 0.661s with 22 message(s) sent and 0 alert(s) raised.
+533935 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | HttPoxyScanRule strength MEDIUM threshold MEDIUM
+534856 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | HttPoxyScanRule in 0.921s with 135 message(s) sent and 0 alert(s) raised.
+534857 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | CrossDomainScanRule strength MEDIUM threshold MEDIUM
+534875 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | SessionFixationScanRule strength MEDIUM threshold MEDIUM
+534903 [ZAP-ActiveScanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | CrossDomainScanRule in 0.046s with 2 message(s) sent and 0 alert(s) raised.
+535048 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | SessionFixationScanRule in 0.174s with 0 message(s) sent and 0 alert(s) raised.
+535049 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | OutOfBandXssScanRule strength MEDIUM threshold MEDIUM
+536490 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | OutOfBandXssScanRule in 1.441s with 44 message(s) sent and 0 alert(s) raised.
+536490 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | SsrfScanRule strength MEDIUM threshold MEDIUM
+536673 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | SsrfScanRule in 0.183s with 11 message(s) sent and 0 alert(s) raised.
+536675 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | Text4ShellScanRule strength MEDIUM threshold MEDIUM
+536680 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - skipped plugin [no Active Scan OAST service is selected] http://airflow:8082 | Text4ShellScanRule in 0.005s with 0 message(s) sent and 0 alert(s) raised.
+536685 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | ExpressionLanguageInjectionScanRule strength MEDIUM threshold MEDIUM
+536946 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | ExpressionLanguageInjectionScanRule in 0.261s with 11 message(s) sent and 0 alert(s) raised.
+536953 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | SOAPActionSpoofingActiveScanRule strength MEDIUM threshold MEDIUM
+537032 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | SOAPActionSpoofingActiveScanRule in 0.079s with 0 message(s) sent and 0 alert(s) raised.
+537038 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | SOAPXMLInjectionActiveScanRule strength MEDIUM threshold MEDIUM
+537123 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | SOAPXMLInjectionActiveScanRule in 0.085s with 0 message(s) sent and 0 alert(s) raised.
+537132 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | SourceCodeDisclosureSvnScanRule strength MEDIUM threshold MEDIUM
+537321 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | SourceCodeDisclosureSvnScanRule in 0.188s with 28 message(s) sent and 0 alert(s) raised.
+537361 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | RelativePathConfusionScanRule strength MEDIUM threshold MEDIUM
+537767 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | RelativePathConfusionScanRule in 0.406s with 27 message(s) sent and 0 alert(s) raised.
+538036 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | BackupFileDisclosureScanRule strength MEDIUM threshold MEDIUM
+542377 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | BackupFileDisclosureScanRule in 4.341s with 968 message(s) sent and 0 alert(s) raised.
+542378 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | HttpOnlySiteScanRule strength MEDIUM threshold MEDIUM
+542380 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | CsrfTokenScanRule strength MEDIUM threshold MEDIUM
+563161 [ZAP-ActiveScanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | HttpOnlySiteScanRule in 20.783s with 0 message(s) sent and 1 alert(s) raised.
+563168 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | CsrfTokenScanRule in 20.788s with 0 message(s) sent and 0 alert(s) raised.
+563172 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | IntegerOverflowScanRule strength MEDIUM threshold MEDIUM
+564151 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | IntegerOverflowScanRule in 0.979s with 44 message(s) sent and 0 alert(s) raised.
+564152 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | ProxyDisclosureScanRule strength MEDIUM threshold MEDIUM
+565045 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | ProxyDisclosureScanRule in 0.893s with 360 message(s) sent and 0 alert(s) raised.
+565046 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | ForbiddenBypassScanRule strength MEDIUM threshold MEDIUM
+565317 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | ForbiddenBypassScanRule in 0.271s with 45 message(s) sent and 0 alert(s) raised.
+565318 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | CorsScanRule strength MEDIUM threshold MEDIUM
+566903 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | CorsScanRule in 1.585s with 315 message(s) sent and 0 alert(s) raised.
+566904 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | ExponentialEntityExpansionScanRule strength MEDIUM threshold MEDIUM
+566984 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | ExponentialEntityExpansionScanRule in 0.08s with 0 message(s) sent and 0 alert(s) raised.
+566984 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | InsecureHttpMethodScanRule strength MEDIUM threshold MEDIUM
+567154 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | InsecureHttpMethodScanRule in 0.17s with 45 message(s) sent and 0 alert(s) raised.
+567154 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | HttpsAsHttpScanRule strength MEDIUM threshold MEDIUM
+567251 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | HttpsAsHttpScanRule in 0.097s with 0 message(s) sent and 0 alert(s) raised.
+567252 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | HttpParameterPollutionScanRule strength MEDIUM threshold MEDIUM
+567334 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | HttpParameterPollutionScanRule in 0.082s with 2 message(s) sent and 0 alert(s) raised.
+567334 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | UsernameEnumerationScanRule strength MEDIUM threshold MEDIUM
+567335 [ZAP-Scanner-0] INFO  org.zaproxy.zap.extension.ascanrulesBeta.UsernameEnumerationScanRule - There does not appear to be any configured contexts using Form-based Authentication. Further attempts during the current scan will be skipped.
+567336 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - skipped plugin http://airflow:8082 | UsernameEnumerationScanRule in 0.001s with 0 message(s) sent and 0 alert(s) raised.
+567336 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - start host http://airflow:8082 | SlackerCookieScanRule strength MEDIUM threshold MEDIUM
+567653 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host/plugin http://airflow:8082 | SlackerCookieScanRule in 0.317s with 90 message(s) sent and 41 alert(s) raised.
+567654 [ZAP-Scanner-0] INFO  org.parosproxy.paros.core.scanner.HostProcess - completed host http://airflow:8082 in 548.977s with 126 alert(s) raised.
+567658 [Thread-8] INFO  org.parosproxy.paros.core.scanner.Scanner - scanner with ID 0 completed in 548.992s

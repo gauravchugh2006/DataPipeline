@@ -203,7 +203,7 @@ services:
     working_dir: /zap/wrk
     command: >
       zap-baseline.py
-      -t http://airflow:8082
+      -t http://airflow:8080
       -r zap-baseline.html
       -J zap-report.json
       -x zap-report.xml
@@ -211,7 +211,8 @@ services:
       -m 5
     volumes:
       - ./security-reports:/zap/wrk
-    profiles: ["zap"]
+      - ./zap-baseline.conf:/zap/wrk/zap-baseline.conf
+##    profiles: ["zap"]
 
   ### 🛡️ OWASP ZAP Full Scan (DAST) ###
   zap-full:
@@ -225,11 +226,10 @@ services:
       -r zap-full.html
       -J zap-full.json
       -x zap-full.xml
-      --time 20
-      -m 5
+      -m 10
     volumes:
       - ./security-reports:/zap/wrk
-    profiles: ["zap"]
+#    profiles: ["zap"]
 
   ### 🧠 Neo4j Graph Database ###
   neo4j:

@@ -158,3 +158,22 @@ Detailed CI/CD rollout instructions, including Jenkins multibranch pipelines and
 AWS deployment guidance, live in [readme-ci-cd.md](./readme-ci-cd.md).  Once the
 local quality gates pass you can follow that document to publish the stack to
 cloud environments.
+
+## 1. Run ZAP Containers Manually
+
+To start both scans (baseline + full):
+```bash
+  docker compose --profile zap up zap-baseline zap-full
+```
+
+
+or, if you just want one scan:
+```bash
+  docker compose --profile zap up zap-baseline
+```
+
+
+If you want to run it once (not as a daemonized container):
+```bash
+  docker compose --profile zap run --rm zap-baseline
+```
