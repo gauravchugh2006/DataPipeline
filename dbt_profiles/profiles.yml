@@ -5,7 +5,7 @@ data_pipeline:
       type: postgres
       host: postgres_dw
       user: dwh_user
-      password: dwh_password
+      password: "{{ env_var('POSTGRES_DWH_PASSWORD') }}"
       port: 5432
       dbname: datamart
       schema: analytics

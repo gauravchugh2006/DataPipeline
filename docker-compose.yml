@@ -10,7 +10,7 @@ x-airflow-common: &airflow-common
   environment:
     - AIRFLOW__CORE__EXECUTOR=LocalExecutor
     - AIRFLOW__CORE__FERNET_KEY=ehE_UybKeIGETmag57Fy1MBeAIQRWDt7NS9zcl017Yg=
-    - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres_airflow/airflow
+    - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://${AIRFLOW_DB_USER:-airflow}:${AIRFLOW_DB_PASSWORD:?AIRFLOW_DB_PASSWORD not set}@postgres_airflow/airflow
     - AIRFLOW__CORE__LOAD_EXAMPLES=True
     - AIRFLOW__CORE__DAGS_ARE_PAUSED_CREATION=False
     - AIRFLOW__CORE__LOGGING_LEVEL=INFO
@@ -33,8 +33,8 @@ services:
     image: postgres:15
     container_name: postgres_airflow
     environment:
-      POSTGRES_USER: airflow
-      POSTGRES_PASSWORD: airflow
+      POSTGRES_USER: ${AIRFLOW_DB_USER:-airflow}
+      POSTGRES_PASSWORD: ${AIRFLOW_DB_PASSWORD:?AIRFLOW_DB_PASSWORD not set}
       POSTGRES_DB: airflow
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "airflow"]
@@ -69,7 +69,7 @@ services:
     restart: always
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
-      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres_airflow/airflow
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${AIRFLOW_DB_USER:-airflow}:${AIRFLOW_DB_PASSWORD:?AIRFLOW_DB_PASSWORD not set}@postgres_airflow/airflow
       AIRFLOW__CORE__LOAD_EXAMPLES: "true"
     depends_on:
       - postgres_airflow
@@ -90,7 +90,7 @@ services:
     restart: "no"                   # Do not restart—run once and exit
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
-      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres_airflow/airflow
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${AIRFLOW_DB_USER:-airflow}:${AIRFLOW_DB_PASSWORD:?AIRFLOW_DB_PASSWORD not set}@postgres_airflow/airflow
       AIRFLOW__CORE__LOAD_EXAMPLES: "true"
     command: >
       bash -cx '
@@ -141,8 +141,8 @@ services:
     image: postgres:15
     container_name: postgres_dw
     environment:
-      POSTGRES_USER: dwh_user
-      POSTGRES_PASSWORD: dwh_password
+      POSTGRES_USER: ${POSTGRES_DWH_USER:-dwh_user}
+      POSTGRES_PASSWORD: ${POSTGRES_DWH_PASSWORD:?POSTGRES_DWH_PASSWORD not set}
       POSTGRES_DB: datamart
     healthcheck:
      test: ["CMD-SHELL", "pg_isready -U dwh_user -d datamart -h localhost || exit 1"]
@@ -166,9 +166,9 @@ services:
     environment:
       SONAR_JDBC_URL: jdbc:postgresql://postgres_sonar:5432/sonar
       SONAR_JDBC_USERNAME: sonar    # ← This is the DATABASE user
-      SONAR_JDBC_PASSWORD: sonar    # ← This is the DATABASE password
-      SONARQUBE_JDBC_USERNAME: sonar
-      SONARQUBE_JDBC_PASSWORD: sonar
+      SONAR_JDBC_PASSWORD: ${SONAR_DB_PASSWORD:?SONAR_DB_PASSWORD not set}    # ← This is the DATABASE password
+      SONARQUBE_JDBC_USERNAME: ${SONAR_DB_USER:-sonar}
+      SONARQUBE_JDBC_PASSWORD: ${SONAR_DB_PASSWORD:?SONAR_DB_PASSWORD not set}
     # Add this to set a custom admin password:
     # Note: This only works on first initialization, before password is set
     # SONARQUBE_ADMIN_PASSWORD: your_secure_password (default is user 'admin' and password 'admin')
@@ -180,9 +180,9 @@ services:
     image: postgres:15
     container_name: sonar-postgres-db
     environment:
-      POSTGRES_USER: sonar
-      POSTGRES_PASSWORD: sonar
-      POSTGRES_DB: sonar
+      POSTGRES_USER: ${SONAR_DB_USER:-sonar}
+      POSTGRES_PASSWORD: ${SONAR_DB_PASSWORD:?SONAR_DB_PASSWORD not set}
+      POSTGRES_DB: ${SONAR_DB_NAME:-sonar}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U sonar -d sonar -h localhost || exit 1"]
       interval: 10s
@@ -325,7 +325,7 @@ services:
       DATAHUB_SECRET: YouKnowNothing
       KAFKA_BOOTSTRAP_SERVER: broker:29092
       EBEAN_DATASOURCE_USERNAME: dwh_user
-      EBEAN_DATASOURCE_PASSWORD: dwh_password
+      EBEAN_DATASOURCE_PASSWORD: ${POSTGRES_DWH_PASSWORD:?POSTGRES_DWH_PASSWORD not set}
       EBEAN_DATASOURCE_HOST: postgres_dw
       EBEAN_DATASOURCE_PORT: 5432
       EBEAN_DATASOURCE_URL: jdbc:postgresql://postgres_dw:5432/datamart
@@ -333,7 +333,7 @@ services:
       NEO4J_HOST: neo4j:7687
       NEO4J_URI: bolt://neo4j:7687
       NEO4J_USERNAME: neo4j
-      NEO4J_PASSWORD: datahub
+      NEO4J_PASSWORD: ${NEO4J_PASSWORD:-datahub}
     ports:
       - "8080:8080"
     depends_on:
