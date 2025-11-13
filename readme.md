@@ -24,6 +24,16 @@ DataPipeline/
 └── tests/                     # Pytest coverage for key pipeline helpers
 ```
 
+The generated project report now ships as LaTeX and PDF artefacts so the
+contents remain text-based and easy to version control:
+
+* `Project_Report_Datapipeline.tex` – fully editable LaTeX source.
+* `Project_Report_Datapipeline.pdf` – ready-to-share formatted output.
+* `scripts/create_project_report.py` – regenerates both files via
+  `python scripts/create_project_report.py`.
+
+Run the script after editing the content definitions to refresh both files.
+
 Raw CSVs used by the generator live under `dags/data_source/`.  The generator
 now honours the `DATA_PIPELINE_SOURCE_DIR` environment variable so tests and
 ad-hoc demos can point to a scratch directory without touching production-like
@@ -39,6 +49,8 @@ files.
 * Git + Git LFS (optional, for large artefacts).
 * SonarScanner CLI (for quality gates) and the OWASP ZAP Docker image (already
   referenced in `docker-compose.yml`).
+* Terraform CLI 1.5+ (for infrastructure automation) and AWS credentials with
+  permissions to create VPC, IAM, ECS, S3, and EC2 resources.
 
 If Visual Studio Code prompts for a Kubernetes configuration file, create an
 empty profile once so the request stops repeating:
@@ -47,6 +59,91 @@ empty profile once so the request stops repeating:
 mkdir -Force $env:USERPROFILE\.kube
 if (!(Test-Path "$env:USERPROFILE\.kube\config")) { New-Item "$env:USERPROFILE\.kube\config" -ItemType File }
 ```
+
+---
+
+## Automated cloud deployment (Terraform + Jenkins)
+
+The repository now ships with a cloud-agnostic Terraform project in
+`terraform/`.  The configuration is parametrised so that the same module
+signature can be reused when the stack needs to land on Azure by filling in the
+`azure_*` variables and implementing the `modules/azure` shim.  For now, the AWS
+modules provision:
+
+* A VPC with public and private subnets sized for AWS Academy / student-tier
+  accounts.
+* A hardened EC2 host running Jenkins with Terraform, Docker, and the AWS CLI
+  pre-installed.
+* S3-based artifact storage for Airflow DAGs, dbt assets, and deployment
+  packages.
+* An ECS Fargate cluster exposing both the `datapipeline` API and the
+  `customer_app` UI behind an Application Load Balancer.
+
+### Preparing credentials
+
+1. Create or reuse an AWS key pair (`ssh_key_name`) so you can reach the Jenkins
+   host for troubleshooting.
+2. Export AWS credentials on the machine running Terraform.  Free student
+   accounts typically rely on
+   [AWS Academy Learner Lab](https://aws.amazon.com/training/awsacademy/)
+   profiles, so the example uses shared credentials rather than hard-coded
+   secrets.
+3. (Optional) Populate the Azure variables in `terraform/variables.tf` if you
+   plan to scaffold the Azure module later.  The variable structure matches the
+   AWS one to minimise future changes.
+
+### Deploying the QA (branch `qa`) environment
+
+```bash
+cd terraform
+terraform init
+terraform workspace select qa || terraform workspace new qa
+terraform apply -var-file="environments/qa/terraform.tfvars"
+```
+
+The QA environment provisions a cost-optimised footprint (single Fargate task
+per service, no NAT gateway) that aligns with the `qa` Git branch.  Jenkins is
+bootstrapped with Terraform and AWS CLIs so the existing `Jenkinsfile` can build
+and push branch images to the generated ECR repositories before running
+integration tests against the QA services.
+
+### Deploying the production (branch `main`) environment
+
+```bash
+cd terraform
+terraform init
+terraform workspace select main || terraform workspace new main
+terraform apply -var-file="environments/main/terraform.tfvars"
+```
+
+The production footprint enables a managed NAT gateway, scales both services to
+two Fargate tasks, and installs the AWS CodeDeploy agent on the Jenkins host.
+Jenkins pipelines triggered from the `main` branch should run the infrastructure
+plan step in "check" mode first (e.g. `terraform plan`) and then apply the
+changes once approvals are in place.  The load balancer exposes the services at
+`http://<alb-dns>/datapipeline` and `http://<alb-dns>/customer_app`.
+
+> **Tip:** If you need to experiment with Azure later, keep the same variable
+> structure and implement Terraform under `terraform/modules/azure`.  All
+> call-sites already accept a `cloud_provider` switch so only the module source
+> needs to change.
+
+### Jenkins integration workflow
+
+1. Update the Jenkins global credentials store with an AWS access key (or
+   assume-role settings) that mirrors the Terraform user.
+2. Configure two multibranch pipelines:
+   * `DataPipeline-QA` tracking the `qa` branch.  Include a stage that runs
+     `terraform apply -var-file=environments/qa/terraform.tfvars` after the
+     application images are pushed.
+   * `DataPipeline-Prod` tracking the `main` branch.  Gate the `terraform apply`
+     stage behind manual approval.
+3. Each pipeline can consume the outputs written to the Jenkins workspace by
+   calling `terraform output -json` and parsing the ALB endpoints to run smoke
+   tests.
+
+Destroy environments with the matching `terraform destroy` command and the same
+`-var-file` argument when you want to free student-account quotas.
 
 ---
 

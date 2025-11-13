@@ -1,0 +1,1066 @@
+%PDF-1.4
+%
+13 0 obj
+<< /Length 3134 >>
+stream
+BT
+/F1 11 Tf
+1 0 0 1 54 738 Tm
+(# Executive Summary) Tj
+0 -14 Td
+(  This report documents the end-to-end ecommerce data pipeline and customer experience) Tj
+0 -14 Td
+(  platform that the team implemented for analytics, automation, and continuous delivery.) Tj
+0 -14 Td
+(  The initiative delivers a modular architecture spanning data ingestion, transformation,) Tj
+0 -14 Td
+(  reporting, and customer-facing services that can be deployed on AWS today with a clear) Tj
+0 -14 Td
+(  path to Azure tomorrow.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(  The solution unifies Apache Airflow, dbt, and a React customer portal on top of) Tj
+0 -14 Td
+(  container-native infrastructure. Terraform, Jenkins, and a shared observability fabric) Tj
+0 -14 Td
+(  allow each component to be managed through infrastructure-as-code and repeatable) Tj
+0 -14 Td
+(  pipelines.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(  - Accelerate data availability for merchandising and marketing teams with near real-time) Tj
+0 -14 Td
+(     KPIs.) Tj
+0 -14 Td
+(  - Enable blue/green-style application releases through Jenkins-driven automation for QA) Tj
+0 -14 Td
+(     and main branches.) Tj
+0 -14 Td
+(  - Lay the groundwork for multi-cloud portability by modelling every environment through) Tj
+0 -14 Td
+(     configurable variables.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(  Document generation completed on 13 November 2025.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(# Introduction) Tj
+0 -14 Td
+(  Ecommerce organisations operate under constant pressure to interpret signals from web,) Tj
+0 -14 Td
+(  mobile, fulfilment, and customer support channels. The project establishes a single) Tj
+0 -14 Td
+(  governed data pipeline that hydrates the analytical data mart, while the customer) Tj
+0 -14 Td
+(  application exposes curated experiences powered by the same data foundation.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Background and Motivation) Tj
+0 -14 Td
+(    The legacy environment relied on ad-hoc scripts, manual database exports, and) Tj
+0 -14 Td
+(    department-specific dashboards that were difficult to reconcile. Engineers spent a) Tj
+0 -14 Td
+(    significant portion of their week maintaining brittle ETL jobs.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(    By introducing Apache Airflow orchestrations, dbt modelling, and a managed artifact) Tj
+0 -14 Td
+(    repository, the team centralises governance, testing, and delivery mechanisms while) Tj
+0 -14 Td
+(    reducing operational overhead.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Objectives) Tj
+0 -14 Td
+(    - Consolidate source data streams from order intake, catalogue management, and customer) Tj
+0 -14 Td
+(       feedback into a trusted warehouse.) Tj
+0 -14 Td
+(    - Provide stakeholders with curated dimensional models and KPIs refreshed within five) Tj
+0 -14 Td
+(       minutes of operational events.) Tj
+0 -14 Td
+(    - Deliver a responsive customer experience application that surfaces personalised) Tj
+0 -14 Td
+(       promotions and order insights.) Tj
+0 -14 Td
+(    - Automate infrastructure provisioning, application deployment, and validation through) Tj
+0 -14 Td
+(       infrastructure-as-code and CI/CD workflows.) Tj
+0 -14 Td
+() Tj
+ET
+endstream
+endobj
+14 0 obj
+<< /Length 2732 >>
+stream
+BT
+/F1 11 Tf
+1 0 0 1 54 738 Tm
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(# Problem Definition and Scope) Tj
+0 -14 Td
+(  The project addresses data latency, inconsistent reporting, and limited deployment) Tj
+0 -14 Td
+(  automation. It targets ecommerce order and catalogue data, marketing campaign) Tj
+0 -14 Td
+(  performance, and customer service interactions.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Business Challenges) Tj
+0 -14 Td
+(    Merchandising teams could not react to trending products because analytics lagged by) Tj
+0 -14 Td
+(    several hours. Customer service lacked unified views of orders and returns, fragmenting) Tj
+0 -14 Td
+(    the brand experience.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(    - Manual SQL exports delayed revenue reporting by up to two business days.) Tj
+0 -14 Td
+(    - Nightly cron jobs failed silently, creating blind spots in marketing attribution.) Tj
+0 -14 Td
+(    - Deployment scripts required administrator access on individual servers, increasing risk) Tj
+0 -14 Td
+(       and cycle time.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Project Scope) Tj
+0 -14 Td
+(    In scope: near real-time ingestion, curated marts for sales and marketing analytics, a) Tj
+0 -14 Td
+(    React customer portal, and the automation toolchain spanning Terraform and Jenkins.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(    Out of scope: re-platforming transaction processing systems, custom machine learning) Tj
+0 -14 Td
+(    models, and full ERP modernisation.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(# Requirements Analysis) Tj
+0 -14 Td
+(## Functional Requirements) Tj
+0 -14 Td
+(    - Schedule ingestion of order, inventory, campaign, and customer support feeds with retry-) Tj
+0 -14 Td
+(       aware workflows.) Tj
+0 -14 Td
+(    - Transform raw events into conformed dimensional tables and aggregate marts accessible by) Tj
+0 -14 Td
+(       BI tools.) Tj
+0 -14 Td
+(    - Expose REST endpoints for customer order status, personalised recommendations, and) Tj
+0 -14 Td
+(       marketing content.) Tj
+0 -14 Td
+(    - Provide administrative dashboards summarising pipeline health and deployment status.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Non-Functional Requirements) Tj
+0 -14 Td
+(    - Achieve 99.5% availability for customer-facing services with automated recovery) Tj
+0 -14 Td
+(       strategies.) Tj
+0 -14 Td
+(    - Deliver analytics datasets within a five-minute freshness window from event capture.) Tj
+0 -14 Td
+(    - Support multi-cloud portability with abstracted configuration variables and stateless) Tj
+0 -14 Td
+(       containers.) Tj
+0 -14 Td
+(    - Maintain compliance with data privacy regulations by enforcing encryption in transit and) Tj
+0 -14 Td
+(       at rest.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+ET
+endstream
+endobj
+15 0 obj
+<< /Length 2997 >>
+stream
+BT
+/F1 11 Tf
+1 0 0 1 54 738 Tm
+(## Stakeholder Expectations) Tj
+0 -14 Td
+(    Stakeholder | Interests | Success Indicators) Tj
+0 -14 Td
+(    ------------+-----------+-------------------) Tj
+0 -14 Td
+(    Chief Digital Officer | Accelerated release cadence, resilient infrastructure | Deployment cycle time reduced by 60%) Tj
+0 -14 Td
+(    Marketing Analytics | Trusted campaign attribution metrics | Dashboards refreshed within five minutes) Tj
+0 -14 Td
+(    Customer Support | Unified order and return history | Faster case resolution and higher CSAT) Tj
+0 -14 Td
+(    DevOps Team | Repeatable provisioning, observability | Infrastructure codified and tested in CI) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(    [Stakeholder goals and measurable outcomes]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(# Architecture Overview) Tj
+0 -14 Td
+(  The solution follows a modular layered architecture: data ingestion, orchestration,) Tj
+0 -14 Td
+(  modelling, serving, and experience delivery. Infrastructure modules group networking,) Tj
+0 -14 Td
+(  compute, storage, and security primitives.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## High-Level Components) Tj
+0 -14 Td
+(    - Data Ingestion Layer: Kafka-compatible stream via AWS Kinesis Data Streams \(extensible) Tj
+0 -14 Td
+(       to Azure Event Hubs\).) Tj
+0 -14 Td
+(    - Processing Layer: Apache Airflow orchestrations executing Python operators and dbt) Tj
+0 -14 Td
+(       models.) Tj
+0 -14 Td
+(    - Storage Layer: Amazon S3 for raw and curated zones, Amazon RDS PostgreSQL warehouse) Tj
+0 -14 Td
+(       \(portable to Azure Blob and Azure Database for PostgreSQL\).) Tj
+0 -14 Td
+(    - Serving Layer: RESTful APIs and React frontend containerised for ECS Fargate with) Tj
+0 -14 Td
+(       parallels in Azure Container Apps.) Tj
+0 -14 Td
+(    - Observability Layer: Prometheus-compatible metrics and structured logging shipped to) Tj
+0 -14 Td
+(       CloudWatch \(or Azure Monitor\).) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Data Flow) Tj
+0 -14 Td
+(    Synthetic orders emulate browse-to-purchase journeys and land in the ingestion bucket.) Tj
+0 -14 Td
+(    Airflow DAGs apply validation, enrichments, and merge operations before persisting) Tj
+0 -14 Td
+(    dimensional models. The dbt project builds incremental models, and the resulting) Tj
+0 -14 Td
+(    datasets feed visualisations as well as the customer API.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Component Interaction) Tj
+0 -14 Td
+(    - Airflow invokes dbt via KubernetesPodOperator or ECSOperator, ensuring execution parity) Tj
+0 -14 Td
+(       across environments.) Tj
+0 -14 Td
+(    - Jenkins pipelines publish application images to Amazon ECR and trigger ECS rolling) Tj
+0 -14 Td
+(       updates with health checks.) Tj
+0 -14 Td
+(    - Terraform outputs share load balancer endpoints, security group IDs, and credential) Tj
+0 -14 Td
+(       references back to Jenkins for smoke testing.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(# Data Pipeline Design) Tj
+ET
+endstream
+endobj
+16 0 obj
+<< /Length 2959 >>
+stream
+BT
+/F1 11 Tf
+1 0 0 1 54 738 Tm
+(## Source Systems) Tj
+0 -14 Td
+(    Order intake events, inventory adjustments, marketing campaign metadata, and customer) Tj
+0 -14 Td
+(    service notes are synthesised to mirror enterprise patterns. Each source publishes JSON) Tj
+0 -14 Td
+(    payloads with schema versioning to simplify evolution.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Airflow Orchestration) Tj
+0 -14 Td
+(    Two primary DAGs run on staggered schedules: the order generator and the end-to-end data) Tj
+0 -14 Td
+(    pipeline. Task groups isolate staging, validation, transformation, and reporting phases.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(    - Automatic retries with exponential backoff for transient failures.) Tj
+0 -14 Td
+(    - Dataset-level SLAs tracked with Airflow's alerting mechanisms.) Tj
+0 -14 Td
+(    - Config-driven environment variables for bucket names, prefixes, and schema locations.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## dbt Modelling) Tj
+0 -14 Td
+(    The dbt project structures staging, intermediate, and mart models. Macros enforce naming) Tj
+0 -14 Td
+(    conventions, and tests cover relationships, uniqueness, and freshness. Snapshots) Tj
+0 -14 Td
+(    preserve slowly changing dimension history.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Data Quality Controls) Tj
+0 -14 Td
+(    - Great Expectations-style assertions within Airflow operators for row counts, null) Tj
+0 -14 Td
+(       ratios, and schema compatibility.) Tj
+0 -14 Td
+(    - dbt tests run within CI pipelines to prevent regressions before deployment.) Tj
+0 -14 Td
+(    - MinIO-based quarantine buckets capture anomalous files for investigation.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(# Customer Application Experience) Tj
+0 -14 Td
+(  The customer-facing web application builds on React and Tailwind CSS, consuming the same) Tj
+0 -14 Td
+(  API layer surfaced by the data pipeline. User journeys include order tracking,) Tj
+0 -14 Td
+(  personalised recommendations, and loyalty insights.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Frontend Architecture) Tj
+0 -14 Td
+(    Component-based design patterns enable reuse across dashboards. State management) Tj
+0 -14 Td
+(    leverages Redux Toolkit, and API clients utilise Axios with interceptors for) Tj
+0 -14 Td
+(    authentication and telemetry.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(    - Responsive layouts supporting desktop, tablet, and mobile breakpoints.) Tj
+0 -14 Td
+(    - Accessibility-first semantics with WCAG 2.1 AA targets.) Tj
+0 -14 Td
+(    - Feature flags delivered through environment variables to toggle beta modules.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## API Layer) Tj
+0 -14 Td
+(    FastAPI orchestrates REST endpoints packaged into containers. Routes cover customer) Tj
+0 -14 Td
+(    profiles, orders, inventory lookups, and marketing banners. JSON Web Tokens secure the) Tj
+0 -14 Td
+(    endpoints, with scope-based authorisation for support teams versus end customers.) Tj
+ET
+endstream
+endobj
+17 0 obj
+<< /Length 2676 >>
+stream
+BT
+/F1 11 Tf
+1 0 0 1 54 738 Tm
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Performance Considerations) Tj
+0 -14 Td
+(    - Server-side caching for personalised recommendations to meet sub-200ms response targets.) Tj
+0 -14 Td
+(    - CDN-backed static asset delivery through Amazon CloudFront \(or Azure Front Door\).) Tj
+0 -14 Td
+(    - Synthetic monitoring via lightweight Playwright scripts executed post-deployment.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(# Infrastructure Automation) Tj
+0 -14 Td
+(  Terraform codifies VPCs, ECS services, RDS instances, S3 buckets, and IAM policies.) Tj
+0 -14 Td
+(  Modules parameterise provider-specific attributes, enabling a swap between AWS and Azure) Tj
+0 -14 Td
+(  with minimal changes to variables.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Module Strategy) Tj
+0 -14 Td
+(    - Core networking module defines CIDR blocks, subnets, route tables, and security groups.) Tj
+0 -14 Td
+(    - Data services module provisions PostgreSQL, S3 buckets, and KMS keys.) Tj
+0 -14 Td
+(    - Application module deploys ECS clusters, task definitions, and load balancers.) Tj
+0 -14 Td
+(    - Jenkins module configures EC2 \(or Azure VM\) hosts with bootstrap scripts for Terraform,) Tj
+0 -14 Td
+(       Docker, and pipeline agents.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Environment Configuration) Tj
+0 -14 Td
+(    Separate `qa` and `main` variable files tune capacity, instance sizes, and observability) Tj
+0 -14 Td
+(    flags. Workspace usage keeps state isolated per environment.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(    Setting | QA Branch | Main Branch) Tj
+0 -14 Td
+(    --------+-----------+------------) Tj
+0 -14 Td
+(    Fargate Task Count | 1 per service | 2 per service) Tj
+0 -14 Td
+(    Database Class | db.t3.small | db.m5.large) Tj
+0 -14 Td
+(    NAT Gateway | Disabled | Enabled) Tj
+0 -14 Td
+(    Alerting | Slack webhooks | Slack + PagerDuty) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(    [Key infrastructure parameter differences]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Azure Portability) Tj
+0 -14 Td
+(    Provider-agnostic variables abstract network CIDR ranges, container registries, secret) Tj
+0 -14 Td
+(    stores, and monitoring endpoints. Implementing the Azure module requires mapping these) Tj
+0 -14 Td
+(    variables to Azure Virtual Networks, Container Apps, Key Vault, and Application) Tj
+0 -14 Td
+(    Insights.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(# Continuous Integration and Delivery) Tj
+0 -14 Td
+(  Jenkins orchestrates build, test, security scanning, and deployment stages. Pipelines) Tj
+0 -14 Td
+(  are declarative with shared libraries for Terraform wrappers and notification hooks.) Tj
+0 -14 Td
+() Tj
+ET
+endstream
+endobj
+18 0 obj
+<< /Length 2587 >>
+stream
+BT
+/F1 11 Tf
+1 0 0 1 54 738 Tm
+(## Pipeline Stages) Tj
+0 -14 Td
+(    - Checkout and dependency caching.) Tj
+0 -14 Td
+(    - Static code analysis via Flake8, Bandit, and SonarQube scanners.) Tj
+0 -14 Td
+(    - Unit and integration testing triggered per branch.) Tj
+0 -14 Td
+(    - Docker image build, tagging, and push to Amazon ECR \(or Azure Container Registry\).) Tj
+0 -14 Td
+(    - Terraform plan and apply stages gated by approval for the main branch.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Quality Gates) Tj
+0 -14 Td
+(    SonarQube enforces code coverage, duplication, and security standards. OWASP ZAP) Tj
+0 -14 Td
+(    baseline scans detect regressions in the customer application before promotion.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Release Management) Tj
+0 -14 Td
+(    QA branch deployments provision ephemeral infrastructure for user acceptance testing.) Tj
+0 -14 Td
+(    Once approved, the main branch pipeline promotes artefacts and applies Terraform changes) Tj
+0 -14 Td
+(    with blue/green-style ECS updates.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(# Security and Compliance) Tj
+0 -14 Td
+(  Security is embedded across the stack: network segmentation, encryption, identity) Tj
+0 -14 Td
+(  governance, and observability.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Identity and Access Management) Tj
+0 -14 Td
+(    - Least-privilege IAM roles for Airflow, dbt, ECS tasks, and Jenkins agents.) Tj
+0 -14 Td
+(    - Secrets stored in AWS Systems Manager Parameter Store with envelope encryption.) Tj
+0 -14 Td
+(    - Multi-factor authentication enforced for console and bastion access.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Data Protection) Tj
+0 -14 Td
+(    - TLS termination at the application load balancer with automatic certificate rotation.) Tj
+0 -14 Td
+(    - KMS-managed encryption for S3 buckets and RDS storage.) Tj
+0 -14 Td
+(    - Audit trails captured through CloudTrail and forwarded to a central log bucket.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Governance and Compliance) Tj
+0 -14 Td
+(    Policies align with GDPR and CCPA for customer data minimisation and retention.) Tj
+0 -14 Td
+(    Automated policy-as-code checks via Terraform Cloud or Open Policy Agent validate) Tj
+0 -14 Td
+(    infrastructure changes.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(# Testing Strategy) Tj
+0 -14 Td
+(  Testing spans unit, integration, system, performance, and user acceptance layers. Test) Tj
+0 -14 Td
+(  data management ensures consistent results across runs.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Automated Testing) Tj
+ET
+endstream
+endobj
+19 0 obj
+<< /Length 2601 >>
+stream
+BT
+/F1 11 Tf
+1 0 0 1 54 738 Tm
+(    - Pytest-based unit tests cover data transformation helpers and API utilities.) Tj
+0 -14 Td
+(    - dbt `run` and `test` commands executed in CI to validate SQL models.) Tj
+0 -14 Td
+(    - Containerised integration suites spin up temporary Postgres and MinIO instances for end-) Tj
+0 -14 Td
+(       to-end verification.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Performance and Load) Tj
+0 -14 Td
+(    Locust scenarios simulate concurrent order lookups and marketing banner rotations.) Tj
+0 -14 Td
+(    Metrics feed into Jenkins to track latency thresholds over time.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## User Acceptance Testing) Tj
+0 -14 Td
+(    QA environments allow merchandisers and customer support representatives to validate) Tj
+0 -14 Td
+(    workflows before release. Feedback loops integrate into Jira for rapid iteration.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(# Operations and Monitoring) Tj
+0 -14 Td
+(## Observability Stack) Tj
+0 -14 Td
+(    Metrics collected through CloudWatch Container Insights, Application Load Balancer) Tj
+0 -14 Td
+(    access logs, and custom business KPIs exported from Airflow.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Alerting) Tj
+0 -14 Td
+(    - Slack notifications for build failures and Airflow SLA misses.) Tj
+0 -14 Td
+(    - PagerDuty escalations for production incidents exceeding defined thresholds.) Tj
+0 -14 Td
+(    - Daily health summaries combining pipeline statistics and application uptime.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Runbooks) Tj
+0 -14 Td
+(    Runbooks outline recovery steps for ingestion backlog, ECS deployment rollback, and) Tj
+0 -14 Td
+(    database failover. They include decision matrices, command snippets, and escalation) Tj
+0 -14 Td
+(    contacts.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(# Project Management) Tj
+0 -14 Td
+(  Delivery followed an agile cadence with two-week sprints, backlog grooming, and regular) Tj
+0 -14 Td
+(  stakeholder demos.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Timeline) Tj
+0 -14 Td
+(    Phase | Duration | Key Deliverables) Tj
+0 -14 Td
+(    ------+----------+-----------------) Tj
+0 -14 Td
+(    Initiation | 2 weeks | Charter, stakeholder alignment) Tj
+0 -14 Td
+(    Architecture & Design | 4 weeks | Solution blueprints, tech stack selection) Tj
+0 -14 Td
+(    Implementation | 10 weeks | Data pipeline, customer app, Terraform modules) Tj
+0 -14 Td
+(    Testing & Hardening | 4 weeks | Performance tuning, security reviews) Tj
+0 -14 Td
+(    Deployment | 2 weeks | Production rollout, documentation) Tj
+ET
+endstream
+endobj
+20 0 obj
+<< /Length 2819 >>
+stream
+BT
+/F1 11 Tf
+1 0 0 1 54 738 Tm
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Resource Plan) Tj
+0 -14 Td
+(    - Product Owner providing continuous backlog prioritisation.) Tj
+0 -14 Td
+(    - Data Engineer, Analytics Engineer, and Backend Engineer collaborating on ingestion and) Tj
+0 -14 Td
+(       modelling.) Tj
+0 -14 Td
+(    - Frontend Engineer and UX Designer crafting the customer experience.) Tj
+0 -14 Td
+(    - DevOps Engineer maintaining CI/CD and infrastructure automation.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Communication) Tj
+0 -14 Td
+(    Weekly status reports, daily stand-ups, and stakeholder reviews ensured transparency and) Tj
+0 -14 Td
+(    rapid risk mitigation.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(# Risk Assessment and Mitigation) Tj
+0 -14 Td
+(  Risk | Impact | Probability | Mitigation) Tj
+0 -14 Td
+(  -----+--------+-------------+-----------) Tj
+0 -14 Td
+(  Cloud service quota exhaustion | Delays in provisioning infrastructure | Medium | Monitor AWS service quotas and request increases ahead of load tests.) Tj
+0 -14 Td
+(  Data quality regressions | Incorrect KPIs affecting decisions | Medium | Automated validation with alerting and data steward review.) Tj
+0 -14 Td
+(  Pipeline deployment failure | Extended downtime for services | Low | Blue/green deployments with automated rollback via ECS and Jenkins.) Tj
+0 -14 Td
+(  Skill gaps for Azure migration | Slower adoption of alternate cloud | Medium | Documented abstraction layers and cross-training sessions.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(  [Risk register snapshot]) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Assumptions) Tj
+0 -14 Td
+(    - Student AWS accounts maintain baseline service availability throughout the academic) Tj
+0 -14 Td
+(       term.) Tj
+0 -14 Td
+(    - Business stakeholders are available for UAT sign-off each sprint.) Tj
+0 -14 Td
+(    - Data privacy requirements remain consistent during project delivery.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(# Cost Optimisation) Tj
+0 -14 Td
+(  Cost governance focuses on leveraging free-tier or student-program entitlements wherever) Tj
+0 -14 Td
+(  possible while planning for production-ready scaling.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## AWS Cost Profile) Tj
+0 -14 Td
+(    Service | QA Estimate | Main Estimate | Notes) Tj
+0 -14 Td
+(    --------+-------------+---------------+------) Tj
+0 -14 Td
+(    ECS Fargate | $35/month | $140/month | Autoscaling adjusts tasks during campaigns.) Tj
+0 -14 Td
+(    RDS PostgreSQL | $45/month | $220/month | Reserved instances reduce steady-state costs.) Tj
+0 -14 Td
+(    S3 Storage | $5/month | $15/month | Lifecycle policies transition logs to Glacier.) Tj
+0 -14 Td
+(    Jenkins EC2 | $20/month | $40/month | Spot instances during non-peak hours.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Azure Equivalents) Tj
+ET
+endstream
+endobj
+21 0 obj
+<< /Length 2939 >>
+stream
+BT
+/F1 11 Tf
+1 0 0 1 54 738 Tm
+(    Equivalent services include Azure Container Apps, Azure Database for PostgreSQL Flexible) Tj
+0 -14 Td
+(    Server, Azure Blob Storage, and Azure DevOps or Jenkins on Azure VM. Cost calculators) Tj
+0 -14 Td
+(    map the same utilisation profiles to ensure comparability.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(## Optimisation Strategies) Tj
+0 -14 Td
+(    - Automated shutdown of non-production environments outside business hours.) Tj
+0 -14 Td
+(    - Rightsizing through monthly review of CloudWatch utilisation metrics.) Tj
+0 -14 Td
+(    - Use of serverless offerings \(Lambda, Azure Functions\) for burst workloads such as batch) Tj
+0 -14 Td
+(       enrichment jobs.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(# Future Enhancements) Tj
+0 -14 Td
+(  The modular design enables incremental adoption of advanced analytics and experience) Tj
+0 -14 Td
+(  features.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(  - Introduce machine learning models for personalised recommendations using Amazon) Tj
+0 -14 Td
+(     SageMaker or Azure Machine Learning.) Tj
+0 -14 Td
+(  - Expand the customer portal with proactive delivery notifications and augmented reality) Tj
+0 -14 Td
+(     product previews.) Tj
+0 -14 Td
+(  - Adopt event-driven microservices for payment, loyalty, and returns to decouple teams) Tj
+0 -14 Td
+(     further.) Tj
+0 -14 Td
+(  - Integrate data governance catalogues such as DataHub or Azure Purview for lineage and) Tj
+0 -14 Td
+(     stewardship.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(# Conclusion) Tj
+0 -14 Td
+(  The ecommerce data pipeline and customer application deliver a cohesive platform that) Tj
+0 -14 Td
+(  accelerates insight-to-action loops. Terraform and Jenkins automation lower the barrier) Tj
+0 -14 Td
+(  to repeatable deployments, while the cloud-neutral approach keeps future strategic) Tj
+0 -14 Td
+(  options open.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(  With observability, testing, and governance embedded across the lifecycle, the) Tj
+0 -14 Td
+(  organisation can confidently evolve the solution, onboard new data domains, and support) Tj
+0 -14 Td
+(  global customer experiences.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(# Glossary) Tj
+0 -14 Td
+(  Term | Definition) Tj
+0 -14 Td
+(  -----+-----------) Tj
+0 -14 Td
+(  Airflow | Open-source workflow orchestrator for authoring, scheduling, and monitoring data pipelines.) Tj
+0 -14 Td
+(  dbt | Data build tool used to transform data in warehouses through SQL and testing frameworks.) Tj
+0 -14 Td
+(  ECS Fargate | Serverless compute engine for containers managed by Amazon Elastic Container Service.) Tj
+0 -14 Td
+(  Infrastructure-as-Code | Approach of managing infrastructure through declarative configuration files.) Tj
+0 -14 Td
+(  KPI | Key Performance Indicator quantifying business objectives.) Tj
+0 -14 Td
+(  Terraform | HashiCorp tool for building, changing, and versioning infrastructure safely.) Tj
+0 -14 Td
+() Tj
+ET
+endstream
+endobj
+22 0 obj
+<< /Length 1367 >>
+stream
+BT
+/F1 11 Tf
+1 0 0 1 54 738 Tm
+() Tj
+0 -14 Td
+(# References) Tj
+0 -14 Td
+(  1. AWS Architecture Center. 'Deploying Containerized Applications on AWS Fargate'.) Tj
+0 -14 Td
+(  2. dbt Labs. 'dbt Documentation and Best Practices'.) Tj
+0 -14 Td
+(  3. Apache Airflow. 'Airflow Scheduler Concepts'.) Tj
+0 -14 Td
+(  4. HashiCorp. 'Terraform Module Design Guidelines'.) Tj
+0 -14 Td
+(  5. OWASP Foundation. 'Zed Attack Proxy Baseline Scan'.) Tj
+0 -14 Td
+(  6. Microsoft. 'Azure Container Apps Overview'.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(# Appendix A: Jenkins Pipeline Listing) Tj
+0 -14 Td
+(  The appendix summarises the declarative stages configured in Jenkins, highlighting) Tj
+0 -14 Td
+(  shared libraries, Terraform wrappers, and notification hooks used across QA and main) Tj
+0 -14 Td
+(  branch pipelines.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(# Appendix B: Environment Variable Catalogue) Tj
+0 -14 Td
+(  Variable | Description | Scope) Tj
+0 -14 Td
+(  ---------+-------------+------) Tj
+0 -14 Td
+(  DATA_PIPELINE_SOURCE_DIR | Override path for synthetic CSV inputs | Airflow) Tj
+0 -14 Td
+(  DBT_TARGET | Environment profile executed by dbt | Airflow, Jenkins) Tj
+0 -14 Td
+(  REACT_APP_API_URL | Endpoint for customer API | Customer App) Tj
+0 -14 Td
+(  TERRAFORM_VAR_file | Selected variable set for environment | CI/CD) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+() Tj
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 23 0 R >> >> /Contents 13 0 R >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 23 0 R >> >> /Contents 14 0 R >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 23 0 R >> >> /Contents 15 0 R >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 23 0 R >> >> /Contents 16 0 R >>
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 23 0 R >> >> /Contents 17 0 R >>
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 23 0 R >> >> /Contents 18 0 R >>
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 23 0 R >> >> /Contents 19 0 R >>
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 23 0 R >> >> /Contents 20 0 R >>
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 23 0 R >> >> /Contents 21 0 R >>
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 23 0 R >> >> /Contents 22 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 4 0 R 5 0 R 6 0 R 7 0 R 8 0 R 9 0 R 10 0 R 11 0 R 12 0 R] /Count 10 >>
+endobj
+23 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+xref
+0 24
+0000000000 65535 f 
+0000000000 00000 n 
+0000003187 00000 n 
+0000005972 00000 n 
+0000009022 00000 n 
+0000012034 00000 n 
+0000014763 00000 n 
+0000017403 00000 n 
+0000020057 00000 n 
+0000022929 00000 n 
+0000025921 00000 n 
+0000027341 00000 n 
+0000027469 00000 n 
+0000027597 00000 n 
+0000027725 00000 n 
+0000027853 00000 n 
+0000027981 00000 n 
+0000028109 00000 n 
+0000028237 00000 n 
+0000028366 00000 n 
+0000028495 00000 n 
+0000028624 00000 n 
+0000028739 00000 n 
+0000028810 00000 n 
+trailer
+<< /Size 24 /Root 1 0 R >>
+startxref
+28874
+%%EOF
