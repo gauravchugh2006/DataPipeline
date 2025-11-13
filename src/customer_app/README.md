@@ -76,21 +76,32 @@ The SQL bootstrap script provisions demo identities:
 - **Administrator** — email: `admin@cafecoffeeday.com`, password: `admin123`
 - **Customer** — email: `customer@cafecoffeeday.com`, password: `admin123`
 
-### Direct script usage (without Docker)
+### Backend service (Express + MySQL)
 
 ```bash
-# Backend API
 cd backend
-npm install
-npm run dev
-
-# Frontend SPA
-cd ../frontend
 npm install
 npm run dev
 ```
 
-Remember to provide environment variables (`MYSQL_HOST`, `VITE_API_BASE_URL`, etc.) when running outside Docker.
+- Expose `MYSQL_HOST`, `MYSQL_PORT`, `MYSQL_USER`, `MYSQL_PASSWORD`, and `MYSQL_DATABASE` via `.env` or your shell before starting.
+- On first boot the API checks for the `customers` table and, if missing, automatically executes `sql/init.sql` to create the schema and seed demo data—no manual imports required when running locally.
+- The service listens on port `4000` by default; override with `PORT` in the environment.
+
+### Frontend client (Vite + Tailwind)
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+- Ensure `VITE_API_BASE_URL` points to the reachable backend (e.g. `http://localhost:4000/api`).
+- Additional optional variables such as `VITE_GOOGLE_MAPS_API_KEY` can be set in `frontend/.env`.
+
+### Running without Docker
+
+When operating both services outside of Docker, start the backend first so the database bootstrap completes. Then launch the frontend and open [http://localhost:5173](http://localhost:5173). Mailhog-dependent features (e.g. concierge emails) will require an SMTP service if Docker is not running.
 
 ## 🌐 API overview
 

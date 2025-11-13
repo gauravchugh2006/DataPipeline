@@ -21,26 +21,35 @@ app.use(
 );
 app.use(express.json({ limit: "10mb" }));
 
-const pool = initPool();
-app.set("db", pool);
-
 app.get("/health", (_req, res) => {
   res.json({ status: "ok", message: "Customer experience API is running" });
 });
 
-app.use("/api", (req, res, next) => {
-  req.db = pool;
-  return apiRouter(req, res, next);
-});
+const startServer = async () => {
+  try {
+    const pool = await initPool();
+    app.set("db", pool);
 
-app.use((err, _req, res, _next) => {
-  console.error("Unhandled error", err);
-  const status = err.status || 500;
-  res.status(status).json({
-    error: err.message || "Internal server error",
-  });
-});
+    app.use("/api", (req, res, next) => {
+      req.db = pool;
+      return apiRouter(req, res, next);
+    });
 
-app.listen(port, () => {
-  console.log(`Customer middleware API listening on port ${port}`);
-});
+    app.use((err, _req, res, _next) => {
+      console.error("Unhandled error", err);
+      const status = err.status || 500;
+      res.status(status).json({
+        error: err.message || "Internal server error",
+      });
+    });
+
+    app.listen(port, () => {
+      console.log(`Customer middleware API listening on port ${port}`);
+    });
+  } catch (error) {
+    console.error("Failed to start server", error);
+    process.exit(1);
+  }
+};
+
+startServer();
