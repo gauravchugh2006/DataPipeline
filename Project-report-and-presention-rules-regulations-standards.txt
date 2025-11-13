@@ -1,0 +1,550 @@
+Its not a joke You are acting as Highly qualified Solution-Architect (AWS+Azure) with 20 years of experience (10yrs in c# asp.net , .net core, angular/react, MS Sql server, Mongodb, cosmosdb, MySQL, postgresSQL etc. with in-depth databases knowledge+ full stack development and latest 10yrs as Senior Data Engineer roles and responsibilities designing robust, resilient data pipelines delivering realtime automation of reports presenting live KPIs and insights in place on multiple platforms(desktop, mobile, online, offline as per need on powerbi, on tableau, on quicksight, on preformatted and generated pdf, on email, on web application as live(realtime) KPI dashboard updating every 2min etc. using AWS or Azure data engineering tools and services). so be serious to help me as I also have got 12 years of experience 10 years in Full stack software development same that you hold and 2 years as Data engineer using same knowledge of services that you have but with little less expertise you can say if you are rated 9 out of 10 to be preferred candidate for any Technical Leadership role then I am rated as 7.5 out of 10 for same role but this is with 12 years experience I am presenting my final year M.Sc.(cloud computing and data engineering) Project report that should include almost in-depth knowledge everything(tools and services presented in the project i.e. Ecommerce data pipeline solution with realtime KPI dashboard updating every 2-3min frequency configurable as per the scale of orders generated every 2min) that i have learnt and implemented in my Ecommerce-Datapipeline GitHub repo. 
+
+And about the report you just gave in previous merge i analysed it. your report looks okay but I want more better professional, more realistic, more convincing, more formatted and detailed version with graphs and flow charts with more images and logos of tools like the one image it is there presented in EcommerceDatapipeline-AWS-Deployment.png and Ecommerce-ETL-Orchestration.png which also you can use and similar contrasting color formatted icons you can use. you can also use https://github.com/zihaozeng0021/currency-exchange-rate-forecasting/tree/main/report. use report folder structure and .tex files formatting rules but the content structure language pattern and behaviour, headings, sub headings, bullet points style, number of pages in the report span all should follow the sample report file (PFE_Final_Project-sample_report_structure.docx) I gave in GitHub repository and the aivancity logo 
+
+and other rules and standard you have to follow are 
+Below are some contextual elements and objectives associated with the final year project.
+• General Objectives:
+– Demonstrate mastery of the skills acquired during the Master’s program.
+– Solve a concrete problem related to data management and analysis.
+– Integrate theoretical and practical approaches to Data Engineering.
+• Topic Selection: (Ecommerce Data Pipeline solution)
+– Must be directly related to the fields of Data Engineering.
+– Preference should be given to innovative topics with high added value.
+You have to use some sample data design along with some table entities used and their need in 5-6 necessary bullet point along with ER diagram and Use case diagrams etc.
+
+Other sections in my report for MSc Data Engineering & Cloud Computing: Projet de Fin d’étude // Final Year Project must include:-
+2 Writing and Structure of the Thesis
+While the format may vary depending on the issues addressed and potentially the empirical practices
+observed in the field, it is essential that the thesis includes the following elements:
+2.1 Problem Statement
+This section describes the questions raised and the identified challenges, specifically related to the management,
+utilization, and analysis of data. Examples include:
+• A hypothesis to validate regarding the performance or biases of an analytical or predictive model.
+• A reconsideration or optimization of current data processing methods in a professional context.
+• An exploration of the limitations or opportunities presented by new technologies or approaches in
+data analysis.
+The problem statement must address the concrete needs of the company or professional community:
+• It should deal with a real and current issue, such as improving data quality, automating analytical
+processes, or implementing solutions that enable better decision-making through data.
+• It may include objectives such as cost reduction, increased model accuracy, or identifying new
+insights from existing data.
+• This problem statement must align with the technical or strategic priorities of the company while
+contributing to advancements in data analysis practices and knowledge.
+Clarifying a problem statement is not merely an academic requirement. In fact, formalizing this issue
+greatly helps the participant in their thinking process and makes their approach more effective. It is also
+a key way to demonstrate the ability to integrate approaches, methods, concepts, and tools developed
+during the MSc program through the final year project.
+Thus, projects that are purely descriptive (e.g., simply presenting the host company, its activities, operations,
+and the tasks performed during the internship) should be avoided. Similarly, a purely theoretical
+reflection without any practical application is not acceptable. A project that only consists of empirical
+work (i.e., simple data collection) without any application of MSc-taught methods and concepts is also
+not suitable. Moreover, a project that artificially combines a variety of approaches, methods, concepts,
+and tools without prior analysis, real-world application, or clear connection to the problem statement
+should also be avoided.
+In essence, the final year project must take on a significantly broader and more analytical dimension
+than a simple report that the host company might require within the context of the internship.
+2.2 Methodology
+This section defines the analytical framework and the methods used for data collection, preparation,
+and processing. The methodological approach must be clearly described and justified, considering the
+specificities of the data and the project objectives.
+
+• Analytical Framework: Clearly define the technical and analytical objectives (e.g., building a predictive
+model, optimizing a classification algorithm, or developing an interactive dashboard). Identify
+key variables, relationships to explore, and performance indicators.
+• Data Collection Methods: Describe how the data was gathered (from existing databases, web
+scraping, IoT sensors, APIs, etc.), specifying its source, nature (structured/unstructured), volume, and
+quality.
+• Data Processing and Analysis: Justify the techniques used for data preparation (cleaning, normalization,
+handling missing values) and the tools or algorithms applied for analysis (statistical models,
+machine learning, data visualization).
+Complete transparency in the approach is essential. This includes:
+• A clear explanation of the steps taken to ensure data integrity and result reproducibility.
+• Documentation of all methodological choices, such as algorithm selection or hyperparameter tuning,
+with justification.
+• When mock-up data/schemas if data are confidentials.
+• Clear explanation of which generative AI is used, if any, the prompt used and on which part.
+The limitations of the methodology must be identified, mentioned, and explained. This may include:
+• Biases or inadequacies in the available data.
+• Simplifying assumptions made for the analysis.
+• Technical or time constraints that influenced the project’s scope.
+• This structured framework ensures the scientific rigor and operational relevance of the results produced
+in the final year project.
+For confidentiality reasons, it is acceptable to anonymize the name of the company and/or the operations
+used in the thesis.
+Clarifying the methodology is crucial. It demonstrates the participant’s ability to critically assess the
+problem at hand. It also enables the reader to validate the conclusions presented and recognize their
+potential limitations.
+
+2.3 Results and conclusion
+The results of a final year project should not be limited to a mere description of a situation. They must
+be analyzed and provide concrete insights in response to the initial problem statement. Recall that data
+(and result) themselves are meaningless, but information and knowledge (your expertise) are valuable.
+Results stem from the methodology applied to a given problem. It is essential to present them appropriately.
+For example, if interviews were conducted with various stakeholders, the interview reports may be
+included in an appendix. However, the main thesis should contain a synthesized analysis of the collected
+data and a presentation of the key findings.
+
+Based on the analysis results, a set of recommendations should be formulated. These recommendations
+must be prioritized. Prioritization can be based on factors such as:
+• Nature (technical, commercial, organizational, etc.).
+• Implementation complexity (from easiest to most complex).
+• Urgency (short-term, medium-term, or long-term).
+• Finally, it may be valuable to explore whether the conclusions drawn from the project could be
+extended to other similar situations.
+2.3.1 Other Essential Sections
+Every final year project must include an executive summary outlining the problem statement, analysis
+methodology, and key conclusions.
+The thesis should also provide a brief presentation of the host company, including details such as activities,
+revenue, workforce size, products, locations, and organizational structure. This section is mainly
+intended to provide context for the participant’s work, specifying their role within the organization and
+the company’s position in its competitive environment.
+• A glossary clarifying technical terms or abbreviations used in the text is recommended.
+• A table of contents is essential.
+• A bibliography is mandatory and must include scientific and/or academic references, not just professional
+sources.
+
+3 Formal Aspects of the Thesis
+3.1 Length of the Thesis
+The main body of the thesis should be approximately 50 pages (excluding appendices, cover pages,
+acknowledgments, executive summary, table of contents, and bibliography). The entire document must
+be paginated. If there are appendices, an appendix table of contents is mandatory. Each appendix
+must have a title.
+3.2 Cover Page
+The first page must be printed on aivancity letterhead paper. A digital copy of this letterhead will be sent
+to you via email. This cover page must include the following elements:
+• Aivancity logo
+• Host company
+• Final project title
+• Final Year Project
+• MSc Data Management
+• Graduating Class 20nn
+• Participant: First Name and Last Name
+• Supervising Professor: Title, First Name, and Last Name
+If you need a LATEXtemplate, contact us as soon as possible so we can provide it to you.
+3.3 Bibliographic References, Plagiarism, and Use of Generative AIs
+You must rely on an appropriate bibliography. This allows you to expand on topics covered in the MSc
+program and possibly initiate new discussions.
+References should be cited within the main text, appearing in parentheses with the author’s name
+and publication date (whether it’s a book or an article). Example: (Dumoulin, Flipo et al., 1998). The IEEE
+convention is also accepted (initials of authors and date: DF98). However, your style must be consistent
+through the thesis.
+At the end of the thesis, a "Bibliographic References" section should list all cited documents in full
+format. Example:
+Prunier R., Mourel P. (1996), Financial Engineering in the Bank-Enterprise Relationship, Economica, pp. 73-
+75.
+Be cautious when including quotations, whether from articles, books, or interviews. For any information
+obtained from the Internet, a precise source must be identified both in-text (in parentheses) and in the
+bibliography.
+Any excerpt from a book, article, website, or any public or private source that is included in the thesis—
+no matter how short—has a high probability of being detected by plagiarism detection software. If
+such an excerpt is not properly cited (both in-text and in the bibliography), the plagiarism will be confirmed,
+and the final project will receive a permanent grade of 0 (zero), with no possibility of a second
+chance, meaning the student will be permanently ineligible for graduation.
+3.4 Use of Generative AI (e.g., ChatGPT and similar tools)
+The use of generative AI is allowed for the final project, but only under strict conditions:
+• Full Transparency
+• Any use of generative AI must be explicitly mentioned, with a clear description of how it was used
+(e.g., to generate ideas, write a paragraph, analyze data, create a visualization, etc.).
+• Systematic Citation
+Any AI-generated content must be referenced, ideally by specifying:
+• The tool used
+• The date of generation
+• A screenshot or copy of the prompt used (included as an appendix if necessary).
+• Reasonable Use
+AI tools should be considered as assistive tools, not substitutes for intellectual work. The project must
+primarily reflect the skills, ideas, and efforts of the student.
+Ethical Considerations:
+• AI use must comply with principles of integrity and responsibility.
+• It is strictly forbidden to use AI for:
+• Generating fake or misleading content
+• Bypassing methodological requirements
+• Limiting Overuse
+Excessive reliance on AI (e.g., generating an entire report or conducting all analyses) will be considered
+a violation of academic integrity. Important: AI-generated work may be poorly received if it lacks
+meaning or does not reflect critical thinking supported by personal expertise and reflection. AI use does
+not replace the need for solid reasoning, analysis, and synthesis skills, which are fundamental to academic
+work. Content that is meaningless, even if well-written, will be penalized.
+Finally, the school reserves the right to use AI detection tools to analyze submitted work. Excessive or
+unjustified AI use will be penalized, potentially leading to non-validation of the thesis.
+These rules are in place to promote a responsible and ethical use of digital tools, ensuring the authenticity
+and quality of academic work. Any violation will be treated as serious academic misconduct,
+carrying the same severe consequences as plagiarism.
+
+4 The Relationship Between the Student and the Supervising Professor
+The organization of the relationship between the student and the supervising professor must be mutually
+defined by both parties. However, some key steps are essential. The supervising professor will be particularly
+attentive to ensuring these commitments are met.
+4.1 First Step
+The student must present and have the following elements validated by their supervisor before the end of
+May:
+• Research Question: Three proposed formulations must be submitted.
+• Research Problem Statement: A 2 to 3-page document (version 1).
+• Bibliographic References: A total of 10 references, including at least 5 scientific articles.
+• Brief Presentation of the Planned Empirical Section (1 to 2 pages):
+– Describe the project: Data, methods, expected results, type(s) of deliverables.
+– Describe the empirical study: Why this study? What empirical methods? (Type of data collected,
+methods of analysis, hypotheses).
+4.2 Second Step
+The student must submit an intermediate document including before August:
+• Problem Statement: An updated version.
+• Detailed Outline: A structured and precise framework for the thesis.
+• Theoretical Section: A literature review summarizing the selected and enriched bibliographic references.
+• Implementation Phase:
+– Types of data to be collected.
+– Detailed presentation of the planned AI/Data techniques.
+– Description of the tools or solutions that will be implemented.
+This document must be validated by the supervisor before the student can proceed.
+4.3 Interaction with the Supervisor
+Once the previous steps are validated, the student can move forward with finalizing their thesis project
+and writing the dissertation.
+The student is solely responsible for reaching out to their supervisor for advice or validation. Under no
+circumstances is the supervisor expected to follow up with the student to ensure progress.
+
+4.4 Submission and Defense
+The final document must be submitted on the exact date specified by the program administration, as well
+as on the scheduled defense day. Any late submission or failure to meet deadlines will be sanctioned in
+accordance with the applicable regulations.
+
+5 The supervising professor(i.e. My professor is going to evaluate as he is Ph.d and hold more that 25 years of industry experience.
+My supervising professor is playing a methodological guidance role. They are both a source of expertise for
+the student and the guarantor of the application of rules concerning the completion of the final project
+and the defense.
+Throughout the supervision process, the professor’s assessment is focused on the validity conditions and
+limitations of the work carried out, considering all or some of the following points:
+• Is the research problem relevant? Well-formulated? Clearly defined? Understandable?
+• Are the methods used valid for the current situation? Could other methods have been used, and if
+so, why were they not?
+• Are the results obtained debatable? In light of these results, would it be relevant to supplement
+the methods used? How? With which other methods? Would this lead to refining, relativizing, or
+challenging the results?
+• Is the student’s reasoning relevant? How reliable is it? What are its limitations?
+• Are the results obtained understandable? Can they be compared to other, more general results or
+results obtained in different circumstances? Does this comparison or confrontation give a different
+meaning to the results?
+• To what extent can the approach taken and the methods employed be generalized?
+• Is the structure of the thesis (see next section) acceptable?
+• Is the research problem relevant? Well-formulated? Clearly defined? Understandable?
+• Are the methods used valid for the current situation? Could other methods have been used, and if
+so, why were they not?
+• Are the results obtained debatable? In light of these results, would it be relevant to supplement
+the methods used? How? With which other methods? Would this lead to refining, relativizing, or
+challenging the results?
+• Is the student’s reasoning relevant? How reliable is it? What are its limitations?
+• Are the results obtained understandable? Can they be compared to other, more general results or
+results obtained in different circumstances? Does this comparison or confrontation give a different
+meaning to the results?
+
+All questions above should properly answered through the material presented professionally and properly formatted with headings, subheadings, bullet points (ordered/unordered wherever/however needed) and graphs and charts and tables, flow charts in my report
+
+thats why I gave you Latex code standards to use 
+
+e.g. below front page 
+
+% Author Name: José Areia 
+% Author Contact: jose.apareia@gmail.com
+% Version: 2.2.11 - 2025-08-28
+% Public Repository: https://github.com/joseareia/ipleiria-thesis
+% Wiki/Getting Help: https://github.com/joseareia/ipleiria-thesis/wiki
+
+%%% Document Options %%%
+\documentclass[
+    language=english,
+    school=estg,
+    docstage=final,
+    media=paper,
+    bookprint=false,
+    linkcolor=red!45!black,
+    chapterstyle=classic,
+    coverstyle=classic,
+    aiacknowledgement=true,
+    listprefix=false
+]{IPLeiriaThesis} % Refer to the Wiki for a list of available options.
+
+%%% Document Version %%%
+\DocumentVersion{1.0.0} % Required only if the 'docstage' is set to 'working'.
+
+%%% Document Metadata %%%
+\input{Metadata/Metadata}
+
+%%% Loading of Glossary and Acronyms %%%
+\makeglossaries
+\loadglsentries{Matter/05-Glossary}
+\loadglsentries[\acronymtype]{Matter/06-Acronyms}
+\loadglsentries[\symboltype]{Matter/07-Symbols}
+
+\begin{document}
+
+%%% Front Matter %%%
+\include{Matter/00-Cover}
+\include{Matter/01-Front-Page}
+
+%%% Copyright Statement %%%
+\include{Matter/02-Copyright}
+
+%%% Roman Numeration %%%
+\pagenumbering{roman}
+
+%%% Acknowledgements %%%
+\include{Matter/03-Acknowledgements}
+
+%%% Abstract %%%
+\include{Chapters/00-Abstract}
+
+%%% AI Acknowledgement %%%
+\include{Matter/04-AI}
+
+%%% Table of Contents, List of Figures and List of Tables %%%
+\bookmarktocentry\tableofcontents
+\listoffigures
+\listoftables
+
+%%% Print: Glossary and Acronyms %%%
+\glossarytoc\printnormalglossary
+\acronymtoc\printacronymglossary
+\symboltoc\printsymbolglossary
+
+%%% Arabic Numeration %%%
+\pagenumbering{arabic}
+
+%%% Chapters (**Insert Yours Here**) %%%
+\include{Chapters/01-Introduction}
+\include{Chapters/02-User-Guide}
+\include{Chapters/03-Latex-Tutorial}
+
+%%% Bibliography %%%
+\renewcommand{\refname}{Bibliography}
+\printbibliography[title={\refname},heading=bibintoc]
+
+%%% Appendices: Work that *YOU* Developed %%%
+\appendix
+\input{Matter/08-Appendices}
+\input{Chapters/Appendices/00-AppendixA}
+\input{Chapters/Appendices/01-AppendixB}
+
+%%% Annexes: Work that *YOU DID NOT* Develop %%%
+\input{Matter/09-Annexes}
+\input{Chapters/Annexes/00-AnnexA}
+
+%%% Back Page %%%
+\input{Matter/10-Back-Page}
+
+\end{document}
+
+/n/n 
+----------
+another sample of front page latex document report
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%----------------------------------------------------------------------------------
+% DO NOT Change this is the required setting A4 page, 11pt, onside print, book style
+%%----------------------------------------------------------------------------------
+\documentclass[a4paper,11pt,oneside]{book} 
+\usepackage{CS_report} % DO NOT REMOVE THIS LINE. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+    \captionsetup[figure]{margin=1.5cm,font=small,name={Figure},labelsep=colon}
+    \captionsetup[table]{margin=1.5cm,font=small,name={Table},labelsep=colon}
+    
+    \frontmatter
+    
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \begin{titlepage}      
+        \begin{center}
+            \includegraphics[width=3cm]{figures/uorlogo.png}\\[0.5cm]
+            {\LARGE University of Reading\\[0.5cm]
+            Department of Computer Science}\\[2cm]
+			%{\color{blue} \rule{\textwidth}{1pt}}
+			
+			% -------------------------------
+			% You need to edit some details here
+			% -------------------------------  
+            \linespread{1.2}\huge {
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %TODO: 1 TITLE of Your PROJECT 
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                % change the following line                
+                Computer Science Report Template and Report Writing Guide
+            
+            }
+            \linespread{1}~\\[2cm]
+			%{\color{blue} \rule{\textwidth}{1pt}}
+            {\Large 
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %TODO: 2 YOUR NAME
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%             
+                % change the following line
+                FirstName(s) LastName
+                % change end             
+            }\\[1cm] 
+            
+
+            {\large 
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %TODO: 3 YOUR NAME Supervisor's name(s)
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%             
+                % change the following line                
+                \emph{Supervisor:} Supervisor's Name}\\[1cm] % if applicable
+            
+    		% PLEASE DO NOT CHANGE THIS TEXT %
+            \large A report submitted in partial fulfilment of the requirements of\\the University of Reading for the degree of\\
+            %%%
+            %TODO:  verify your degree name
+            Master of Science 
+            %% 
+            %TODO:  verify your degree in
+            in \textit{Data Science and Advanced Computing}\\[0.3cm] 
+            \vfill
+            
+            
+            \today % Please update this date you can use \date{April 2020} for fixed date
+        \end{center}
+    \end{titlepage}
+    
+    
+    % -------------------------------------------------------------------
+    % Declaration
+    % -------------------------------------------------------------------
+    \newpage
+    \thispagestyle{empty}
+    \chapter*{\Large Declaration}
+    % PLEASE CHANGE THIS TEXT EXCEPT YOUR NAME%
+    % -------------------------------
+    %TODO: PLEASE ONLY UPDATE HERE -- PLEASE WRITE YOUR NAME %    
+    % ------------------------------- 
+    I,
+    %%%%%%%%%%%%%%%%%%%%%%%
+     Firstname(s) Lastname, % Madatory part  TODO
+    %%%%%%%%%%%%%%%%%%%%%%%
+    of the Department of Computer Science, University of Reading, confirm that this is my own work and figures, tables, equations, code snippets, artworks, and illustrations in this report are original and have not been taken from any other person's work, except where the works of others have been explicitly acknowledged, quoted, and referenced. I understand that if failing to do so will be considered a case of plagiarism. Plagiarism is a form of academic misconduct and will be penalised accordingly. \\
+    
+    %% Please delete as appropriate. 
+    \noindent
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+    %TODO 1 Consent for example copy -  we will use 
+    I give consent to a copy of my report being shared with future students as an exemplar. \\
+    
+    \noindent
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+    %TODO 2 Consent to let the report to use use by library for public use
+    I give consent for my work to be made available more widely to members of UoR and public with interest in teaching, learning and research. 
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    ~\\[1cm]
+    \begin{flushright}
+	%------------------------------ 
+	% change the following line
+    %TODO: PLEASE UPDATE  Your Name  -------------------------------%
+	Firstname(s) Lastname % Please change it to your name
+    
+    \today
+    \end{flushright}
+
+     
+    % -------------------------------------------------------------------
+    % Abstract and Acknowledgement
+    % -------------------------------------------------------------------
+    
+    \input{chapters/00_i_abstract}
+    % -------------------------------------------------------------------
+	% Acknowledgement
+	% -------------------------------------------------------------------
+   
+    \input{chapters/00_ii_acknowledgments}   
+    
+    % -------------------------------------------------------------------
+    % Contents, list of figures, list of tables
+    % -------------------------------------------------------------------
+    
+    \tableofcontents
+    \listoffigures
+    \listoftables
+    \input{glossaries} %  Enter your list of Abbreviation and Symbols in this file
+
+
+
+    
+    
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%                                                                    %%  
+    %%  Main chapters and sections of your project                        %%  
+    %%  Everything from here on needs updates in your own words and works %%
+    %%                                                                    %%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \mainmatter
+    % Read for preparation of document in LaTex 
+    % Lamport, L. (1986), LATEX: A Document Preparation System, Addison-Wesley.
+    
+    \input{chapters/01_introduction}
+    \input{chapters/02_literature} % https://guides.library.bloomu.edu/litreview
+    \input{chapters/03_methodology}
+    \input{chapters/04_results}
+    \input{chapters/05_discussion}
+    \input{chapters/06_conclusions}
+    \input{chapters/07_reflection}
+
+
+    
+
+    
+    % -------------------------------------------------------------------
+    % Bibliography/References  -  Harvard Style was used in this report
+    % -------------------------------------------------------------------
+    \bibliography{references}  %  Patashnik, O. (1988), BibTEXing. Documentation for general BibTEX users.
+    
+    % -------------------------------------------------------------------
+    % Appendices
+    % -------------------------------------------------------------------
+    
+    \begin{appendices}
+        \input{chapters/appendix_A.tex}
+        \input{chapters/appendix_B.tex}
+    \end{appendices}
+    
+\end{document}
+
+other important point(s) to be considered while developing report like :-
+• To what extent can the approach taken and the methods employed be generalized?
+• Is the structure of the thesis (see next section) acceptable?
+6 The Thesis Defense
+6.1 The Defense: right to Defend and Organization
+The final project defense takes place in the presence of the supervising professor and a qualified assessor
+(often the Program Director or a permanent professor at Aivancity). If the student wishes, their internship
+supervisor from the host company or, failing that, a company representative may attend, though they do
+not participate in the deliberation.
+The supervising professor alone decides whether to grant the student the right to defend their final
+project. This defense is only permitted once the final project is deemed definitively acceptable, based on
+the criteria outlined above.
+The supervising professor gives their approval for the student to proceed with the defense.
+6.2 During the Defense
+The student must present their approach and results within 20-21 minutes. This presentation(slide show) should not simply
+be a reading of the final project. The presentation format will play a significant role in the evaluation.
+A 20-minute period will follow for questions and discussion with the jury members. Finally, the jury will
+provide a 10-minute debriefing for the student.
+At the end of the defense, the jury will assign a grade for both the final project and the defense.
+6.3 Confidentiality of the Final Project
+The final project written as part of the MSc program may contain confidential information that the company
+wishes to keep undisclosed. In such cases, and upon the company’s request, a confidentiality
+agreement co-signed by the company, the student, and Aivancity may be established.
+6.4 Final Words
+Your project must be directly related to the subjects covered in the MSc program. While this may seem
+obvious, it can be tempting to be swayed by a company’s name, reputation, or activities, even if the final
+project would be far removed from the topics covered in the MSc. Resist this temptation!
+Your project must allow you to develop a genuine final project. Ensure that the company hosting you
+fully understands the concept of a final project. You should quickly define the research problem you
+worked on. Ideally, the company(client is an ecommerce platform provider) should allowed you some time to start writing your thesis during the final
+month. You can negotiate this, but you must not impose it.
+Confidentiality can be an issue. You must respect confidentiality, but also ensure that it does not
+excessively limit your ability to write your final project it can contain some sample realistic data presenting your client and their end users (admin team and customers) who are going to be benefitted with the solution provided in your Datapipeline solution. Make sure you Address these issues throughout your project report formation.
+
+The success of your project also depends on your support system. A supervising professor is assigned to
+you based on your project topic. While they will evaluate you at the defense, they are also a fundamental
+methodological support during your internship. Additionally, it is important to have a mentor within the
+company (such as an internship supervisor or apprenticeship tutor) who can guide you and help with
+daily challenges. It can be difficult to manage such a project on your own.
+Finally, remember that an MSc final project can serve as a real career springboard. It should be your
+business card, showcasing your ability to synthesize information, your technical skills, and your motivation
+to enter the professional world.
