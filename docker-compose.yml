@@ -25,6 +25,8 @@ x-airflow-common: &airflow-common
     - ./airflow-data/plugins:/opt/airflow/plugins:rw
     - ./airflow-data/airflow.cfg:/opt/airflow/airflow.cfg:rw
     - ./dbt_profiles:/opt/airflow/.dbt:rw
+    - ./docker-compose.yml:/opt/airflow/docker/docker-compose.yml:ro
+    - ./security-reports:/opt/airflow/security-reports:rw
 
 services:
 
@@ -201,16 +203,22 @@ services:
     depends_on:
       - airflow
     working_dir: /zap/wrk
-    command: >
+    restart: "no"
+    environment:
+      ZAP_BASELINE_TARGET: ${ZAP_BASELINE_TARGET:-http://airflow:8082}
+      ZAP_REPORTS_DIR: /zap/wrk/security-reports
+      ZAP_CONFIG_FILE: /zap/wrk/zap-baseline.conf
+    entrypoint: >
+      sh -c "mkdir -p ${ZAP_REPORTS_DIR} &&
       zap-baseline.py
-      -t http://airflow:8082
-      -r zap-baseline.html
-      -J zap-report.json
-      -x zap-report.xml
-      -c zap-baseline.conf
-      -m 5
+      -t ${ZAP_BASELINE_TARGET}
+      -r ${ZAP_REPORTS_DIR}/zap-baseline.html
+      -J ${ZAP_REPORTS_DIR}/zap-report.json
+      -x ${ZAP_REPORTS_DIR}/zap-report.xml
+      -c ${ZAP_CONFIG_FILE}
+      -m 5"
     volumes:
-      - ./security-reports:/zap/wrk
+      - ./security-reports:/zap/wrk/security-reports
       - ./zap-baseline.conf:/zap/wrk/zap-baseline.conf
 ##    profiles: ["zap"]
 

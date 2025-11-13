@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-cafe-cream text-cafe-primary font-sans;
+}
+
+a {
+  @apply text-cafe-primary hover:text-cafe-accent;
+}
+
+.gradient-hero {
+  background: linear-gradient(135deg, rgba(75, 46, 43, 0.9), rgba(247, 167, 108, 0.8));
+}
+
+.card-shadow {
+  box-shadow: 0 15px 35px rgba(75, 46, 43, 0.1);
+}
