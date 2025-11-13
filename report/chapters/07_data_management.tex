@@ -1,0 +1,69 @@
+\chapter{Data Modelling and Management}
+\section{Conceptual Data Model}
+The solution follows a hub-and-spoke dimensional model anchored on the \texttt{fact\_order} table. Figure~\ref{fig:erdiagram} depicts the key entities and relationships employed in the sample dataset.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[>=stealth', node distance=2.5cm]
+        \tikzstyle{entity}=[rectangle, draw=blue!70, rounded corners=2mm, thick, minimum width=2.8cm, minimum height=1cm, fill=blue!5]
+        \node[entity] (customer) {dim\_customer};
+        \node[entity, below=1.4cm of customer] (order) {fact\_order};
+        \node[entity, left=3.2cm of order] (product) {dim\_product};
+        \node[entity, right=3.2cm of order] (channel) {dim\_channel};
+        \node[entity, below=1.4cm of order] (shipment) {fact\_shipment};
+        \node[entity, below=1.4cm of shipment] (support) {fact\_support\_case};
+        \draw[->] (customer) -- node[right]{1..*} (order);
+        \draw[->] (product) -- node[above]{1..*} (order);
+        \draw[->] (channel) -- node[above]{1..*} (order);
+        \draw[->] (order) -- node[right]{1..*} (shipment);
+        \draw[->] (order) -- node[right]{1..*} (support);
+    \end{tikzpicture}
+    \caption{Core entities in the ecommerce data model}
+    \label{fig:erdiagram}
+\end{figure}
+
+\section{Sample Data Design Highlights}
+Key design decisions validated through prototypes include:
+\begin{enumerate}
+    \item \textbf{Immutable fact tables} with append-only partitioning by order date to simplify streaming ingestion and late-arriving event handling.
+    \item \textbf{Slowly Changing Dimensions Type 2} for customer, product, and channel domains to maintain historical context.
+    \item \textbf{Unified currency conversion} using hourly FX rates and exchange variance adjustments stored in \texttt{fact\_fx\_adjustment}.
+    \item \textbf{Data contracts} defined via JSON Schema and Avro for ingestion interfaces to ensure compatibility between producers and consumers.
+    \item \textbf{Reference integrity enforcement} through dbt relationship tests and Airflow data quality checks prior to publishing marts.
+    \item \textbf{Privacy controls} embedding tokenisation for PII attributes and differential privacy noise for customer behavioural aggregates.
+\end{enumerate}
+
+\section{Entity Catalogue}
+\begin{table}[H]
+    \centering
+    \caption{Primary entities and business rationale}
+    \label{tab:entities}
+    \begin{tabular}{p{3.5cm}p{4cm}p{6cm}}
+        \toprule
+        \textbf{Entity} & \textbf{Grain} & \textbf{Purpose} \\
+        \midrule
+        \texttt{fact\_order} & Order line & Tracks financial metrics (gross revenue, discounts, tax), operational states, and time-to-fulfilment.
+\\
+        \texttt{fact\_shipment} & Parcel & Captures carrier, transit time, and last-mile status for logistics dashboards.
+\\
+        \texttt{fact\_support\_case} & Interaction & Measures customer sentiment, resolution time, and channel effectiveness.
+\\
+        \texttt{dim\_customer} & Customer profile version & Stores consent preferences, loyalty tier, segmentation attributes, and derived lifetime value.
+\\
+        \texttt{dim\_product} & SKU version & Maintains merchandising hierarchies, availability, supplier terms, and sustainability scores.
+\\
+        \texttt{dim\_channel} & Channel & Differentiates web, mobile, store, marketplace, and partner channels for attribution.
+\\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\section{Master Data and Data Quality}
+\begin{itemize}
+    \item Golden records maintained through Azure Purview and AWS Glue Data Catalog with stewardship workflows.
+    \item Data quality scorecards track completeness, uniqueness, and validity across 68 critical fields.
+    \item Automated remediation reruns transformations for quarantined records and notifies domain stewards through Slack and Microsoft Teams.
+\end{itemize}
+
+\section{Metadata and Lineage}
+Open-source DataHub was deployed to capture technical lineage, column-level impact analysis, and business glossary definitions. Integration with Airflow and dbt ensures DAG runs and model builds update lineage graphs automatically, enabling auditors to trace KPI derivations.
