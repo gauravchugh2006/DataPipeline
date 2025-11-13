@@ -1,0 +1,45 @@
+\chapter{Additional Artefacts}
+\section{Runbook Excerpt}
+\begin{tcolorbox}[title=Pipeline Recovery Runbook,colback=blue!5,colframe=blue!60!black]
+\textbf{Trigger:} Airflow SLA breach detected for \texttt{order\_pipeline}.\\
+\textbf{Steps:}
+\begin{enumerate}
+    \item Inspect Airflow UI for failed tasks and review associated logs.
+    \item Execute Jenkins job \texttt{pipeline-retry} to rerun failed task group with idempotent payloads.
+    \item Validate data quality results via dbt source freshness command.
+    \item Notify stakeholders through Slack channel \#data-ops with remediation summary.
+\end{enumerate}
+\end{tcolorbox}
+
+\section{Data Dictionary Snapshot}
+\begin{longtable}{p{3cm}p{3cm}p{5cm}p{3cm}}
+    \caption{Illustrative data dictionary entries}\\
+    \toprule
+    \textbf{Field} & \textbf{Type} & \textbf{Description} & \textbf{Sensitivity} \\
+    \midrule
+    order\_id & UUID & Unique identifier for each order line & Low \\
+    customer\_token & CHAR(36) & Tokenised customer identifier (non-reversible) & High \\
+    promised\_delivery\_ts & TIMESTAMP & Timestamp committed to the customer at checkout & Medium \\
+    net\_revenue\_amount & DECIMAL(18,2) & Revenue after discounts and taxes & Medium \\
+    loyalty\_tier & VARCHAR(20) & Derived loyalty classification & Medium \\
+    channel\_source & VARCHAR(20) & Acquisition channel (web, mobile, marketplace) & Low \\
+    \bottomrule
+\end{longtable}
+
+\section{Environment Inventory}
+\begin{table}[H]
+    \centering
+    \caption{Infrastructure components per environment}
+    \label{tab:inventory}
+    \begin{tabular}{p{3cm}p{4cm}p{4cm}p{3cm}}
+        \toprule
+        \textbf{Component} & \textbf{QA} & \textbf{Production} & \textbf{Notes} \\
+        \midrule
+        Airflow & AWS MWAA (small) & AWS MWAA (medium) & Autoscaling workers enabled in production. \\
+        Data Warehouse & Amazon Redshift ra3.xlplus & Amazon Redshift ra3.4xlarge & Reserved instances reduce cost. \\
+        Storage & S3 Standard-Infrequent Access & S3 Intelligent-Tiering & Lifecycle transitions after 30 days. \\
+        Monitoring & Datadog (free tier) & Datadog Pro & Synthetic monitoring active in production. \\
+        CI/CD & Jenkins on EC2 t3.large & Jenkins on EC2 m5.large & Executors scaled via auto-scaling group. \\
+        \bottomrule
+    \end{tabular}
+\end{table}

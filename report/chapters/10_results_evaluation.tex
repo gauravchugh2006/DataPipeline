@@ -1,0 +1,44 @@
+\chapter{Results and Evaluation}
+\section{Technical Outcomes}
+\begin{table}[H]
+    \centering
+    \caption{Summary of technical results}
+    \label{tab:results}
+    \begin{tabular}{p{5cm}p{3cm}p{6cm}}
+        \toprule
+        \textbf{Objective} & \textbf{Result} & \textbf{Evidence} \\
+        \midrule
+        Sub-three-minute KPI refresh & Achieved 2.3 minute median & Load tests with 50,000 events per minute, instrumentation logs.
+\\
+        Automated data quality enforcement & 99.2\% rule pass rate & Great Expectations reports and dbt test dashboards.
+\\
+        Multi-cloud deployment readiness & Terraform modules parameterised for \gls{aws} and \gls{az} & Successful dry runs on Azure subscription with equivalent topology.
+\\
+        Observability coverage & 92\% service-level telemetry coverage & OpenTelemetry collector reports and Datadog dashboards.
+\\
+        Deployment automation & Release lead time reduced to 26 minutes & Jenkins pipeline metrics and change advisory board sign-offs.
+\\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\section{Business Impact}
+\begin{itemize}
+    \item Merchandising teams rebalanced inventory within hours of identifying viral campaigns, preventing EUR 1.1 million in lost revenue during pilot month.
+    \item Customer care reduced average handling time by 18\% through 360-degree views of orders, shipments, and service tickets.
+    \item Finance automated month-end reconciliation, saving 120 analyst hours per quarter.
+    \item Marketplace partners gained transparency into fulfilment SLAs, reducing escalations by 27\%.
+\end{itemize}
+
+\section{User Adoption}
+Change management activities resulted in 86\% weekly active usage across intended personas within six weeks of launch. Surveys indicated a rise in data trust perception from 48\% to 88\%. Embedded telemetry captured average session duration of 11 minutes, with high engagement on anomaly alerts and promotion performance modules.
+
+\section{Evaluation Against Research Questions}
+\begin{description}
+    \item[RQ1] Demonstrated modular architecture sustained 2.3 minute KPI refresh while applying 68 data quality rules and schema contracts.
+    \item[RQ2] Terraform, Jenkins, and policy-as-code patterns delivered repeatable dual-cloud deployments with clear segregation of duties and automated compliance checks.
+    \item[RQ3] Data lineage, observability, and governance workflows increased stakeholder trust scores, evidenced by adoption metrics and audit readiness.
+\end{description}
+
+\section{Limitations and Future Evaluation}
+While the results are encouraging, long-term resilience under Black Friday-level demand remains to be proven in production. Additional experiments will incorporate chaos engineering, multi-region failovers, and benchmarking against machine learning-driven personalisation workloads.

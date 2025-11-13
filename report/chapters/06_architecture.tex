@@ -1,0 +1,64 @@
+\chapter{Target Architecture}
+\section{High-Level Design}
+Figure~\ref{fig:deployment} visualises the deployed architecture across \gls{aws} and \gls{az}. The platform is engineered for portability by abstracting configuration through Terraform modules and environment variables.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/EcommerceDatapipeline-AWS-Deployment.png}
+    \caption{Deployed architecture overview}
+    \label{fig:deployment}
+\end{figure}
+
+The architecture is organised into the following layers:
+\begin{description}
+    \item[Ingestion] Kinesis Data Streams (or Azure Event Hubs) capture orders, catalogue updates, and customer interactions. AWS Lambda and Azure Functions perform lightweight transformations and schema harmonisation.
+    \item[Processing] Apache Airflow schedules \gls{etl} and reverse \gls{etl} flows. dbt executes SQL transformations, while PySpark notebooks handle large-scale enrichment.
+    \item[Storage] Amazon S3 and Azure Data Lake Storage Gen2 host bronze/silver zones. Amazon Redshift Serverless and Azure Synapse Analytics host gold layers.
+    \item[Serving] FastAPI microservices expose APIs, while BI tools consume semantic models through Power BI Premium, Tableau Server, and Amazon QuickSight.
+    \item[Enablement] Jenkins, GitHub Actions, Terraform Cloud, and Datadog deliver automation, infrastructure provisioning, and observability.
+\end{description}
+
+\section{Solution Blueprint}
+To complement the vendor-specific view, Figure~\ref{fig:orchestration} illustrates the orchestration blueprint emphasising pipeline stages, control flows, and monitoring touchpoints.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/Ecommerce-ETL-Orchestration.png}
+    \caption{End-to-end orchestration blueprint}
+    \label{fig:orchestration}
+\end{figure}
+
+\section{Use Case Diagram}
+A UML use case diagram (Figure~\ref{fig:usecase}) captures the interactions between personas and platform capabilities.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[>=stealth', node distance=2cm]
+        \tikzstyle{actor}=[draw, thick, rounded corners=2mm, minimum width=1.8cm, minimum height=0.8cm, align=center, fill=gray!10]
+        \tikzstyle{usecase}=[ellipse, draw, thick, minimum width=3.2cm, minimum height=1cm, align=center, fill=blue!10]
+        \node[actor] (merch) {Merchandising Lead};
+        \node[actor, below=1.2cm of merch] (support) {Support Agent};
+        \node[actor, below=1.2cm of support] (devops) {DevOps Engineer};
+        \node[usecase, right=3.5cm of merch] (dashboard) {Monitor KPIs};
+        \node[usecase, right=3.5cm of support] (customer360) {Access Customer 360};
+        \node[usecase, right=3.5cm of devops] (observe) {Operate Pipelines};
+        \node[usecase, below=1.8cm of customer360] (experiments) {Launch Experiments};
+        \draw (merch) -- (dashboard);
+        \draw (merch) -- (experiments);
+        \draw (support) -- (customer360);
+        \draw (support) -- (dashboard);
+        \draw (devops) -- (observe);
+        \draw (devops) -- (dashboard);
+        \draw (devops) -- (experiments);
+    \end{tikzpicture}
+    \caption{Platform use case diagram}
+    \label{fig:usecase}
+\end{figure}
+
+\section{Non-Functional Considerations}
+\begin{itemize}
+    \item \textbf{Scalability:} Horizontal scaling is achieved through Kinesis shard auto-scaling, Airflow worker autoscaling, and serverless analytics services.
+    \item \textbf{Resilience:} Multi-AZ deployments, cross-region backups, and automated failover policies ensure business continuity.
+    \item \textbf{Security:} Zero-trust networking, secrets management via AWS Secrets Manager/Azure Key Vault, and end-to-end encryption enforce privacy-by-design.
+    \item \textbf{Portability:} Abstraction of infrastructure primitives enables lift-and-shift between \gls{aws} and \gls{az} with limited code changes.
+\end{itemize}
