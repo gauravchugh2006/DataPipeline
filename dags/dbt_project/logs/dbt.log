@@ -13888,3 +13888,75 @@ Database Error
 [0m15:28:11.017258 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000016E7FF010A0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000016E04145CD0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000016E044DB050>]}
 [0m15:28:11.017258 [debug] [MainThread]: Flushing usage events
 [0m15:28:11.455376 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m03:46:22.548529 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001F6A7CB8650>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001F6AA4D3860>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001F6AA4D0140>]}
+
+
+============================== 03:46:22.552420 | 983849da-c638-4f0c-adc9-8aa52db54105 ==============================
+[0m03:46:22.552420 [info ] [MainThread]: Running with dbt=1.10.13
+[0m03:46:22.553484 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'debug': 'False', 'version_check': 'True', 'log_path': 'C:\\Project\\DataPipeline\\dags\\dbt_project\\logs', 'profiles_dir': 'C:\\Users\\Gaurav Chugh\\.dbt', 'fail_fast': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'False', 'quiet': 'False', 'no_print': 'None', 'log_format': 'default', 'invocation_command': 'dbt build --project-dir C:\\Project\\DataPipeline\\dags\\dbt_project', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'static_parser': 'True', 'target_path': 'None', 'introspect': 'True', 'send_anonymous_usage_stats': 'True'}
+[0m03:46:22.801370 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '983849da-c638-4f0c-adc9-8aa52db54105', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001F6AC26BDD0>]}
+[0m03:46:22.876767 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '983849da-c638-4f0c-adc9-8aa52db54105', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001F6AAA0B0B0>]}
+[0m03:46:22.880272 [info ] [MainThread]: Registered adapter: postgres=1.9.1
+[0m03:46:23.236044 [debug] [MainThread]: checksum: 9f0c81e2574b4ff463f3d16d080df83c6982fc0372c9feeacae0504ac9ea3ffe, vars: {}, profile: , target: , version: 1.10.13
+[0m03:46:23.690465 [info ] [MainThread]: Unable to do partial parsing because of a version mismatch
+[0m03:46:23.694250 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '983849da-c638-4f0c-adc9-8aa52db54105', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001F6AC6AFD10>]}
+[0m03:46:25.166110 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '983849da-c638-4f0c-adc9-8aa52db54105', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001F6AC6AFF80>]}
+[0m03:46:25.326785 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Project\DataPipeline\dags\dbt_project\target\manifest.json
+[0m03:46:25.332710 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Project\DataPipeline\dags\dbt_project\target\semantic_manifest.json
+[0m03:46:25.380575 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '983849da-c638-4f0c-adc9-8aa52db54105', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001F6ACAB72F0>]}
+[0m03:46:25.380575 [info ] [MainThread]: Found 6 models, 13 data tests, 4 sources, 782 macros
+[0m03:46:25.380575 [info ] [MainThread]: 
+[0m03:46:25.380575 [info ] [MainThread]: Concurrency: 1 threads (target='dev')
+[0m03:46:25.380575 [info ] [MainThread]: 
+[0m03:46:25.380575 [debug] [MainThread]: Acquiring new postgres connection 'master'
+[0m03:46:25.396397 [debug] [ThreadPool]: Acquiring new postgres connection 'list_datamart'
+[0m03:46:25.486418 [debug] [ThreadPool]: Using postgres connection "list_datamart"
+[0m03:46:25.487415 [debug] [ThreadPool]: On list_datamart: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "data_pipeline", "target_name": "dev", "connection_name": "list_datamart"} */
+
+    select distinct nspname from pg_namespace
+  
+[0m03:46:25.487415 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m03:46:25.540790 [debug] [ThreadPool]: Postgres adapter: Got a retryable error when attempting to open a postgres connection.
+1 attempts remaining. Retrying in 0 seconds.
+Error:
+connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "dwh_user"
+
+[0m03:46:25.586563 [debug] [ThreadPool]: Postgres adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "data_pipeline", "target_name": "dev", "connection_name": "list_datamart"} */
+
+    select distinct nspname from pg_namespace
+  
+[0m03:46:25.586563 [debug] [ThreadPool]: Postgres adapter: Rolling back transaction.
+[0m03:46:25.589555 [debug] [ThreadPool]: Postgres adapter: Error running SQL: macro list_schemas
+[0m03:46:25.589555 [debug] [ThreadPool]: Postgres adapter: Rolling back transaction.
+[0m03:46:25.589555 [debug] [ThreadPool]: On list_datamart: No close available on handle
+[0m03:46:25.591562 [debug] [ThreadPool]: Using postgres connection "list_datamart"
+[0m03:46:25.591562 [debug] [ThreadPool]: On list_datamart: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "data_pipeline", "target_name": "dev", "connection_name": "list_datamart"} */
+
+    select distinct nspname from pg_namespace
+  
+[0m03:46:25.591562 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m03:46:25.683776 [debug] [ThreadPool]: Postgres adapter: Got a retryable error when attempting to open a postgres connection.
+1 attempts remaining. Retrying in 0 seconds.
+Error:
+connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "dwh_user"
+
+[0m03:46:25.750254 [debug] [ThreadPool]: Postgres adapter: Error running SQL: /* {"app": "dbt", "dbt_version": "1.10.13", "profile_name": "data_pipeline", "target_name": "dev", "connection_name": "list_datamart"} */
+
+    select distinct nspname from pg_namespace
+  
+[0m03:46:25.750254 [debug] [ThreadPool]: Postgres adapter: Rolling back transaction.
+[0m03:46:25.750254 [debug] [ThreadPool]: Postgres adapter: Error running SQL: macro list_schemas
+[0m03:46:25.750254 [debug] [ThreadPool]: Postgres adapter: Rolling back transaction.
+[0m03:46:25.751760 [debug] [ThreadPool]: On list_datamart: No close available on handle
+[0m03:46:25.751760 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m03:46:25.752766 [debug] [MainThread]: Connection 'list_datamart' was properly closed.
+[0m03:46:25.752766 [info ] [MainThread]: 
+[0m03:46:25.753768 [info ] [MainThread]: Finished running  in 0 hours 0 minutes and 0.37 seconds (0.37s).
+[0m03:46:25.754766 [error] [MainThread]: Encountered an error:
+Database Error
+  connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "dwh_user"
+  
+[0m03:46:25.756130 [debug] [MainThread]: Command `dbt build` failed at 03:46:25.756130 after 3.61 seconds
+[0m03:46:25.756634 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001F6AA4D0140>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001F6AC9DD7F0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001F6AC9DF110>]}
+[0m03:46:25.757167 [debug] [MainThread]: Flushing usage events
+[0m03:46:26.166312 [debug] [MainThread]: An error was encountered while trying to flush usage events

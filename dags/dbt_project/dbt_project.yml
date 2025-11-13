@@ -1,6 +1,12 @@
-name: 'data_pipeline'
-version: '1.0'
+name: data_pipeline
+version: '1.0.0'
 config-version: 2
-profile: 'data_pipeline'
-model-paths: ["../../models"]
-target-path: "target"
+
+profile: data_pipeline
+model-paths: ["models"]
+
+models:
+  data_pipeline:
+    +schema: analytics
+    staging:
+      +schema: staging

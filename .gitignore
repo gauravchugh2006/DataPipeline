@@ -28,6 +28,7 @@ docker-compose.override.yml
 
 # PostgreSQL database dumps & temp files
 *.sql
+!dags/dbt_project/models/**/*.sql
 *.db
 *.sqlite
 pgdata/
@@ -77,3 +78,10 @@ dags/dbt_project/logs/
 dags/dbt_project/target/
 
 dags/dbt_project/logs/dbt.log
+.scannerwork/
+.sonar/
+.bamboo/
+.scannerwork/**/reports/
+.scannerwork/**/out/
+.sonar/**/reports/
+.sonar/**/out/

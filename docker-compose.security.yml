@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+  web:
+    build: .
+    container_name: dast-web
+    environment:
+      FLASK_ENV: development
+      MYSQL_HOST: db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin123
+      MYSQL_DB: school_intranet
+    depends_on: [db]
+    ports:
+      - "5000:5000"
+    command: python app.py
+
+  db:
+    image: mysql:8.0
+    container_name: dast-db
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123
+      MYSQL_DATABASE: school_intranet
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin123
+
+  zap-baseline:
+    image: owasp/zap2docker-stable
+    container_name: dast-zap-baseline
+    depends_on: [web]
+    command: >
+      zap-baseline.py -t http://web:5000
+      -r /zap/wrk/zap-baseline.html -w /zap/wrk/zap-warnings.md
+      -J /zap/wrk/zap-report.json -x /zap/wrk/zap-report.xml
+    volumes:
+      - ./:/zap/wrk

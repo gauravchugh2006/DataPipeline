@@ -1,0 +1,25 @@
+env:
+  contexts:
+    - name: intranet
+      urls:
+        - http://host.docker.internal:5000
+      includePaths:
+        - "http://host.docker.internal:5000/.*"
+
+jobs:
+  - type: passiveScan-wait
+    parameters: { maxDuration: 60 }
+  - type: spider
+    parameters: { context: intranet, maxDuration: 60 }
+  - type: activeScan
+    parameters: { context: intranet, maxDuration: 600 }
+  - type: report
+    parameters:
+      template: traditional-html
+      reportDir: /zap/wrk
+      reportFile: zap-automation.html
+  - type: export
+    parameters:
+      format: JSON
+      reportDir: /zap/wrk
+      reportFile: zap-automation.json
