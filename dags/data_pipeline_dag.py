@@ -5,6 +5,7 @@ from datetime import timedelta
 import pendulum
 from airflow import DAG
 from airflow.operators.bash import BashOperator
+from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from airflow.providers.slack.operators.slack_webhook import SlackWebhookOperator
 
 AIRFLOW_HOME = os.getenv("AIRFLOW_HOME", "/opt/airflow")
@@ -84,6 +85,16 @@ with DAG(
         env=common_env,
     )
 
+    zap_scan_task = TriggerDagRunOperator(
+        task_id="trigger_security_scan",
+        trigger_dag_id="trigger_zap_scan",
+        wait_for_completion=True,
+        poke_interval=int(os.getenv("ZAP_TRIGGER_POKE_INTERVAL", "60")),
+        reset_dag_run=True,
+        allowed_states=["success"],
+        failed_states=["failed", "upstream_failed"],
+    )
+
     notify_task = SlackWebhookOperator(
         task_id="notify_success",
         http_conn_id="slack_connection",
@@ -91,4 +102,12 @@ with DAG(
         channel="#data-team",
     )
 
-    extract_task >> load_task >> dbt_run_task >> quality_check_task >> enrichment_task >> notify_task
+    (
+        extract_task
+        >> load_task
+        >> dbt_run_task
+        >> quality_check_task
+        >> enrichment_task
+        >> zap_scan_task
+        >> notify_task
+    )

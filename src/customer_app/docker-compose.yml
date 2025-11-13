@@ -1,0 +1,57 @@
+version: "3.9"
+
+services:
+  customer-db:
+    image: mysql:8.0
+    container_name: cafe_customer_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: ccd_store
+      MYSQL_USER: ccd_user
+      MYSQL_PASSWORD: ccd_password
+    ports:
+      - "3307:3306"
+    volumes:
+      - customer-db-data:/var/lib/mysql
+      - ./backend/sql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: cafe_mailhog
+    ports:
+      - "8025:8025"
+
+  backend:
+    build:
+      context: ./backend
+    container_name: cafe_backend
+    env_file: ./backend/.env.example
+    environment:
+      MYSQL_HOST: customer-db
+      SMTP_HOST: mailhog
+      FRONTEND_ORIGIN: http://localhost:5173
+    depends_on:
+      customer-db:
+        condition: service_healthy
+    ports:
+      - "4000:4000"
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: cafe_frontend
+    environment:
+      VITE_API_BASE_URL: http://backend:4000/api
+      VITE_GOOGLE_MAPS_API_KEY: ${VITE_GOOGLE_MAPS_API_KEY:-}
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+
+volumes:
+  customer-db-data:
