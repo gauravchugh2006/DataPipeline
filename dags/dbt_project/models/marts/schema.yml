@@ -18,3 +18,11 @@ models:
       - name: category
         tests:
           - not_null
+  - name: fact_stock_alerts
+    columns:
+      - name: area_id
+        tests:
+          - not_null
+      - name: severity
+        tests:
+          - not_null

@@ -8,3 +8,7 @@ sources:
       - name: products
       - name: payments
       - name: customers_source
+  - name: analytics
+    schema: analytics
+    tables:
+      - name: fact_stock_alerts
