@@ -10,3 +10,7 @@ models:
     +schema: analytics
     staging:
       +schema: staging
+    logistics:
+      +schema: logistics
+      staging:
+        +schema: logistics_staging
