@@ -24,16 +24,18 @@ def resolve_database_uri() -> str:
     if conn:
         return conn
 
-    password = os.getenv("POSTGRES_DWH_PASSWORD")
-    if not password:
-        raise ValueError(
-            "POSTGRES_DWH_PASSWORD environment variable must be set when POSTGRES_DWH_CONN is not provided."
-        )
-
     user = os.getenv("POSTGRES_DWH_USER", "dwh_user")
     host = os.getenv("POSTGRES_DWH_HOST", "postgres_dw")
     database = os.getenv("POSTGRES_DWH_DB", "datamart")
     port = os.getenv("POSTGRES_DWH_PORT", "5432")
+    password = os.getenv("POSTGRES_DWH_PASSWORD")
+
+    if not password:
+        logging.warning(
+            "POSTGRES_DWH_PASSWORD not set; using default placeholder for local/testing use."
+        )
+        password = "dwh_password"
+
     return f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}"
 
 
@@ -62,6 +64,11 @@ def _prepare_delivery_features(df: pd.DataFrame) -> pd.DataFrame:
     for column in date_columns:
         if column in df.columns:
             df[column] = pd.to_datetime(df[column])
+        else:
+            df[column] = pd.NaT
+
+    if "distributor_id" not in df.columns:
+        df["distributor_id"] = pd.Series(dtype="object")
 
     df["sla_met"] = (
         df["actual_delivery_date"].notna()
@@ -110,8 +117,11 @@ def enrich_data() -> None:
 
     delivery_status = _prepare_delivery_features(delivery_status)
 
-    if order_items.empty:
-        logging.warning("Order item detail is empty; metrics will only include logistic aggregates.")
+    required_order_columns = {"order_id", "category"}
+    if order_items.empty or not required_order_columns.issubset(order_items.columns):
+        logging.warning(
+            "Order item detail missing required columns; metrics will only include logistic aggregates."
+        )
         merged = pd.DataFrame()
     else:
         merged = order_items.merge(
