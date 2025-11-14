@@ -2,6 +2,7 @@
 import logging
 import os
 from io import BytesIO
+from typing import Optional
 
 import boto3
 import pandas as pd
@@ -16,12 +17,17 @@ SECRET_KEY = os.getenv("MINIO_SECRET_KEY", "minioadmin")
 BUCKET_NAME = os.getenv("MINIO_BUCKET", "raw-data")
 # Define the objects (files) to download and their corresponding PostgreSQL table names
 FILES_TO_PROCESS = {
-    "sample_data.csv": "raw_data",          # Main transactional data
+    "sample_data.csv": "raw_data",  # Main transactional data
     "customers_source.csv": "customers_source",  # Customer detail data
-    "delivery_status_feed.csv": "delivery_status_feed",
-    "distributor_master.csv": "distributor_master",
-    "stockist_inventory_snapshot.csv": "stockist_inventory_snapshot",
 }
+
+FILES_TO_PROCESS.update(
+    {
+        "delivery_status_feed.csv": "delivery_status_feed",
+        "distributor_master.csv": "distributor_master",
+        "stockist_inventory_snapshot.csv": "stockist_inventory_snapshot",
+    }
+)
 
 RAW_SCHEMA = os.getenv("RAW_SCHEMA", "raw")
 AWS_REGION = os.getenv("AWS_REGION")
@@ -68,6 +74,45 @@ def download_file_from_minio(object_name):
     except Exception as e:
         logging.error(f"Error downloading file from Minio: {e}")
         return None  # Return None if download fails
+
+
+def _load_simple_table(
+    engine,
+    object_name: str,
+    table_name: str,
+    *,
+    parse_dates=None,
+    log_name: Optional[str] = None,
+):
+    """Download a CSV from MinIO and replace the corresponding raw table."""
+
+    dataset_name = log_name or table_name
+    file_bytes = download_file_from_minio(object_name)
+    if not file_bytes:
+        logging.warning(
+            "%s not downloaded, skipping loading for %s.", object_name, dataset_name
+        )
+        return
+
+    read_csv_kwargs = {"parse_dates": parse_dates} if parse_dates else {}
+
+    try:
+        df = pd.read_csv(BytesIO(file_bytes), **read_csv_kwargs)
+    except Exception as exc:  # pragma: no cover - defensive logging
+        logging.error("Failed parsing %s for %s: %s", object_name, table_name, exc)
+        return
+
+    logging.info(
+        "%s loaded into pandas DataFrame. Shape: %s", object_name, df.shape
+    )
+    with engine.begin() as conn:
+        conn.execute(text(f"DROP TABLE IF EXISTS {RAW_SCHEMA}.{table_name} CASCADE;"))
+        logging.info("Dropped table %s.%s with CASCADE.", RAW_SCHEMA, table_name)
+    df.to_sql(table_name, engine, schema=RAW_SCHEMA, if_exists="replace", index=False)
+    logging.info(
+        "Data loaded into '%s.%s' table. Rows: %s", RAW_SCHEMA, table_name, len(df)
+    )
+
 
 def load_data_to_postgres():
     """
@@ -136,135 +181,36 @@ def load_data_to_postgres():
             logging.warning("sample_data.csv not downloaded, skipping loading for raw_data, products, payments.")
 
         # Process customers_source.csv for customers_source table
-        customers_source_csv = download_file_from_minio("customers_source.csv")
-        if customers_source_csv:
-            df_customers_source = pd.read_csv(BytesIO(customers_source_csv))
-            logging.info(f"customers_source.csv loaded into pandas DataFrame. Shape: {df_customers_source.shape}")
-            with engine.begin() as conn:
-                conn.execute(text(f"DROP TABLE IF EXISTS {RAW_SCHEMA}.customers_source CASCADE;"))
-                logging.info(f"Dropped table {RAW_SCHEMA}.customers_source with CASCADE.")
-            df_customers_source.to_sql("customers_source", engine, schema=RAW_SCHEMA, if_exists="replace", index=False)
-            logging.info(f"Data loaded into '{RAW_SCHEMA}.customers_source' table. Rows: {len(df_customers_source)}")
-        else:
-            logging.warning("customers_source.csv not downloaded, skipping loading for customers_source.")
+        _load_simple_table(engine, "customers_source.csv", "customers_source")
 
         # Process delivery_status_feed.csv for delivery_status_feed table
-        delivery_status_csv = download_file_from_minio("delivery_status_feed.csv")
-        if delivery_status_csv:
-            df_delivery_status = pd.read_csv(
-                BytesIO(delivery_status_csv),
-                parse_dates=[
-                    "status_timestamp",
-                    "sla_due_date",
-                    "estimated_delivery_date",
-                    "actual_delivery_date",
-                ],
-            )
-            logging.info(
-                "delivery_status_feed.csv loaded into pandas DataFrame. Shape: %s",
-                df_delivery_status.shape,
-            )
-            with engine.begin() as conn:
-                conn.execute(
-                    text(
-                        f"DROP TABLE IF EXISTS {RAW_SCHEMA}.delivery_status_feed CASCADE;"
-                    )
-                )
-                logging.info(
-                    "Dropped table %s.delivery_status_feed with CASCADE.", RAW_SCHEMA
-                )
-            df_delivery_status.to_sql(
-                "delivery_status_feed",
-                engine,
-                schema=RAW_SCHEMA,
-                if_exists="replace",
-                index=False,
-            )
-            logging.info(
-                "Data loaded into '%s.delivery_status_feed' table. Rows: %s",
-                RAW_SCHEMA,
-                len(df_delivery_status),
-            )
-        else:
-            logging.warning(
-                "delivery_status_feed.csv not downloaded, skipping loading for delivery_status_feed."
-            )
+        _load_simple_table(
+            engine,
+            "delivery_status_feed.csv",
+            "delivery_status_feed",
+            parse_dates=[
+                "status_timestamp",
+                "sla_due_date",
+                "estimated_delivery_date",
+                "actual_delivery_date",
+            ],
+        )
 
         # Process distributor_master.csv for distributor_master table
-        distributor_master_csv = download_file_from_minio("distributor_master.csv")
-        if distributor_master_csv:
-            df_distributor_master = pd.read_csv(
-                BytesIO(distributor_master_csv),
-                parse_dates=["effective_from", "effective_to"],
-            )
-            logging.info(
-                "distributor_master.csv loaded into pandas DataFrame. Shape: %s",
-                df_distributor_master.shape,
-            )
-            with engine.begin() as conn:
-                conn.execute(
-                    text(
-                        f"DROP TABLE IF EXISTS {RAW_SCHEMA}.distributor_master CASCADE;"
-                    )
-                )
-                logging.info(
-                    "Dropped table %s.distributor_master with CASCADE.", RAW_SCHEMA
-                )
-            df_distributor_master.to_sql(
-                "distributor_master",
-                engine,
-                schema=RAW_SCHEMA,
-                if_exists="replace",
-                index=False,
-            )
-            logging.info(
-                "Data loaded into '%s.distributor_master' table. Rows: %s",
-                RAW_SCHEMA,
-                len(df_distributor_master),
-            )
-        else:
-            logging.warning(
-                "distributor_master.csv not downloaded, skipping loading for distributor_master."
-            )
+        _load_simple_table(
+            engine,
+            "distributor_master.csv",
+            "distributor_master",
+            parse_dates=["effective_from", "effective_to"],
+        )
 
         # Process stockist_inventory_snapshot.csv for stockist_inventory_snapshot table
-        stockist_inventory_csv = download_file_from_minio(
-            "stockist_inventory_snapshot.csv"
+        _load_simple_table(
+            engine,
+            "stockist_inventory_snapshot.csv",
+            "stockist_inventory_snapshot",
+            parse_dates=["inventory_date"],
         )
-        if stockist_inventory_csv:
-            df_stockist_inventory = pd.read_csv(
-                BytesIO(stockist_inventory_csv),
-                parse_dates=["inventory_date"],
-            )
-            logging.info(
-                "stockist_inventory_snapshot.csv loaded into pandas DataFrame. Shape: %s",
-                df_stockist_inventory.shape,
-            )
-            with engine.begin() as conn:
-                conn.execute(
-                    text(
-                        f"DROP TABLE IF EXISTS {RAW_SCHEMA}.stockist_inventory_snapshot CASCADE;"
-                    )
-                )
-                logging.info(
-                    "Dropped table %s.stockist_inventory_snapshot with CASCADE.", RAW_SCHEMA
-                )
-            df_stockist_inventory.to_sql(
-                "stockist_inventory_snapshot",
-                engine,
-                schema=RAW_SCHEMA,
-                if_exists="replace",
-                index=False,
-            )
-            logging.info(
-                "Data loaded into '%s.stockist_inventory_snapshot' table. Rows: %s",
-                RAW_SCHEMA,
-                len(df_stockist_inventory),
-            )
-        else:
-            logging.warning(
-                "stockist_inventory_snapshot.csv not downloaded, skipping loading for stockist_inventory_snapshot."
-            )
 
         logging.info("All raw data loading process completed.")
 

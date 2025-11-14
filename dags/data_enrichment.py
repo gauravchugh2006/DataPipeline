@@ -58,7 +58,7 @@ def _prepare_delivery_features(df: pd.DataFrame) -> pd.DataFrame:
 
     for column in ("sla_due_date", "actual_delivery_date"):
         if column in df.columns:
-            df[column] = pd.to_datetime(df[column])
+            df[column] = pd.to_datetime(df[column], errors="coerce")
         else:
             df[column] = pd.NaT
 
@@ -141,11 +141,22 @@ def enrich_data() -> None:
         logging.warning("No metrics found to enrich; exiting without writing output.")
         return
 
-    enriched = df_metrics.assign(
-        average_order_value=lambda df: df["total_revenue"] / df["orders"],
-    )
+    orders_non_zero = df_metrics["orders"].replace({0: pd.NA}) if "orders" in df_metrics else None
+    if orders_non_zero is not None:
+        average_order_value = df_metrics["total_revenue"].divide(orders_non_zero)
+    else:  # pragma: no cover - defensive branch if metrics missing column
+        logging.warning("'orders' column missing from metrics; skipping average order value calculation.")
+        average_order_value = pd.Series([None] * len(df_metrics), index=df_metrics.index)
+
+    enriched = df_metrics.assign(average_order_value=average_order_value)
 
     logistics_metrics = _compute_category_delivery_metrics(engine)
+    if "category" not in enriched.columns:
+        logging.warning(
+            "Category column not present in metrics; skipping logistics enrichment merge."
+        )
+        logistics_metrics = pd.DataFrame()
+
     if logistics_metrics.empty:
         enriched = enriched.assign(
             sla_adherence_rate=None,

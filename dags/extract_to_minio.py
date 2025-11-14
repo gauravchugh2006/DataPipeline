@@ -18,10 +18,21 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FILES_TO_UPLOAD = {
     "sample_data.csv": os.path.join(BASE_DIR, "data_source", "sample_data.csv"),
     "customers_source.csv": os.path.join(BASE_DIR, "data_source", "customers_source.csv"),
-    "delivery_status_feed.csv": os.path.join(BASE_DIR, "data_source", "delivery_status_feed.csv"),
-    "distributor_master.csv": os.path.join(BASE_DIR, "data_source", "distributor_master.csv"),
-    "stockist_inventory_snapshot.csv": os.path.join(BASE_DIR, "data_source", "stockist_inventory_snapshot.csv"),
 }
+
+FILES_TO_UPLOAD.update(
+    {
+        "delivery_status_feed.csv": os.path.join(
+            BASE_DIR, "data_source", "delivery_status_feed.csv"
+        ),
+        "distributor_master.csv": os.path.join(
+            BASE_DIR, "data_source", "distributor_master.csv"
+        ),
+        "stockist_inventory_snapshot.csv": os.path.join(
+            BASE_DIR, "data_source", "stockist_inventory_snapshot.csv"
+        ),
+    }
+)
 
 def get_file_md5(file_path):
     """Calculates the MD5 hash of a file."""
