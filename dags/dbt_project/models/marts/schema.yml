@@ -18,3 +18,16 @@ models:
       - name: category
         tests:
           - not_null
+
+  - name: trust_signal_rollups
+    columns:
+      - name: metric_date
+        tests:
+          - not_null
+          - unique
+      - name: on_time_delivery_rate
+        tests:
+          - not_null
+      - name: csr_badge_coverage
+        tests:
+          - not_null

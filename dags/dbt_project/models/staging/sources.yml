@@ -8,3 +8,6 @@ sources:
       - name: products
       - name: payments
       - name: customers_source
+      - name: deliveries
+      - name: support_interactions
+      - name: csr_badges
