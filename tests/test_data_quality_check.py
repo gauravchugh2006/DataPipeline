@@ -7,6 +7,7 @@ import data_quality_check
 
 
 def _run_quality(monkeypatch, dataframe):
+    monkeypatch.setenv("POSTGRES_DWH_CONN", "postgresql://test")
     monkeypatch.setattr(data_quality_check, "create_engine", lambda uri: object())
     monkeypatch.setattr(data_quality_check.pd, "read_sql", lambda query, engine: dataframe)
 

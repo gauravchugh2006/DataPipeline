@@ -18,6 +18,9 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FILES_TO_UPLOAD = {
     "sample_data.csv": os.path.join(BASE_DIR, "data_source", "sample_data.csv"),
     "customers_source.csv": os.path.join(BASE_DIR, "data_source", "customers_source.csv"),
+    "deliveries.csv": os.path.join(BASE_DIR, "data_source", "deliveries.csv"),
+    "support_interactions.csv": os.path.join(BASE_DIR, "data_source", "support_interactions.csv"),
+    "csr_badges.csv": os.path.join(BASE_DIR, "data_source", "csr_badges.csv"),
 }
 
 def get_file_md5(file_path):
