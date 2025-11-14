@@ -1,0 +1,5 @@
+customer_id,preferred_channel,reminder_window,frequency_per_month,timezone
+1001,email,morning,2,America/New_York
+1002,sms,afternoon,4,America/Chicago
+1003,push,evening,3,America/Los_Angeles
+1004,email,weekend,1,America/New_York
