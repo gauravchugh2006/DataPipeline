@@ -4,6 +4,7 @@ import helmet from "helmet";
 import dotenv from "dotenv";
 
 import { initPool } from "./config/database.js";
+import { initTrustPool } from "./config/postgres.js";
 import apiRouter from "./routes/index.js";
 
 dotenv.config();
@@ -27,11 +28,13 @@ app.get("/health", (_req, res) => {
 
 const startServer = async () => {
   try {
-    const pool = await initPool();
+    const [pool, trustPool] = await Promise.all([initPool(), initTrustPool()]);
     app.set("db", pool);
+    app.set("trustDb", trustPool);
 
     app.use("/api", (req, res, next) => {
       req.db = pool;
+      req.trustDb = trustPool;
       return apiRouter(req, res, next);
     });
 
