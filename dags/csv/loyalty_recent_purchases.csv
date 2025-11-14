@@ -1,0 +1,8 @@
+customer_id,order_id,purchase_date,purchase_amount,product_id,product_category
+1001,50001,2024-07-01,149.99,301,"smart_home"
+1002,50002,2024-07-02,89.50,205,"fitness"
+1003,50003,2024-06-25,249.00,412,"electronics"
+1001,50004,2024-06-20,59.99,214,"smart_home"
+1004,50005,2024-06-15,129.99,512,"travel"
+1002,50006,2024-06-28,39.99,219,"fitness"
+1003,50007,2024-06-30,75.00,417,"electronics"
