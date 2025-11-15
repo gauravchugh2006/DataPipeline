@@ -76,6 +76,16 @@ The SQL bootstrap script provisions demo identities:
 - **Administrator** — email: `admin@cafecoffeeday.com`, password: `admin123`
 - **Customer** — email: `customer@cafecoffeeday.com`, password: `admin123`
 
+### Admin workspace
+
+Authenticated administrators can visit [`/admin`](http://localhost:5173/admin) to access a responsive control centre powered by React Query and TanStack Table. The workspace includes:
+
+- **Products grid** with inline create, update, delete flows, plus CSV/XLSX exports that honour active filters and sort order.
+- **Customers grid** for editing identities, resetting passwords, and exporting role-scoped datasets.
+- **Orders grid** with live status adjustments, bulk exports, and transactional history filters.
+
+All admin API calls require a bearer token issued to a user whose `role` is `admin`.
+
 ### Backend service (Express + MySQL)
 
 ```bash
@@ -141,7 +151,20 @@ Schema is created automatically when the MySQL container starts for the first ti
 
 ## 🧪 Testing & linting
 
-This starter does not ship with automated tests yet. Integrate Vitest/Jest for frontend and Jest/Supertest for backend as needed. ESLint/Prettier are also great additions for production hardening.
+### Playwright smoke tests
+
+End-to-end smoke coverage lives in `frontend/tests/admin.spec.js` and verifies admin CRUD flows plus CSV exports. To execute the suite locally:
+
+```bash
+# in one terminal start the stack (e.g. via docker compose or npm scripts)
+export CAFE_APP_URL="http://localhost:5173"
+export CAFE_ADMIN_EMAIL="admin@cafecoffeeday.com"
+export CAFE_ADMIN_PASSWORD="admin123"
+npm install --prefix frontend
+npm run test:e2e --prefix frontend
+```
+
+The environment variables tell Playwright which base URL to drive and which credentials to use for the admin login form.
 
 ## 🛠️ Troubleshooting
 
