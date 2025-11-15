@@ -29,6 +29,7 @@ docker-compose.override.yml
 # PostgreSQL database dumps & temp files
 *.sql
 !src/customer_app/backend/sql/*.sql
+!src/customer_app/backend/sql/**/*.sql
 !dags/dbt_project/models/**/*.sql
 *.db
 *.sqlite
