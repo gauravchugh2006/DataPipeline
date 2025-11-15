@@ -1,0 +1,64 @@
+version: 2
+
+models:
+  - name: stg_delivery_status
+    description: "Staging view of delivery status feed from the operational system."
+    columns:
+      - name: delivery_id
+        tests:
+          - not_null
+      - name: order_id
+        tests:
+          - not_null
+      - name: sla_due_date
+        description: "Contracted SLA delivery date."
+  - name: stg_distributor_master
+    description: "Staging view of distributor master data with effective dating."
+    columns:
+      - name: distributor_id
+        tests:
+          - not_null
+      - name: effective_from
+        tests:
+          - not_null
+  - name: stg_stockist_inventory
+    description: "Staging view of inventory snapshots for downstream dimensional modelling."
+    columns:
+      - name: stockist_id
+        tests:
+          - not_null
+      - name: inventory_date
+        tests:
+          - not_null
+  - name: dim_distributor_history
+    description: "Type 2 slowly changing dimension that tracks distributor hierarchy and zone changes."
+    columns:
+      - name: distributor_id
+        tests:
+          - not_null
+      - name: version_number
+        tests:
+          - not_null
+      - name: current_flag
+        tests:
+          - not_null
+  - name: dim_stockist_inventory
+    description: "Latest and historical stockist inventory quantities by SKU."
+    columns:
+      - name: stockist_id
+        tests:
+          - not_null
+      - name: sku_id
+        tests:
+          - not_null
+  - name: delivery_service_metrics
+    description: "Aggregated delivery SLA and risk indicators by distributor, zone, and day."
+    columns:
+      - name: delivery_day
+        tests:
+          - not_null
+      - name: total_deliveries
+        tests:
+          - not_null
+      - name: sla_adherence_rate
+        description: "Ratio of deliveries meeting the SLA." 

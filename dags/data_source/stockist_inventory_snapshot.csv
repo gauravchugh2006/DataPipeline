@@ -1,0 +1,6 @@
+snapshot_id,stockist_id,distributor_id,inventory_date,sku_id,sku_name,on_hand_qty,on_order_qty
+SNAP1,STK001,DIS001,2024-04-02,SKU1,Widget,120,30
+SNAP1,STK001,DIS001,2024-04-02,SKU2,Gadget,60,10
+SNAP2,STK002,DIS002,2024-04-02,SKU1,Widget,80,20
+SNAP3,STK002,DIS002,2024-04-04,SKU1,Widget,70,10
+SNAP3,STK002,DIS002,2024-04-04,SKU3,Doohickey,45,5

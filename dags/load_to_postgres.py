@@ -2,6 +2,7 @@
 import logging
 import os
 from io import BytesIO
+from typing import Optional
 
 import boto3
 import pandas as pd
@@ -22,6 +23,14 @@ FILES_TO_PROCESS = {
     "support_interactions.csv": "support_interactions",
     "csr_badges.csv": "csr_badges",
 }
+
+FILES_TO_PROCESS.update(
+    {
+        "delivery_status_feed.csv": "delivery_status_feed",
+        "distributor_master.csv": "distributor_master",
+        "stockist_inventory_snapshot.csv": "stockist_inventory_snapshot",
+    }
+)
 
 RAW_SCHEMA = os.getenv("RAW_SCHEMA", "raw")
 AWS_REGION = os.getenv("AWS_REGION")
@@ -68,6 +77,45 @@ def download_file_from_minio(object_name):
     except Exception as e:
         logging.error(f"Error downloading file from Minio: {e}")
         return None  # Return None if download fails
+
+
+def _load_simple_table(
+    engine,
+    object_name: str,
+    table_name: str,
+    *,
+    parse_dates=None,
+    log_name: Optional[str] = None,
+):
+    """Download a CSV from MinIO and replace the corresponding raw table."""
+
+    dataset_name = log_name or table_name
+    file_bytes = download_file_from_minio(object_name)
+    if not file_bytes:
+        logging.warning(
+            "%s not downloaded, skipping loading for %s.", object_name, dataset_name
+        )
+        return
+
+    read_csv_kwargs = {"parse_dates": parse_dates} if parse_dates else {}
+
+    try:
+        df = pd.read_csv(BytesIO(file_bytes), **read_csv_kwargs)
+    except Exception as exc:  # pragma: no cover - defensive logging
+        logging.error("Failed parsing %s for %s: %s", object_name, table_name, exc)
+        return
+
+    logging.info(
+        "%s loaded into pandas DataFrame. Shape: %s", object_name, df.shape
+    )
+    with engine.begin() as conn:
+        conn.execute(text(f"DROP TABLE IF EXISTS {RAW_SCHEMA}.{table_name} CASCADE;"))
+        logging.info("Dropped table %s.%s with CASCADE.", RAW_SCHEMA, table_name)
+    df.to_sql(table_name, engine, schema=RAW_SCHEMA, if_exists="replace", index=False)
+    logging.info(
+        "Data loaded into '%s.%s' table. Rows: %s", RAW_SCHEMA, table_name, len(df)
+    )
+
 
 def load_data_to_postgres():
     """
@@ -136,17 +184,36 @@ def load_data_to_postgres():
             logging.warning("sample_data.csv not downloaded, skipping loading for raw_data, products, payments.")
 
         # Process customers_source.csv for customers_source table
-        customers_source_csv = download_file_from_minio("customers_source.csv")
-        if customers_source_csv:
-            df_customers_source = pd.read_csv(BytesIO(customers_source_csv))
-            logging.info(f"customers_source.csv loaded into pandas DataFrame. Shape: {df_customers_source.shape}")
-            with engine.begin() as conn:
-                conn.execute(text(f"DROP TABLE IF EXISTS {RAW_SCHEMA}.customers_source CASCADE;"))
-                logging.info(f"Dropped table {RAW_SCHEMA}.customers_source with CASCADE.")
-            df_customers_source.to_sql("customers_source", engine, schema=RAW_SCHEMA, if_exists="replace", index=False)
-            logging.info(f"Data loaded into '{RAW_SCHEMA}.customers_source' table. Rows: {len(df_customers_source)}")
-        else:
-            logging.warning("customers_source.csv not downloaded, skipping loading for customers_source.")
+        _load_simple_table(engine, "customers_source.csv", "customers_source")
+
+        # Process delivery_status_feed.csv for delivery_status_feed table
+        _load_simple_table(
+            engine,
+            "delivery_status_feed.csv",
+            "delivery_status_feed",
+            parse_dates=[
+                "status_timestamp",
+                "sla_due_date",
+                "estimated_delivery_date",
+                "actual_delivery_date",
+            ],
+        )
+
+        # Process distributor_master.csv for distributor_master table
+        _load_simple_table(
+            engine,
+            "distributor_master.csv",
+            "distributor_master",
+            parse_dates=["effective_from", "effective_to"],
+        )
+
+        # Process stockist_inventory_snapshot.csv for stockist_inventory_snapshot table
+        _load_simple_table(
+            engine,
+            "stockist_inventory_snapshot.csv",
+            "stockist_inventory_snapshot",
+            parse_dates=["inventory_date"],
+        )
 
         deliveries_csv = download_file_from_minio("deliveries.csv")
         if deliveries_csv:

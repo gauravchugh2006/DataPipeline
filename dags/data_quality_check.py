@@ -14,16 +14,18 @@ def resolve_database_uri() -> str:
     if conn:
         return conn
 
-    password = os.getenv("POSTGRES_DWH_PASSWORD")
-    if not password:
-        raise ValueError(
-            "POSTGRES_DWH_PASSWORD environment variable must be set when POSTGRES_DWH_CONN is not provided."
-        )
-
     user = os.getenv("POSTGRES_DWH_USER", "dwh_user")
     host = os.getenv("POSTGRES_DWH_HOST", "postgres_dw")
     database = os.getenv("POSTGRES_DWH_DB", "datamart")
     port = os.getenv("POSTGRES_DWH_PORT", "5432")
+    password = os.getenv("POSTGRES_DWH_PASSWORD")
+
+    if not password:
+        logging.warning(
+            "POSTGRES_DWH_PASSWORD not set; using default placeholder for local/testing use."
+        )
+        password = "dwh_password"
+
     return f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}"
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
