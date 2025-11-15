@@ -7,6 +7,7 @@ import MapEmbed from "./MapEmbed.jsx";
 import OrderHistory from "./OrderHistory.jsx";
 import ProductFilters from "./ProductFilters.jsx";
 import ProductGrid from "./ProductGrid.jsx";
+import ReminderSettings from "../features/loyalty/ReminderSettings.jsx";
 
 const themeOptions = [
   { value: "sunrise", label: "Sunrise" },
@@ -352,6 +353,7 @@ const Dashboard = ({
               onPageChange={(page) => mergeProductFilters({ page })}
             />
           </div>
+          {isAuthenticated && <ReminderSettings />}
           <SupportForm />
           <MapEmbed />
         </div>
