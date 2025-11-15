@@ -5112,3 +5112,543 @@ order_id,customer_id,order_date,total_amount,order_level_payment_status,product_
 5108,1466,2025-11-15 02:39:29,80.00,Pending,211,Blender,Home Goods,80.00,5408,Bank Transfer,Pending
 5109,1465,2025-11-15 02:39:30,1200.00,Paid,201,Laptop,Electronics,1200.00,5409,Bank Transfer,Completed
 5110,1466,2025-11-15 02:39:31,25.00,Paid,203,Casual T-Shirt,Apparel,25.00,5410,Credit Card,Completed
+5111,1058,2025-11-15 02:46:45,350.00,Refunded,213,Gaming Monitor,Electronics,350.00,5411,Bank Transfer,Refunded
+5112,1273,2025-11-15 02:46:46,180.00,Refunded,204,Noise-Cancelling Headphones,Electronics,180.00,5412,Credit Card,Refunded
+5113,1170,2025-11-15 02:46:47,10.00,Pending,208,Reading Light,Books,10.00,5413,Credit Card,Pending
+5114,1076,2025-11-15 02:46:48,15.00,Refunded,207,Sci-Fi Novel,Books,15.00,5414,PayPal,Refunded
+5115,1297,2025-11-15 02:46:49,30.00,Pending,202,Wireless Mouse,Electronics,30.00,5415,Bank Transfer,Pending
+5116,1299,2025-11-15 02:46:50,15.00,Pending,207,Sci-Fi Novel,Books,15.00,5416,Bank Transfer,Pending
+5117,1256,2025-11-15 02:46:51,60.00,Pending,205,Mechanical Keyboard,Electronics,60.00,5417,Bank Transfer,Pending
+5118,1140,2025-11-15 02:46:52,75.50,Refunded,206,Espresso Machine,Home Goods,75.50,5418,Bank Transfer,Refunded
+5119,1030,2025-11-15 02:46:53,120.00,Refunded,209,Smartwatch,Electronics,120.00,5419,PayPal,Refunded
+5120,1156,2025-11-15 02:46:54,1200.00,Pending,201,Laptop,Electronics,1200.00,5420,Credit Card,Pending
+5121,1104,2025-11-15 02:46:55,25.00,Pending,203,Casual T-Shirt,Apparel,25.00,5421,Credit Card,Pending
+5122,1313,2025-11-15 02:46:56,25.00,Refunded,203,Casual T-Shirt,Apparel,25.00,5422,PayPal,Refunded
+5123,1260,2025-11-15 02:46:57,120.00,Refunded,209,Smartwatch,Electronics,120.00,5423,Credit Card,Refunded
+5124,1141,2025-11-15 02:46:58,60.00,Refunded,205,Mechanical Keyboard,Electronics,60.00,5424,Bank Transfer,Refunded
+5125,1299,2025-11-15 02:46:59,1200.00,Paid,201,Laptop,Electronics,1200.00,5425,Bank Transfer,Completed
+5126,1005,2025-11-15 02:47:00,1200.00,Refunded,201,Laptop,Electronics,1200.00,5426,Bank Transfer,Refunded
+5127,1323,2025-11-15 02:47:01,75.50,Refunded,206,Espresso Machine,Home Goods,75.50,5427,PayPal,Refunded
+5128,1357,2025-11-15 02:47:02,25.00,Refunded,212,Yoga Mat,Sports,25.00,5428,Bank Transfer,Refunded
+5129,1240,2025-11-15 02:47:03,180.00,Refunded,204,Noise-Cancelling Headphones,Electronics,180.00,5429,Credit Card,Refunded
+5130,1351,2025-11-15 02:47:04,1200.00,Refunded,201,Laptop,Electronics,1200.00,5430,PayPal,Refunded
+5131,1467,2025-11-15 02:47:05,10.00,Refunded,208,Reading Light,Books,10.00,5431,PayPal,Refunded
+5132,1467,2025-11-15 02:47:06,120.00,Paid,209,Smartwatch,Electronics,120.00,5432,Bank Transfer,Completed
+5133,1468,2025-11-15 02:47:07,350.00,Paid,213,Gaming Monitor,Electronics,350.00,5433,Bank Transfer,Completed
+5134,1468,2025-11-15 02:47:08,80.00,Paid,211,Blender,Home Goods,80.00,5434,Credit Card,Completed
+5135,1468,2025-11-15 02:47:09,25.00,Paid,203,Casual T-Shirt,Apparel,25.00,5435,Bank Transfer,Completed
+5136,1467,2025-11-15 02:47:10,25.00,Refunded,212,Yoga Mat,Sports,25.00,5436,Bank Transfer,Refunded
+5137,1469,2025-11-15 02:47:11,30.00,Pending,202,Wireless Mouse,Electronics,30.00,5437,Credit Card,Pending
+5138,1468,2025-11-15 02:47:12,25.00,Refunded,203,Casual T-Shirt,Apparel,25.00,5438,PayPal,Refunded
+5139,1467,2025-11-15 02:47:13,30.00,Paid,202,Wireless Mouse,Electronics,30.00,5439,PayPal,Completed
+5140,1469,2025-11-15 02:47:14,30.00,Refunded,202,Wireless Mouse,Electronics,30.00,5440,Bank Transfer,Refunded
+5141,1244,2025-11-15 02:48:01,15.00,Paid,207,Sci-Fi Novel,Books,15.00,5441,Credit Card,Completed
+5142,1187,2025-11-15 02:48:02,80.00,Pending,211,Blender,Home Goods,80.00,5442,Credit Card,Pending
+5143,1191,2025-11-15 02:48:03,180.00,Refunded,204,Noise-Cancelling Headphones,Electronics,180.00,5443,Credit Card,Refunded
+5144,1325,2025-11-15 02:48:04,180.00,Pending,204,Noise-Cancelling Headphones,Electronics,180.00,5444,Credit Card,Pending
+5145,105,2025-11-15 02:48:05,45.00,Refunded,210,Running Shoes,Apparel,45.00,5445,Bank Transfer,Refunded
+5146,1366,2025-11-15 02:48:06,180.00,Pending,204,Noise-Cancelling Headphones,Electronics,180.00,5446,Credit Card,Pending
+5147,1064,2025-11-15 02:48:07,30.00,Pending,202,Wireless Mouse,Electronics,30.00,5447,PayPal,Pending
+5148,1389,2025-11-15 02:48:08,1200.00,Pending,201,Laptop,Electronics,1200.00,5448,Bank Transfer,Pending
+5149,1244,2025-11-15 02:48:09,75.50,Pending,206,Espresso Machine,Home Goods,75.50,5449,Credit Card,Pending
+5150,1214,2025-11-15 02:48:10,60.00,Pending,205,Mechanical Keyboard,Electronics,60.00,5450,PayPal,Pending
+5151,1096,2025-11-15 02:48:11,60.00,Paid,205,Mechanical Keyboard,Electronics,60.00,5451,Credit Card,Completed
+5152,1423,2025-11-15 02:48:12,120.00,Pending,209,Smartwatch,Electronics,120.00,5452,Credit Card,Pending
+5153,1391,2025-11-15 02:48:13,15.00,Refunded,207,Sci-Fi Novel,Books,15.00,5453,Bank Transfer,Refunded
+5154,1216,2025-11-15 02:48:14,25.00,Paid,203,Casual T-Shirt,Apparel,25.00,5454,PayPal,Completed
+5155,1377,2025-11-15 02:48:15,10.00,Pending,208,Reading Light,Books,10.00,5455,PayPal,Pending
+5156,1437,2025-11-15 02:48:16,1200.00,Refunded,201,Laptop,Electronics,1200.00,5456,Bank Transfer,Refunded
+5157,1455,2025-11-15 02:48:17,30.00,Pending,202,Wireless Mouse,Electronics,30.00,5457,Bank Transfer,Pending
+5158,1133,2025-11-15 02:48:18,30.00,Pending,202,Wireless Mouse,Electronics,30.00,5458,PayPal,Pending
+5159,1085,2025-11-15 02:48:19,180.00,Pending,204,Noise-Cancelling Headphones,Electronics,180.00,5459,Credit Card,Pending
+5160,1092,2025-11-15 02:48:20,80.00,Refunded,211,Blender,Home Goods,80.00,5460,PayPal,Refunded
+5161,1471,2025-11-15 02:48:21,60.00,Refunded,205,Mechanical Keyboard,Electronics,60.00,5461,Bank Transfer,Refunded
+5162,1470,2025-11-15 02:48:22,180.00,Refunded,204,Noise-Cancelling Headphones,Electronics,180.00,5462,Credit Card,Refunded
+5163,1471,2025-11-15 02:48:23,15.00,Pending,207,Sci-Fi Novel,Books,15.00,5463,Bank Transfer,Pending
+5164,1471,2025-11-15 02:48:24,30.00,Refunded,202,Wireless Mouse,Electronics,30.00,5464,PayPal,Refunded
+5165,1470,2025-11-15 02:48:25,120.00,Pending,209,Smartwatch,Electronics,120.00,5465,Credit Card,Pending
+5166,1470,2025-11-15 02:48:26,25.00,Refunded,212,Yoga Mat,Sports,25.00,5466,PayPal,Refunded
+5167,1471,2025-11-15 02:48:27,45.00,Refunded,210,Running Shoes,Apparel,45.00,5467,PayPal,Refunded
+5168,1470,2025-11-15 02:48:28,120.00,Paid,209,Smartwatch,Electronics,120.00,5468,Credit Card,Completed
+5169,1470,2025-11-15 02:48:29,45.00,Refunded,210,Running Shoes,Apparel,45.00,5469,Credit Card,Refunded
+5170,1471,2025-11-15 02:48:30,60.00,Refunded,205,Mechanical Keyboard,Electronics,60.00,5470,Credit Card,Refunded
+5171,1146,2025-11-15 02:51:04,10.00,Refunded,208,Reading Light,Books,10.00,5471,PayPal,Refunded
+5172,1457,2025-11-15 02:51:05,30.00,Refunded,202,Wireless Mouse,Electronics,30.00,5472,PayPal,Refunded
+5173,1175,2025-11-15 02:51:06,75.50,Refunded,206,Espresso Machine,Home Goods,75.50,5473,Credit Card,Refunded
+5174,1021,2025-11-15 02:51:07,1200.00,Refunded,201,Laptop,Electronics,1200.00,5474,Bank Transfer,Refunded
+5175,1335,2025-11-15 02:51:08,80.00,Paid,211,Blender,Home Goods,80.00,5475,PayPal,Completed
+5176,1414,2025-11-15 02:51:09,10.00,Refunded,208,Reading Light,Books,10.00,5476,Credit Card,Refunded
+5177,1411,2025-11-15 02:51:10,350.00,Paid,213,Gaming Monitor,Electronics,350.00,5477,PayPal,Completed
+5178,1021,2025-11-15 02:51:11,80.00,Refunded,211,Blender,Home Goods,80.00,5478,Bank Transfer,Refunded
+5179,1121,2025-11-15 02:51:12,10.00,Refunded,208,Reading Light,Books,10.00,5479,Bank Transfer,Refunded
+5180,1023,2025-11-15 02:51:13,120.00,Pending,209,Smartwatch,Electronics,120.00,5480,Bank Transfer,Pending
+5181,1205,2025-11-15 02:51:14,1200.00,Refunded,201,Laptop,Electronics,1200.00,5481,PayPal,Refunded
+5182,1055,2025-11-15 02:51:15,15.00,Pending,207,Sci-Fi Novel,Books,15.00,5482,Bank Transfer,Pending
+5183,1409,2025-11-15 02:51:16,75.50,Pending,206,Espresso Machine,Home Goods,75.50,5483,Bank Transfer,Pending
+5184,1194,2025-11-15 02:51:17,80.00,Refunded,211,Blender,Home Goods,80.00,5484,PayPal,Refunded
+5185,1363,2025-11-15 02:51:18,60.00,Paid,205,Mechanical Keyboard,Electronics,60.00,5485,Credit Card,Completed
+5186,1366,2025-11-15 02:51:19,10.00,Refunded,208,Reading Light,Books,10.00,5486,PayPal,Refunded
+5187,102,2025-11-15 02:51:20,25.00,Refunded,203,Casual T-Shirt,Apparel,25.00,5487,PayPal,Refunded
+5188,1006,2025-11-15 02:51:21,80.00,Refunded,211,Blender,Home Goods,80.00,5488,PayPal,Refunded
+5189,1343,2025-11-15 02:51:22,1200.00,Refunded,201,Laptop,Electronics,1200.00,5489,Credit Card,Refunded
+5190,1353,2025-11-15 02:51:23,120.00,Paid,209,Smartwatch,Electronics,120.00,5490,Bank Transfer,Completed
+5191,1472,2025-11-15 02:51:24,80.00,Refunded,211,Blender,Home Goods,80.00,5491,Bank Transfer,Refunded
+5192,1474,2025-11-15 02:51:25,180.00,Paid,204,Noise-Cancelling Headphones,Electronics,180.00,5492,Credit Card,Completed
+5193,1472,2025-11-15 02:51:26,10.00,Pending,208,Reading Light,Books,10.00,5493,Bank Transfer,Pending
+5194,1473,2025-11-15 02:51:27,15.00,Paid,207,Sci-Fi Novel,Books,15.00,5494,Bank Transfer,Completed
+5195,1474,2025-11-15 02:51:28,45.00,Refunded,210,Running Shoes,Apparel,45.00,5495,PayPal,Refunded
+5196,1474,2025-11-15 02:51:29,45.00,Paid,210,Running Shoes,Apparel,45.00,5496,Bank Transfer,Completed
+5197,1473,2025-11-15 02:51:30,15.00,Pending,207,Sci-Fi Novel,Books,15.00,5497,Bank Transfer,Pending
+5198,1472,2025-11-15 02:51:31,10.00,Refunded,208,Reading Light,Books,10.00,5498,PayPal,Refunded
+5199,1473,2025-11-15 02:51:32,25.00,Pending,203,Casual T-Shirt,Apparel,25.00,5499,PayPal,Pending
+5200,1473,2025-11-15 02:51:33,45.00,Refunded,210,Running Shoes,Apparel,45.00,5500,Credit Card,Refunded
+5201,1021,2025-11-15 02:54:08,25.00,Paid,212,Yoga Mat,Sports,25.00,5501,PayPal,Completed
+5202,1429,2025-11-15 02:54:09,25.00,Paid,203,Casual T-Shirt,Apparel,25.00,5502,Bank Transfer,Completed
+5203,1193,2025-11-15 02:54:10,1200.00,Pending,201,Laptop,Electronics,1200.00,5503,PayPal,Pending
+5204,1252,2025-11-15 02:54:11,1200.00,Paid,201,Laptop,Electronics,1200.00,5504,Bank Transfer,Completed
+5205,1069,2025-11-15 02:54:12,25.00,Refunded,203,Casual T-Shirt,Apparel,25.00,5505,Bank Transfer,Refunded
+5206,1209,2025-11-15 02:54:13,15.00,Paid,207,Sci-Fi Novel,Books,15.00,5506,Credit Card,Completed
+5207,1059,2025-11-15 02:54:14,180.00,Refunded,204,Noise-Cancelling Headphones,Electronics,180.00,5507,Bank Transfer,Refunded
+5208,1422,2025-11-15 02:54:15,45.00,Pending,210,Running Shoes,Apparel,45.00,5508,Credit Card,Pending
+5209,1411,2025-11-15 02:54:16,120.00,Paid,209,Smartwatch,Electronics,120.00,5509,Bank Transfer,Completed
+5210,1298,2025-11-15 02:54:17,15.00,Paid,207,Sci-Fi Novel,Books,15.00,5510,PayPal,Completed
+5211,1325,2025-11-15 02:54:18,60.00,Refunded,205,Mechanical Keyboard,Electronics,60.00,5511,Credit Card,Refunded
+5212,1268,2025-11-15 02:54:19,75.50,Pending,206,Espresso Machine,Home Goods,75.50,5512,Bank Transfer,Pending
+5213,1407,2025-11-15 02:54:20,80.00,Pending,211,Blender,Home Goods,80.00,5513,Credit Card,Pending
+5214,1278,2025-11-15 02:54:21,25.00,Refunded,212,Yoga Mat,Sports,25.00,5514,Credit Card,Refunded
+5215,1367,2025-11-15 02:54:22,60.00,Paid,205,Mechanical Keyboard,Electronics,60.00,5515,Bank Transfer,Completed
+5216,1300,2025-11-15 02:54:23,75.50,Refunded,206,Espresso Machine,Home Goods,75.50,5516,Credit Card,Refunded
+5217,1379,2025-11-15 02:54:24,25.00,Paid,212,Yoga Mat,Sports,25.00,5517,Credit Card,Completed
+5218,1470,2025-11-15 02:54:25,60.00,Paid,205,Mechanical Keyboard,Electronics,60.00,5518,Credit Card,Completed
+5219,1033,2025-11-15 02:54:26,120.00,Refunded,209,Smartwatch,Electronics,120.00,5519,PayPal,Refunded
+5220,1125,2025-11-15 02:54:27,25.00,Refunded,203,Casual T-Shirt,Apparel,25.00,5520,Credit Card,Refunded
+5221,1475,2025-11-15 02:54:28,60.00,Paid,205,Mechanical Keyboard,Electronics,60.00,5521,Credit Card,Completed
+5222,1476,2025-11-15 02:54:29,180.00,Refunded,204,Noise-Cancelling Headphones,Electronics,180.00,5522,PayPal,Refunded
+5223,1476,2025-11-15 02:54:30,45.00,Paid,210,Running Shoes,Apparel,45.00,5523,Bank Transfer,Completed
+5224,1475,2025-11-15 02:54:31,10.00,Refunded,208,Reading Light,Books,10.00,5524,Bank Transfer,Refunded
+5225,1476,2025-11-15 02:54:32,25.00,Paid,212,Yoga Mat,Sports,25.00,5525,Bank Transfer,Completed
+5226,1475,2025-11-15 02:54:33,25.00,Pending,203,Casual T-Shirt,Apparel,25.00,5526,Bank Transfer,Pending
+5227,1475,2025-11-15 02:54:34,45.00,Paid,210,Running Shoes,Apparel,45.00,5527,PayPal,Completed
+5228,1476,2025-11-15 02:54:35,1200.00,Refunded,201,Laptop,Electronics,1200.00,5528,Credit Card,Refunded
+5229,1476,2025-11-15 02:54:36,30.00,Paid,202,Wireless Mouse,Electronics,30.00,5529,Credit Card,Completed
+5230,1476,2025-11-15 02:54:37,350.00,Pending,213,Gaming Monitor,Electronics,350.00,5530,Bank Transfer,Pending
+5231,1105,2025-11-15 02:57:04,60.00,Pending,205,Mechanical Keyboard,Electronics,60.00,5531,Bank Transfer,Pending
+5232,1344,2025-11-15 02:57:05,45.00,Paid,210,Running Shoes,Apparel,45.00,5532,Bank Transfer,Completed
+5233,1263,2025-11-15 02:57:06,25.00,Refunded,203,Casual T-Shirt,Apparel,25.00,5533,Bank Transfer,Refunded
+5234,1359,2025-11-15 02:57:07,350.00,Refunded,213,Gaming Monitor,Electronics,350.00,5534,Credit Card,Refunded
+5235,1436,2025-11-15 02:57:08,80.00,Pending,211,Blender,Home Goods,80.00,5535,PayPal,Pending
+5236,1404,2025-11-15 02:57:09,350.00,Paid,213,Gaming Monitor,Electronics,350.00,5536,Bank Transfer,Completed
+5237,1249,2025-11-15 02:57:10,25.00,Refunded,203,Casual T-Shirt,Apparel,25.00,5537,PayPal,Refunded
+5238,1141,2025-11-15 02:57:11,30.00,Refunded,202,Wireless Mouse,Electronics,30.00,5538,Bank Transfer,Refunded
+5239,1391,2025-11-15 02:57:12,75.50,Pending,206,Espresso Machine,Home Goods,75.50,5539,Bank Transfer,Pending
+5240,1097,2025-11-15 02:57:13,350.00,Refunded,213,Gaming Monitor,Electronics,350.00,5540,Bank Transfer,Refunded
+5241,1075,2025-11-15 02:57:14,180.00,Refunded,204,Noise-Cancelling Headphones,Electronics,180.00,5541,Credit Card,Refunded
+5242,1133,2025-11-15 02:57:15,30.00,Refunded,202,Wireless Mouse,Electronics,30.00,5542,PayPal,Refunded
+5243,1284,2025-11-15 02:57:16,15.00,Paid,207,Sci-Fi Novel,Books,15.00,5543,Credit Card,Completed
+5244,1008,2025-11-15 02:57:17,75.50,Pending,206,Espresso Machine,Home Goods,75.50,5544,PayPal,Pending
+5245,1378,2025-11-15 02:57:18,25.00,Paid,212,Yoga Mat,Sports,25.00,5545,Credit Card,Completed
+5246,1111,2025-11-15 02:57:19,25.00,Refunded,203,Casual T-Shirt,Apparel,25.00,5546,Bank Transfer,Refunded
+5247,1394,2025-11-15 02:57:20,45.00,Pending,210,Running Shoes,Apparel,45.00,5547,PayPal,Pending
+5248,1323,2025-11-15 02:57:21,60.00,Pending,205,Mechanical Keyboard,Electronics,60.00,5548,PayPal,Pending
+5249,1371,2025-11-15 02:57:22,1200.00,Paid,201,Laptop,Electronics,1200.00,5549,Credit Card,Completed
+5250,1300,2025-11-15 02:57:23,25.00,Pending,203,Casual T-Shirt,Apparel,25.00,5550,Bank Transfer,Pending
+5251,1477,2025-11-15 02:57:24,15.00,Refunded,207,Sci-Fi Novel,Books,15.00,5551,Credit Card,Refunded
+5252,1478,2025-11-15 02:57:25,45.00,Pending,210,Running Shoes,Apparel,45.00,5552,Credit Card,Pending
+5253,1478,2025-11-15 02:57:26,75.50,Pending,206,Espresso Machine,Home Goods,75.50,5553,Credit Card,Pending
+5254,1478,2025-11-15 02:57:27,60.00,Pending,205,Mechanical Keyboard,Electronics,60.00,5554,PayPal,Pending
+5255,1478,2025-11-15 02:57:28,15.00,Paid,207,Sci-Fi Novel,Books,15.00,5555,Credit Card,Completed
+5256,1479,2025-11-15 02:57:29,1200.00,Paid,201,Laptop,Electronics,1200.00,5556,Credit Card,Completed
+5257,1478,2025-11-15 02:57:30,45.00,Refunded,210,Running Shoes,Apparel,45.00,5557,PayPal,Refunded
+5258,1477,2025-11-15 02:57:31,45.00,Pending,210,Running Shoes,Apparel,45.00,5558,Credit Card,Pending
+5259,1477,2025-11-15 02:57:32,25.00,Pending,203,Casual T-Shirt,Apparel,25.00,5559,PayPal,Pending
+5260,1477,2025-11-15 02:57:33,10.00,Paid,208,Reading Light,Books,10.00,5560,Bank Transfer,Completed
+5261,1278,2025-11-15 03:00:03,25.00,Paid,203,Casual T-Shirt,Apparel,25.00,5561,PayPal,Completed
+5262,1073,2025-11-15 03:00:04,30.00,Refunded,202,Wireless Mouse,Electronics,30.00,5562,Bank Transfer,Refunded
+5263,1269,2025-11-15 03:00:05,80.00,Paid,211,Blender,Home Goods,80.00,5563,Credit Card,Completed
+5264,1132,2025-11-15 03:00:06,25.00,Refunded,212,Yoga Mat,Sports,25.00,5564,Credit Card,Refunded
+5265,1462,2025-11-15 03:00:07,120.00,Refunded,209,Smartwatch,Electronics,120.00,5565,PayPal,Refunded
+5266,1177,2025-11-15 03:00:08,45.00,Pending,210,Running Shoes,Apparel,45.00,5566,PayPal,Pending
+5267,1038,2025-11-15 03:00:09,80.00,Pending,211,Blender,Home Goods,80.00,5567,Bank Transfer,Pending
+5268,1187,2025-11-15 03:00:10,25.00,Pending,203,Casual T-Shirt,Apparel,25.00,5568,PayPal,Pending
+5269,1083,2025-11-15 03:00:11,80.00,Pending,211,Blender,Home Goods,80.00,5569,Bank Transfer,Pending
+5270,1110,2025-11-15 03:00:12,10.00,Paid,208,Reading Light,Books,10.00,5570,Bank Transfer,Completed
+5271,1453,2025-11-15 03:00:13,10.00,Refunded,208,Reading Light,Books,10.00,5571,Bank Transfer,Refunded
+5272,1297,2025-11-15 03:00:14,30.00,Refunded,202,Wireless Mouse,Electronics,30.00,5572,Bank Transfer,Refunded
+5273,1298,2025-11-15 03:00:15,75.50,Paid,206,Espresso Machine,Home Goods,75.50,5573,Bank Transfer,Completed
+5274,1180,2025-11-15 03:00:16,15.00,Refunded,207,Sci-Fi Novel,Books,15.00,5574,PayPal,Refunded
+5275,1323,2025-11-15 03:00:17,120.00,Refunded,209,Smartwatch,Electronics,120.00,5575,Credit Card,Refunded
+5276,1047,2025-11-15 03:00:18,1200.00,Refunded,201,Laptop,Electronics,1200.00,5576,Credit Card,Refunded
+5277,1475,2025-11-15 03:00:19,350.00,Pending,213,Gaming Monitor,Electronics,350.00,5577,Bank Transfer,Pending
+5278,1458,2025-11-15 03:00:20,15.00,Refunded,207,Sci-Fi Novel,Books,15.00,5578,Bank Transfer,Refunded
+5279,1059,2025-11-15 03:00:21,75.50,Paid,206,Espresso Machine,Home Goods,75.50,5579,PayPal,Completed
+5280,1183,2025-11-15 03:00:22,25.00,Pending,203,Casual T-Shirt,Apparel,25.00,5580,PayPal,Pending
+5281,1480,2025-11-15 03:00:23,10.00,Pending,208,Reading Light,Books,10.00,5581,PayPal,Pending
+5282,1481,2025-11-15 03:00:24,350.00,Refunded,213,Gaming Monitor,Electronics,350.00,5582,PayPal,Refunded
+5283,1480,2025-11-15 03:00:25,1200.00,Refunded,201,Laptop,Electronics,1200.00,5583,Bank Transfer,Refunded
+5284,1481,2025-11-15 03:00:26,60.00,Pending,205,Mechanical Keyboard,Electronics,60.00,5584,Credit Card,Pending
+5285,1481,2025-11-15 03:00:27,180.00,Refunded,204,Noise-Cancelling Headphones,Electronics,180.00,5585,PayPal,Refunded
+5286,1480,2025-11-15 03:00:28,80.00,Refunded,211,Blender,Home Goods,80.00,5586,Credit Card,Refunded
+5287,1480,2025-11-15 03:00:29,80.00,Paid,211,Blender,Home Goods,80.00,5587,Bank Transfer,Completed
+5288,1481,2025-11-15 03:00:30,10.00,Refunded,208,Reading Light,Books,10.00,5588,Credit Card,Refunded
+5289,1480,2025-11-15 03:00:31,75.50,Refunded,206,Espresso Machine,Home Goods,75.50,5589,PayPal,Refunded
+5290,1481,2025-11-15 03:00:32,45.00,Paid,210,Running Shoes,Apparel,45.00,5590,Credit Card,Completed
+5291,1252,2025-11-15 03:03:11,75.50,Paid,206,Espresso Machine,Home Goods,75.50,5591,Bank Transfer,Completed
+5292,1405,2025-11-15 03:03:12,10.00,Pending,208,Reading Light,Books,10.00,5592,PayPal,Pending
+5293,1375,2025-11-15 03:03:13,25.00,Refunded,203,Casual T-Shirt,Apparel,25.00,5593,Bank Transfer,Refunded
+5294,1152,2025-11-15 03:03:14,180.00,Refunded,204,Noise-Cancelling Headphones,Electronics,180.00,5594,Credit Card,Refunded
+5295,1389,2025-11-15 03:03:15,120.00,Pending,209,Smartwatch,Electronics,120.00,5595,Bank Transfer,Pending
+5296,1379,2025-11-15 03:03:16,60.00,Pending,205,Mechanical Keyboard,Electronics,60.00,5596,Credit Card,Pending
+5297,1385,2025-11-15 03:03:17,1200.00,Refunded,201,Laptop,Electronics,1200.00,5597,Bank Transfer,Refunded
+5298,1349,2025-11-15 03:03:18,75.50,Pending,206,Espresso Machine,Home Goods,75.50,5598,Credit Card,Pending
+5299,1267,2025-11-15 03:03:19,30.00,Refunded,202,Wireless Mouse,Electronics,30.00,5599,Bank Transfer,Refunded
+5300,1078,2025-11-15 03:03:20,75.50,Pending,206,Espresso Machine,Home Goods,75.50,5600,Credit Card,Pending
+5301,1279,2025-11-15 03:03:21,80.00,Pending,211,Blender,Home Goods,80.00,5601,Credit Card,Pending
+5302,1072,2025-11-15 03:03:22,350.00,Paid,213,Gaming Monitor,Electronics,350.00,5602,Credit Card,Completed
+5303,1475,2025-11-15 03:03:23,10.00,Paid,208,Reading Light,Books,10.00,5603,Bank Transfer,Completed
+5304,1368,2025-11-15 03:03:24,25.00,Refunded,212,Yoga Mat,Sports,25.00,5604,Bank Transfer,Refunded
+5305,1276,2025-11-15 03:03:25,60.00,Refunded,205,Mechanical Keyboard,Electronics,60.00,5605,Bank Transfer,Refunded
+5306,1424,2025-11-15 03:03:26,10.00,Pending,208,Reading Light,Books,10.00,5606,Bank Transfer,Pending
+5307,1059,2025-11-15 03:03:27,350.00,Refunded,213,Gaming Monitor,Electronics,350.00,5607,Credit Card,Refunded
+5308,1153,2025-11-15 03:03:28,180.00,Refunded,204,Noise-Cancelling Headphones,Electronics,180.00,5608,PayPal,Refunded
+5309,1251,2025-11-15 03:03:29,25.00,Paid,212,Yoga Mat,Sports,25.00,5609,PayPal,Completed
+5310,1323,2025-11-15 03:03:30,15.00,Refunded,207,Sci-Fi Novel,Books,15.00,5610,Bank Transfer,Refunded
+5311,1483,2025-11-15 03:03:31,350.00,Paid,213,Gaming Monitor,Electronics,350.00,5611,Bank Transfer,Completed
+5312,1482,2025-11-15 03:03:32,80.00,Paid,211,Blender,Home Goods,80.00,5612,Bank Transfer,Completed
+5313,1482,2025-11-15 03:03:33,80.00,Paid,211,Blender,Home Goods,80.00,5613,Bank Transfer,Completed
+5314,1482,2025-11-15 03:03:34,80.00,Paid,211,Blender,Home Goods,80.00,5614,Bank Transfer,Completed
+5315,1484,2025-11-15 03:03:35,75.50,Pending,206,Espresso Machine,Home Goods,75.50,5615,PayPal,Pending
+5316,1484,2025-11-15 03:03:36,180.00,Paid,204,Noise-Cancelling Headphones,Electronics,180.00,5616,Bank Transfer,Completed
+5317,1483,2025-11-15 03:03:37,80.00,Paid,211,Blender,Home Goods,80.00,5617,PayPal,Completed
+5318,1483,2025-11-15 03:03:38,25.00,Pending,212,Yoga Mat,Sports,25.00,5618,PayPal,Pending
+5319,1483,2025-11-15 03:03:39,25.00,Pending,203,Casual T-Shirt,Apparel,25.00,5619,Bank Transfer,Pending
+5320,1483,2025-11-15 03:03:40,30.00,Refunded,202,Wireless Mouse,Electronics,30.00,5620,Bank Transfer,Refunded
+5321,1159,2025-11-15 03:06:03,10.00,Pending,208,Reading Light,Books,10.00,5621,PayPal,Pending
+5322,1291,2025-11-15 03:06:04,180.00,Paid,204,Noise-Cancelling Headphones,Electronics,180.00,5622,PayPal,Completed
+5323,1315,2025-11-15 03:06:05,10.00,Refunded,208,Reading Light,Books,10.00,5623,Credit Card,Refunded
+5324,1468,2025-11-15 03:06:06,80.00,Paid,211,Blender,Home Goods,80.00,5624,Credit Card,Completed
+5325,1176,2025-11-15 03:06:07,80.00,Paid,211,Blender,Home Goods,80.00,5625,PayPal,Completed
+5326,1043,2025-11-15 03:06:08,60.00,Pending,205,Mechanical Keyboard,Electronics,60.00,5626,PayPal,Pending
+5327,1192,2025-11-15 03:06:09,60.00,Pending,205,Mechanical Keyboard,Electronics,60.00,5627,Bank Transfer,Pending
+5328,1111,2025-11-15 03:06:10,25.00,Paid,212,Yoga Mat,Sports,25.00,5628,PayPal,Completed
+5329,1308,2025-11-15 03:06:11,1200.00,Paid,201,Laptop,Electronics,1200.00,5629,Credit Card,Completed
+5330,1210,2025-11-15 03:06:12,80.00,Pending,211,Blender,Home Goods,80.00,5630,Bank Transfer,Pending
+5331,1307,2025-11-15 03:06:13,25.00,Refunded,212,Yoga Mat,Sports,25.00,5631,Credit Card,Refunded
+5332,1029,2025-11-15 03:06:14,75.50,Paid,206,Espresso Machine,Home Goods,75.50,5632,Bank Transfer,Completed
+5333,1015,2025-11-15 03:06:15,180.00,Refunded,204,Noise-Cancelling Headphones,Electronics,180.00,5633,Bank Transfer,Refunded
+5334,1300,2025-11-15 03:06:16,10.00,Refunded,208,Reading Light,Books,10.00,5634,Bank Transfer,Refunded
+5335,1106,2025-11-15 03:06:17,25.00,Refunded,203,Casual T-Shirt,Apparel,25.00,5635,Credit Card,Refunded
+5336,1266,2025-11-15 03:06:18,60.00,Pending,205,Mechanical Keyboard,Electronics,60.00,5636,Bank Transfer,Pending
+5337,1285,2025-11-15 03:06:19,15.00,Pending,207,Sci-Fi Novel,Books,15.00,5637,PayPal,Pending
+5338,1476,2025-11-15 03:06:20,80.00,Refunded,211,Blender,Home Goods,80.00,5638,Bank Transfer,Refunded
+5339,1013,2025-11-15 03:06:21,60.00,Refunded,205,Mechanical Keyboard,Electronics,60.00,5639,PayPal,Refunded
+5340,1215,2025-11-15 03:06:22,25.00,Pending,203,Casual T-Shirt,Apparel,25.00,5640,Bank Transfer,Pending
+5341,1485,2025-11-15 03:06:23,80.00,Refunded,211,Blender,Home Goods,80.00,5641,PayPal,Refunded
+5342,1486,2025-11-15 03:06:24,10.00,Refunded,208,Reading Light,Books,10.00,5642,PayPal,Refunded
+5343,1486,2025-11-15 03:06:25,30.00,Pending,202,Wireless Mouse,Electronics,30.00,5643,Credit Card,Pending
+5344,1486,2025-11-15 03:06:26,350.00,Pending,213,Gaming Monitor,Electronics,350.00,5644,Bank Transfer,Pending
+5345,1485,2025-11-15 03:06:27,45.00,Refunded,210,Running Shoes,Apparel,45.00,5645,Credit Card,Refunded
+5346,1486,2025-11-15 03:06:28,75.50,Paid,206,Espresso Machine,Home Goods,75.50,5646,Bank Transfer,Completed
+5347,1485,2025-11-15 03:06:29,80.00,Pending,211,Blender,Home Goods,80.00,5647,Bank Transfer,Pending
+5348,1486,2025-11-15 03:06:30,25.00,Paid,212,Yoga Mat,Sports,25.00,5648,PayPal,Completed
+5349,1486,2025-11-15 03:06:31,60.00,Refunded,205,Mechanical Keyboard,Electronics,60.00,5649,Credit Card,Refunded
+5350,1486,2025-11-15 03:06:32,80.00,Paid,211,Blender,Home Goods,80.00,5650,PayPal,Completed
+5351,1020,2025-11-15 03:09:02,45.00,Pending,210,Running Shoes,Apparel,45.00,5651,Credit Card,Pending
+5352,1381,2025-11-15 03:09:03,10.00,Pending,208,Reading Light,Books,10.00,5652,Credit Card,Pending
+5353,1383,2025-11-15 03:09:04,350.00,Refunded,213,Gaming Monitor,Electronics,350.00,5653,Bank Transfer,Refunded
+5354,1244,2025-11-15 03:09:05,180.00,Refunded,204,Noise-Cancelling Headphones,Electronics,180.00,5654,Bank Transfer,Refunded
+5355,1374,2025-11-15 03:09:06,30.00,Paid,202,Wireless Mouse,Electronics,30.00,5655,Credit Card,Completed
+5356,1076,2025-11-15 03:09:07,30.00,Paid,202,Wireless Mouse,Electronics,30.00,5656,Credit Card,Completed
+5357,1283,2025-11-15 03:09:08,1200.00,Paid,201,Laptop,Electronics,1200.00,5657,PayPal,Completed
+5358,101,2025-11-15 03:09:09,75.50,Refunded,206,Espresso Machine,Home Goods,75.50,5658,Credit Card,Refunded
+5359,1426,2025-11-15 03:09:10,10.00,Pending,208,Reading Light,Books,10.00,5659,Credit Card,Pending
+5360,1253,2025-11-15 03:09:11,180.00,Pending,204,Noise-Cancelling Headphones,Electronics,180.00,5660,Bank Transfer,Pending
+5361,1371,2025-11-15 03:09:12,120.00,Pending,209,Smartwatch,Electronics,120.00,5661,PayPal,Pending
+5362,1097,2025-11-15 03:09:13,30.00,Refunded,202,Wireless Mouse,Electronics,30.00,5662,Bank Transfer,Refunded
+5363,1216,2025-11-15 03:09:14,10.00,Pending,208,Reading Light,Books,10.00,5663,Credit Card,Pending
+5364,1481,2025-11-15 03:09:15,15.00,Refunded,207,Sci-Fi Novel,Books,15.00,5664,Credit Card,Refunded
+5365,1183,2025-11-15 03:09:16,30.00,Paid,202,Wireless Mouse,Electronics,30.00,5665,Credit Card,Completed
+5366,1014,2025-11-15 03:09:17,25.00,Refunded,203,Casual T-Shirt,Apparel,25.00,5666,PayPal,Refunded
+5367,1056,2025-11-15 03:09:18,75.50,Pending,206,Espresso Machine,Home Goods,75.50,5667,PayPal,Pending
+5368,1470,2025-11-15 03:09:19,25.00,Paid,212,Yoga Mat,Sports,25.00,5668,Credit Card,Completed
+5369,1352,2025-11-15 03:09:20,1200.00,Refunded,201,Laptop,Electronics,1200.00,5669,PayPal,Refunded
+5370,1072,2025-11-15 03:09:21,180.00,Pending,204,Noise-Cancelling Headphones,Electronics,180.00,5670,PayPal,Pending
+5371,1488,2025-11-15 03:09:22,10.00,Paid,208,Reading Light,Books,10.00,5671,Bank Transfer,Completed
+5372,1488,2025-11-15 03:09:23,75.50,Pending,206,Espresso Machine,Home Goods,75.50,5672,Bank Transfer,Pending
+5373,1488,2025-11-15 03:09:24,1200.00,Paid,201,Laptop,Electronics,1200.00,5673,PayPal,Completed
+5374,1487,2025-11-15 03:09:25,60.00,Pending,205,Mechanical Keyboard,Electronics,60.00,5674,Bank Transfer,Pending
+5375,1487,2025-11-15 03:09:26,25.00,Paid,212,Yoga Mat,Sports,25.00,5675,Bank Transfer,Completed
+5376,1489,2025-11-15 03:09:27,25.00,Pending,203,Casual T-Shirt,Apparel,25.00,5676,Bank Transfer,Pending
+5377,1489,2025-11-15 03:09:28,10.00,Paid,208,Reading Light,Books,10.00,5677,PayPal,Completed
+5378,1487,2025-11-15 03:09:29,45.00,Pending,210,Running Shoes,Apparel,45.00,5678,Bank Transfer,Pending
+5379,1487,2025-11-15 03:09:30,60.00,Paid,205,Mechanical Keyboard,Electronics,60.00,5679,Bank Transfer,Completed
+5380,1488,2025-11-15 03:09:31,180.00,Paid,204,Noise-Cancelling Headphones,Electronics,180.00,5680,PayPal,Completed
+5381,1151,2025-11-15 03:12:01,10.00,Paid,208,Reading Light,Books,10.00,5681,PayPal,Completed
+5382,1095,2025-11-15 03:12:02,25.00,Paid,203,Casual T-Shirt,Apparel,25.00,5682,Credit Card,Completed
+5383,1285,2025-11-15 03:12:03,15.00,Paid,207,Sci-Fi Novel,Books,15.00,5683,Credit Card,Completed
+5384,1297,2025-11-15 03:12:04,25.00,Pending,203,Casual T-Shirt,Apparel,25.00,5684,Bank Transfer,Pending
+5385,1449,2025-11-15 03:12:05,15.00,Refunded,207,Sci-Fi Novel,Books,15.00,5685,Credit Card,Refunded
+5386,1363,2025-11-15 03:12:06,60.00,Paid,205,Mechanical Keyboard,Electronics,60.00,5686,Credit Card,Completed
+5387,1145,2025-11-15 03:12:07,120.00,Refunded,209,Smartwatch,Electronics,120.00,5687,Credit Card,Refunded
+5388,1141,2025-11-15 03:12:08,45.00,Pending,210,Running Shoes,Apparel,45.00,5688,Credit Card,Pending
+5389,1290,2025-11-15 03:12:09,1200.00,Refunded,201,Laptop,Electronics,1200.00,5689,Credit Card,Refunded
+5390,1139,2025-11-15 03:12:10,25.00,Paid,203,Casual T-Shirt,Apparel,25.00,5690,PayPal,Completed
+5391,1429,2025-11-15 03:12:11,75.50,Paid,206,Espresso Machine,Home Goods,75.50,5691,Bank Transfer,Completed
+5392,1265,2025-11-15 03:12:12,180.00,Paid,204,Noise-Cancelling Headphones,Electronics,180.00,5692,Credit Card,Completed
+5393,1338,2025-11-15 03:12:13,15.00,Refunded,207,Sci-Fi Novel,Books,15.00,5693,PayPal,Refunded
+5394,1267,2025-11-15 03:12:14,25.00,Pending,212,Yoga Mat,Sports,25.00,5694,Bank Transfer,Pending
+5395,1296,2025-11-15 03:12:15,45.00,Refunded,210,Running Shoes,Apparel,45.00,5695,Credit Card,Refunded
+5396,1231,2025-11-15 03:12:16,80.00,Pending,211,Blender,Home Goods,80.00,5696,PayPal,Pending
+5397,1115,2025-11-15 03:12:17,60.00,Pending,205,Mechanical Keyboard,Electronics,60.00,5697,Credit Card,Pending
+5398,1097,2025-11-15 03:12:18,75.50,Pending,206,Espresso Machine,Home Goods,75.50,5698,PayPal,Pending
+5399,1357,2025-11-15 03:12:19,75.50,Refunded,206,Espresso Machine,Home Goods,75.50,5699,Credit Card,Refunded
+5400,1017,2025-11-15 03:12:20,15.00,Pending,207,Sci-Fi Novel,Books,15.00,5700,Credit Card,Pending
+5401,1491,2025-11-15 03:12:21,15.00,Refunded,207,Sci-Fi Novel,Books,15.00,5701,PayPal,Refunded
+5402,1491,2025-11-15 03:12:22,25.00,Refunded,203,Casual T-Shirt,Apparel,25.00,5702,Credit Card,Refunded
+5403,1491,2025-11-15 03:12:23,120.00,Pending,209,Smartwatch,Electronics,120.00,5703,Bank Transfer,Pending
+5404,1490,2025-11-15 03:12:24,180.00,Paid,204,Noise-Cancelling Headphones,Electronics,180.00,5704,Bank Transfer,Completed
+5405,1491,2025-11-15 03:12:25,25.00,Paid,212,Yoga Mat,Sports,25.00,5705,PayPal,Completed
+5406,1490,2025-11-15 03:12:26,10.00,Pending,208,Reading Light,Books,10.00,5706,Bank Transfer,Pending
+5407,1491,2025-11-15 03:12:27,120.00,Paid,209,Smartwatch,Electronics,120.00,5707,Bank Transfer,Completed
+5408,1491,2025-11-15 03:12:28,30.00,Refunded,202,Wireless Mouse,Electronics,30.00,5708,PayPal,Refunded
+5409,1491,2025-11-15 03:12:29,80.00,Paid,211,Blender,Home Goods,80.00,5709,Bank Transfer,Completed
+5410,1490,2025-11-15 03:12:30,60.00,Pending,205,Mechanical Keyboard,Electronics,60.00,5710,PayPal,Pending
+5411,1324,2025-11-15 03:15:03,25.00,Pending,212,Yoga Mat,Sports,25.00,5711,Bank Transfer,Pending
+5412,1284,2025-11-15 03:15:04,10.00,Paid,208,Reading Light,Books,10.00,5712,PayPal,Completed
+5413,1433,2025-11-15 03:15:05,75.50,Refunded,206,Espresso Machine,Home Goods,75.50,5713,PayPal,Refunded
+5414,1262,2025-11-15 03:15:06,30.00,Paid,202,Wireless Mouse,Electronics,30.00,5714,Bank Transfer,Completed
+5415,1125,2025-11-15 03:15:07,80.00,Refunded,211,Blender,Home Goods,80.00,5715,Credit Card,Refunded
+5416,1256,2025-11-15 03:15:08,75.50,Pending,206,Espresso Machine,Home Goods,75.50,5716,PayPal,Pending
+5417,1246,2025-11-15 03:15:09,45.00,Refunded,210,Running Shoes,Apparel,45.00,5717,Bank Transfer,Refunded
+5418,1231,2025-11-15 03:15:10,45.00,Paid,210,Running Shoes,Apparel,45.00,5718,Credit Card,Completed
+5419,1122,2025-11-15 03:15:11,25.00,Pending,203,Casual T-Shirt,Apparel,25.00,5719,Credit Card,Pending
+5420,1468,2025-11-15 03:15:12,80.00,Paid,211,Blender,Home Goods,80.00,5720,Credit Card,Completed
+5421,1020,2025-11-15 03:15:13,45.00,Pending,210,Running Shoes,Apparel,45.00,5721,PayPal,Pending
+5422,1329,2025-11-15 03:15:14,80.00,Refunded,211,Blender,Home Goods,80.00,5722,Bank Transfer,Refunded
+5423,1224,2025-11-15 03:15:15,60.00,Paid,205,Mechanical Keyboard,Electronics,60.00,5723,Credit Card,Completed
+5424,1412,2025-11-15 03:15:16,80.00,Pending,211,Blender,Home Goods,80.00,5724,Bank Transfer,Pending
+5425,1266,2025-11-15 03:15:17,25.00,Pending,212,Yoga Mat,Sports,25.00,5725,Bank Transfer,Pending
+5426,1450,2025-11-15 03:15:18,350.00,Pending,213,Gaming Monitor,Electronics,350.00,5726,Bank Transfer,Pending
+5427,1376,2025-11-15 03:15:19,25.00,Paid,203,Casual T-Shirt,Apparel,25.00,5727,Credit Card,Completed
+5428,1026,2025-11-15 03:15:20,45.00,Refunded,210,Running Shoes,Apparel,45.00,5728,Bank Transfer,Refunded
+5429,1108,2025-11-15 03:15:21,30.00,Refunded,202,Wireless Mouse,Electronics,30.00,5729,PayPal,Refunded
+5430,1462,2025-11-15 03:15:22,80.00,Paid,211,Blender,Home Goods,80.00,5730,Bank Transfer,Completed
+5431,1494,2025-11-15 03:15:23,1200.00,Paid,201,Laptop,Electronics,1200.00,5731,Credit Card,Completed
+5432,1492,2025-11-15 03:15:24,10.00,Paid,208,Reading Light,Books,10.00,5732,Credit Card,Completed
+5433,1494,2025-11-15 03:15:25,80.00,Paid,211,Blender,Home Goods,80.00,5733,PayPal,Completed
+5434,1493,2025-11-15 03:15:26,1200.00,Refunded,201,Laptop,Electronics,1200.00,5734,Bank Transfer,Refunded
+5435,1492,2025-11-15 03:15:27,25.00,Refunded,212,Yoga Mat,Sports,25.00,5735,Bank Transfer,Refunded
+5436,1493,2025-11-15 03:15:28,30.00,Paid,202,Wireless Mouse,Electronics,30.00,5736,Bank Transfer,Completed
+5437,1493,2025-11-15 03:15:29,10.00,Pending,208,Reading Light,Books,10.00,5737,PayPal,Pending
+5438,1493,2025-11-15 03:15:30,60.00,Paid,205,Mechanical Keyboard,Electronics,60.00,5738,PayPal,Completed
+5439,1494,2025-11-15 03:15:31,30.00,Pending,202,Wireless Mouse,Electronics,30.00,5739,PayPal,Pending
+5440,1494,2025-11-15 03:15:32,25.00,Pending,212,Yoga Mat,Sports,25.00,5740,Credit Card,Pending
+5441,1302,2025-11-15 03:18:22,1200.00,Paid,201,Laptop,Electronics,1200.00,5741,PayPal,Completed
+5442,1293,2025-11-15 03:18:23,15.00,Paid,207,Sci-Fi Novel,Books,15.00,5742,Bank Transfer,Completed
+5443,1290,2025-11-15 03:18:24,15.00,Refunded,207,Sci-Fi Novel,Books,15.00,5743,Bank Transfer,Refunded
+5444,1232,2025-11-15 03:18:25,25.00,Pending,212,Yoga Mat,Sports,25.00,5744,Bank Transfer,Pending
+5445,1067,2025-11-15 03:18:26,1200.00,Pending,201,Laptop,Electronics,1200.00,5745,Credit Card,Pending
+5446,1038,2025-11-15 03:18:27,75.50,Refunded,206,Espresso Machine,Home Goods,75.50,5746,PayPal,Refunded
+5447,1227,2025-11-15 03:18:28,15.00,Paid,207,Sci-Fi Novel,Books,15.00,5747,Bank Transfer,Completed
+5448,1006,2025-11-15 03:18:29,80.00,Refunded,211,Blender,Home Goods,80.00,5748,PayPal,Refunded
+5449,1169,2025-11-15 03:18:30,15.00,Refunded,207,Sci-Fi Novel,Books,15.00,5749,Credit Card,Refunded
+5450,1492,2025-11-15 03:18:31,120.00,Refunded,209,Smartwatch,Electronics,120.00,5750,PayPal,Refunded
+5451,1270,2025-11-15 03:18:32,1200.00,Pending,201,Laptop,Electronics,1200.00,5751,Bank Transfer,Pending
+5452,1097,2025-11-15 03:18:33,10.00,Refunded,208,Reading Light,Books,10.00,5752,Bank Transfer,Refunded
+5453,1243,2025-11-15 03:18:34,60.00,Paid,205,Mechanical Keyboard,Electronics,60.00,5753,Bank Transfer,Completed
+5454,1009,2025-11-15 03:18:35,25.00,Paid,203,Casual T-Shirt,Apparel,25.00,5754,PayPal,Completed
+5455,1201,2025-11-15 03:18:36,180.00,Paid,204,Noise-Cancelling Headphones,Electronics,180.00,5755,Bank Transfer,Completed
+5456,1337,2025-11-15 03:18:37,25.00,Refunded,203,Casual T-Shirt,Apparel,25.00,5756,PayPal,Refunded
+5457,1086,2025-11-15 03:18:38,350.00,Pending,213,Gaming Monitor,Electronics,350.00,5757,PayPal,Pending
+5458,1221,2025-11-15 03:18:39,10.00,Pending,208,Reading Light,Books,10.00,5758,Bank Transfer,Pending
+5459,1225,2025-11-15 03:18:40,180.00,Pending,204,Noise-Cancelling Headphones,Electronics,180.00,5759,Bank Transfer,Pending
+5460,1467,2025-11-15 03:18:41,120.00,Paid,209,Smartwatch,Electronics,120.00,5760,Bank Transfer,Completed
+5461,1495,2025-11-15 03:18:42,45.00,Paid,210,Running Shoes,Apparel,45.00,5761,PayPal,Completed
+5462,1495,2025-11-15 03:18:43,10.00,Pending,208,Reading Light,Books,10.00,5762,PayPal,Pending
+5463,1495,2025-11-15 03:18:44,30.00,Paid,202,Wireless Mouse,Electronics,30.00,5763,PayPal,Completed
+5464,1496,2025-11-15 03:18:45,350.00,Pending,213,Gaming Monitor,Electronics,350.00,5764,Bank Transfer,Pending
+5465,1495,2025-11-15 03:18:46,25.00,Refunded,212,Yoga Mat,Sports,25.00,5765,PayPal,Refunded
+5466,1496,2025-11-15 03:18:47,75.50,Refunded,206,Espresso Machine,Home Goods,75.50,5766,Bank Transfer,Refunded
+5467,1495,2025-11-15 03:18:48,45.00,Pending,210,Running Shoes,Apparel,45.00,5767,Credit Card,Pending
+5468,1496,2025-11-15 03:18:49,30.00,Refunded,202,Wireless Mouse,Electronics,30.00,5768,Bank Transfer,Refunded
+5469,1495,2025-11-15 03:18:50,25.00,Refunded,203,Casual T-Shirt,Apparel,25.00,5769,PayPal,Refunded
+5470,1495,2025-11-15 03:18:51,1200.00,Paid,201,Laptop,Electronics,1200.00,5770,Bank Transfer,Completed
+5471,1046,2025-11-15 03:21:01,180.00,Paid,204,Noise-Cancelling Headphones,Electronics,180.00,5771,Credit Card,Completed
+5472,1062,2025-11-15 03:21:02,120.00,Pending,209,Smartwatch,Electronics,120.00,5772,PayPal,Pending
+5473,1040,2025-11-15 03:21:03,45.00,Pending,210,Running Shoes,Apparel,45.00,5773,PayPal,Pending
+5474,1150,2025-11-15 03:21:04,1200.00,Paid,201,Laptop,Electronics,1200.00,5774,Credit Card,Completed
+5475,1085,2025-11-15 03:21:05,60.00,Paid,205,Mechanical Keyboard,Electronics,60.00,5775,PayPal,Completed
+5476,1111,2025-11-15 03:21:06,1200.00,Pending,201,Laptop,Electronics,1200.00,5776,PayPal,Pending
+5477,1294,2025-11-15 03:21:07,80.00,Pending,211,Blender,Home Goods,80.00,5777,Credit Card,Pending
+5478,1368,2025-11-15 03:21:08,80.00,Paid,211,Blender,Home Goods,80.00,5778,Credit Card,Completed
+5479,1031,2025-11-15 03:21:09,60.00,Refunded,205,Mechanical Keyboard,Electronics,60.00,5779,PayPal,Refunded
+5480,1126,2025-11-15 03:21:10,25.00,Refunded,203,Casual T-Shirt,Apparel,25.00,5780,Credit Card,Refunded
+5481,1428,2025-11-15 03:21:11,45.00,Pending,210,Running Shoes,Apparel,45.00,5781,Credit Card,Pending
+5482,1213,2025-11-15 03:21:12,45.00,Refunded,210,Running Shoes,Apparel,45.00,5782,Credit Card,Refunded
+5483,1034,2025-11-15 03:21:13,15.00,Paid,207,Sci-Fi Novel,Books,15.00,5783,PayPal,Completed
+5484,1037,2025-11-15 03:21:14,350.00,Refunded,213,Gaming Monitor,Electronics,350.00,5784,Bank Transfer,Refunded
+5485,1365,2025-11-15 03:21:15,10.00,Paid,208,Reading Light,Books,10.00,5785,Bank Transfer,Completed
+5486,1315,2025-11-15 03:21:16,180.00,Paid,204,Noise-Cancelling Headphones,Electronics,180.00,5786,Bank Transfer,Completed
+5487,1394,2025-11-15 03:21:17,25.00,Refunded,203,Casual T-Shirt,Apparel,25.00,5787,PayPal,Refunded
+5488,1327,2025-11-15 03:21:18,30.00,Paid,202,Wireless Mouse,Electronics,30.00,5788,PayPal,Completed
+5489,1310,2025-11-15 03:21:19,350.00,Paid,213,Gaming Monitor,Electronics,350.00,5789,Credit Card,Completed
+5490,1093,2025-11-15 03:21:20,60.00,Pending,205,Mechanical Keyboard,Electronics,60.00,5790,Credit Card,Pending
+5491,1497,2025-11-15 03:21:21,30.00,Paid,202,Wireless Mouse,Electronics,30.00,5791,Credit Card,Completed
+5492,1497,2025-11-15 03:21:22,25.00,Refunded,203,Casual T-Shirt,Apparel,25.00,5792,Bank Transfer,Refunded
+5493,1498,2025-11-15 03:21:23,30.00,Paid,202,Wireless Mouse,Electronics,30.00,5793,Credit Card,Completed
+5494,1497,2025-11-15 03:21:24,10.00,Refunded,208,Reading Light,Books,10.00,5794,PayPal,Refunded
+5495,1497,2025-11-15 03:21:25,60.00,Refunded,205,Mechanical Keyboard,Electronics,60.00,5795,Credit Card,Refunded
+5496,1499,2025-11-15 03:21:26,180.00,Refunded,204,Noise-Cancelling Headphones,Electronics,180.00,5796,PayPal,Refunded
+5497,1497,2025-11-15 03:21:27,120.00,Refunded,209,Smartwatch,Electronics,120.00,5797,Credit Card,Refunded
+5498,1498,2025-11-15 03:21:28,80.00,Pending,211,Blender,Home Goods,80.00,5798,Bank Transfer,Pending
+5499,1498,2025-11-15 03:21:29,120.00,Pending,209,Smartwatch,Electronics,120.00,5799,Credit Card,Pending
+5500,1498,2025-11-15 03:21:30,120.00,Refunded,209,Smartwatch,Electronics,120.00,5800,PayPal,Refunded
+5501,1132,2025-11-15 03:24:08,10.00,Pending,208,Reading Light,Books,10.00,5801,Credit Card,Pending
+5502,1430,2025-11-15 03:24:09,80.00,Pending,211,Blender,Home Goods,80.00,5802,Credit Card,Pending
+5503,1159,2025-11-15 03:24:10,75.50,Pending,206,Espresso Machine,Home Goods,75.50,5803,PayPal,Pending
+5504,1484,2025-11-15 03:24:11,45.00,Pending,210,Running Shoes,Apparel,45.00,5804,PayPal,Pending
+5505,1436,2025-11-15 03:24:12,30.00,Paid,202,Wireless Mouse,Electronics,30.00,5805,Bank Transfer,Completed
+5506,1207,2025-11-15 03:24:13,1200.00,Refunded,201,Laptop,Electronics,1200.00,5806,PayPal,Refunded
+5507,1391,2025-11-15 03:24:14,25.00,Refunded,212,Yoga Mat,Sports,25.00,5807,Bank Transfer,Refunded
+5508,1359,2025-11-15 03:24:15,30.00,Refunded,202,Wireless Mouse,Electronics,30.00,5808,PayPal,Refunded
+5509,1043,2025-11-15 03:24:16,10.00,Refunded,208,Reading Light,Books,10.00,5809,Bank Transfer,Refunded
+5510,1221,2025-11-15 03:24:17,45.00,Pending,210,Running Shoes,Apparel,45.00,5810,PayPal,Pending
+5511,1130,2025-11-15 03:24:18,15.00,Pending,207,Sci-Fi Novel,Books,15.00,5811,Credit Card,Pending
+5512,1147,2025-11-15 03:24:19,1200.00,Pending,201,Laptop,Electronics,1200.00,5812,PayPal,Pending
+5513,1216,2025-11-15 03:24:20,75.50,Paid,206,Espresso Machine,Home Goods,75.50,5813,PayPal,Completed
+5514,1149,2025-11-15 03:24:21,60.00,Pending,205,Mechanical Keyboard,Electronics,60.00,5814,PayPal,Pending
+5515,1425,2025-11-15 03:24:22,25.00,Paid,212,Yoga Mat,Sports,25.00,5815,PayPal,Completed
+5516,1168,2025-11-15 03:24:23,75.50,Refunded,206,Espresso Machine,Home Goods,75.50,5816,Bank Transfer,Refunded
+5517,1198,2025-11-15 03:24:24,75.50,Paid,206,Espresso Machine,Home Goods,75.50,5817,Bank Transfer,Completed
+5518,1393,2025-11-15 03:24:25,10.00,Paid,208,Reading Light,Books,10.00,5818,Credit Card,Completed
+5519,1400,2025-11-15 03:24:26,25.00,Refunded,203,Casual T-Shirt,Apparel,25.00,5819,Bank Transfer,Refunded
+5520,1131,2025-11-15 03:24:27,25.00,Pending,212,Yoga Mat,Sports,25.00,5820,PayPal,Pending
+5521,1500,2025-11-15 03:24:28,45.00,Refunded,210,Running Shoes,Apparel,45.00,5821,Credit Card,Refunded
+5522,1500,2025-11-15 03:24:29,180.00,Paid,204,Noise-Cancelling Headphones,Electronics,180.00,5822,Credit Card,Completed
+5523,1501,2025-11-15 03:24:30,25.00,Paid,203,Casual T-Shirt,Apparel,25.00,5823,PayPal,Completed
+5524,1501,2025-11-15 03:24:31,1200.00,Refunded,201,Laptop,Electronics,1200.00,5824,Bank Transfer,Refunded
+5525,1500,2025-11-15 03:24:32,350.00,Paid,213,Gaming Monitor,Electronics,350.00,5825,Credit Card,Completed
+5526,1501,2025-11-15 03:24:33,120.00,Paid,209,Smartwatch,Electronics,120.00,5826,PayPal,Completed
+5527,1501,2025-11-15 03:24:34,25.00,Pending,212,Yoga Mat,Sports,25.00,5827,Bank Transfer,Pending
+5528,1500,2025-11-15 03:24:35,80.00,Refunded,211,Blender,Home Goods,80.00,5828,Credit Card,Refunded
+5529,1501,2025-11-15 03:24:36,45.00,Refunded,210,Running Shoes,Apparel,45.00,5829,Bank Transfer,Refunded
+5530,1501,2025-11-15 03:24:37,25.00,Refunded,203,Casual T-Shirt,Apparel,25.00,5830,PayPal,Refunded
+5531,1327,2025-11-15 03:27:02,75.50,Pending,206,Espresso Machine,Home Goods,75.50,5831,Bank Transfer,Pending
+5532,1200,2025-11-15 03:27:03,75.50,Paid,206,Espresso Machine,Home Goods,75.50,5832,Bank Transfer,Completed
+5533,1259,2025-11-15 03:27:04,25.00,Paid,212,Yoga Mat,Sports,25.00,5833,Bank Transfer,Completed
+5534,1216,2025-11-15 03:27:05,30.00,Refunded,202,Wireless Mouse,Electronics,30.00,5834,PayPal,Refunded
+5535,1066,2025-11-15 03:27:06,10.00,Refunded,208,Reading Light,Books,10.00,5835,Credit Card,Refunded
+5536,1396,2025-11-15 03:27:07,350.00,Refunded,213,Gaming Monitor,Electronics,350.00,5836,Bank Transfer,Refunded
+5537,1417,2025-11-15 03:27:08,15.00,Paid,207,Sci-Fi Novel,Books,15.00,5837,Credit Card,Completed
+5538,1179,2025-11-15 03:27:09,25.00,Pending,203,Casual T-Shirt,Apparel,25.00,5838,Bank Transfer,Pending
+5539,1145,2025-11-15 03:27:10,80.00,Pending,211,Blender,Home Goods,80.00,5839,PayPal,Pending
+5540,1322,2025-11-15 03:27:11,350.00,Refunded,213,Gaming Monitor,Electronics,350.00,5840,PayPal,Refunded
+5541,1222,2025-11-15 03:27:12,75.50,Paid,206,Espresso Machine,Home Goods,75.50,5841,Credit Card,Completed
+5542,1215,2025-11-15 03:27:13,120.00,Paid,209,Smartwatch,Electronics,120.00,5842,Credit Card,Completed
+5543,1402,2025-11-15 03:27:14,25.00,Paid,203,Casual T-Shirt,Apparel,25.00,5843,Bank Transfer,Completed
+5544,1109,2025-11-15 03:27:15,15.00,Paid,207,Sci-Fi Novel,Books,15.00,5844,Credit Card,Completed
+5545,1061,2025-11-15 03:27:16,80.00,Refunded,211,Blender,Home Goods,80.00,5845,Bank Transfer,Refunded
+5546,1457,2025-11-15 03:27:17,25.00,Paid,212,Yoga Mat,Sports,25.00,5846,Bank Transfer,Completed
+5547,1493,2025-11-15 03:27:18,25.00,Pending,212,Yoga Mat,Sports,25.00,5847,PayPal,Pending
+5548,1394,2025-11-15 03:27:19,15.00,Pending,207,Sci-Fi Novel,Books,15.00,5848,Credit Card,Pending
+5549,1440,2025-11-15 03:27:20,75.50,Refunded,206,Espresso Machine,Home Goods,75.50,5849,PayPal,Refunded
+5550,1452,2025-11-15 03:27:21,25.00,Refunded,212,Yoga Mat,Sports,25.00,5850,PayPal,Refunded
+5551,1504,2025-11-15 03:27:22,80.00,Pending,211,Blender,Home Goods,80.00,5851,Bank Transfer,Pending
+5552,1503,2025-11-15 03:27:23,45.00,Refunded,210,Running Shoes,Apparel,45.00,5852,Credit Card,Refunded
+5553,1504,2025-11-15 03:27:24,350.00,Paid,213,Gaming Monitor,Electronics,350.00,5853,Credit Card,Completed
+5554,1504,2025-11-15 03:27:25,80.00,Refunded,211,Blender,Home Goods,80.00,5854,Bank Transfer,Refunded
+5555,1503,2025-11-15 03:27:26,25.00,Refunded,212,Yoga Mat,Sports,25.00,5855,Credit Card,Refunded
+5556,1504,2025-11-15 03:27:27,1200.00,Paid,201,Laptop,Electronics,1200.00,5856,PayPal,Completed
+5557,1504,2025-11-15 03:27:28,25.00,Refunded,203,Casual T-Shirt,Apparel,25.00,5857,Bank Transfer,Refunded
+5558,1502,2025-11-15 03:27:29,80.00,Refunded,211,Blender,Home Goods,80.00,5858,Credit Card,Refunded
+5559,1503,2025-11-15 03:27:30,30.00,Refunded,202,Wireless Mouse,Electronics,30.00,5859,PayPal,Refunded
+5560,1504,2025-11-15 03:27:31,15.00,Refunded,207,Sci-Fi Novel,Books,15.00,5860,Credit Card,Refunded
+5561,1202,2025-11-15 03:30:02,45.00,Paid,210,Running Shoes,Apparel,45.00,5861,Credit Card,Completed
+5562,1423,2025-11-15 03:30:03,75.50,Paid,206,Espresso Machine,Home Goods,75.50,5862,Bank Transfer,Completed
+5563,1368,2025-11-15 03:30:04,15.00,Pending,207,Sci-Fi Novel,Books,15.00,5863,Credit Card,Pending
+5564,1450,2025-11-15 03:30:05,350.00,Pending,213,Gaming Monitor,Electronics,350.00,5864,Bank Transfer,Pending
+5565,1305,2025-11-15 03:30:06,45.00,Paid,210,Running Shoes,Apparel,45.00,5865,Credit Card,Completed
+5566,1074,2025-11-15 03:30:07,25.00,Paid,203,Casual T-Shirt,Apparel,25.00,5866,Bank Transfer,Completed
+5567,1375,2025-11-15 03:30:08,120.00,Refunded,209,Smartwatch,Electronics,120.00,5867,Bank Transfer,Refunded
+5568,110,2025-11-15 03:30:09,10.00,Paid,208,Reading Light,Books,10.00,5868,PayPal,Completed
+5569,1316,2025-11-15 03:30:10,30.00,Paid,202,Wireless Mouse,Electronics,30.00,5869,Credit Card,Completed
+5570,1033,2025-11-15 03:30:11,75.50,Paid,206,Espresso Machine,Home Goods,75.50,5870,Bank Transfer,Completed
+5571,1350,2025-11-15 03:30:12,25.00,Pending,203,Casual T-Shirt,Apparel,25.00,5871,Credit Card,Pending
+5572,1037,2025-11-15 03:30:13,30.00,Refunded,202,Wireless Mouse,Electronics,30.00,5872,PayPal,Refunded
+5573,1008,2025-11-15 03:30:14,60.00,Pending,205,Mechanical Keyboard,Electronics,60.00,5873,PayPal,Pending
+5574,1338,2025-11-15 03:30:15,120.00,Refunded,209,Smartwatch,Electronics,120.00,5874,Bank Transfer,Refunded
+5575,1358,2025-11-15 03:30:16,15.00,Refunded,207,Sci-Fi Novel,Books,15.00,5875,Credit Card,Refunded
+5576,1134,2025-11-15 03:30:17,45.00,Paid,210,Running Shoes,Apparel,45.00,5876,PayPal,Completed
+5577,1299,2025-11-15 03:30:18,45.00,Pending,210,Running Shoes,Apparel,45.00,5877,Credit Card,Pending
+5578,1228,2025-11-15 03:30:19,180.00,Paid,204,Noise-Cancelling Headphones,Electronics,180.00,5878,PayPal,Completed
+5579,1192,2025-11-15 03:30:20,25.00,Refunded,212,Yoga Mat,Sports,25.00,5879,Bank Transfer,Refunded
+5580,1145,2025-11-15 03:30:21,45.00,Pending,210,Running Shoes,Apparel,45.00,5880,Bank Transfer,Pending
+5581,1505,2025-11-15 03:30:22,45.00,Refunded,210,Running Shoes,Apparel,45.00,5881,PayPal,Refunded
+5582,1506,2025-11-15 03:30:23,180.00,Paid,204,Noise-Cancelling Headphones,Electronics,180.00,5882,PayPal,Completed
+5583,1505,2025-11-15 03:30:24,350.00,Pending,213,Gaming Monitor,Electronics,350.00,5883,PayPal,Pending
+5584,1505,2025-11-15 03:30:25,15.00,Pending,207,Sci-Fi Novel,Books,15.00,5884,PayPal,Pending
+5585,1506,2025-11-15 03:30:26,25.00,Paid,203,Casual T-Shirt,Apparel,25.00,5885,PayPal,Completed
+5586,1505,2025-11-15 03:30:27,15.00,Pending,207,Sci-Fi Novel,Books,15.00,5886,Credit Card,Pending
+5587,1505,2025-11-15 03:30:28,80.00,Paid,211,Blender,Home Goods,80.00,5887,Bank Transfer,Completed
+5588,1506,2025-11-15 03:30:29,25.00,Pending,203,Casual T-Shirt,Apparel,25.00,5888,PayPal,Pending
+5589,1505,2025-11-15 03:30:30,15.00,Pending,207,Sci-Fi Novel,Books,15.00,5889,Credit Card,Pending
+5590,1505,2025-11-15 03:30:31,80.00,Pending,211,Blender,Home Goods,80.00,5890,PayPal,Pending
+5591,1411,2025-11-15 03:33:03,15.00,Refunded,207,Sci-Fi Novel,Books,15.00,5891,Credit Card,Refunded
+5592,1177,2025-11-15 03:33:04,10.00,Paid,208,Reading Light,Books,10.00,5892,Credit Card,Completed
+5593,1459,2025-11-15 03:33:05,75.50,Pending,206,Espresso Machine,Home Goods,75.50,5893,Credit Card,Pending
+5594,1394,2025-11-15 03:33:06,15.00,Refunded,207,Sci-Fi Novel,Books,15.00,5894,PayPal,Refunded
+5595,1226,2025-11-15 03:33:07,30.00,Paid,202,Wireless Mouse,Electronics,30.00,5895,Bank Transfer,Completed
+5596,1397,2025-11-15 03:33:08,120.00,Paid,209,Smartwatch,Electronics,120.00,5896,Credit Card,Completed
+5597,1148,2025-11-15 03:33:09,180.00,Refunded,204,Noise-Cancelling Headphones,Electronics,180.00,5897,Bank Transfer,Refunded
+5598,1195,2025-11-15 03:33:10,1200.00,Paid,201,Laptop,Electronics,1200.00,5898,Bank Transfer,Completed
+5599,1375,2025-11-15 03:33:11,180.00,Pending,204,Noise-Cancelling Headphones,Electronics,180.00,5899,Credit Card,Pending
+5600,1313,2025-11-15 03:33:12,45.00,Pending,210,Running Shoes,Apparel,45.00,5900,Bank Transfer,Pending
+5601,1078,2025-11-15 03:33:13,30.00,Pending,202,Wireless Mouse,Electronics,30.00,5901,Credit Card,Pending
+5602,1225,2025-11-15 03:33:14,75.50,Pending,206,Espresso Machine,Home Goods,75.50,5902,PayPal,Pending
+5603,1468,2025-11-15 03:33:15,80.00,Refunded,211,Blender,Home Goods,80.00,5903,Credit Card,Refunded
+5604,1498,2025-11-15 03:33:16,180.00,Pending,204,Noise-Cancelling Headphones,Electronics,180.00,5904,PayPal,Pending
+5605,1349,2025-11-15 03:33:17,15.00,Refunded,207,Sci-Fi Novel,Books,15.00,5905,PayPal,Refunded
+5606,1189,2025-11-15 03:33:18,75.50,Pending,206,Espresso Machine,Home Goods,75.50,5906,Bank Transfer,Pending
+5607,1363,2025-11-15 03:33:19,25.00,Refunded,203,Casual T-Shirt,Apparel,25.00,5907,PayPal,Refunded
+5608,1172,2025-11-15 03:33:20,60.00,Paid,205,Mechanical Keyboard,Electronics,60.00,5908,PayPal,Completed
+5609,1090,2025-11-15 03:33:21,25.00,Refunded,203,Casual T-Shirt,Apparel,25.00,5909,Credit Card,Refunded
+5610,1363,2025-11-15 03:33:22,30.00,Pending,202,Wireless Mouse,Electronics,30.00,5910,Bank Transfer,Pending
+5611,1509,2025-11-15 03:33:23,1200.00,Paid,201,Laptop,Electronics,1200.00,5911,Credit Card,Completed
+5612,1508,2025-11-15 03:33:24,25.00,Refunded,203,Casual T-Shirt,Apparel,25.00,5912,Bank Transfer,Refunded
+5613,1508,2025-11-15 03:33:25,1200.00,Pending,201,Laptop,Electronics,1200.00,5913,Bank Transfer,Pending
+5614,1509,2025-11-15 03:33:26,350.00,Refunded,213,Gaming Monitor,Electronics,350.00,5914,Bank Transfer,Refunded
+5615,1509,2025-11-15 03:33:27,25.00,Paid,212,Yoga Mat,Sports,25.00,5915,Bank Transfer,Completed
+5616,1507,2025-11-15 03:33:28,1200.00,Refunded,201,Laptop,Electronics,1200.00,5916,PayPal,Refunded
+5617,1508,2025-11-15 03:33:29,75.50,Pending,206,Espresso Machine,Home Goods,75.50,5917,Bank Transfer,Pending
+5618,1507,2025-11-15 03:33:30,15.00,Paid,207,Sci-Fi Novel,Books,15.00,5918,Bank Transfer,Completed
+5619,1509,2025-11-15 03:33:31,180.00,Paid,204,Noise-Cancelling Headphones,Electronics,180.00,5919,Bank Transfer,Completed
+5620,1508,2025-11-15 03:33:32,350.00,Refunded,213,Gaming Monitor,Electronics,350.00,5920,Credit Card,Refunded
+5621,1139,2025-11-15 03:36:01,30.00,Pending,202,Wireless Mouse,Electronics,30.00,5921,Credit Card,Pending
+5622,1204,2025-11-15 03:36:02,60.00,Pending,205,Mechanical Keyboard,Electronics,60.00,5922,Credit Card,Pending
+5623,1255,2025-11-15 03:36:03,60.00,Paid,205,Mechanical Keyboard,Electronics,60.00,5923,PayPal,Completed
+5624,1243,2025-11-15 03:36:04,15.00,Pending,207,Sci-Fi Novel,Books,15.00,5924,Credit Card,Pending
+5625,1348,2025-11-15 03:36:05,15.00,Pending,207,Sci-Fi Novel,Books,15.00,5925,Bank Transfer,Pending
+5626,1378,2025-11-15 03:36:06,25.00,Paid,212,Yoga Mat,Sports,25.00,5926,Credit Card,Completed
+5627,1289,2025-11-15 03:36:07,60.00,Pending,205,Mechanical Keyboard,Electronics,60.00,5927,Credit Card,Pending
+5628,1397,2025-11-15 03:36:08,180.00,Refunded,204,Noise-Cancelling Headphones,Electronics,180.00,5928,Credit Card,Refunded
+5629,1300,2025-11-15 03:36:09,45.00,Pending,210,Running Shoes,Apparel,45.00,5929,Credit Card,Pending
+5630,1182,2025-11-15 03:36:10,60.00,Refunded,205,Mechanical Keyboard,Electronics,60.00,5930,PayPal,Refunded
+5631,1332,2025-11-15 03:36:11,45.00,Refunded,210,Running Shoes,Apparel,45.00,5931,Bank Transfer,Refunded
+5632,1425,2025-11-15 03:36:12,1200.00,Refunded,201,Laptop,Electronics,1200.00,5932,PayPal,Refunded
+5633,1319,2025-11-15 03:36:13,10.00,Refunded,208,Reading Light,Books,10.00,5933,Bank Transfer,Refunded
+5634,1357,2025-11-15 03:36:14,1200.00,Refunded,201,Laptop,Electronics,1200.00,5934,PayPal,Refunded
+5635,1168,2025-11-15 03:36:15,60.00,Refunded,205,Mechanical Keyboard,Electronics,60.00,5935,Credit Card,Refunded
+5636,1090,2025-11-15 03:36:16,80.00,Paid,211,Blender,Home Goods,80.00,5936,PayPal,Completed
+5637,1230,2025-11-15 03:36:17,1200.00,Paid,201,Laptop,Electronics,1200.00,5937,Bank Transfer,Completed
+5638,1208,2025-11-15 03:36:18,25.00,Pending,203,Casual T-Shirt,Apparel,25.00,5938,Bank Transfer,Pending
+5639,1011,2025-11-15 03:36:19,10.00,Pending,208,Reading Light,Books,10.00,5939,PayPal,Pending
+5640,1186,2025-11-15 03:36:20,80.00,Paid,211,Blender,Home Goods,80.00,5940,Bank Transfer,Completed
+5641,1511,2025-11-15 03:36:21,45.00,Paid,210,Running Shoes,Apparel,45.00,5941,Bank Transfer,Completed
+5642,1511,2025-11-15 03:36:22,180.00,Pending,204,Noise-Cancelling Headphones,Electronics,180.00,5942,PayPal,Pending
+5643,1510,2025-11-15 03:36:23,120.00,Paid,209,Smartwatch,Electronics,120.00,5943,PayPal,Completed
+5644,1511,2025-11-15 03:36:24,25.00,Paid,212,Yoga Mat,Sports,25.00,5944,PayPal,Completed
+5645,1510,2025-11-15 03:36:25,75.50,Paid,206,Espresso Machine,Home Goods,75.50,5945,Bank Transfer,Completed
+5646,1511,2025-11-15 03:36:26,1200.00,Refunded,201,Laptop,Electronics,1200.00,5946,Bank Transfer,Refunded
+5647,1511,2025-11-15 03:36:27,25.00,Pending,203,Casual T-Shirt,Apparel,25.00,5947,Credit Card,Pending
+5648,1510,2025-11-15 03:36:28,45.00,Pending,210,Running Shoes,Apparel,45.00,5948,Bank Transfer,Pending
+5649,1511,2025-11-15 03:36:29,120.00,Paid,209,Smartwatch,Electronics,120.00,5949,PayPal,Completed
+5650,1511,2025-11-15 03:36:30,1200.00,Paid,201,Laptop,Electronics,1200.00,5950,Bank Transfer,Completed

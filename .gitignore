@@ -90,3 +90,15 @@ dags/dbt_project/logs/dbt.log
 .scannerwork/**/out/
 .sonar/**/reports/
 .sonar/**/out/
+dags/data_source/
+dags/data_source/**
+dags/data_source/sample_data.csv
+dags/data_source/customers_source.csv
+dags/data_source/sample_data.csv
+security-reports/
+security-reports/**
+security-reports/zap-full.html
+security-reports/zap-full.json
+security-reports/zap-full.xml
+security-reports/zap.out
+dags/data_source/customers_source.csv
