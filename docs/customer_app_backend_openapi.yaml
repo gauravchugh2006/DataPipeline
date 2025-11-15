@@ -1,0 +1,1969 @@
+openapi: 3.0.3
+info:
+  title: Cafe Commerce Customer Experience API
+  version: "1.0.0"
+  description: |
+    Express-based middleware that powers the Cafe Commerce customer application.
+    All endpoints are served under the `/api` base path. Authentication uses bearer
+    JWT tokens issued by the `/auth` routes. Unless otherwise noted, responses are
+    JSON encoded.
+servers:
+  - url: http://localhost:4000/api
+    description: Local development server started with Docker Compose
+  - url: https://{host}/api
+    description: Deployed environment
+    variables:
+      host:
+        default: example.com
+security:
+  - bearerAuth: []
+tags:
+  - name: Auth
+    description: Customer identity and profile endpoints
+  - name: Products
+    description: Catalogue browsing, reviews, and CSR metadata
+  - name: Orders
+    description: Customer and admin order management
+  - name: Support
+    description: Concierge contact flows
+  - name: Analytics
+    description: Event instrumentation APIs
+  - name: Loyalty
+    description: Reminder preferences and recommendation feeds
+  - name: Trust
+    description: Transparency KPIs sourced from the analytics warehouse
+  - name: Admin Products
+    description: Administrative product management
+  - name: Admin Customers
+    description: Administrative customer management
+  - name: Admin Orders
+    description: Administrative order management
+paths:
+  /auth/register:
+    post:
+      tags: [Auth]
+      summary: Register a new customer account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+            examples:
+              default:
+                value:
+                  firstName: Léa
+                  lastName: Martin
+                  email: lea.martin@example.com
+                  password: cappuccino123
+                  phone: "+33 1 23 45 67 89"
+                  address: "10 Rue Gaston Levy, Sevran-Livry"
+                  gender: female
+                  theme: midnight
+      responses:
+        '201':
+          description: Customer created and authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+              examples:
+                default:
+                  value:
+                    token: <jwt>
+                    profile:
+                      id: 42
+                      email: lea.martin@example.com
+                      firstName: Léa
+                      lastName: Martin
+                      fullName: Léa Martin
+                      phone: "+33 1 23 45 67 89"
+                      address: "10 Rue Gaston Levy, Sevran-Livry"
+                      gender: female
+                      theme: midnight
+                      avatarStyle: thumbs
+                      avatar: https://api.dicebear.com/7.x/thumbs/svg?seed=L%C3%A9a-Martin&backgroundType=gradientLinear&radius=50
+                      signupDate: 2024-02-01T10:22:11.000Z
+                      role: customer
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '409':
+          description: Email already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: Email already registered
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: Authenticate an existing customer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+            examples:
+              default:
+                value:
+                  email: customer@cafecoffeeday.com
+                  password: admin123
+      responses:
+        '200':
+          description: Successful authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: Invalid credentials
+  /auth/me:
+    get:
+      tags: [Auth]
+      summary: Retrieve the authenticated customer's profile
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Profile retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  profile:
+                    $ref: '#/components/schemas/CustomerProfile'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /auth/profile:
+    put:
+      tags: [Auth]
+      summary: Update parts of the authenticated customer's profile
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileUpdateRequest'
+            examples:
+              default:
+                value:
+                  phone: "+33 6 12 34 56 78"
+                  address: "Updated address"
+                  theme: aurora
+                  avatarStyle: thumbs
+      responses:
+        '200':
+          description: Updated profile
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  profile:
+                    $ref: '#/components/schemas/CustomerProfile'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /products:
+    get:
+      tags: [Products]
+      summary: List products with catalogue filters
+      parameters:
+        - $ref: '#/components/parameters/CategoryParam'
+        - $ref: '#/components/parameters/MinPriceParam'
+        - $ref: '#/components/parameters/MaxPriceParam'
+        - $ref: '#/components/parameters/SearchParam'
+        - $ref: '#/components/parameters/ProductSortParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/PageSizeParam'
+      responses:
+        '200':
+          description: Paginated product catalogue
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductCollection'
+  /products/{id}:
+    get:
+      tags: [Products]
+      summary: Retrieve a single product with CSR metadata
+      parameters:
+        - $ref: '#/components/parameters/ProductIdPath'
+      responses:
+        '200':
+          description: Product found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDetail'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: Product not found
+  /products/{id}/reviews:
+    get:
+      tags: [Products]
+      summary: Fetch recent reviews for a product
+      parameters:
+        - $ref: '#/components/parameters/ProductIdPath'
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+          description: Number of reviews to return (default 10)
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+          description: Number of reviews to skip (default 0)
+      responses:
+        '200':
+          description: Review list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProductReview'
+              example:
+                items:
+                  - id: 1001
+                    rating: 5
+                    comment: Incredible crema and aroma!
+                    created_at: 2024-02-10T12:00:00.000Z
+                    customer_name: Léa
+    post:
+      tags: [Products]
+      summary: Submit a product review
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/ProductIdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReviewRequest'
+            examples:
+              default:
+                value:
+                  rating: 4
+                  comment: Loved the fruity notes and velvety finish.
+      responses:
+        '201':
+          description: Review recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateReviewResponse'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /orders:
+    get:
+      tags: [Orders]
+      summary: List orders for the authenticated user (admins see all)
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/PageSizeParam'
+        - $ref: '#/components/parameters/OrderStatusParam'
+        - $ref: '#/components/parameters/TransactionStatusParam'
+        - name: sortBy
+          in: query
+          schema:
+            type: string
+            enum: [order_date, total, status, payment]
+        - name: sortDir
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+        - name: paymentMethod
+          in: query
+          schema:
+            type: string
+        - name: startDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: customerId
+          in: query
+          schema:
+            type: integer
+          description: Admin-only filter for a specific customer
+      responses:
+        '200':
+          description: Paginated order listing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderCollection'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+    post:
+      tags: [Orders]
+      summary: Create a new order for the authenticated customer
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderRequest'
+            examples:
+              default:
+                value:
+                  items:
+                    - productId: 11
+                      productName: Vanilla Cold Brew
+                      category: Beverages
+                      price: 5.5
+                      quantity: 2
+                  totalAmount: 11.0
+                  paymentStatus: Paid
+                  payment:
+                    method: Stripe
+                    status: Completed
+      responses:
+        '201':
+          description: Order created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetail'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /orders/{id}:
+    get:
+      tags: [Orders]
+      summary: Retrieve an order
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/OrderIdPath'
+      responses:
+        '200':
+          description: Order retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetail'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Order not found or not accessible
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: Order not found
+  /orders/{id}/invoice:
+    get:
+      tags: [Orders]
+      summary: Download an order invoice PDF
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/OrderIdPath'
+      responses:
+        '200':
+          description: PDF invoice stream
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Order not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /orders/{id}/status:
+    patch:
+      tags: [Orders]
+      summary: Update the payment status of an order (admin only)
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/OrderIdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrderStatusRequest'
+            examples:
+              default:
+                value:
+                  status: Refunded
+                  transactionStatus: Refunded
+      responses:
+        '200':
+          description: Status updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+              example:
+                success: true
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: Requires admin role
+        '404':
+          description: Order not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /support/contact:
+    post:
+      tags: [Support]
+      summary: Send a concierge support request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SupportRequest'
+            examples:
+              default:
+                value:
+                  name: Léa Martin
+                  email: lea.martin@example.com
+                  topic: Catering enquiry
+                  message: |
+                    Hello team,
+                    We'd love to discuss catering options for our office grand opening.
+      responses:
+        '200':
+          description: Email enqueued
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+              example:
+                success: true
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '502':
+          description: SMTP error when sending the email
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /analytics/events:
+    post:
+      tags: [Analytics]
+      summary: Record a customer analytics event
+      security:
+        - bearerAuth: []
+        - {}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalyticsEventRequest'
+            examples:
+              default:
+                value:
+                  eventType: loyalty_widget_viewed
+                  source: storefront
+                  payload:
+                    productId: 11
+                    bundle: "iced-classics"
+      responses:
+        '202':
+          description: Event accepted for processing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+              example:
+                status: recorded
+        '400':
+          $ref: '#/components/responses/ValidationError'
+  /loyalty/bundles:
+    get:
+      tags: [Loyalty]
+      summary: List available loyalty bundle options
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Bundles returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bundles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LoyaltyBundle'
+  /loyalty/preferences:
+    get:
+      tags: [Loyalty]
+      summary: Retrieve reminder preferences for the authenticated customer
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Preferences returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  preferences:
+                    $ref: '#/components/schemas/LoyaltyPreferences'
+    put:
+      tags: [Loyalty]
+      summary: Update reminder preferences and enqueue notification
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLoyaltyPreferencesRequest'
+            examples:
+              default:
+                value:
+                  frequency: weekly
+                  channel: email
+                  bundlePreferences: ["iced-classics", "single-origin"]
+                  quietHours: "21:00-07:00"
+      responses:
+        '200':
+          description: Updated preferences returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  preferences:
+                    $ref: '#/components/schemas/LoyaltyPreferences'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /loyalty/recommendations:
+    get:
+      tags: [Loyalty]
+      summary: Fetch loyalty recommendations optionally filtered by segment
+      parameters:
+        - name: segment
+          in: query
+          schema:
+            type: string
+          description: Optional loyalty segment key (e.g. "espresso-enthusiasts")
+      responses:
+        '200':
+          description: Recommendation feed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  segment:
+                    type: string
+                  recommendations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LoyaltyRecommendation'
+              example:
+                segment: espresso-enthusiasts
+                recommendations:
+                  - customerId: 1280
+                    segment: espresso-enthusiasts
+                    discountTier: gold
+                    reminderChannel: email
+                    reminderSchedule: weekly
+                    affinityScore: 0.82
+                    totalSpent30d: 156.5
+                    purchaseFrequency30d: 5
+                    primaryAddOnProductId: 17
+                    primaryAddOnName: Nitro Cold Brew Pack
+                    affinityCategory: cold-brew
+                    recommendedAddOns: ["cold-brew-kit", "reusable-straws"]
+                    updatedAt: 2024-03-03T09:15:00.000Z
+  /trust/metrics:
+    get:
+      tags: [Trust]
+      summary: Retrieve transparency metrics from the trust mart
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+          description: Maximum number of rows to return (default 30)
+      responses:
+        '200':
+          description: Trust score rows
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TrustMetric'
+  /trust/metrics/export:
+    get:
+      tags: [Trust]
+      summary: Download transparency metrics as CSV
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        '200':
+          description: CSV export
+          content:
+            text/csv:
+              schema:
+                type: string
+        '502':
+          description: Upstream warehouse error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /admin/products:
+    get:
+      tags: [Admin Products]
+      summary: List products with admin controls
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/AdminPageParam'
+        - $ref: '#/components/parameters/AdminPageSizeParam'
+        - name: sortBy
+          in: query
+          schema:
+            type: string
+            enum: [createdAt, updatedAt, name, category, price]
+        - name: sortDir
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: minPrice
+          in: query
+          schema:
+            type: number
+        - name: maxPrice
+          in: query
+          schema:
+            type: number
+        - name: search
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Admin product collection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminProductCollection'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: Requires admin role
+    post:
+      tags: [Admin Products]
+      summary: Create a product
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminUpsertProductRequest'
+            examples:
+              default:
+                value:
+                  name: Cascara Sparkling Tonic
+                  category: Limited Editions
+                  price: 6.5
+                  imageUrl: https://cdn.example.com/cascara.png
+      responses:
+        '201':
+          description: Product created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminProduct'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: Requires admin role
+  /admin/products/{id}:
+    patch:
+      tags: [Admin Products]
+      summary: Update a product
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/ProductIdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminUpsertProductRequest'
+            examples:
+              default:
+                value:
+                  price: 6.75
+      responses:
+        '200':
+          description: Updated product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminProduct'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: Requires admin role
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags: [Admin Products]
+      summary: Delete a product
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/ProductIdPath'
+      responses:
+        '204':
+          description: Deleted
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: Requires admin role
+        '404':
+          description: Product not found
+  /admin/products/export/{format}:
+    get:
+      tags: [Admin Products]
+      summary: Export products as CSV or XLSX
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: format
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [csv, xlsx]
+        - name: sortBy
+          in: query
+          schema:
+            type: string
+            enum: [createdAt, updatedAt, name, category, price]
+        - name: sortDir
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+        - name: minPrice
+          in: query
+          schema:
+            type: number
+        - name: maxPrice
+          in: query
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Export file stream
+          content:
+            text/csv:
+              schema:
+                type: string
+            application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+              schema:
+                type: string
+                format: binary
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: Requires admin role
+  /admin/customers:
+    get:
+      tags: [Admin Customers]
+      summary: List customers
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/AdminPageParam'
+        - $ref: '#/components/parameters/AdminPageSizeParam'
+        - name: role
+          in: query
+          schema:
+            type: string
+            enum: [customer, admin]
+        - name: sortBy
+          in: query
+          schema:
+            type: string
+            enum: [createdAt, updatedAt, email, firstName, lastName]
+        - name: sortDir
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+        - name: search
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Customer collection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminCustomerCollection'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: Requires admin role
+    post:
+      tags: [Admin Customers]
+      summary: Create a customer or admin account
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminCreateCustomerRequest'
+            examples:
+              default:
+                value:
+                  email: new.manager@example.com
+                  password: securePass123
+                  firstName: Amélie
+                  lastName: Dupont
+                  role: admin
+      responses:
+        '201':
+          description: Customer created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminCustomer'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: Requires admin role
+  /admin/customers/{id}:
+    patch:
+      tags: [Admin Customers]
+      summary: Update a customer account
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminUpdateCustomerRequest'
+            examples:
+              default:
+                value:
+                  phone: "+33 6 66 66 66 66"
+                  role: admin
+      responses:
+        '200':
+          description: Updated customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminCustomer'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: Requires admin role
+        '404':
+          description: Customer not found
+    delete:
+      tags: [Admin Customers]
+      summary: Delete a customer account
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdPath'
+      responses:
+        '204':
+          description: Deleted
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: Requires admin role
+        '404':
+          description: Customer not found
+  /admin/customers/export/{format}:
+    get:
+      tags: [Admin Customers]
+      summary: Export customers as CSV or XLSX
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: format
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [csv, xlsx]
+        - name: sortBy
+          in: query
+          schema:
+            type: string
+            enum: [createdAt, updatedAt, email, firstName, lastName]
+        - name: sortDir
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+        - name: role
+          in: query
+          schema:
+            type: string
+            enum: [customer, admin]
+      responses:
+        '200':
+          description: Export stream
+          content:
+            text/csv:
+              schema:
+                type: string
+            application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+              schema:
+                type: string
+                format: binary
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: Requires admin role
+  /admin/orders:
+    get:
+      tags: [Admin Orders]
+      summary: List orders (admin scope)
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/AdminPageParam'
+        - $ref: '#/components/parameters/AdminPageSizeParam'
+        - $ref: '#/components/parameters/OrderStatusParam'
+        - $ref: '#/components/parameters/TransactionStatusParam'
+        - name: customerId
+          in: query
+          schema:
+            type: integer
+        - name: sortBy
+          in: query
+          schema:
+            type: string
+            enum: [order_date, total, status, payment]
+        - name: sortDir
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+        - name: startDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: search
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Admin order collection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderCollection'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: Requires admin role
+    post:
+      tags: [Admin Orders]
+      summary: Create an order on behalf of a customer
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/CreateOrderRequest'
+                - type: object
+                  required: [customerId]
+                  properties:
+                    customerId:
+                      type: integer
+            examples:
+              default:
+                value:
+                  customerId: 7
+                  items:
+                    - productId: 15
+                      productName: Cascara Sparkling Tonic
+                      category: Limited Editions
+                      price: 6.5
+                      quantity: 3
+                  totalAmount: 19.5
+                  payment:
+                    method: Manual
+                    status: Pending
+      responses:
+        '201':
+          description: Order created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetail'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: Requires admin role
+  /admin/orders/{id}:
+    patch:
+      tags: [Admin Orders]
+      summary: Update order fields or payment details
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/OrderIdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminUpdateOrderRequest'
+            examples:
+              default:
+                value:
+                  paymentStatus: Paid
+                  totalAmount: 24.0
+                  payment:
+                    method: Stripe
+                    status: Completed
+      responses:
+        '200':
+          description: Updated order detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetail'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: Requires admin role
+        '404':
+          description: Order not found
+    delete:
+      tags: [Admin Orders]
+      summary: Delete an order
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/OrderIdPath'
+      responses:
+        '204':
+          description: Deleted
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: Requires admin role
+        '404':
+          description: Order not found
+  /admin/orders/export/{format}:
+    get:
+      tags: [Admin Orders]
+      summary: Export orders as CSV or XLSX
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: format
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [csv, xlsx]
+        - $ref: '#/components/parameters/OrderStatusParam'
+        - $ref: '#/components/parameters/TransactionStatusParam'
+      responses:
+        '200':
+          description: Export stream
+          content:
+            text/csv:
+              schema:
+                type: string
+            application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+              schema:
+                type: string
+                format: binary
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          description: Requires admin role
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    ProductIdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: Numeric product identifier
+    OrderIdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: Numeric order identifier
+    CustomerIdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: Numeric customer identifier
+    CategoryParam:
+      name: category
+      in: query
+      schema:
+        type: string
+      description: Filter products by category
+    MinPriceParam:
+      name: minPrice
+      in: query
+      schema:
+        type: number
+        minimum: 0
+      description: Minimum product price
+    MaxPriceParam:
+      name: maxPrice
+      in: query
+      schema:
+        type: number
+        minimum: 0
+      description: Maximum product price
+    SearchParam:
+      name: search
+      in: query
+      schema:
+        type: string
+      description: Free-text search string
+    ProductSortParam:
+      name: sort
+      in: query
+      schema:
+        type: string
+        enum: [price_asc, price_desc, newest, popular, name]
+      description: Sort order key
+    PageParam:
+      name: page
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+      description: Page number (default 1)
+    PageSizeParam:
+      name: pageSize
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+      description: Items per page (default 25)
+    AdminPageParam:
+      name: page
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+      description: Page number (default 1)
+    AdminPageSizeParam:
+      name: pageSize
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+      description: Items per page (default 10)
+    OrderStatusParam:
+      name: status
+      in: query
+      schema:
+        type: string
+        enum: [Paid, Pending, Refunded]
+      description: Filter by payment status
+    TransactionStatusParam:
+      name: transactionStatus
+      in: query
+      schema:
+        type: string
+        enum: [Completed, Pending, Refunded]
+      description: Filter by transaction status
+  responses:
+    ValidationError:
+      description: Request validation failed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    msg:
+                      type: string
+                    param:
+                      type: string
+                    location:
+                      type: string
+          example:
+            errors:
+              - msg: Invalid value
+                param: email
+                location: body
+    UnauthorizedError:
+      description: Authentication required or token invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error: Unauthorized
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+    RegisterRequest:
+      type: object
+      required: [firstName, lastName, email, password]
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+          minLength: 8
+        phone:
+          type: string
+        address:
+          type: string
+        gender:
+          type: string
+          enum: [male, female, other]
+        theme:
+          type: string
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+    AuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        profile:
+          $ref: '#/components/schemas/CustomerProfile'
+    CustomerProfile:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        fullName:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        gender:
+          type: string
+        theme:
+          type: string
+        avatarStyle:
+          type: string
+        avatar:
+          type: string
+        signupDate:
+          type: string
+          format: date-time
+        role:
+          type: string
+    ProfileUpdateRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        gender:
+          type: string
+          enum: [male, female, other]
+        theme:
+          type: string
+        avatarStyle:
+          type: string
+        profileImage:
+          type: string
+          description: Data URL containing base64 encoded image content or null to clear
+    ProductCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        total:
+          type: integer
+        totalPages:
+          type: integer
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        category:
+          type: string
+        price:
+          type: number
+        imageUrl:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        totalSold:
+          type: integer
+        averageRating:
+          type: number
+        reviewCount:
+          type: integer
+        csr:
+          $ref: '#/components/schemas/ProductCsrSummary'
+    ProductCsrSummary:
+      type: object
+      properties:
+        carbonFootprintKg:
+          type: number
+          nullable: true
+        supplierCertifications:
+          type: array
+          items:
+            type: string
+        lastVerified:
+          type: string
+          nullable: true
+        dataSource:
+          type: string
+          nullable: true
+        dataCompleteness:
+          type: string
+        alerts:
+          type: array
+          items:
+            type: string
+    ProductDetail:
+      allOf:
+        - $ref: '#/components/schemas/Product'
+        - type: object
+          properties:
+            recentOrders:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  date:
+                    type: string
+                    format: date-time
+                  totalAmount:
+                    type: number
+                  status:
+                    type: string
+    ProductReview:
+      type: object
+      properties:
+        id:
+          type: integer
+        rating:
+          type: integer
+        comment:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        customer_name:
+          type: string
+    CreateReviewRequest:
+      type: object
+      required: [rating, comment]
+      properties:
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        comment:
+          type: string
+          minLength: 4
+    CreateReviewResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        customer_name:
+          type: string
+    OrderCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderSummary'
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        total:
+          type: integer
+        totalPages:
+          type: integer
+    OrderSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+        customerId:
+          type: integer
+        orderDate:
+          type: string
+          format: date-time
+        totalAmount:
+          type: number
+        paymentStatus:
+          type: string
+        customer:
+          $ref: '#/components/schemas/OrderCustomer'
+        payment:
+          $ref: '#/components/schemas/PaymentSummary'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+    OrderDetail:
+      $ref: '#/components/schemas/OrderSummary'
+    OrderCustomer:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+    PaymentSummary:
+      type: object
+      nullable: true
+      properties:
+        id:
+          type: integer
+        method:
+          type: string
+        status:
+          type: string
+    OrderItem:
+      type: object
+      properties:
+        productId:
+          type: integer
+        productName:
+          type: string
+        category:
+          type: string
+        price:
+          type: number
+        quantity:
+          type: integer
+        imageUrl:
+          type: string
+          nullable: true
+    CreateOrderRequest:
+      type: object
+      required: [items, totalAmount]
+      properties:
+        items:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required: [productId, productName, category, price]
+            properties:
+              productId:
+                type: integer
+              productName:
+                type: string
+              category:
+                type: string
+              price:
+                type: number
+              quantity:
+                type: integer
+                minimum: 1
+              imageUrl:
+                type: string
+                nullable: true
+        totalAmount:
+          type: number
+        paymentStatus:
+          type: string
+          enum: [Paid, Pending, Refunded]
+        payment:
+          type: object
+          properties:
+            id:
+              type: integer
+              nullable: true
+            method:
+              type: string
+            status:
+              type: string
+              enum: [Completed, Pending, Refunded]
+    UpdateOrderStatusRequest:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [Paid, Pending, Refunded]
+        transactionStatus:
+          type: string
+          enum: [Completed, Pending, Refunded]
+    SupportRequest:
+      type: object
+      required: [name, email, topic, message]
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        topic:
+          type: string
+        message:
+          type: string
+    AnalyticsEventRequest:
+      type: object
+      required: [eventType]
+      properties:
+        eventType:
+          type: string
+        source:
+          type: string
+          nullable: true
+        payload:
+          type: object
+          additionalProperties: true
+    LoyaltyBundle:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        productCount:
+          type: integer
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              price:
+                type: number
+              imageUrl:
+                type: string
+                nullable: true
+    LoyaltyPreferences:
+      type: object
+      properties:
+        id:
+          type: integer
+          nullable: true
+        frequency:
+          type: string
+        channel:
+          type: string
+        bundlePreferences:
+          type: array
+          items:
+            type: string
+        quietHours:
+          type: string
+          nullable: true
+        nextScheduled:
+          type: string
+        lastNotified:
+          type: string
+          nullable: true
+        adherenceStatus:
+          type: string
+          enum: [pending, on-track, overdue]
+    UpdateLoyaltyPreferencesRequest:
+      type: object
+      properties:
+        frequency:
+          type: string
+          enum: [daily, weekly, monthly, quarterly]
+        channel:
+          type: string
+          enum: [email, sms, push]
+        bundlePreferences:
+          type: array
+          items:
+            type: string
+        quietHours:
+          type: string
+          nullable: true
+    LoyaltyRecommendation:
+      type: object
+      properties:
+        customerId:
+          type: integer
+        segment:
+          type: string
+        discountTier:
+          type: string
+        reminderChannel:
+          type: string
+        reminderSchedule:
+          type: string
+        affinityScore:
+          type: number
+        totalSpent30d:
+          type: number
+        purchaseFrequency30d:
+          type: number
+        primaryAddOnProductId:
+          type: integer
+          nullable: true
+        primaryAddOnName:
+          type: string
+          nullable: true
+        affinityCategory:
+          type: string
+        recommendedAddOns:
+          type: array
+          items:
+            type: string
+        updatedAt:
+          type: string
+          format: date-time
+    TrustMetric:
+      type: object
+      additionalProperties: true
+      description: Dynamic structure mirroring the trust mart columns
+    AdminProductCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdminProduct'
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        total:
+          type: integer
+        totalPages:
+          type: integer
+        sort:
+          type: object
+          properties:
+            key:
+              type: string
+            direction:
+              type: string
+    AdminProduct:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        category:
+          type: string
+        price:
+          type: number
+        imageUrl:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+    AdminUpsertProductRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        category:
+          type: string
+        price:
+          type: number
+        imageUrl:
+          type: string
+          nullable: true
+    AdminCustomerCollection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdminCustomer'
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        total:
+          type: integer
+        totalPages:
+          type: integer
+        sort:
+          type: object
+          properties:
+            key:
+              type: string
+            direction:
+              type: string
+    AdminCustomer:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        phone:
+          type: string
+          nullable: true
+        address:
+          type: string
+          nullable: true
+        gender:
+          type: string
+        role:
+          type: string
+        theme:
+          type: string
+        signupDate:
+          type: string
+        updatedAt:
+          type: string
+    AdminCreateCustomerRequest:
+      allOf:
+        - $ref: '#/components/schemas/RegisterRequest'
+        - type: object
+          required: [password]
+          properties:
+            role:
+              type: string
+              enum: [customer, admin]
+            theme:
+              type: string
+    AdminUpdateCustomerRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        phone:
+          type: string
+          nullable: true
+        address:
+          type: string
+          nullable: true
+        gender:
+          type: string
+          enum: [male, female, other]
+        role:
+          type: string
+          enum: [customer, admin]
+        theme:
+          type: string
+        password:
+          type: string
+    AdminUpdateOrderRequest:
+      type: object
+      properties:
+        paymentStatus:
+          type: string
+          enum: [Paid, Pending, Refunded]
+        totalAmount:
+          type: number
+        orderDate:
+          type: string
+          format: date-time
+        payment:
+          type: object
+          properties:
+            method:
+              type: string
+            status:
+              type: string
+              enum: [Completed, Pending, Refunded]
