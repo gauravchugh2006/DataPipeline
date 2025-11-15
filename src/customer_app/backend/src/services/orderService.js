@@ -73,11 +73,12 @@ const parseItems = (raw) => {
 
 export const listOrders = async (
   pool,
-  { userId, role, filters = {} }
+  { userId, role, filters = {}, unlimited = false }
 ) => {
   const page = Math.max(Number(filters.page) || 1, 1);
-  const pageSize = Math.min(Math.max(Number(filters.pageSize) || 10, 1), 100);
-  const offset = (page - 1) * pageSize;
+  const rawPageSize = Math.max(Number(filters.pageSize) || 10, 1);
+  const pageSize = unlimited ? rawPageSize : Math.min(rawPageSize, 100);
+  const offset = unlimited ? 0 : (page - 1) * pageSize;
 
   const sortColumn = SORT_COLUMNS[filters.sortBy] || SORT_COLUMNS.order_date;
   const sortDirection = (filters.sortDir || "desc").toLowerCase() === "asc" ? "ASC" : "DESC";
@@ -98,6 +99,9 @@ export const listOrders = async (
     params
   );
   const total = Number(countRows[0]?.total || 0);
+
+  const limitClause = unlimited ? "" : "LIMIT ? OFFSET ?";
+  const paginationParams = unlimited ? [] : [pageSize, offset];
 
   const [rows] = await pool.query(
     `SELECT
@@ -125,8 +129,8 @@ export const listOrders = async (
       ${baseQuery}
       GROUP BY o.id
       ORDER BY ${sortColumn} ${sortDirection}
-      LIMIT ? OFFSET ?`,
-    [...params, pageSize, offset]
+      ${limitClause}`,
+    [...params, ...paginationParams]
   );
 
   const items = rows.map((row) => ({
@@ -150,12 +154,14 @@ export const listOrders = async (
     items: parseItems(row.items),
   }));
 
-  const totalPages = Math.max(Math.ceil(total / pageSize), 1);
+  const totalPages = unlimited
+    ? 1
+    : Math.max(Math.ceil(total / pageSize), 1);
 
   return {
     items,
-    page,
-    pageSize,
+    page: unlimited ? 1 : page,
+    pageSize: unlimited ? items.length : pageSize,
     total,
     totalPages,
   };

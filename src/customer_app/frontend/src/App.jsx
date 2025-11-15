@@ -7,7 +7,10 @@ import AppLayout from "./components/Layout.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import ProductPage from "./pages/ProductPage.jsx";
 import DashboardPage from "./pages/DashboardPage.jsx";
-import AdminPage from "./pages/AdminPage.jsx";
+import AdminLayout from "./pages/admin/AdminLayout.jsx";
+import AdminProductsPage from "./pages/admin/AdminProductsPage.jsx";
+import AdminCustomersPage from "./pages/admin/AdminCustomersPage.jsx";
+import AdminOrdersPage from "./pages/admin/AdminOrdersPage.jsx";
 
 const PrivateRoute = ({ children, roles }) => {
   const { profile } = useAuth();
@@ -33,10 +36,15 @@ const App = () => {
               path="/admin"
               element={
                 <PrivateRoute roles={["admin"]}>
-                  <AdminPage />
+                  <AdminLayout />
                 </PrivateRoute>
               }
-            />
+            >
+              <Route index element={<Navigate to="products" replace />} />
+              <Route path="products" element={<AdminProductsPage />} />
+              <Route path="customers" element={<AdminCustomersPage />} />
+              <Route path="orders" element={<AdminOrdersPage />} />
+            </Route>
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </AppLayout>

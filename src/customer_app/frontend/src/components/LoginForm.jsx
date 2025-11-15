@@ -23,8 +23,11 @@ const LoginForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 bg-white/70 backdrop-blur rounded-3xl p-6 card-shadow">
       <h3 className="text-lg font-semibold">Welcome back</h3>
       <div className="space-y-2">
-        <label className="text-sm text-cafe-primary/70">Email</label>
+        <label htmlFor="login-email" className="text-sm text-cafe-primary/70">
+          Email
+        </label>
         <input
+          id="login-email"
           type="email"
           className="w-full rounded-2xl border border-cafe-primary/10 px-4 py-3"
           {...register("email", { required: true })}
@@ -32,8 +35,11 @@ const LoginForm = () => {
         {errors.email && <p className="text-xs text-red-500">Email is required.</p>}
       </div>
       <div className="space-y-2">
-        <label className="text-sm text-cafe-primary/70">Password</label>
+        <label htmlFor="login-password" className="text-sm text-cafe-primary/70">
+          Password
+        </label>
         <input
+          id="login-password"
           type="password"
           className="w-full rounded-2xl border border-cafe-primary/10 px-4 py-3"
           {...register("password", { required: true })}
