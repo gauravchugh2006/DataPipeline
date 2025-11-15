@@ -6,6 +6,7 @@ import {
   getReminderPreferences,
   listBundleOptions,
   upsertReminderPreferences,
+  fetchRecommendationsBySegment,
 } from "../services/loyaltyService.js";
 import { enqueueReminderNotification } from "../services/notificationService.js";
 import { recordEvent } from "../services/analyticsService.js";
@@ -63,10 +64,6 @@ router.put(
     res.json({ preferences });
   }
 );
-
-import { fetchRecommendationsBySegment } from "../services/loyaltyService.js";
-
-const router = express.Router();
 
 router.get("/recommendations", async (req, res, next) => {
   try {
