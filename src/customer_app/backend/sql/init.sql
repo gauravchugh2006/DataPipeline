@@ -1,6 +1,10 @@
 CREATE DATABASE IF NOT EXISTS ccd_store;
 USE ccd_store;
 
+DROP TABLE IF EXISTS analytics_events;
+DROP TABLE IF EXISTS notification_outbox;
+DROP TABLE IF EXISTS reminder_preferences;
+DROP TABLE IF EXISTS csr_metadata;
 DROP TABLE IF EXISTS reviews;
 DROP TABLE IF EXISTS order_items;
 DROP TABLE IF EXISTS payments;
@@ -35,6 +39,18 @@ CREATE TABLE products (
   price DECIMAL(10,2) NOT NULL,
   image_url VARCHAR(255),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE csr_metadata (
+  product_id INT PRIMARY KEY,
+  carbon_footprint_kg DECIMAL(10,2),
+  supplier_certifications JSON,
+  last_verified DATE,
+  data_source VARCHAR(255),
+  data_completeness ENUM('complete', 'partial', 'missing') DEFAULT 'partial',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
 
 CREATE TABLE product_variants (
@@ -92,6 +108,45 @@ CREATE TABLE reviews (
   FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE SET NULL
 );
 
+CREATE TABLE reminder_preferences (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  customer_id INT NOT NULL,
+  frequency ENUM('daily', 'weekly', 'monthly', 'quarterly') DEFAULT 'weekly',
+  channel ENUM('email', 'sms', 'push') DEFAULT 'email',
+  bundle_preferences JSON,
+  quiet_hours VARCHAR(64),
+  next_scheduled DATETIME,
+  last_notified DATETIME,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY uniq_preferences_customer (customer_id),
+  FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE
+);
+
+CREATE TABLE notification_outbox (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  customer_id INT,
+  channel ENUM('email', 'sms', 'push') NOT NULL,
+  subject VARCHAR(255),
+  body TEXT,
+  payload JSON,
+  status ENUM('pending', 'sent', 'failed') DEFAULT 'pending',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  processed_at DATETIME,
+  FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE SET NULL
+);
+
+CREATE TABLE analytics_events (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  customer_id INT,
+  event_type VARCHAR(120) NOT NULL,
+  source VARCHAR(120),
+  payload JSON,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE SET NULL
+);
+
 
 INSERT INTO customers (id, email, password_hash, first_name, last_name, gender, role, theme_preference, signup_date) VALUES
   (1, 'admin@ecommerce.example', '$2a$10$RKVDt0ewsGQKzBSSMSmc5O1s5n2xe50Tzw9uQWGWpZJYG1ChcxrG', 'Cafe', 'Admin', 'other', 'admin', 'midnight', '2022-01-01 00:00:00')
@@ -125,6 +180,26 @@ INSERT INTO products (id, name, category, price, image_url) VALUES
   (212, 'Yoga Mat', 'Sports', 25.00, 'https://source.unsplash.com/collection/190727/212'),
   (213, 'Gaming Monitor', 'Electronics', 350.00, 'https://source.unsplash.com/collection/190727/213')
 ON DUPLICATE KEY UPDATE name=VALUES(name), category=VALUES(category), price=VALUES(price), image_url=VALUES(image_url);
+
+INSERT INTO csr_metadata (product_id, carbon_footprint_kg, supplier_certifications, last_verified, data_source, data_completeness) VALUES
+  (201, 62.5, JSON_ARRAY('ISO 14001', 'Fair Trade Electronics'), '2024-12-01', 'Lifecycle analysis 2024', 'complete'),
+  (202, 4.2, JSON_ARRAY('RoHS', 'Energy Star'), '2024-11-15', 'Component supplier attestation', 'complete'),
+  (203, 2.8, JSON_ARRAY('Organic Cotton Standard'), '2024-10-02', 'Vendor sustainability report', 'partial'),
+  (204, NULL, NULL, NULL, 'Awaiting supplier disclosure', 'missing'),
+  (205, 8.1, JSON_ARRAY('RoHS'), '2024-08-19', 'Factory compliance audit', 'partial'),
+  (206, 12.3, JSON_ARRAY('ISO 14046 Water Footprint'), '2024-09-25', 'Appliance lifecycle review', 'complete'),
+  (207, 1.1, JSON_ARRAY('FSC Paper'), '2024-07-14', 'Publisher sustainability annex', 'complete'),
+  (208, NULL, JSON_ARRAY('Energy Efficient Lighting'), '2024-06-30', 'Accessory supplier note', 'partial'),
+  (209, 18.6, JSON_ARRAY('Responsible Minerals Initiative'), '2024-12-11', 'Wearable supplier scorecard', 'complete'),
+  (210, NULL, NULL, NULL, 'Awaiting third-party audit', 'missing'),
+  (211, 27.4, JSON_ARRAY('BPA Free'), '2024-07-22', 'Appliance factory statement', 'partial'),
+  (212, 3.6, JSON_ARRAY('Global Recycled Standard'), '2024-11-03', 'Material certificate upload', 'complete')
+ON DUPLICATE KEY UPDATE
+  carbon_footprint_kg = VALUES(carbon_footprint_kg),
+  supplier_certifications = VALUES(supplier_certifications),
+  last_verified = VALUES(last_verified),
+  data_source = VALUES(data_source),
+  data_completeness = VALUES(data_completeness);
 
 INSERT INTO orders (id, customer_id, order_date, total_amount, payment_status) VALUES
   (1, 101, '2025-03-01 10:00:00', 150.00, 'Paid'),

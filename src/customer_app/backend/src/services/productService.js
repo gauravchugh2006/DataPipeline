@@ -6,6 +6,18 @@ const SORT_MAP = {
   name: "p.name ASC",
 };
 
+const parseCertifications = (raw) => {
+  if (!raw) {
+    return [];
+  }
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (error) {
+    return [];
+  }
+};
+
 const buildProductFilters = ({ category, minPrice, maxPrice, search }) => {
   const conditions = [];
   const params = [];
@@ -56,6 +68,7 @@ export const listProducts = async (pool, filters = {}) => {
       FROM reviews
       GROUP BY product_id
     ) AS review_stats ON review_stats.product_id = p.id
+    LEFT JOIN csr_metadata csr ON csr.product_id = p.id
     ${whereClause}
   `;
 
@@ -75,7 +88,12 @@ export const listProducts = async (pool, filters = {}) => {
         p.created_at,
         COALESCE(order_stats.total_quantity, 0) AS total_sold,
         COALESCE(review_stats.avg_rating, 0) AS average_rating,
-        COALESCE(review_stats.review_count, 0) AS review_count
+        COALESCE(review_stats.review_count, 0) AS review_count,
+        csr.carbon_footprint_kg,
+        csr.supplier_certifications,
+        csr.last_verified,
+        csr.data_source,
+        csr.data_completeness
       ${baseQuery}
       ORDER BY ${sortClause}
       LIMIT ? OFFSET ?`,
@@ -92,6 +110,15 @@ export const listProducts = async (pool, filters = {}) => {
     totalSold: Number(row.total_sold || 0),
     averageRating: Number(row.average_rating || 0),
     reviewCount: Number(row.review_count || 0),
+    csr: {
+      carbonFootprintKg: row.carbon_footprint_kg
+        ? Number(row.carbon_footprint_kg)
+        : null,
+      supplierCertifications: parseCertifications(row.supplier_certifications),
+      lastVerified: row.last_verified,
+      dataSource: row.data_source,
+      dataCompleteness: row.data_completeness || "missing",
+    },
   }));
 
   const totalPages = Math.max(Math.ceil(total / pageSize), 1);
@@ -116,7 +143,12 @@ export const getProductById = async (pool, productId) => {
         p.created_at,
         COALESCE(order_stats.total_quantity, 0) AS total_sold,
         COALESCE(review_stats.avg_rating, 0) AS average_rating,
-        COALESCE(review_stats.review_count, 0) AS review_count
+        COALESCE(review_stats.review_count, 0) AS review_count,
+        csr.carbon_footprint_kg,
+        csr.supplier_certifications,
+        csr.last_verified,
+        csr.data_source,
+        csr.data_completeness
       FROM products p
       LEFT JOIN (
         SELECT product_id, SUM(quantity) AS total_quantity
@@ -128,6 +160,7 @@ export const getProductById = async (pool, productId) => {
         FROM reviews
         GROUP BY product_id
       ) AS review_stats ON review_stats.product_id = p.id
+      LEFT JOIN csr_metadata csr ON csr.product_id = p.id
       WHERE p.id = ?
       LIMIT 1`,
     [productId]
@@ -149,6 +182,21 @@ export const getProductById = async (pool, productId) => {
     [productId]
   );
 
+  const supplierCertifications = parseCertifications(
+    product.supplier_certifications
+  );
+
+  const csrAlerts = [];
+  if (!product.carbon_footprint_kg) {
+    csrAlerts.push("Carbon footprint data pending supplier confirmation");
+  }
+  if (!supplierCertifications || supplierCertifications.length === 0) {
+    csrAlerts.push("Supplier certifications not yet documented");
+  }
+  if (product.data_completeness === "missing") {
+    csrAlerts.push("CSR data marked as missing; please verify before promoting");
+  }
+
   return {
     id: product.id,
     name: product.name,
@@ -159,6 +207,16 @@ export const getProductById = async (pool, productId) => {
     totalSold: Number(product.total_sold || 0),
     averageRating: Number(product.average_rating || 0),
     reviewCount: Number(product.review_count || 0),
+    csr: {
+      carbonFootprintKg: product.carbon_footprint_kg
+        ? Number(product.carbon_footprint_kg)
+        : null,
+      supplierCertifications,
+      lastVerified: product.last_verified,
+      dataSource: product.data_source,
+      dataCompleteness: product.data_completeness || "missing",
+      alerts: csrAlerts,
+    },
     recentOrders: recentOrders.map((order) => ({
       id: order.id,
       date: order.order_date,
