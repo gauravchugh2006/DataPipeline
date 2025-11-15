@@ -17,8 +17,11 @@ SECRET_KEY = os.getenv("MINIO_SECRET_KEY", "minioadmin")
 BUCKET_NAME = os.getenv("MINIO_BUCKET", "raw-data")
 # Define the objects (files) to download and their corresponding PostgreSQL table names
 FILES_TO_PROCESS = {
-    "sample_data.csv": "raw_data",  # Main transactional data
+    "sample_data.csv": "raw_data",          # Main transactional data
     "customers_source.csv": "customers_source",  # Customer detail data
+    "deliveries.csv": "deliveries",
+    "support_interactions.csv": "support_interactions",
+    "csr_badges.csv": "csr_badges",
 }
 
 FILES_TO_PROCESS.update(
@@ -211,6 +214,74 @@ def load_data_to_postgres():
             "stockist_inventory_snapshot",
             parse_dates=["inventory_date"],
         )
+
+        deliveries_csv = download_file_from_minio("deliveries.csv")
+        if deliveries_csv:
+            df_deliveries = pd.read_csv(BytesIO(deliveries_csv))
+            expected_columns = [
+                "order_id",
+                "promised_delivery_ts",
+                "actual_delivery_ts",
+                "delivery_partner",
+                "exception_flag",
+            ]
+            missing = [col for col in expected_columns if col not in df_deliveries.columns]
+            if missing:
+                raise ValueError(f"deliveries.csv is missing expected columns: {missing}")
+
+            with engine.begin() as conn:
+                conn.execute(text(f"DROP TABLE IF EXISTS {RAW_SCHEMA}.deliveries CASCADE;"))
+                logging.info("Dropped table %s.deliveries with CASCADE.", RAW_SCHEMA)
+            df_deliveries.to_sql("deliveries", engine, schema=RAW_SCHEMA, if_exists="replace", index=False)
+            logging.info("Data loaded into '%s.deliveries' table. Rows: %s", RAW_SCHEMA, len(df_deliveries))
+        else:
+            logging.warning("deliveries.csv not downloaded, skipping loading for deliveries.")
+
+        support_csv = download_file_from_minio("support_interactions.csv")
+        if support_csv:
+            df_support = pd.read_csv(BytesIO(support_csv))
+            expected_columns = [
+                "interaction_id",
+                "order_id",
+                "csr_id",
+                "interaction_ts",
+                "channel",
+                "resolution_minutes",
+                "resolution_status",
+            ]
+            missing = [col for col in expected_columns if col not in df_support.columns]
+            if missing:
+                raise ValueError(f"support_interactions.csv is missing expected columns: {missing}")
+
+            with engine.begin() as conn:
+                conn.execute(text(f"DROP TABLE IF EXISTS {RAW_SCHEMA}.support_interactions CASCADE;"))
+                logging.info("Dropped table %s.support_interactions with CASCADE.", RAW_SCHEMA)
+            df_support.to_sql("support_interactions", engine, schema=RAW_SCHEMA, if_exists="replace", index=False)
+            logging.info(
+                "Data loaded into '%s.support_interactions' table. Rows: %s",
+                RAW_SCHEMA,
+                len(df_support),
+            )
+        else:
+            logging.warning(
+                "support_interactions.csv not downloaded, skipping loading for support_interactions."
+            )
+
+        csr_badges_csv = download_file_from_minio("csr_badges.csv")
+        if csr_badges_csv:
+            df_badges = pd.read_csv(BytesIO(csr_badges_csv))
+            expected_columns = ["csr_id", "badge_type", "awarded_at", "expires_at"]
+            missing = [col for col in expected_columns if col not in df_badges.columns]
+            if missing:
+                raise ValueError(f"csr_badges.csv is missing expected columns: {missing}")
+
+            with engine.begin() as conn:
+                conn.execute(text(f"DROP TABLE IF EXISTS {RAW_SCHEMA}.csr_badges CASCADE;"))
+                logging.info("Dropped table %s.csr_badges with CASCADE.", RAW_SCHEMA)
+            df_badges.to_sql("csr_badges", engine, schema=RAW_SCHEMA, if_exists="replace", index=False)
+            logging.info("Data loaded into '%s.csr_badges' table. Rows: %s", RAW_SCHEMA, len(df_badges))
+        else:
+            logging.warning("csr_badges.csv not downloaded, skipping loading for csr_badges.")
 
         logging.info("All raw data loading process completed.")
 

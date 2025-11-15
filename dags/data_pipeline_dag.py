@@ -5,8 +5,28 @@ from datetime import timedelta
 import pendulum
 from airflow import DAG
 from airflow.operators.bash import BashOperator
+from airflow.operators.python import PythonOperator
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from airflow.providers.slack.operators.slack_webhook import SlackWebhookOperator
+
+from stock_anomaly_detection import generate_stock_alerts
+
+
+def notify_failure(context):
+    """Send proactive Slack alerts when tasks fail."""
+    try:
+        from airflow.providers.slack.hooks.slack_webhook import SlackWebhookHook
+
+        hook = SlackWebhookHook(http_conn_id="slack_connection")
+        task_id = context.get("task_instance").task_id
+        dag_id = context.get("dag").dag_id
+        message = (
+            ":rotating_light: Task failure detected in DAG ``%s``. ``%s`` failed."
+            " Check Airflow logs for remediation."
+        ) % (dag_id, task_id)
+        hook.send(text=message)
+    except Exception as exc:  # pragma: no cover - callback should never raise
+        print(f"Failed to send Slack failure notification: {exc}")
 
 AIRFLOW_HOME = os.getenv("AIRFLOW_HOME", "/opt/airflow")
 DBT_PROJECT_DIR = os.path.join(AIRFLOW_HOME, "dags", "dbt_project")
@@ -21,6 +41,7 @@ default_args = {
     "retry_delay": timedelta(minutes=5),
     "retries": 3,
     "depends_on_past": False,
+    "on_failure_callback": notify_failure,
 }
 
 with DAG(
@@ -85,6 +106,11 @@ with DAG(
         env=common_env,
     )
 
+    stock_alert_task = PythonOperator(
+        task_id="compute_stock_alerts",
+        python_callable=generate_stock_alerts,
+    )
+
     zap_scan_task = TriggerDagRunOperator(
         task_id="trigger_security_scan",
         trigger_dag_id="trigger_zap_scan",
@@ -108,6 +134,7 @@ with DAG(
         >> dbt_run_task
         >> quality_check_task
         >> enrichment_task
+        >> stock_alert_task
         >> zap_scan_task
         >> notify_task
     )

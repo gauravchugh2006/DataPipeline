@@ -39,6 +39,9 @@ now honours the `DATA_PIPELINE_SOURCE_DIR` environment variable so tests and
 ad-hoc demos can point to a scratch directory without touching production-like
 files.
 
+Trust and transparency KPIs, badge criteria, and export guidance are captured
+in `docs/trust_metrics.md`.
+
 ---
 
 ## Prerequisites
