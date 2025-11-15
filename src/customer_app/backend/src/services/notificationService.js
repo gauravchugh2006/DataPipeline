@@ -7,7 +7,7 @@ const buildTransporter = async () => {
   const port = Number(process.env.SMTP_PORT || 587);
   const secure = process.env.SMTP_SECURE === "true";
   const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
+  const pass = process.env.SMTP_PASSWORD || process.env.SMTP_PASS;
 
   if (!host || !user || !pass) {
     return null;

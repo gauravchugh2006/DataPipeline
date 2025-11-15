@@ -4,11 +4,12 @@ A polished ecommerce ordering experience built for modern cafe lovers. The stack
 
 ## ✨ Features
 
-- **Express API with JWT** authentication, customer registration, admin-ready login, live order management, PDF invoice streaming, and product review endpoints.
-- **MySQL schema bootstrapped** through Docker entrypoint scripts providing customer/admin accounts, catalogue, variants, orders, and review data for demos.
-- **React interface powered by Vite and Tailwind CSS** with a responsive hero landing page, Amazon-style catalogue filters (category, price, colour, size), product detail pages with lazy-loaded reviews, and add-to-cart flows optimised for mobile and desktop.
-- **Personalised themes** that persist per user, downloadable structured invoices (PDF), and a concierge form that emails the platform administration team via Mailhog when running locally.
+- **Express API with JWT** authentication, customer registration, admin-ready login, live order management, PDF invoice streaming, loyalty preferences, transparency insights, and product review endpoints.
+- **MySQL schema bootstrapped** through Docker entrypoint scripts providing customer/admin accounts, catalogue, variants, orders, CSR metadata, reminder preferences, notification outbox, analytics events, and review data for demos.
+- **React interface powered by Vite and Tailwind CSS** with a responsive hero landing page, Amazon-style catalogue filters (category, price, colour, size), product detail pages with lazy-loaded reviews, loyalty reminder configuration panels, and add-to-cart flows optimised for mobile and desktop.
+- **Personalised themes** that persist per user, downloadable structured invoices (PDF), an analytics hook that records engagement, and a concierge form that emails the platform administration team via Mailhog when running locally.
 - **Google Maps embed** highlighting the corporate office at _10 Rue Gaston Levy, Sevran-Livry, France 93270_ so customers can find the flagship store instantly.
+- **Airflow + dbt data platform** that ingests logistics, loyalty, and support feeds, scores loyalty recommendations, models trust KPIs, and pushes transparency datasets into Postgres/MinIO with Slack notifications on pipeline health.
 
 ## 🧭 Repository structure
 
@@ -54,6 +55,8 @@ cp frontend/.env.example frontend/.env
 ```
 
 Edit the files to match your secrets (JWT key, SMTP credentials, Google Maps key). The defaults work for local Docker usage with Mailhog.
+
+The backend also connects to a Postgres analytical warehouse for loyalty and trust reporting. Populate the `POSTGRES_DWH_*` variables (or a single `POSTGRES_DWH_CONN`) plus optional `LOYALTY_RECOMMENDATION_LIMIT`, `TRUST_REPORT_LIMIT`, and `TRUST_TARGET_TABLE` settings so the new transparency endpoints can query mart tables successfully.
 
 ### Launch with Docker Compose
 
@@ -129,6 +132,13 @@ When operating both services outside of Docker, start the backend first so the d
 | PATCH | `/api/orders/:orderId/status` | Update order status (admin only) |
 | GET | `/api/orders/:orderId/invoice` | Download a structured invoice PDF |
 | POST | `/api/support/contact` | Send concierge requests to the admin inbox |
+| GET | `/api/loyalty/bundles` | Fetch curated add-on bundles for reminder flows (auth required) |
+| GET | `/api/loyalty/preferences` | Retrieve the signed-in customer's reminder cadence |
+| PUT | `/api/loyalty/preferences` | Update reminder frequency/channel/bundles and queue notifications |
+| GET | `/api/loyalty/recommendations` | Surface segment-based loyalty recommendations from Postgres |
+| POST | `/api/analytics/events` | Record customer analytics events and CSR awareness interactions |
+| GET | `/api/trust/metrics` | Read transparency KPIs sourced from the trust mart |
+| GET | `/api/trust/metrics/export` | Download the trust metrics as CSV for offline analysis |
 
 Authentication is handled via `Authorization: Bearer <token>` headers.
 
@@ -137,17 +147,27 @@ Authentication is handled via `Authorization: Bearer <token>` headers.
 - Mobile-first navigation, animated hero banner, and quick CTA buttons.
 - Dynamic filtering (category, price, colour, size) with pill controls and server-backed queries.
 - Product detail experiences showing average rating, variant selectors, quantity controls, add-to-cart actions, and infinite-scroll reviews.
-- Customer dashboard with personalised themes, order history, invoice downloads, concierge support form, and Google Maps embed of the corporate office.
-- Admin console for updating order statuses in real time.
+- Customer dashboard with personalised themes, order history, invoice downloads, concierge support form, loyalty reminder configuration, and CSR transparency messaging sourced from the analytics API.
+- Admin console with routed grids (products, customers, orders) supporting inline CRUD, role-aware access, and CSV/XLSX exports.
 
 ## 🗄️ Database schema summary
 
-- `users`: customer and admin accounts with hashed passwords and roles.
+- `customers`: customer and admin accounts with hashed passwords and roles.
 - `products` / `product_variants`: catalogue metadata and sellable variants.
-- `orders` / `order_items`: transactional order data with pricing breakdowns.
+- `csr_metadata`: sustainability footprints, certifications, and verification cadence tied to each product.
+- `orders` / `order_items` / `payments`: transactional order data with pricing breakdowns and settlement states.
 - `reviews`: customer sentiment powering the product detail lazy-loading experience.
+- `reminder_preferences`: loyalty reminder cadence, channel, and bundle selections per customer.
+- `notification_outbox`: queued notifications for reminder updates, including status and payloads.
+- `analytics_events`: structured engagement events captured from the frontend analytics hook.
 
 Schema is created automatically when the MySQL container starts for the first time via `sql/init.sql`.
+
+## 📈 Data platform enhancements
+
+- **Loyalty recommendation pipeline** — Daily Airflow DAG (`dags/loyalty_recommendation_dag.py`) chains dataset ingestion helpers, a scoring transform, and Slack alerts while persisting mart outputs to Postgres and MinIO.
+- **Trust score mart** — Delivery/support extracts load into dbt models that publish `mart_trust_scores`, which the `/api/trust` endpoints expose for transparency dashboards.
+- **Logistics enrichment** — Additional ingestion operators and dbt layers capture distributor master data, stockist inventory freshness, and SLA adherence, enriching the analytics warehouse for support-ready queries.
 
 ## 🧪 Testing & linting
 

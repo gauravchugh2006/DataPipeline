@@ -1,5 +1,7 @@
 import { differenceInDays, addDays } from "date-fns";
 
+import { getLoyaltyPool } from "../config/postgres.js";
+
 const FREQUENCY_MAP = {
   daily: 1,
   weekly: 7,
@@ -22,14 +24,19 @@ const normalizeBundles = (rawBundles) => {
   if (!rawBundles) {
     return [];
   }
+
   if (Array.isArray(rawBundles)) {
     return rawBundles;
   }
+
   try {
-    const parsed = JSON.parse(rawBundles);
+    const parsed = typeof rawBundles === "string" ? JSON.parse(rawBundles) : rawBundles;
     return Array.isArray(parsed) ? parsed : [];
   } catch (error) {
-import { getLoyaltyPool } from "../config/postgres.js";
+    console.warn("Unable to normalise bundle payload", error);
+    return [];
+  }
+};
 
 const parseAddOns = (payload) => {
   if (!payload) {
@@ -151,6 +158,9 @@ export const listBundleOptions = async (pool) => {
     name: row.bundle_name,
     productCount: Number(row.product_count) || 0,
     products: normalizeBundles(row.products).slice(0, 4),
+  }));
+};
+
 export const fetchRecommendationsBySegment = async (segment) => {
   const pool = getLoyaltyPool();
   const limit = Number(process.env.LOYALTY_RECOMMENDATION_LIMIT || 200);

@@ -16,7 +16,6 @@ router.use("/products", productsRouter);
 router.use("/orders", ordersRouter);
 router.use("/support", supportRouter);
 router.use("/admin", adminRouter);
-router.use("/loyalty", loyaltyRouter);
 router.use("/analytics", analyticsRouter);
 router.use("/trust", trustRouter);
 router.use("/loyalty", loyaltyRouter);
