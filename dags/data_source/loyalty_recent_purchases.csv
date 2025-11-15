@@ -1,0 +1,4 @@
+customer_id,order_id,product_id,product_name,quantity,order_date
+1001,50001,SKU-100,"Single Origin Espresso",2,2024-06-01
+1002,50002,SKU-120,"Nitro Cold Brew",1,2024-06-02
+1003,50003,SKU-130,"Seasonal Pour Over Kit",1,2024-06-03

@@ -1,0 +1,4 @@
+order_id,customer_id,delivered_at,expected_at,status
+50001,1001,2024-06-02,2024-06-02,delivered_on_time
+50002,1002,2024-06-03,2024-06-02,delivered_late
+50003,1003,2024-06-04,2024-06-04,delivered_on_time

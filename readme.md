@@ -21,6 +21,8 @@ DataPipeline/
 ├── readme-ci-cd.md            # Extended Jenkins/SonarQube/AWS guidance
 ├── requirements.txt           # Local tooling + unit-test dependencies
 ├── sonar-project.properties   # SonarScanner configuration
+├── src/customer_app/backend/   # Express API with loyalty, trust, logistics, reminders, admin routes
+├── src/customer_app/frontend/  # React SPA with reminder config and admin console
 └── tests/                     # Pytest coverage for key pipeline helpers
 ```
 
@@ -68,16 +70,71 @@ if (!(Test-Path "$env:USERPROFILE\.kube\config")) { New-Item "$env:USERPROFILE\.
 5. MinIO console: http://localhost:9001 (user `minioadmin`, password
    `minioadmin`).
 
-Both DAGs ship with `is_paused_upon_creation=False`.  The order generator appends
-30 new rows (20 existing + 10 new customers) every three minutes.  The main
-`data_pipeline` DAG runs every five minutes by default.  Customise the cadence
-via environment variables before starting the stack:
+Both legacy and newly added DAGs ship with `is_paused_upon_creation=False`.
+Alongside the existing ELT pipeline, the repository now includes:
+
+* `loyalty_recommendation_dag` – hydrates the loyalty mart with dataset
+  ingestion, scoring, and notification hooks.
+* `trust_transparency_dag` – models delivery and support trust KPIs while
+  publishing logistics SLA snapshots.
+
+The order generator appends 30 new rows (20 existing + 10 new customers) every
+three minutes.  The main `data_pipeline` DAG runs every five minutes by
+default.  Customise the cadence via environment variables before starting the
+stack:
 
 ```bash
 export DATA_PIPELINE_SCHEDULE="*/2 * * * *"           # run every two minutes
 export DATA_PIPELINE_START_OFFSET_MINUTES=1           # fire immediately on boot
 export DATA_PIPELINE_SOURCE_DIR=/tmp/demo_data        # optional alternate CSVs
 ```
+
+---
+
+## Customer application surfaces
+
+The customer-facing workspace now includes an Express backend and React
+frontend.  The backend (`src/customer_app/backend`) shares a Postgres pool with
+the warehouse and exposes:
+
+* `/api/loyalty/recommendations` – loyalty recommendation feed with customer
+  summaries.
+* `/api/transparency/trust/scores` and `/api/transparency/logistics/snapshots`
+  – transparency and SLA KPIs sourced from new marts.
+* `/api/reminders/configurations` – CSR-friendly reminder configuration
+  endpoint backed by the `reminder_preferences` table.
+* `/api/admin` – authenticated CRUD and CSV/XLSX exports for products,
+  customers, and orders.  Send `x-admin-role` headers (`admin` or `editor`) to
+  unlock write actions.
+
+The React frontend (`src/customer_app/frontend`) contains:
+
+* A reminder configuration screen with React Query powered forms, quiet hours,
+  and analytics-friendly tables.
+* A dedicated `/admin` route with TanStack Table grids, inline edit helpers, and
+  export buttons wired to the new backend endpoints.
+* Playwright smoke tests (`npm run test:ui`) that cover navigation, reminder
+  screens, and admin affordances.
+
+Refer to `src/customer_app/backend/README.md` for environment variables and
+route documentation.  The frontend uses Vite and proxies API requests to the
+backend defined by `CAFE_BACKEND_URL`.
+
+### New schemas and marts
+
+The Airflow + dbt lineage now publishes additional analytics models:
+
+* `mart_loyalty_recommendations` – customer/product cross-sell ideas with
+  discount tiers, reminder cadences, and next-best-action metadata.
+* `mart_trust_scores` – composite trust KPIs derived from delivery performance
+  and support responsiveness, including breach and goodwill annotations.
+* `mart_logistics_sla` – logistics SLA view with distributor/stockist coverage,
+  penalty calculations, and inventory recency.
+
+Supporting tables such as `csr_metadata`, `reminder_preferences`,
+`notification_outbox`, and `analytics_event_log` are seeded through the new
+ingestion helpers to keep the reminder screen and admin console populated out of
+the box.
 
 ---
 
