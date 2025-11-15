@@ -1,0 +1,4 @@
+customer_id,product_id,preferred_channel,reminder_frequency,quiet_hours_start,quiet_hours_end
+1001,SKU-100,email,weekly,21:00,07:00
+1002,SKU-120,sms,daily,,
+1003,SKU-130,push,monthly,22:00,06:30

@@ -1,0 +1,4 @@
+product_id,segment,affinity_score
+SKU-100,espresso_enthusiast,0.94
+SKU-120,cold_brew_craver,0.88
+SKU-130,home_barista,0.91

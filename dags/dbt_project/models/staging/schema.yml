@@ -33,3 +33,37 @@ models:
         tests:
           - not_null
           - unique
+
+  - name: stg_support_cases
+    columns:
+      - name: case_id
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        tests:
+          - not_null
+
+  - name: stg_logistics_delivery_status
+    columns:
+      - name: shipment_id
+        tests:
+          - not_null
+          - unique
+      - name: order_id
+        tests:
+          - not_null
+
+  - name: stg_logistics_stockist_inventory
+    columns:
+      - name: stockist_id
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_logistics_distributor_master
+    columns:
+      - name: distributor_id
+        tests:
+          - not_null
+          - unique

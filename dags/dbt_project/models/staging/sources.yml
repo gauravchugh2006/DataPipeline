@@ -8,3 +8,7 @@ sources:
       - name: products
       - name: payments
       - name: customers_source
+      - name: support_cases
+      - name: logistics_delivery_status
+      - name: logistics_stockist_inventory
+      - name: logistics_distributor_master

@@ -1,0 +1,4 @@
+shipment_id,order_id,distributor_id,stockist_id,shipped_at,delivered_at,status
+80001,50001,2001,3001,2024-06-01,2024-06-02,delivered_on_time
+80002,50002,2002,3002,2024-06-01,2024-06-03,delivered_late
+80003,50003,2003,3003,2024-06-02,2024-06-02,delivered_on_time

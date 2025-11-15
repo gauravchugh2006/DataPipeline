@@ -1,0 +1,4 @@
+stockist_id,stockist_name,distributor_id,inventory_days_on_hand,updated_at
+3001,Beacon Beans,2001,12,2024-06-03
+3002,Southern Sips,2002,4,2024-06-03
+3003,Tidewater Traders,2003,18,2024-06-03

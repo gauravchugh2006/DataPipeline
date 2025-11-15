@@ -18,3 +18,31 @@ models:
       - name: category
         tests:
           - not_null
+
+  - name: mart_loyalty_recommendations
+    columns:
+      - name: recommendation_id
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        tests:
+          - not_null
+
+  - name: mart_trust_scores
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+      - name: score_date
+        tests:
+          - not_null
+
+  - name: mart_logistics_sla
+    columns:
+      - name: snapshot_date
+        tests:
+          - not_null
+      - name: distributor_id
+        tests:
+          - not_null

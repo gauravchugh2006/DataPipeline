@@ -1,0 +1,4 @@
+case_id,customer_id,resolution_minutes,sentiment,breach_flag
+70001,1001,15,positive,false
+70002,1002,240,negative,true
+70003,1003,30,neutral,false
