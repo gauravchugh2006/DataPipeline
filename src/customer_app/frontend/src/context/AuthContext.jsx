@@ -141,8 +141,19 @@ export const AuthProvider = ({ children }) => {
       personalizeTheme,
       updateProfile,
       logout,
+      authHeaders: authorizedHeaders,
     }),
-    [token, profile, theme, loading, personalizeTheme, updateProfile, logout, refreshProfile]
+    [
+      token,
+      profile,
+      theme,
+      loading,
+      personalizeTheme,
+      updateProfile,
+      logout,
+      refreshProfile,
+      authorizedHeaders,
+    ]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
