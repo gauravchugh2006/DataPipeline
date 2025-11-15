@@ -1,0 +1,5 @@
+distributor_id,distributor_name,parent_distributor_id,zone,address_line1,address_line2,city,state,postal_code,country,effective_from,effective_to,is_current
+DIS001,Metro Logistics,,North,123 Main St,,Metropolis,NY,10001,USA,2023-01-01,2023-12-31,false
+DIS001,Metro Logistics,,Central,123 Main St Suite 2,,Metropolis,NY,10001,USA,2024-01-01,,true
+DIS002,River Distributors,DIS001,South,456 River Rd,,River City,TX,73301,USA,2023-01-01,,true
+DIS003,Lakefront Partners,,East,789 Lake Ave,,Lake Town,IL,60007,USA,2023-06-01,,true

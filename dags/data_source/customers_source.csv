@@ -106,4 +106,8 @@ customer_id,first_name,last_name,email,phone,address,signup_date
 1096,Jessica,Brown,jessica.brown1096@example.com,+18499264548,"123 Cedar Dr, Riverdale, USA",2023-12-12 16:30:31
 1097,Thomas,Miller,thomas.miller1097@example.com,+16638036433,"376 Willow Way, Gotham, USA",2022-09-15 09:44:44
 1098,William,Davis,william.davis1098@example.com,+15909091547,"240 Main St, Smallville, USA",2023-07-23 02:47:10
-1099,Richard,Garcia,richard.garcia1099@example.com,+15012212758,"305 Spruce Ln, Gotham, USA",2023-04-21 14:10:37
+1099,Richard,Garcia,richard.garcia1099@example.com,+15012212758,"305 Spruce Ln, Gotham, USA",2023-04-21 14:10:371100,Taylor,Reed,taylor.reed27@example.com,+16465703771,"789 Hillcrest Ave, Mountain View, USA",2025-11-14 07:42:31
+1101,Morgan,Murphy,morgan.murphy36@example.com,+12067612854,"789 Hillcrest Ave, Mountain View, USA",2025-11-14 07:42:31
+1102,Taylor,Flores,taylor.flores26@example.com,+11437624214,"123 Market St, Springfield, USA",2025-11-14 07:45:03
+1103,Morgan,Bailey,morgan.bailey47@example.com,+18331287361,"789 Hillcrest Ave, Mountain View, USA",2025-11-14 07:45:03
+1104,Morgan,Ramirez,morgan.ramirez27@example.com,+15936854268,"456 River Rd, Lakeside, USA",2025-11-14 07:45:03

@@ -1,0 +1,8 @@
+customer_id,product_id,add_on_name,affinity_score,primary_category
+1001,901,"Smart Thermostat Subscription",0.91,smart_home
+1001,902,"Smart Door Sensor",0.82,smart_home
+1002,903,"Premium Fitness Coaching",0.88,fitness
+1002,904,"Protein Bundle",0.75,fitness
+1003,905,"Extended Warranty",0.79,electronics
+1003,906,"Noise Cancelling Earbuds",0.84,electronics
+1004,907,"Travel Insurance",0.92,travel
