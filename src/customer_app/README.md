@@ -101,6 +101,15 @@ npm run dev
 - On first boot the API checks for the `customers` table and, if missing, automatically executes `sql/init.sql` to create the schema and seed demo data—no manual imports required when running locally.
 - The service listens on port `4000` by default; override with `PORT` in the environment.
 
+#### API exploration with Swagger UI
+
+- The middleware now publishes live OpenAPI docs at [http://localhost:4000/docs](http://localhost:4000/docs). Override the base path with `SWAGGER_PATH` and the advertised server URL with `SWAGGER_SERVER_URL` when deploying remotely.
+- To verify endpoints from the Docker Compose stack:
+  1. `cd src/customer_app && docker compose up --build` to start MySQL, Mailhog, the API, and the frontend.
+  2. Run `docker compose ps` until `customer_app-backend` reports `healthy`, then open the `/docs` URL above.
+  3. Call **/api/auth/login** with the seeded credentials, copy the returned token, and click **Authorize** in Swagger UI to paste it into the `bearerAuth` modal.
+  4. Exercise secured operations such as **GET /api/orders** or **PUT /api/auth/profile** directly in the browser, or leave the token blank to test public endpoints like **/health** and **/api/products**.
+
 ### Frontend client (Vite + Tailwind)
 
 ```bash
@@ -111,6 +120,12 @@ npm run dev
 
 - Ensure `VITE_API_BASE_URL` points to the reachable backend (e.g. `http://localhost:4000/api`).
 - Additional optional variables such as `VITE_GOOGLE_MAPS_API_KEY` can be set in `frontend/.env`.
+
+#### Theme previews & toggles
+
+- Theme selections now rely on shared CSS variables, so switching palettes from the dashboard or the navigation toggle instantly recolours hero gradients, CTAs, cards, and inputs without a full reload.
+- Selections persist per browser session via `localStorage` and sync to your profile after authentication, meaning you can refresh, sign out, or open another tab without losing your preference.
+- Test the high-contrast experiences by selecting **Midnight**/**Noir** inside the dashboard profile card or tapping the sun/moon button in the global header to flip between Sunrise and Midnight on demand.
 
 ### Running without Docker
 
