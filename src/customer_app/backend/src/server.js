@@ -1,6 +1,7 @@
 const http = require("http");
 const { createApp } = require("./app");
 const { closePools } = require("./config/postgres");
+const { closeOrderPool } = require("./config/mysql");
 const { logInfo, logError } = require("./utils/logger");
 
 const port = Number(process.env.PORT || 4000);
@@ -20,6 +21,7 @@ const shutdown = async (signal) => {
       process.exit(1);
     }
     await closePools();
+    await closeOrderPool();
     process.exit(0);
   });
 };
