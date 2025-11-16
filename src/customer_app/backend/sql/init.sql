@@ -6,8 +6,11 @@ DROP TABLE IF EXISTS notification_outbox;
 DROP TABLE IF EXISTS reminder_preferences;
 DROP TABLE IF EXISTS csr_metadata;
 DROP TABLE IF EXISTS reviews;
+DROP TABLE IF EXISTS wishlist_items;
+DROP TABLE IF EXISTS cart_items;
 DROP TABLE IF EXISTS order_items;
 DROP TABLE IF EXISTS payments;
+DROP TABLE IF EXISTS discount_coupons;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS product_variants;
 DROP TABLE IF EXISTS products;
@@ -66,6 +69,28 @@ CREATE TABLE product_variants (
   FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
 
+CREATE TABLE cart_items (
+  customer_id INT NOT NULL,
+  product_id INT NOT NULL,
+  quantity INT NOT NULL DEFAULT 1,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (customer_id, product_id),
+  FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE,
+  FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+);
+
+CREATE TABLE wishlist_items (
+  customer_id INT NOT NULL,
+  product_id INT NOT NULL,
+  desired_quantity INT NOT NULL DEFAULT 1,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (customer_id, product_id),
+  FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE,
+  FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+);
+
 CREATE TABLE orders (
   id INT AUTO_INCREMENT PRIMARY KEY,
   customer_id INT NOT NULL,
@@ -84,6 +109,21 @@ CREATE TABLE payments (
   transaction_status ENUM('Completed', 'Pending', 'Refunded') NOT NULL,
   recorded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+);
+
+CREATE TABLE discount_coupons (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  code VARCHAR(50) NOT NULL UNIQUE,
+  description VARCHAR(255),
+  discount_type ENUM('percent', 'fixed') NOT NULL DEFAULT 'percent',
+  discount_value DECIMAL(10,2) NOT NULL,
+  min_subtotal DECIMAL(10,2) DEFAULT 0,
+  is_active BOOLEAN NOT NULL DEFAULT TRUE,
+  starts_at DATETIME,
+  expires_at DATETIME,
+  success_message VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE order_items (
@@ -201,6 +241,21 @@ ON DUPLICATE KEY UPDATE
   last_verified = VALUES(last_verified),
   data_source = VALUES(data_source),
   data_completeness = VALUES(data_completeness);
+
+INSERT INTO discount_coupons (code, description, discount_type, discount_value, min_subtotal, is_active, starts_at, expires_at, success_message)
+VALUES
+  ('WELCOME10', '10% off your next coffee cart order', 'percent', 10.00, 0.00, TRUE, NOW() - INTERVAL 30 DAY, NOW() + INTERVAL 365 DAY, 'Welcome! 10% is now applied.'),
+  ('FREESHIP15', 'Flat €15 shipping savings above €75', 'fixed', 15.00, 75.00, TRUE, NOW() - INTERVAL 30 DAY, NOW() + INTERVAL 180 DAY, 'Shipping is on us today.'),
+  ('VIP25', 'VIP 25% savings when you spend €200', 'percent', 25.00, 200.00, TRUE, NOW() - INTERVAL 15 DAY, NOW() + INTERVAL 90 DAY, 'VIP treatment unlocked.' )
+ON DUPLICATE KEY UPDATE
+  description = VALUES(description),
+  discount_type = VALUES(discount_type),
+  discount_value = VALUES(discount_value),
+  min_subtotal = VALUES(min_subtotal),
+  is_active = VALUES(is_active),
+  starts_at = VALUES(starts_at),
+  expires_at = VALUES(expires_at),
+  success_message = VALUES(success_message);
 
 INSERT INTO orders (id, customer_id, order_date, total_amount, payment_status) VALUES
   (1, 101, '2025-03-01 10:00:00', 150.00, 'Paid'),
