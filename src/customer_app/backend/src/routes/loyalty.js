@@ -10,18 +10,27 @@ import {
 } from "../services/loyaltyService.js";
 import { enqueueReminderNotification } from "../services/notificationService.js";
 import { recordEvent } from "../services/analyticsService.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 const router = express.Router();
 
-router.get("/bundles", authenticate(), async (req, res) => {
-  const bundles = await listBundleOptions(req.db);
-  res.json({ bundles });
-});
+router.get(
+  "/bundles",
+  authenticate(),
+  asyncHandler(async (req, res) => {
+    const bundles = await listBundleOptions(req.db);
+    res.json({ bundles });
+  })
+);
 
-router.get("/preferences", authenticate(), async (req, res) => {
-  const preferences = await getReminderPreferences(req.db, req.user.id);
-  res.json({ preferences });
-});
+router.get(
+  "/preferences",
+  authenticate(),
+  asyncHandler(async (req, res) => {
+    const preferences = await getReminderPreferences(req.db, req.user.id);
+    res.json({ preferences });
+  })
+);
 
 router.put(
   "/preferences",
@@ -32,7 +41,7 @@ router.put(
     body("bundlePreferences").optional({ nullable: true }).isArray(),
     body("quietHours").optional({ nullable: true }).isString(),
   ],
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -62,11 +71,12 @@ router.put(
     });
 
     res.json({ preferences });
-  }
+  })
 );
 
-router.get("/recommendations", async (req, res, next) => {
-  try {
+router.get(
+  "/recommendations",
+  asyncHandler(async (req, res) => {
     const segment = req.query.segment ? String(req.query.segment).trim() : null;
     const recommendations = await fetchRecommendationsBySegment(segment);
 
@@ -74,9 +84,7 @@ router.get("/recommendations", async (req, res, next) => {
       segment: segment || "all",
       recommendations,
     });
-  } catch (error) {
-    next(error);
-  }
-});
+  })
+);
 
 export default router;

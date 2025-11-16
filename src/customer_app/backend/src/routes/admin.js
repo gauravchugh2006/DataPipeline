@@ -17,6 +17,7 @@ import {
   updateAdminProduct,
 } from "../services/adminEntityService.js";
 import { streamCsv, streamXlsx } from "../utils/exportHelpers.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 const router = express.Router();
 
@@ -42,10 +43,10 @@ router.get(
     query("maxPrice").optional().isFloat({ min: 0 }),
   ],
   handleValidation,
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const result = await listAdminProducts(req.db, req.query);
     res.json(result);
-  }
+  })
 );
 
 router.post(
@@ -57,7 +58,7 @@ router.post(
     body("imageUrl").optional({ nullable: true }).isString(),
   ],
   handleValidation,
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const product = await createAdminProduct(req.db, {
       name: req.body.name,
       category: req.body.category,
@@ -65,7 +66,7 @@ router.post(
       imageUrl: req.body.imageUrl,
     });
     res.status(201).json(product);
-  }
+  })
 );
 
 router.patch(
@@ -78,7 +79,7 @@ router.patch(
     body("imageUrl").optional({ nullable: true }).isString(),
   ],
   handleValidation,
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const updated = await updateAdminProduct(req.db, req.params.id, {
       name: req.body.name,
       category: req.body.category,
@@ -89,20 +90,20 @@ router.patch(
       return res.status(404).json({ error: "Product not found" });
     }
     res.json(updated);
-  }
+  })
 );
 
 router.delete(
   "/products/:id",
   [param("id").isInt({ min: 1 })],
   handleValidation,
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const removed = await deleteAdminProduct(req.db, req.params.id);
     if (!removed) {
       return res.status(404).json({ error: "Product not found" });
     }
     res.status(204).send();
-  }
+  })
 );
 
 router.get(
@@ -115,7 +116,7 @@ router.get(
     query("maxPrice").optional().isFloat({ min: 0 }),
   ],
   handleValidation,
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const { items } = await listAdminProducts(req.db, req.query, { includeAll: true });
     const columns = [
       { key: "id", header: "ID" },
@@ -130,7 +131,7 @@ router.get(
     } else {
       await streamXlsx(res, "products-export", columns, items);
     }
-  }
+  })
 );
 
 // Customers
@@ -144,10 +145,10 @@ router.get(
     query("sortDir").optional().isIn(["asc", "desc"]),
   ],
   handleValidation,
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const result = await listAdminCustomers(req.db, req.query);
     res.json(result);
-  }
+  })
 );
 
 router.post(
@@ -164,10 +165,10 @@ router.post(
     body("theme").optional().isString(),
   ],
   handleValidation,
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const customer = await createAdminCustomer(req.db, req.body);
     res.status(201).json(customer);
-  }
+  })
 );
 
 router.patch(
@@ -185,26 +186,26 @@ router.patch(
     body("password").optional().isLength({ min: 6 }),
   ],
   handleValidation,
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const updated = await updateAdminCustomer(req.db, req.params.id, req.body);
     if (!updated) {
       return res.status(404).json({ error: "Customer not found" });
     }
     res.json(updated);
-  }
+  })
 );
 
 router.delete(
   "/customers/:id",
   [param("id").isInt({ min: 1 })],
   handleValidation,
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const removed = await deleteAdminCustomer(req.db, req.params.id);
     if (!removed) {
       return res.status(404).json({ error: "Customer not found" });
     }
     res.status(204).send();
-  }
+  })
 );
 
 router.get(
@@ -216,7 +217,7 @@ router.get(
     query("role").optional().isIn(["customer", "admin"]),
   ],
   handleValidation,
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const { items } = await listAdminCustomers(req.db, req.query, { includeAll: true });
     const columns = [
       { key: "id", header: "ID" },
@@ -232,7 +233,7 @@ router.get(
     } else {
       await streamXlsx(res, "customers-export", columns, items);
     }
-  }
+  })
 );
 
 // Orders
@@ -248,10 +249,10 @@ router.get(
     query("customerId").optional().isInt({ min: 1 }),
   ],
   handleValidation,
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const result = await listAdminOrders(req.db, req.query);
     res.json(result);
-  }
+  })
 );
 
 router.post(
@@ -270,10 +271,10 @@ router.post(
     body("payment.status").optional().isIn(["Completed", "Pending", "Refunded"]),
   ],
   handleValidation,
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const order = await createAdminOrder(req.db, req.body);
     res.status(201).json(order);
-  }
+  })
 );
 
 router.patch(
@@ -287,26 +288,26 @@ router.patch(
     body("payment.status").optional().isIn(["Completed", "Pending", "Refunded"]),
   ],
   handleValidation,
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const updated = await updateAdminOrder(req.db, req.params.id, req.body);
     if (!updated) {
       return res.status(404).json({ error: "Order not found" });
     }
     res.json(updated);
-  }
+  })
 );
 
 router.delete(
   "/orders/:id",
   [param("id").isInt({ min: 1 })],
   handleValidation,
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const removed = await deleteAdminOrder(req.db, req.params.id);
     if (!removed) {
       return res.status(404).json({ error: "Order not found" });
     }
     res.status(204).send();
-  }
+  })
 );
 
 router.get(
@@ -317,7 +318,7 @@ router.get(
     query("transactionStatus").optional().isIn(["Completed", "Pending", "Refunded"]),
   ],
   handleValidation,
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const { items } = await listAdminOrders(req.db, req.query, { includeAll: true });
     const flattened = items.map((order) => ({
       id: order.id,
@@ -340,7 +341,7 @@ router.get(
     } else {
       await streamXlsx(res, "orders-export", columns, flattened);
     }
-  }
+  })
 );
 
 export default router;
