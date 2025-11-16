@@ -1,5 +1,21 @@
 const { getOrderPool } = require("../config/mysql");
 
+const ITEMS_SUBQUERY = `
+  SELECT JSON_ARRAYAGG(
+    JSON_OBJECT(
+      'productId', oi.product_id,
+      'productName', oi.product_name,
+      'category', oi.category,
+      'price', oi.price,
+      'quantity', oi.quantity,
+      'imageUrl', pr.image_url
+    )
+  )
+  FROM order_items oi
+  LEFT JOIN products pr ON pr.id = oi.product_id
+  WHERE oi.order_id = o.id
+`;
+
 const BASE_QUERY = `
   SELECT
     o.id,
@@ -13,39 +29,10 @@ const BASE_QUERY = `
     p.id AS payment_id,
     p.payment_method,
     p.transaction_status,
-    JSON_ARRAYAGG(
-      CASE
-        WHEN oi.product_id IS NULL THEN NULL
-        ELSE JSON_OBJECT(
-          'productId', oi.product_id,
-          'productName', oi.product_name,
-          'category', oi.category,
-          'price', oi.price,
-          'quantity', oi.quantity,
-          'imageUrl', pr.image_url
-        )
-      END
-    ) AS items
+    (${ITEMS_SUBQUERY}) AS items
   FROM orders o
   JOIN customers c ON c.id = o.customer_id
   LEFT JOIN payments p ON p.order_id = o.id
-  LEFT JOIN order_items oi ON oi.order_id = o.id
-  LEFT JOIN products pr ON pr.id = oi.product_id
-`;
-
-const GROUP_BY_FIELDS = `
-  GROUP BY
-    o.id,
-    o.customer_id,
-    o.order_date,
-    o.total_amount,
-    o.payment_status,
-    c.first_name,
-    c.last_name,
-    c.email,
-    p.id,
-    p.payment_method,
-    p.transaction_status
 `;
 
 const normalizeItems = (items) => {
@@ -85,7 +72,7 @@ const listOrders = async ({ customerId, paymentStatus, limit, offset }) => {
     params.push(paymentStatus);
   }
 
-  let query = `${BASE_QUERY} WHERE ${conditions.join(" AND ")} ${GROUP_BY_FIELDS} ORDER BY o.order_date DESC, o.id DESC`;
+  let query = `${BASE_QUERY} WHERE ${conditions.join(" AND ")} ORDER BY o.order_date DESC, o.id DESC`;
 
   if (typeof limit === "number" && Number.isFinite(limit)) {
     query += " LIMIT ?";
