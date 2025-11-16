@@ -3,6 +3,7 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useState,
 } from "react";
@@ -16,9 +17,15 @@ const THEME_KEY = "cafe-theme";
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(() => localStorage.getItem(STORAGE_KEY));
+  const getStoredTheme = () => {
+    if (typeof window === "undefined") {
+      return "sunrise";
+    }
+    return localStorage.getItem(THEME_KEY) || "sunrise";
+  };
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [theme, setTheme] = useState(() => localStorage.getItem(THEME_KEY) || "sunrise");
+  const [theme, setTheme] = useState(getStoredTheme);
 
   useEffect(() => {
     if (token) {
@@ -28,8 +35,10 @@ export const AuthProvider = ({ children }) => {
     }
   }, [token]);
 
-  useEffect(() => {
-    document.body.dataset.theme = theme;
+  useLayoutEffect(() => {
+    if (typeof document !== "undefined") {
+      document.body.dataset.theme = theme;
+    }
     localStorage.setItem(THEME_KEY, theme);
   }, [theme]);
 
