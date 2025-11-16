@@ -8,7 +8,7 @@ import CartDrawer from "./cart/CartDrawer.jsx";
 
 const Layout = ({ children }) => {
   const { profile, logout, personalizeTheme, theme } = useAuth();
-  const { items } = useCart();
+  const { itemCount } = useCart();
   const [open, setOpen] = useState(false);
 
   const toggleTheme = () => {
@@ -28,6 +28,7 @@ const Layout = ({ children }) => {
           <nav className="flex items-center gap-6 text-sm uppercase tracking-wide">
             <NavLink to="/" className={({ isActive }) => (isActive ? "text-cafe-accent" : "hover:text-cafe-accent")}>Home</NavLink>
             <NavLink to="/dashboard" className={({ isActive }) => (isActive ? "text-cafe-accent" : "hover:text-cafe-accent")}>Dashboard</NavLink>
+            <NavLink to="/checkout" className={({ isActive }) => (isActive ? "text-cafe-accent" : "hover:text-cafe-accent")}>Checkout</NavLink>
             {profile?.role === "admin" && (
               <NavLink to="/admin" className={({ isActive }) => (isActive ? "text-cafe-accent" : "hover:text-cafe-accent")}>Admin</NavLink>
             )}
@@ -37,9 +38,9 @@ const Layout = ({ children }) => {
             >
               <FaShoppingBag />
               <span>Cart</span>
-              {items.length > 0 && (
+              {itemCount > 0 && (
                 <span className="absolute -right-2 -top-2 h-5 w-5 rounded-full bg-cafe-accent text-xs font-bold text-white flex items-center justify-center">
-                  {items.length}
+                  {itemCount}
                 </span>
               )}
             </button>

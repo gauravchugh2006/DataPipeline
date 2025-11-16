@@ -8,6 +8,7 @@ import adminRouter from "./admin.js";
 import loyaltyRouter from "./loyalty.js";
 import analyticsRouter from "./analytics.js";
 import trustRouter from "./trust.js";
+import cartRouter from "./cart.js";
 
 const router = express.Router();
 
@@ -19,5 +20,6 @@ router.use("/admin", adminRouter);
 router.use("/analytics", analyticsRouter);
 router.use("/trust", trustRouter);
 router.use("/loyalty", loyaltyRouter);
+router.use("/cart", cartRouter);
 
 export default router;

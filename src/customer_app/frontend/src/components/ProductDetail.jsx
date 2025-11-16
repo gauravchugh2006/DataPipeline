@@ -16,6 +16,7 @@ const ProductDetail = ({ product }) => {
       price: Number(product.price),
       quantity,
       imageUrl: product.imageUrl,
+      category: product.category,
     });
   };
 
