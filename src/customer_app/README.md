@@ -126,6 +126,7 @@ npm run dev
 - Theme selections now rely on shared CSS variables, so switching palettes from the dashboard or the navigation toggle instantly recolours hero gradients, CTAs, cards, and inputs without a full reload.
 - Selections persist per browser session via `localStorage` and sync to your profile after authentication, meaning you can refresh, sign out, or open another tab without losing your preference.
 - The sun/moon toggle now cycles through four curated pastel palettes—**Sunrise**, **Lavender Dusk**, **Mint Contrast**, and **Rose Quartz**—so every click showcases a balanced, presentation-ready combination. Darker experiences such as **Midnight** and **Noir** remain available from the dashboard's theme dropdown for users who prefer deep contrast.
+- Test the high-contrast experiences by selecting **Midnight**/**Noir** inside the dashboard profile card or tapping the sun/moon button in the global header to flip between Sunrise and Midnight on demand.
 
 ### Running without Docker
 
