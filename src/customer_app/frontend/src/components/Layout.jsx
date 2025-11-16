@@ -12,7 +12,10 @@ const Layout = ({ children }) => {
   const [open, setOpen] = useState(false);
 
   const toggleTheme = () => {
-    personalizeTheme(theme === "sunrise" ? "midnight" : "sunrise");
+    const curatedThemes = ["sunrise", "lavender-dusk", "mint-contrast", "rose-quartz"];
+    const currentIndex = curatedThemes.indexOf(theme);
+    const nextIndex = currentIndex === -1 ? 0 : (currentIndex + 1) % curatedThemes.length;
+    personalizeTheme(curatedThemes[nextIndex]);
   };
 
   return (
