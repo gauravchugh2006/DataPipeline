@@ -2,8 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-primary: 75 46 43;
+  --color-accent: 247 167 108;
+  --color-cream: 255 247 237;
+  color-scheme: light;
+}
+
 body {
   @apply bg-cafe-cream text-cafe-primary font-sans;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+body[data-theme="sunrise"] {
+  --color-primary: 75 46 43;
+  --color-accent: 247 167 108;
+  --color-cream: 255 247 237;
+  color-scheme: light;
+}
+
+body[data-theme="lavender-dusk"] {
+  --color-primary: 74 63 107;
+  --color-accent: 196 181 253;
+  --color-cream: 245 243 255;
+  color-scheme: light;
+}
+
+body[data-theme="mint-contrast"] {
+  --color-primary: 6 78 59;
+  --color-accent: 52 211 153;
+  --color-cream: 236 253 245;
+  color-scheme: light;
+}
+
+body[data-theme="rose-quartz"] {
+  --color-primary: 124 45 78;
+  --color-accent: 244 114 182;
+  --color-cream: 255 241 242;
+  color-scheme: light;
+}
+
+body[data-theme="midnight"] {
+  --color-primary: 248 250 252;
+  --color-accent: 129 140 248;
+  --color-cream: 15 23 42;
+  color-scheme: dark;
+}
+
+body[data-theme="noir"] {
+  --color-primary: 255 255 255;
+  --color-accent: 234 179 8;
+  --color-cream: 12 12 12;
+  color-scheme: dark;
 }
 
 a {

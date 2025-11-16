@@ -2,17 +2,20 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import dotenv from "dotenv";
+import swaggerUi from "swagger-ui-express";
 
 import { initPool } from "./config/database.js";
 import { initTrustPool } from "./config/postgres.js";
 import apiRouter from "./routes/index.js";
 import { buildRequestMeta, logger } from "./utils/logger.js";
+import { buildSwaggerDocument } from "./config/swagger.js";
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 4000;
 const frontendOrigin = process.env.FRONTEND_ORIGIN || "http://localhost:5173";
+const swaggerPath = process.env.SWAGGER_PATH || "/docs";
 
 app.use(helmet());
 app.use(
@@ -22,6 +25,8 @@ app.use(
   })
 );
 app.use(express.json({ limit: "10mb" }));
+const swaggerDocument = buildSwaggerDocument();
+app.use(swaggerPath, swaggerUi.serve, swaggerUi.setup(swaggerDocument, { explorer: true }));
 
 app.get("/health", (_req, res) => {
   res.json({ status: "ok", message: "Customer experience API is running" });

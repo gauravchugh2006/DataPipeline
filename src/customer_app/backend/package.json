@@ -19,10 +19,10 @@
     "helmet": "^7.0.0",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.9.0",
-    "pg": "^8.11.5",
     "nodemailer": "^6.9.11",
     "pdfkit": "^0.13.0",
-    "pg": "^8.11.3"
+    "pg": "^8.11.5",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"
