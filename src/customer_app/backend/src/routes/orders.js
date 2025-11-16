@@ -9,6 +9,7 @@ import {
   updateOrderStatus,
 } from "../services/orderService.js";
 import { streamInvoice } from "../services/invoiceService.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 const router = express.Router();
 
@@ -23,7 +24,7 @@ router.get(
     query("startDate").optional().isISO8601(),
     query("endDate").optional().isISO8601(),
   ],
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -49,7 +50,7 @@ router.get(
       filters,
     });
     res.json(result);
-  }
+  })
 );
 
 router.post(
@@ -67,7 +68,7 @@ router.post(
     body("payment.method").optional().isString(),
     body("payment.status").optional().isIn(["Completed", "Pending", "Refunded"]),
   ],
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -82,30 +83,38 @@ router.post(
     });
 
     res.status(201).json(order);
-  }
+  })
 );
 
-router.get("/:id", authenticate(), async (req, res) => {
-  const order = await getOrderById(req.db, req.params.id, {
-    userId: req.user.id,
-    role: req.user.role,
-  });
-  if (!order) {
-    return res.status(404).json({ error: "Order not found" });
-  }
-  res.json(order);
-});
+router.get(
+  "/:id",
+  authenticate(),
+  asyncHandler(async (req, res) => {
+    const order = await getOrderById(req.db, req.params.id, {
+      userId: req.user.id,
+      role: req.user.role,
+    });
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+    res.json(order);
+  })
+);
 
-router.get("/:id/invoice", authenticate(), async (req, res) => {
-  const order = await getOrderById(req.db, req.params.id, {
-    userId: req.user.id,
-    role: req.user.role,
-  });
-  if (!order) {
-    return res.status(404).json({ error: "Order not found" });
-  }
-  streamInvoice(order, res);
-});
+router.get(
+  "/:id/invoice",
+  authenticate(),
+  asyncHandler(async (req, res) => {
+    const order = await getOrderById(req.db, req.params.id, {
+      userId: req.user.id,
+      role: req.user.role,
+    });
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+    streamInvoice(order, res);
+  })
+);
 
 router.patch(
   "/:id/status",
@@ -114,7 +123,7 @@ router.patch(
     body("status").isIn(["Paid", "Pending", "Refunded"]),
     body("transactionStatus").optional().isIn(["Completed", "Pending", "Refunded"]),
   ],
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -131,7 +140,7 @@ router.patch(
     }
 
     res.json({ success: true });
-  }
+  })
 );
 
 export default router;

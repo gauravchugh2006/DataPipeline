@@ -3,6 +3,7 @@ import { body, validationResult } from "express-validator";
 
 import { authenticateOptional } from "../middleware/auth.js";
 import { recordEvent } from "../services/analyticsService.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 const router = express.Router();
 
@@ -14,7 +15,7 @@ router.post(
     body("payload").optional({ nullable: true }).isObject(),
     body("source").optional({ nullable: true }).isString(),
   ],
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -28,7 +29,7 @@ router.post(
     });
 
     res.status(202).json({ status: "recorded" });
-  }
+  })
 );
 
 export default router;

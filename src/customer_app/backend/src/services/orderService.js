@@ -51,8 +51,11 @@ const buildFilters = ({
   }
 
   if (search) {
-    conditions.push("(o.id = ? OR pr.name LIKE ?)");
-    params.push(Number.isNaN(Number(search)) ? 0 : Number(search));
+    const numericSearch = Number(search);
+    conditions.push(
+      "(o.id = ? OR EXISTS (SELECT 1 FROM order_items oi_search JOIN products pr_search ON pr_search.id = oi_search.product_id WHERE oi_search.order_id = o.id AND pr_search.name LIKE ?))"
+    );
+    params.push(Number.isNaN(numericSearch) ? 0 : numericSearch);
     params.push(`%${search}%`);
   }
 
@@ -70,6 +73,49 @@ const parseItems = (raw) => {
     return [];
   }
 };
+
+/*
+ * Why removing GROUP BY fixes the ONLY_FULL_GROUP_BY error
+ * -------------------------------------------------------
+ * In the original implementation the orders table was joined directly to
+ * order_items/products and JSON_ARRAYAGG ran over those joined rows. Strict
+ * MySQL modes therefore required every non-aggregated column (orders,
+ * customers, payments, products) to be listed in GROUP BY. Even with that long
+ * GROUP BY, MySQL still rejected the query because pr.id (from products) is not
+ * functionally dependent on the grouped columns, so the engine could not decide
+ * which product row to return and emitted ER_WRONG_FIELD_WITH_GROUP.
+ *
+ * The rewritten approach keeps the outer query focused on one row per order and
+ * pushes the JSON aggregation into a correlated subquery (ITEMS_AGGREGATE_JOIN)
+ * scoped to a single o.id. Because the outer query no longer joins the detail
+ * tables, no GROUP BY is required and strict mode no longer evaluates
+ * functional dependencies there. The aggregation happens entirely inside the
+ * subquery and MySQL is satisfied while the caller still receives the same
+ * shape (an "items" JSON array per order).
+ *
+ * After fetching the rows we normalize the JSON/BLOB payload by calling
+ * parseItems so buffers and strings are coerced into a consistent JS object
+ * structure before responding to the client.
+ */
+const ITEMS_AGGREGATE_JOIN = `
+    LEFT JOIN (
+      SELECT
+        oi.order_id,
+        JSON_ARRAYAGG(
+          JSON_OBJECT(
+            'productId', oi.product_id,
+            'productName', oi.product_name,
+            'category', oi.category,
+            'price', oi.price,
+            'quantity', oi.quantity,
+            'imageUrl', pr.image_url
+          )
+        ) AS items
+      FROM order_items oi
+      LEFT JOIN products pr ON pr.id = oi.product_id
+      GROUP BY oi.order_id
+    ) AS order_items_summary ON order_items_summary.order_id = o.id
+  `;
 
 export const listOrders = async (
   pool,
@@ -89,8 +135,7 @@ export const listOrders = async (
     FROM orders o
     JOIN customers c ON c.id = o.customer_id
     LEFT JOIN payments p ON p.order_id = o.id
-    LEFT JOIN order_items oi ON oi.order_id = o.id
-    LEFT JOIN products pr ON pr.id = oi.product_id
+    ${ITEMS_AGGREGATE_JOIN}
     ${whereClause}
   `;
 
@@ -116,18 +161,8 @@ export const listOrders = async (
         p.id AS payment_id,
         p.payment_method,
         p.transaction_status,
-        JSON_ARRAYAGG(
-          JSON_OBJECT(
-            'productId', oi.product_id,
-            'productName', oi.product_name,
-            'category', oi.category,
-            'price', oi.price,
-            'quantity', oi.quantity,
-            'imageUrl', pr.image_url
-          )
-        ) AS items
+        order_items_summary.items AS items
       ${baseQuery}
-      GROUP BY o.id
       ORDER BY ${sortColumn} ${sortDirection}
       ${limitClause}`,
     [...params, ...paginationParams]
@@ -185,23 +220,13 @@ export const getOrderById = async (pool, orderId, { userId, role }) => {
         p.id AS payment_id,
         p.payment_method,
         p.transaction_status,
-        JSON_ARRAYAGG(
-          JSON_OBJECT(
-            'productId', oi.product_id,
-            'productName', oi.product_name,
-            'category', oi.category,
-            'price', oi.price,
-            'quantity', oi.quantity,
-            'imageUrl', pr.image_url
-          )
-        ) AS items
+        order_items_summary.items AS items
       FROM orders o
       JOIN customers c ON c.id = o.customer_id
       LEFT JOIN payments p ON p.order_id = o.id
-      LEFT JOIN order_items oi ON oi.order_id = o.id
-      LEFT JOIN products pr ON pr.id = oi.product_id
+      ${ITEMS_AGGREGATE_JOIN}
       ${whereClause ? `${whereClause} AND o.id = ?` : "WHERE o.id = ?"}
-      GROUP BY o.id`,
+      LIMIT 1`,
     params
   );
 

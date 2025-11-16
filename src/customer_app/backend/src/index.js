@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import { initPool } from "./config/database.js";
 import { initTrustPool } from "./config/postgres.js";
 import apiRouter from "./routes/index.js";
+import { buildRequestMeta, logger } from "./utils/logger.js";
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.get("/health", (_req, res) => {
 
 const startServer = async () => {
   try {
+    logger.info("Initializing database connections");
     const [pool, trustPool] = await Promise.all([initPool(), initTrustPool()]);
     app.set("db", pool);
     app.set("trustDb", trustPool);
@@ -38,19 +40,30 @@ const startServer = async () => {
       return apiRouter(req, res, next);
     });
 
-    app.use((err, _req, res, _next) => {
-      console.error("Unhandled error", err);
+    app.use((err, req, res, _next) => {
+      if (!err.__logged) {
+        logger.error("Unhandled error", {
+          ...buildRequestMeta(req),
+          error: err.message,
+          stack: err.stack,
+        });
+      }
+
       const status = err.status || 500;
+      const message = status >= 500 ? "Internal server error" : err.message;
       res.status(status).json({
-        error: err.message || "Internal server error",
+        error: message,
       });
     });
 
     app.listen(port, () => {
-      console.log(`Customer middleware API listening on port ${port}`);
+      logger.info("Customer middleware API listening", { port });
     });
   } catch (error) {
-    console.error("Failed to start server", error);
+    logger.error("Failed to start server", {
+      error: error.message,
+      stack: error.stack,
+    });
     process.exit(1);
   }
 };

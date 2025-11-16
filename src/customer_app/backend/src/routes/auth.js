@@ -11,6 +11,7 @@ import {
   getCustomerWithSensitiveData,
   updateCustomerProfile,
 } from "../services/customerService.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 const router = express.Router();
 
@@ -39,7 +40,7 @@ router.post(
     body("gender").optional().isIn(["male", "female", "other"]),
     body("theme").optional().isLength({ max: 50 }),
   ],
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -68,13 +69,13 @@ router.post(
     });
 
     res.status(201).json({ token, profile });
-  }
+  })
 );
 
 router.post(
   "/login",
   [body("email").isEmail(), body("password").notEmpty()],
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -97,13 +98,17 @@ router.post(
     });
 
     res.json({ token, profile });
-  }
+  })
 );
 
-router.get("/me", authenticate(), async (req, res) => {
-  const profile = await getCustomerById(req.db, req.user.id);
-  res.json({ profile });
-});
+router.get(
+  "/me",
+  authenticate(),
+  asyncHandler(async (req, res) => {
+    const profile = await getCustomerById(req.db, req.user.id);
+    res.json({ profile });
+  })
+);
 
 router.put(
   "/profile",
@@ -118,7 +123,7 @@ router.put(
     body("avatarStyle").optional().isLength({ max: 50 }),
     body("profileImage").optional().isString(),
   ],
-  async (req, res) => {
+  asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -136,7 +141,7 @@ router.put(
     });
 
     res.json({ profile });
-  }
+  })
 );
 
 export default router;
