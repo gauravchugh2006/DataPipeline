@@ -1,0 +1,47 @@
+\chapter{Manifesto Assets and Tools}\label{app:manifesto-assets}
+\section{Tooling Footprint}
+Table~\ref{tab:manifesto-tools} documents the automation stack referenced across Chapters~\ref{chap:target-architecture} and~\ref{chap:data-manifesto} so reviewers can replicate the workflows.
+
+\begin{table}[H]
+    \centering
+    \caption{Tools used to operationalise the manifesto}
+    \label{tab:manifesto-tools}
+    \begin{tabular}{p{3cm}p{4cm}p{7cm}}
+        \toprule
+        \textbf{Category} & \textbf{Tool} & \textbf{Usage} \\
+        \midrule
+        Orchestration & Apache Airflow (MWAA) & Coordinates ingestion, validation, and reverse ETL DAGs. \\
+        Quality & Great Expectations, dbt tests & Applies schema, null, and referential checks per bronze/silver table. \\
+        Observability & Datadog, OpenLineage & Captures metrics, traces, and lineage for SLA dashboards. \\
+        Security & AWS KMS, Azure Key Vault, HashiCorp Vault & Manages encryption keys, tokens, and API secrets. \\
+        Automation & Jenkins, Terraform Cloud & Executes CI/CD, IaC drift detection, and environment promotion. \\
+        Collaboration & Confluence, Jira & Hosts runbooks, manifestos, and backlog actions tied to each principle. \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\section{Glossary Supplement}
+The primary glossary appears before the main matter, but this appendix highlights additional manifesto-specific terms:
+\begin{description}
+    \item[Data Contract] A documented schema and SLA agreement between source and consumer teams.
+    \item[Data Product Owner] Accountable persona responsible for a dataset's lifecycle, SLA, and financial impact.
+    \item[Lineage Event] Metadata record describing upstream and downstream dependencies captured via OpenLineage.
+    \item[Reverse ETL] Operational use case where curated data is synchronised back into SaaS applications or services.
+\end{description}
+
+\section{Poster and Diagram Instructions}
+\begin{tcolorbox}[title=Manifesto Poster Placement,colback=orange!5,colframe=orange!60!black]
+\begin{enumerate}
+    \item Download the gradient manifesto graphic from \url{https://miro.com/app/board/uXjVPPwYZ-s=/} (export as PNG) and save it locally as \texttt{report/figures/data\_engineering\_manifesto.png}. The LaTeX will render a placeholder box until the file is present.
+    \item Insert the poster immediately after Figure~\ref{fig:manifesto-graphic} if a full-page illustration is required, or print it separately for stakeholder workshops.
+    \item When integrating into \texttt{main.pdf}, ensure the caption references the manifesto pillars so that the examiner links it to Chapter~\ref{chap:data-manifesto}.
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[title=Branding Assets,colback=blue!5,colframe=blue!60!black]
+\begin{enumerate}
+    \item Provide the host company logo file (PNG preferred) and save it as \texttt{report/figures/host\_company\_logo.png}. The cover page uses a conditional include and will show a framed placeholder until the logo is added.
+    \item Retain the existing Aivancity letterhead if available, or apply your institution-specific cover guidance before the declaration page.
+    \item Keep diagram exports (e.g., AWS deployment) under \texttt{report/figures/} to avoid bloating the Git history; commit only the LaTeX references and supply binaries at release time.
+\end{enumerate}
+\end{tcolorbox}

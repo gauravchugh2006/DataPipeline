@@ -1,4 +1,4 @@
-\chapter{Target Architecture}
+\chapter{Target Architecture}\label{chap:target-architecture}
 \section{High-Level Design}
 Figure~\ref{fig:deployment} visualises the deployed architecture across \gls{aws} and \gls{az}. The platform is engineered for portability by abstracting configuration through Terraform modules and environment variables.
 
@@ -62,3 +62,9 @@ A UML use case diagram (Figure~\ref{fig:usecase}) captures the interactions betw
     \item \textbf{Security:} Zero-trust networking, secrets management via AWS Secrets Manager/Azure Key Vault, and end-to-end encryption enforce privacy-by-design.
     \item \textbf{Portability:} Abstraction of infrastructure primitives enables lift-and-shift between \gls{aws} and \gls{az} with limited code changes.
 \end{itemize}
+
+\section{DataOps and Automation Practices}
+Automation was extended beyond infrastructure to cover quality, security, and release management. Jenkins orchestrates multi-stage pipelines that lint Python code, execute dbt unit tests, and trigger Terraform plan/apply steps through service principals. SonarQube scans enforce cyclomatic complexity thresholds and flag duplicated SQL, while OWASP ZAP baseline scans guard the FastAPI layer. Artifacts are promoted via Git tags, and infrastructure state is versioned in Terraform Cloud. Every pipeline publishes build metadata to DataHub, enabling traceability from code commit to dataset refresh.
+
+\section{Governance Framework Integration}
+Governance requirements from \gls{gdpr}, CNIL, and the host company's security council are embedded as policies and controls. Row-level security is implemented through Redshift and Synapse dynamic data masking, while column-level encryption is enforced for PII fields with AWS KMS customer managed keys. OpenLineage captures DAG-level provenance and links it to glossary terms curated in DataHub. A quarterly governance review evaluates adherence to the \emph{Data Engineering Manifesto}, ensuring principles such as idempotency, data product ownership, and privacy-by-design remain auditable across regions.
