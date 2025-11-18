@@ -30,3 +30,6 @@ Success metrics were defined collaboratively with the steering committee:
     \item Deployment automation reduces manual effort per release from four hours to under 30 minutes.
     \item Stakeholder Net Promoter Score for data products improves from \(-12\) to +32 within three months of go-live.
 \end{itemize}
+
+\section{Design Philosophy Constraints}
+Beyond resource and timeline limitations, the steering committee imposed explicit design philosophy constraints rooted in operational experience. Pipelines must be idempotent so that retries triggered by Airflow or Step Functions do not inflate fact tables. Observability and lineage metadata must be captured in every environment so audits can reconstruct KPI provenance within minutes. Modularity was mandated to ensure that incremental launches across regions re-use the same ingestion templates and policy controls. These constraints justified the creation of Chapter~\ref{chap:data-manifesto}, where each manifesto principle is linked to a measurable risk mitigation for latency, compliance, or customer trust.

@@ -39,6 +39,85 @@ Synthetic data generators were developed to emulate peak trading periods while r
     \item \textbf{Serving:} FastAPI and GraphQL endpoints powered the ecommerce portal, while BI tools consumed semantic models through Azure Analysis Services or Power BI datasets.
 \end{itemize}
 
+To align with the MSc reporting standards, three diagrams were embedded at the end of this section. Figure~\ref{fig:er-schema} captures the logical entity-relationship view that underpins the bronze and silver layers. Figure~\ref{fig:methodology-usecase} highlights persona interactions driving backlog prioritisation, while Figure~\ref{fig:aws-dataflow} summarises the AWS + Airflow orchestration flow.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance=2.8cm, every node/.style={rectangle, draw, rounded corners, fill=blue!5, minimum width=3.5cm, minimum height=1cm}]
+        \node (customers) {Customers\\\scriptsize customer\_id, loyalty\_tier};
+        \node[below of=customers] (orders) {Orders\\\scriptsize order\_id, customer\_id, status};
+        \node[below of=orders] (orderitems) {Order Items\\\scriptsize order\_id, sku, qty};
+        \node[right=4.2cm of orders] (products) {Products\\\scriptsize sku, category};
+        \node[below=2.8cm of products] (inventory) {Inventory Snapshots\\\scriptsize sku, location, on\_hand};
+        \node[right=4.2cm of products] (suppliers) {Suppliers\\\scriptsize supplier\_id, region};
+        \draw[->, thick] (customers) -- node[left]{1..n} (orders);
+        \draw[->, thick] (orders) -- node[left]{1..n} (orderitems);
+        \draw[->, thick] (products) -- node[above]{1..n} (orderitems);
+        \draw[->, thick] (products) -- node[right]{1..n} (inventory);
+        \draw[->, thick] (suppliers) -- node[above]{1..n} (products);
+    \end{tikzpicture}
+    \caption{Logical entity-relationship schema used for bronze and silver modelling}
+    \label{fig:er-schema}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[>=stealth', node distance=2.5cm]
+        \tikzstyle{actor}=[draw, thick, rounded corners=2mm, minimum width=1.8cm, minimum height=0.8cm, align=center, fill=gray!10];
+        \tikzstyle{usecase}=[ellipse, draw, thick, minimum width=3.4cm, minimum height=1cm, align=center, fill=orange!10];
+        \node[actor] (merch) {Merchandising Lead};
+        \node[actor, below=0.8cm of merch] (finance) {Finance Analyst};
+        \node[actor, below=0.8cm of finance] (support) {Support Agent};
+        \node[actor, below=0.8cm of support] (devops) {DataOps Engineer};
+        \node[usecase, right=3.8cm of merch] (kpi) {Monitor Flash KPI Alerts};
+        \node[usecase, right=3.8cm of finance] (reconcile) {Automate Reconciliation};
+        \node[usecase, right=3.8cm of support] (customer360) {Resolve Order Issues};
+        \node[usecase, right=3.8cm of devops] (operate) {Operate Pipelines};
+        \draw (merch) -- (kpi);
+        \draw (finance) -- (reconcile);
+        \draw (support) -- (customer360);
+        \draw (devops) -- (operate);
+        \draw (devops) -- (kpi);
+        \draw (finance) -- (kpi);
+        \draw (support) -- (operate);
+    \end{tikzpicture}
+    \caption{Use case diagram linking personas to data platform capabilities}
+    \label{fig:methodology-usecase}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance=2.4cm]
+        \tikzstyle{block}=[rectangle, draw, rounded corners=3pt, align=center, fill=green!10, minimum width=3.6cm, minimum height=1cm];
+        \tikzstyle{edge}=[->, thick];
+        \node[block] (sources) {Event Streams\\Batch Feeds};
+        \node[block, right of=sources, xshift=2.8cm] (airflow) {Airflow DAGs\\(AWS MWAA)};
+        \node[block, right of=airflow, xshift=2.8cm] (processing) {Spark/DBT\\Transformations};
+        \node[block, below of=processing] (storage) {S3/Delta\\Bronze-Silver-Gold};
+        \node[block, right of=processing, xshift=2.8cm] (serving) {APIs \& BI\\Gold Models};
+        \node[block, below of=airflow] (observability) {OpenLineage\\Datadog};
+        \draw[edge] (sources) -- node[above]{Kinesis, SFTP} (airflow);
+        \draw[edge] (airflow) -- node[above]{Task Groups} (processing);
+        \draw[edge] (processing) -- node[right]{Delta MERGE} (storage);
+        \draw[edge] (processing) -- node[above]{dbt exposures} (serving);
+        \draw[edge] (storage) -- node[below]{Reverse ETL} (serving);
+        \draw[edge] (airflow) -- node[right]{Lineage events} (observability);
+        \draw[edge] (processing) -- (observability);
+    \end{tikzpicture}
+    \caption{AWS and Airflow orchestration view used during methodology validation}
+    \label{fig:aws-dataflow}
+\end{figure}
+
+\begin{tcolorbox}[title=Supplementary Diagram Placement Guide,colback=blue!5,colframe=blue!60!black]
+High-resolution templates matching the MSc house style can be downloaded and substituted if colour imagery is required:
+\begin{itemize}
+    \item \textbf{Data Engineering Lifecycle:} \url{https://miro.com/app/board/uXjVPPwYZ-s=/} -- place alongside Figure~\ref{fig:aws-dataflow} when referencing cross-cloud orchestration.
+    \item \textbf{Medallion Data Model:} \url{https://databricks.com/wp-content/uploads/2021/05/medallion-architecture.png} -- cite within Section~\ref{chap:data-manifesto} when describing bronze/silver/gold governance.
+    \item \textbf{DataOps CI/CD Flow:} \url{https://www.datakitchen.io/resources/dataops-pipeline-illustration} -- insert after the DataOps subsection in Chapter~\ref{chap:target-architecture} to evidence Jenkins/SonarQube integration.
+\end{itemize}
+Each download link includes attribution guidance so that institutional branding is preserved once pasted into \texttt{report/figures/}.
+\end{tcolorbox}
+
 \section{Validation Approach}
 Validation combined automated testing with human-centred evaluation:
 \begin{enumerate}
