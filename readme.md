@@ -131,6 +131,74 @@ changes once approvals are in place.  The load balancer exposes the services at
 > call-sites already accept a `cloud_provider` switch so only the module source
 > needs to change.
 
+## Domain-driven Medallion blueprint (Bronze → Silver → Gold)
+
+The pipeline now documents a domain-driven design (DDD) walkthrough of the
+Medallion layers so data engineers can extend the stack for both AWS and Azure
+(Databricks + ADLS Gen2) without altering the existing architecture.  Each
+layer highlights the data engineering principles applied, why they matter, and
+how the ecommerce sample data flows through.
+
+### Bronze — Raw capture on S3 or ADLS Gen2
+
+* **Ingestion targets**: S3 buckets (AWS) or ADLS Gen2 containers (Azure) named
+  per domain (`bronze/orders/`, `bronze/products/`).  Terraform variables such as
+  `cloud_provider`, `azure_storage_account_name`, and `azure_container_name`
+  keep the same interface as the AWS S3 module so Jenkins pipelines keep working
+  across clouds.
+* **Principles applied**: immutable storage, append-only writes, schema-on-read,
+  and file-level ACLs.  PySpark jobs in Databricks mount ADLS paths and write
+  partitioned CSV/Parquet files, preserving raw payloads for reprocessing.
+* **Why it matters**: ensures reproducibility and easy rollback.  If a new
+  `orders.csv` with an unexpected `discount_code` field arrives, downstream
+  validation can replay historical files without loss.
+
+### Silver — Validated, conformed data in Delta Lake
+
+* **Transformations**: cleansing nulls, casting types, standardising timestamps,
+  enforcing primary/foreign keys, and deduplicating on business keys (e.g.
+  `order_id` + latest `updated_at`).  PySpark notebooks run in Databricks, using
+  Delta Lake to enable ACID merges and time travel.
+* **Principles applied**: data quality contracts (Great Expectations/PySpark
+  asserts), slowly changing dimensions (Type 2 for customers), idempotent
+  upserts, and governance via table-level ACLs.  Jobs emit expectations and row
+  counts to Airflow task logs so existing observability keeps working in AWS and
+  Azure.
+* **Why it matters**: provides trustworthy, query-ready tables for dbt models.
+  For example, cleansing `orders` ensures currency-normalised `total_amount`
+  values before loyalty scoring; conformance lets the same dbt models run on
+  Databricks SQL endpoints or Postgres with minimal tweaks.
+
+### Gold — Curated marts for analytics and applications
+
+* **Transformations**: aggregations, business metrics, and feature engineering
+  powering the customer_app transparency endpoints.  Example marts include:
+  `mart_daily_revenue` (roll-ups by channel/region), `mart_trust_scores`
+  (sustainability metrics), and `mart_loyalty_recommendations` (bundled add-ons
+  per segment).
+* **Principles applied**: semantic layering with dbt, data contracts for API
+  consumption (documented schemas for `/api/trust/metrics`), fine-grained access
+  roles (analyst vs. app service principal), and performance patterns such as
+  Z-ordering/partition pruning in Delta Lake or indexed materialized views in
+  Postgres.
+* **Why it matters**: unlocks low-latency reads for the frontend dashboards and
+  batch exports.  The same curated tables feed Power BI/Looker as well as the
+  React admin grids without duplicating business logic.
+
+### Cross-cutting guardrails and examples
+
+* **Observability and lineage**: Airflow task instances push row counts and
+  anomaly flags to logs; Terraform can enable DataHub/OpenLineage sinks without
+  altering DAG code, keeping AWS and Azure parity.
+* **Security**: IAM roles with least-privilege policies on S3; equivalent Azure
+  RBAC roles on storage accounts and Databricks secrets for JDBC credentials.
+* **Resilience**: incremental PySpark reads using watermark columns (`updated_at`
+  for orders) prevent reprocessing storms; Delta time travel enables point-in-
+  time recovery after bad loads.
+* **Sample flow**: a new CSV for `orders` lands in Bronze → Silver job dedupes
+  and standardises currencies → Gold mart publishes `mart_daily_revenue`, which
+  the `customer_app` admin dashboard surfaces as a KPI tile.
+
 ### Jenkins integration workflow
 
 1. Update the Jenkins global credentials store with an AWS access key (or
@@ -147,6 +215,28 @@ changes once approvals are in place.  The load balancer exposes the services at
 
 Destroy environments with the matching `terraform destroy` command and the same
 `-var-file` argument when you want to free student-account quotas.
+
+### Azure Databricks deployment using the same Terraform/Jenkins pipeline
+
+The Terraform inputs also support Azure so you can lift the existing pipeline
+without breaking AWS delivery:
+
+1. Populate `azure_*` variables in `terraform/environments/<env>/terraform.tfvars`
+   (subscription ID, resource group, storage account, Databricks workspace, and
+   container names).  Set `cloud_provider = "azure"`.
+2. Implement the `terraform/modules/azure` shim using the same outputs as the
+   AWS module (storage endpoints, workspace URL, service principal IDs).  Keep
+   the variable contract intact so the Jenkinsfile requires no edits.
+3. In Jenkins, duplicate the multibranch jobs with an Azure suffix and inject
+   Azure credentials (ARM service principal and Databricks PAT) via credentials
+   binding.  The pipeline reuses existing stages to run `terraform apply`, build
+   Docker images, and publish PySpark wheel/artifact bundles for Databricks.
+4. Point Airflow connections to the Databricks REST API (`DatabricksSubmitRun`)
+   so PySpark notebooks land Bronze data in ADLS Gen2 and progress through the
+   Silver/Gold layers described above.
+5. Smoke-test the `customer_app` endpoints against Gold marts exposed through
+   Databricks SQL or Postgres, ensuring both AWS and Azure environments stay in
+   lockstep.
 
 ---
 

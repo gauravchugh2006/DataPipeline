@@ -95,6 +95,29 @@ GitHub Repository Structure:
     └─ Deployment: MANUAL APPROVAL REQUIRED → DEPLOY to Prod EC2
 ```
 
+### Azure expansion (keeps AWS flow intact)
+
+The Terraform/Jenkins design also supports Azure so you can migrate without
+rewriting the CI/CD logic:
+
+1. Add `cloud_provider = "azure"` plus `azure_subscription_id`,
+   `azure_resource_group`, `azure_storage_account_name`, `azure_databricks_workspace`,
+   and container names to the environment-specific `terraform.tfvars` files.
+2. Create a Databricks personal access token (PAT) and an Azure service
+   principal with Storage Blob Data Contributor permissions.  Store both in
+   Jenkins credentials (secret text + ARM service principal binding) and reuse
+   the existing credentials IDs inside the Jenkinsfile.
+3. Implement `terraform/modules/azure` mirroring the AWS outputs (`jenkins_public_ip`,
+   `storage_account_urls`, `databricks_workspace_url`).  The Jenkins stages can
+   continue to call `terraform output -json` to discover endpoints.
+4. Update the Airflow connections (in ECS or Azure App Services) to use the
+   Databricks REST API, pointing ingestion notebooks to ADLS Gen2 Bronze paths
+   (`abfss://bronze@<storage-account>.dfs.core.windows.net/orders/`).  Silver and
+   Gold jobs run as PySpark notebooks registered in the same workspace.
+5. Keep the Docker build/push/test stages untouched so both AWS ECS tasks and
+   Azure Container Apps/App Service containers pull the same images.  Branch
+   protection and SonarQube gates remain identical across clouds.
+
 ---
 
 ## Key Components
