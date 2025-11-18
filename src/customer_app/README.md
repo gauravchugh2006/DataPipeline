@@ -128,6 +128,13 @@ npm run dev
 - The sun/moon toggle now cycles through four curated pastel palettes—**Sunrise**, **Lavender Dusk**, **Mint Contrast**, and **Rose Quartz**—so every click showcases a balanced, presentation-ready combination. Darker experiences such as **Midnight** and **Noir** remain available from the dashboard's theme dropdown for users who prefer deep contrast.
 - Test the high-contrast experiences by selecting **Midnight**/**Noir** inside the dashboard profile card or tapping the sun/moon button in the global header to flip between Sunrise and Midnight on demand.
 
+## 🌩️ Multi-cloud deployment (AWS + Azure)
+
+- **Infrastructure as code**: Reuse the root `terraform/` project. Set `cloud_provider` to `aws` or `azure` per workspace and provide matching variables (`aws_region` vs. `azure_resource_group`, `azure_storage_account_name`, `azure_container_name`). The same Jenkinsfile drives both, so branch-based CI/CD remains unchanged.
+- **Backend container**: Build the Express API image via the existing pipeline. On AWS it deploys to ECS Fargate; on Azure you can point the Terraform Azure module to Azure Container Apps or App Service for Containers using the same image/tag outputs from Jenkins. Pass MySQL/Postgres secrets via the respective secret stores (AWS SSM or Azure Key Vault) and surface PySpark/Databricks endpoints for Gold-mart reads.
+- **Frontend container**: The Vite build artifact ships as a static container. Publish to the shared registry (ECR/ACR) and wire the service to the backend URL exposed above. CDN fronting (CloudFront or Azure Front Door) is optional and does not change the build process.
+- **Data layer wiring**: Airflow tasks or Databricks jobs hydrate the Silver/Gold layers. The backend reads the same schemas regardless of cloud, so API responses and React dashboards stay identical. Validate connectivity by hitting `/health` and `/api/trust/metrics` after each deployment.
+
 ### Running without Docker
 
 When operating both services outside of Docker, start the backend first so the database bootstrap completes. Then launch the frontend and open [http://localhost:5173](http://localhost:5173). Mailhog-dependent features (e.g. concierge emails) will require an SMTP service if Docker is not running.
@@ -184,6 +191,12 @@ Schema is created automatically when the MySQL container starts for the first ti
 - **Loyalty recommendation pipeline** — Daily Airflow DAG (`dags/loyalty_recommendation_dag.py`) chains dataset ingestion helpers, a scoring transform, and Slack alerts while persisting mart outputs to Postgres and MinIO.
 - **Trust score mart** — Delivery/support extracts load into dbt models that publish `mart_trust_scores`, which the `/api/trust` endpoints expose for transparency dashboards.
 - **Logistics enrichment** — Additional ingestion operators and dbt layers capture distributor master data, stockist inventory freshness, and SLA adherence, enriching the analytics warehouse for support-ready queries.
+
+### How the app consumes the Medallion layers
+
+- **Bronze → Silver**: Raw ecommerce CSVs land in S3/ADLS Gen2 and are validated via PySpark in Airflow/Databricks notebooks. Cleansed Silver tables guarantee typed `orders`, `customers`, and `inventory` records for stable joins.
+- **Silver → Gold**: dbt and PySpark aggregate Silver outputs into Gold marts (`mart_daily_revenue`, `mart_loyalty_recommendations`, `mart_trust_scores`). The backend reads these tables via Postgres or Databricks SQL to power `/api/trust/metrics`, `/api/loyalty/recommendations`, and admin KPI tiles, keeping business logic consistent across AWS and Azure.
+- **Design principles**: idempotent upserts, partition pruning on event dates, lineage/row-count logging in Airflow, and role-based access (IAM/RBAC + Databricks secrets) so the same API contracts remain intact during cloud migrations.
 
 ## 🧪 Testing & linting
 
