@@ -18,6 +18,8 @@ The architecture is organised into the following layers:
     \item[Enablement] Jenkins, GitHub Actions, Terraform Cloud, and Datadog deliver automation, infrastructure provisioning, and observability.
 \end{description}
 
+Each layer implements the same control points across clouds: data contracts are validated as close to the edge as possible, lineage spans ingestion through serving, and secrets are injected at runtime rather than baked into images. For example, a merchandising feed arriving via Event Hubs lands in ADLS Gen2 Bronze with the same column-level checks that Kinesis applies before S3, ensuring downstream dbt models see consistent schemas.
+
 \section{Solution Blueprint}
 To complement the vendor-specific view, Figure~\ref{fig:orchestration} illustrates the orchestration blueprint emphasising pipeline stages, control flows, and monitoring touchpoints.
 
@@ -27,6 +29,25 @@ To complement the vendor-specific view, Figure~\ref{fig:orchestration} illustrat
     \caption{End-to-end orchestration blueprint}
     \label{fig:orchestration}
 \end{figure}
+
+The blueprint highlights the following execution detail:
+\begin{itemize}
+    \item \textbf{Ingestion flow:} Airflow sensors wait for Bronze drops, then trigger PySpark notebooks via Databricks (Azure) or EMR/Spark-on-ECS (AWS). Backpressure is signalled to Kinesis/Event Hubs through consumer lag alarms.
+    \item \textbf{Transformation sequencing:} dbt runs after Silver validation so the same DAG node can branch to Redshift or Synapse targets. Stateful checks (e.g., slowly changing dimensions) are centralised to avoid duplication across cloud providers.
+    \item \textbf{Monitoring hooks:} OpenLineage and custom metrics (row counts, null ratios, schema hashes) are emitted at each node. Alerts reference the relevant storage path (\texttt{abfss://bronze/orders/2024/05/} or \texttt{s3://bronze/orders/2024/05/}) so on-call runbooks remain portable.
+\end{itemize}
+
+\section{Terraform portability and Databricks alignment}
+The Terraform project accepts a \texttt{cloud\_provider} toggle so the same Jenkins pipeline can deploy either to \gls{aws} or \gls{az} without code changes. Azure-specific variables (storage account, container names, Databricks workspace URL) mirror the AWS inputs, and the outputs expose identical values (ALB/Front Door endpoints, workspace URLs, secret URIs). Airflow triggers PySpark notebooks through the Databricks Submit Run API when targeting Azure; the same notebook paths execute on EMR or containerised Spark in AWS, preserving the Bronze \textrightarrow{} Silver \textrightarrow{} Gold cadence.
+
+Key design features remain invariant across clouds:
+\begin{itemize}
+    \item \textbf{Medallion zoning:} Bronze lives in S3/ADLS Gen2, Silver is validated in Delta Lake or Postgres staging schemas, and Gold marts are served via dbt/Databricks SQL or Redshift/Synapse to the consuming applications.
+    \item \textbf{Credential indirection:} Secrets are sourced from AWS Secrets Manager/SSM or Azure Key Vault using the same environment variable names so existing services and the \texttt{Jenkinsfile} continue to work.
+    \item \textbf{Observability:} OpenLineage and DataHub sinks are enabled through Terraform flags, ensuring lineage and row counts flow from Airflow to the catalog regardless of the target cloud.
+\end{itemize}
+
+\noindent\textbf{Challenge and resolution: dependency parity.} Azure environments required additional network rules for the Databricks control plane. Rather than fork the Terraform, a shared module now accepts a list of trusted CIDRs and automatically applies them to AWS Security Groups or Azure NSGs. A sample deployment proved that the same Jenkins parameter file could provision both, with no edits to the pipeline stages.
 
 \section{Use Case Diagram}
 A UML use case diagram (Figure~\ref{fig:usecase}) captures the interactions between personas and platform capabilities.
@@ -55,6 +76,8 @@ A UML use case diagram (Figure~\ref{fig:usecase}) captures the interactions betw
     \label{fig:usecase}
 \end{figure}
 
+The use case diagram maps to concrete data assets: \emph{Monitor KPIs} reads the Gold \texttt{mart\_daily\_revenue} (served from Redshift/Synapse), \emph{Access Customer 360} queries \texttt{mart\_customer\_profile} built from the Silver \texttt{orders} and \texttt{customers} tables, and \emph{Operate Pipelines} corresponds to Airflow/Databricks jobs monitoring Bronze arrivals. These mappings ensure the diagram is actionable during incident reviews.
+
 \section{Non-Functional Considerations}
 \begin{itemize}
     \item \textbf{Scalability:} Horizontal scaling is achieved through Kinesis shard auto-scaling, Airflow worker autoscaling, and serverless analytics services.
@@ -63,8 +86,24 @@ A UML use case diagram (Figure~\ref{fig:usecase}) captures the interactions betw
     \item \textbf{Portability:} Abstraction of infrastructure primitives enables lift-and-shift between \gls{aws} and \gls{az} with limited code changes.
 \end{itemize}
 
+Additional non-functional guardrails:
+\begin{itemize}
+    \item \textbf{Performance:} Gold marts are clustered (Delta Z-order or Redshift/Synapse distribution keys) based on query heatmaps from the \texttt{customer\_app} dashboards. Stress tests on the sample \texttt{orders.csv} confirmed sub-second slice-and-dice on date/channel filters.
+    \item \textbf{Operability:} Runbooks in the CI/CD README enumerate how to purge failed Bronze batches, replay Silver validations, and re-run dbt models. Jenkins promotes artifacts with immutable tags, simplifying rollbacks across AWS and Azure.
+    \item \textbf{Cost efficiency:} Spot EMR and Azure Jobs compute pools are toggled via Terraform variables. Bronze/Silver Delta caches are cleaned by lifecycle rules derived from access patterns observed in the sample merchandising data.
+\end{itemize}
+
 \section{DataOps and Automation Practices}
 Automation was extended beyond infrastructure to cover quality, security, and release management. Jenkins orchestrates multi-stage pipelines that lint Python code, execute dbt unit tests, and trigger Terraform plan/apply steps through service principals. SonarQube scans enforce cyclomatic complexity thresholds and flag duplicated SQL, while OWASP ZAP baseline scans guard the FastAPI layer. Artifacts are promoted via Git tags, and infrastructure state is versioned in Terraform Cloud. Every pipeline publishes build metadata to DataHub, enabling traceability from code commit to dataset refresh.
 
+Common challenges and mitigations:
+\begin{itemize}
+    \item \textbf{Environment drift:} Weekly Terraform plan jobs run in dry-run mode against both AWS and Azure, catching provider version drift before production applies. Lock files are committed so Jenkins uses the tested versions.
+    \item \textbf{Long-running notebook tests:} Databricks jobs for Silver validation were slower than EMR equivalents. We introduced smoke-test parameters (smaller date ranges) for PR checks, while nightly pipelines process full volumes.
+    \item \textbf{Secrets rotation:} PATs for Databricks and keys for AWS were rotated via Jenkins credentials binding with zero pipeline changes. Documentation in the CI/CD README walks operators through expiring and replacing secrets without downtime.
+\end{itemize}
+
 \section{Governance Framework Integration}
 Governance requirements from \gls{gdpr}, CNIL, and the host company's security council are embedded as policies and controls. Row-level security is implemented through Redshift and Synapse dynamic data masking, while column-level encryption is enforced for PII fields with AWS KMS customer managed keys. OpenLineage captures DAG-level provenance and links it to glossary terms curated in DataHub. A quarterly governance review evaluates adherence to the \emph{Data Engineering Manifesto}, ensuring principles such as idempotency, data product ownership, and privacy-by-design remain auditable across regions.
+
+Data minimisation and retention are codified in lifecycle policies: Bronze retains 30 days of raw files for replay, Silver holds 90 days for audits, and Gold persists according to business SLA (typically 400 days) with delete/archival DAGs aligned to GDPR erasure requests. Access reviews leverage the lineage graph to pinpoint which marts expose PII, reducing the blast radius of permission updates.

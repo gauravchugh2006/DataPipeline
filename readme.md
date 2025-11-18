@@ -238,6 +238,30 @@ without breaking AWS delivery:
    Databricks SQL or Postgres, ensuring both AWS and Azure environments stay in
    lockstep.
 
+#### Configuration and sample data flow checkpoints
+
+- **Bronze ingestion**: Confirm the sample `orders.csv` from `dags/data_source/`
+  lands in `bronze/orders/` (S3 or ADLS). Jenkins pipelines require no code
+  changes—only `cloud_provider` and Azure credentials differ.
+- **Silver validation**: Databricks/Airflow tasks deduplicate by `order_id` and
+  enforce currency formats before persisting Delta tables. Failures are logged
+  to `silver_rejects`, keeping AWS and Azure parity.
+- **Gold marts**: dbt/PySpark materialise `mart_daily_revenue` and
+  `mart_trust_scores` that the `customer_app` UI uses for KPI tiles. Validate by
+  calling `/api/trust/metrics` after each deploy.
+
+#### Challenges and how they were resolved
+
+- **Schema drift** (e.g., unexpected `discount_code` in new CSVs): mitigated via
+  schema-on-read contracts and replayable Bronze storage, so Silver dedupe logic
+  stays intact across clouds.
+- **Secret sprawl across clouds**: resolved by mapping AWS Secrets Manager keys
+  to Azure Key Vault with the same variable names, keeping the Jenkinsfile and
+  app configuration untouched.
+- **Performance parity** when moving to Databricks: addressed by parameterising
+  storage URIs and applying Z-ordering/partition pruning so Gold marts return
+  results fast enough for the React transparency panels.
+
 ---
 
 ## Quick start (local stack)

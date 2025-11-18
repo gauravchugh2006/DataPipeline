@@ -135,6 +135,25 @@ npm run dev
 - **Frontend container**: The Vite build artifact ships as a static container. Publish to the shared registry (ECR/ACR) and wire the service to the backend URL exposed above. CDN fronting (CloudFront or Azure Front Door) is optional and does not change the build process.
 - **Data layer wiring**: Airflow tasks or Databricks jobs hydrate the Silver/Gold layers. The backend reads the same schemas regardless of cloud, so API responses and React dashboards stay identical. Validate connectivity by hitting `/health` and `/api/trust/metrics` after each deployment.
 
+### Role in the Medallion pipeline
+
+- **Bronze → Silver**: PySpark/Databricks notebooks ingest `orders.csv` and `products.csv` into S3 or ADLS, then cleanse/deduplicate before exposing typed `orders` and `customers` tables. This stability lets the API join records without defensive null checks.
+- **Silver → Gold**: dbt/PySpark build `mart_daily_revenue`, `mart_trust_scores`, and `mart_loyalty_recommendations`. These marts directly power the React KPI tiles, transparency panels, and loyalty reminders.
+- **Contracts and lineage**: API responses mirror the dbt schemas; OpenLineage events link UI requests to the Airflow task that last refreshed each mart, keeping troubleshooting consistent across AWS and Azure.
+
+### Azure setup specifics (keeps AWS intact)
+
+1. Set `cloud_provider="azure"` and populate `azure_*` variables in `terraform/environments/<env>/terraform.tfvars`.
+2. Provide an ARM service principal and Databricks PAT to Jenkins credentials; no pipeline stages change.
+3. Point Airflow connections to the Databricks REST API so the same notebooks load Bronze → Silver → Gold in ADLS Gen2.
+4. Verify `/api/trust/metrics` and `/api/loyalty/recommendations` after deployment to confirm the API can reach Databricks SQL/Delta outputs.
+
+### Challenges and how they were handled
+
+- **Schema drift in raw CSVs**: Handled by schema-on-read and Silver deduplication keyed on `order_id`, preventing downstream joins from breaking when new columns appear.
+- **Secret management across clouds**: AWS Secrets Manager keys are mirrored in Azure Key Vault with identical names, so environment variables and Docker compose files remain unchanged.
+- **Performance for UI tiles**: Gold marts are partitioned (date) and Z-ordered/indexed, keeping transparency and revenue KPIs under 200ms even when notebooks run on Databricks instead of Postgres.
+
 ### Running without Docker
 
 When operating both services outside of Docker, start the backend first so the database bootstrap completes. Then launch the frontend and open [http://localhost:5173](http://localhost:5173). Mailhog-dependent features (e.g. concierge emails) will require an SMTP service if Docker is not running.

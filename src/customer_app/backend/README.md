@@ -40,3 +40,21 @@ Ensure MySQL is reachable and exposed variables are loaded. Swagger UI lives at
 - **Validation**: After apply, hit `/health`, `/api/trust/metrics`, and
   `/api/loyalty/recommendations` to confirm Gold marts are reachable from the
   selected cloud.
+
+## Medallion alignment and operational notes
+
+- **Bronze → Silver controls**: PySpark notebooks ingest `orders.csv`/`products.csv`
+  into S3 or ADLS, then deduplicate by `order_id` and enforce currency formats.
+  The API reads only Silver/Gold outputs, so malformed Bronze data never reaches
+  consumers.
+- **Gold mart consumption**: Endpoints such as `/api/trust/metrics` and
+  `/api/loyalty/recommendations` query dbt/PySpark marts (`mart_trust_scores`,
+  `mart_loyalty_recommendations`). Schemas double as contracts for the React
+  admin grid and CSV exports.
+- **Challenges addressed**:
+  - Schema drift handled via schema-on-read + `silver_rejects` quarantine so
+    joins remain stable across AWS and Azure.
+  - Secrets mapped consistently between AWS Secrets Manager and Azure Key Vault
+    to avoid environment mismatches during CI/CD.
+  - Latency controlled through Delta Z-ordering/Postgres indexing to keep KPI
+    responses sub-200ms even when Databricks is the serving engine.
