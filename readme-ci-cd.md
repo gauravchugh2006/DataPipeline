@@ -181,6 +181,16 @@ rewriting the CI/CD logic:
 - **GitHub webhook integration** (automatic trigger on push)
 - **Docker Hub registry** (image storage and versioning)
 
+### customer_app CI/CD
+
+- A dedicated **customer_app Jenkinsfile** now lives in `src/customer_app/Jenkinsfile` so the frontend and backend can be built
+  and deployed independently of the core data platform pipeline.
+- Two boolean parameters (`DEPLOY_BACKEND`, `DEPLOY_FRONTEND`) let you run only the layers you need. The frontend deploy stage
+  runs **only after a successful backend health check**, preventing stale UI releases when the API is down.
+- The pipeline tags images with `<build-number>-<commit>` plus `latest`, pushes to the configured registry (AWS ECR by default),
+  and executes remote `docker compose` updates via SSH using `customer-app-backend.yml` and `customer-app-frontend.yml` on the
+  target host.
+
 ---
 
 ## Quick Start Guide
