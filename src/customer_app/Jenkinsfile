@@ -1,0 +1,219 @@
+// Jenkinsfile for customer_app
+// Declarative pipeline that builds and deploys the decoupled backend and frontend
+// services independently while enforcing a backend health gate before any frontend
+// deployment occurs.
+
+pipeline {
+    agent any
+
+    parameters {
+        booleanParam(name: 'DEPLOY_BACKEND', defaultValue: true, description: 'Build, push, and deploy the backend service')
+        booleanParam(name: 'DEPLOY_FRONTEND', defaultValue: true, description: 'Build, push, and deploy the frontend service')
+    }
+
+    environment {
+        AWS_CREDS_ID        = 'AWS_CREDENTIALS_ID'
+        SSH_CREDS_ID        = 'SSH_CREDENTIALS_ID'
+        REGISTRY_REGION     = "${env.ECR_REGION ?: 'us-east-1'}"
+        BACKEND_REPO        = "${env.CUSTOMER_BACKEND_REPO ?: 'customer-app-backend'}"
+        FRONTEND_REPO       = "${env.CUSTOMER_FRONTEND_REPO ?: 'customer-app-frontend'}"
+        DEPLOY_HOST         = "${env.DEPLOY_HOST ?: 'example-host'}"
+        DEPLOY_USER         = "${env.DEPLOY_USER ?: 'ec2-user'}"
+        DEPLOY_DIR          = "${env.DEPLOY_DIR ?: '~/customer_app'}"
+        BACKEND_HEALTH_URL  = "${env.BACKEND_HEALTH_URL ?: 'http://localhost:4000/health'}"
+        EMAIL_RECIPIENTS    = "${env.EMAIL_RECIPIENTS ?: 'devops-team@example.com'}"
+        REGISTRY_PREFIX     = ""
+        BACKEND_IMAGE       = ""
+        FRONTEND_IMAGE      = ""
+        BUILD_TAG           = ""
+    }
+
+    options {
+        timestamps()
+        ansiColor('xterm')
+        timeout(time: 60, unit: 'MINUTES')
+        buildDiscarder(logRotator(numToKeepStr: '50'))
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+                script {
+                    env.GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+                    env.BUILD_TAG = "${env.BUILD_NUMBER}-${env.GIT_COMMIT.take(7)}"
+                }
+                echo "Checked out branch ${env.GIT_BRANCH} @ ${env.GIT_COMMIT}"
+            }
+        }
+
+        stage('Prepare image names') {
+            steps {
+                script {
+                    if (!env.ECR_ACCOUNT?.trim() && !env.CONTAINER_REGISTRY?.trim()) {
+                        error 'Set ECR_ACCOUNT or CONTAINER_REGISTRY so images can be tagged and pushed.'
+                    }
+
+                    env.REGISTRY_PREFIX = env.ECR_ACCOUNT?.trim() ? "${env.ECR_ACCOUNT}.dkr.ecr.${env.REGISTRY_REGION}.amazonaws.com" : env.CONTAINER_REGISTRY.trim()
+                    env.BACKEND_IMAGE = "${env.REGISTRY_PREFIX}/${env.BACKEND_REPO}"
+                    env.FRONTEND_IMAGE = "${env.REGISTRY_PREFIX}/${env.FRONTEND_REPO}"
+
+                    echo "Using backend image: ${env.BACKEND_IMAGE}"
+                    echo "Using frontend image: ${env.FRONTEND_IMAGE}"
+                }
+            }
+        }
+
+        stage('Authenticate to registry') {
+            when { expression { params.DEPLOY_BACKEND || params.DEPLOY_FRONTEND } }
+            steps {
+                script {
+                    if (env.ECR_ACCOUNT?.trim()) {
+                        withCredentials([usernamePassword(credentialsId: AWS_CREDS_ID, usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                            sh """
+                                set -e
+                                aws configure set aws_access_key_id \$AWS_ACCESS_KEY_ID
+                                aws configure set aws_secret_access_key \$AWS_SECRET_ACCESS_KEY
+                                aws configure set region ${REGISTRY_REGION}
+                                aws ecr get-login-password --region ${REGISTRY_REGION} | docker login --username AWS --password-stdin ${REGISTRY_PREFIX}
+                            """
+                        }
+                    } else {
+                        echo "Skipping ECR login because REGISTRY_PREFIX points to a non-AWS registry"
+                    }
+                }
+            }
+        }
+
+        stage('Backend: Build & Push image') {
+            when { expression { params.DEPLOY_BACKEND } }
+            steps {
+                sh """
+                    set -e
+                    docker build -t ${BACKEND_IMAGE}:${BUILD_TAG} -f src/customer_app/backend/Dockerfile src/customer_app/backend
+                    docker tag ${BACKEND_IMAGE}:${BUILD_TAG} ${BACKEND_IMAGE}:latest
+                """
+
+                script {
+                    if (env.ECR_ACCOUNT?.trim()) {
+                        sh """
+                            set -e
+                            aws ecr describe-repositories --repository-name ${BACKEND_REPO} --region ${REGISTRY_REGION} >/dev/null 2>&1 \
+                              || aws ecr create-repository --repository-name ${BACKEND_REPO} --region ${REGISTRY_REGION}
+                            docker push ${BACKEND_IMAGE}:${BUILD_TAG}
+                            docker push ${BACKEND_IMAGE}:latest
+                        """
+                    } else {
+                        sh """
+                            set -e
+                            docker push ${BACKEND_IMAGE}:${BUILD_TAG}
+                            docker push ${BACKEND_IMAGE}:latest
+                        """
+                    }
+                }
+            }
+        }
+
+        stage('Backend: Deploy') {
+            when { expression { params.DEPLOY_BACKEND } }
+            steps {
+                sshagent(credentials: [SSH_CREDS_ID]) {
+                    sh """
+                        set -e
+                        ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${DEPLOY_HOST} <<'REMOTE'
+                            set -e
+                            BACKEND_IMAGE='${BACKEND_IMAGE}'
+                            BUILD_TAG='${BUILD_TAG}'
+                            DEPLOY_DIR='${DEPLOY_DIR}'
+                            mkdir -p "${DEPLOY_DIR}"
+                            docker pull "${BACKEND_IMAGE}:${BUILD_TAG}"
+                            docker tag "${BACKEND_IMAGE}:${BUILD_TAG}" "${BACKEND_IMAGE}:latest"
+                            docker compose -f "${DEPLOY_DIR}/customer-app-backend.yml" up -d --no-deps --remove-orphans
+                        REMOTE
+                    """
+                }
+            }
+        }
+
+        stage('Validate backend health') {
+            when { expression { params.DEPLOY_FRONTEND } }
+            steps {
+                sh """
+                    set -e
+                    echo "Waiting for backend health at ${BACKEND_HEALTH_URL}"
+                    timeout 180 bash -c 'until curl -fsS ${BACKEND_HEALTH_URL}; do sleep 5; done'
+                """
+            }
+        }
+
+        stage('Frontend: Build & Push image') {
+            when { expression { params.DEPLOY_FRONTEND } }
+            steps {
+                sh """
+                    set -e
+                    docker build -t ${FRONTEND_IMAGE}:${BUILD_TAG} -f src/customer_app/frontend/Dockerfile src/customer_app/frontend
+                    docker tag ${FRONTEND_IMAGE}:${BUILD_TAG} ${FRONTEND_IMAGE}:latest
+                """
+
+                script {
+                    if (env.ECR_ACCOUNT?.trim()) {
+                        sh """
+                            set -e
+                            aws ecr describe-repositories --repository-name ${FRONTEND_REPO} --region ${REGISTRY_REGION} >/dev/null 2>&1 \
+                              || aws ecr create-repository --repository-name ${FRONTEND_REPO} --region ${REGISTRY_REGION}
+                            docker push ${FRONTEND_IMAGE}:${BUILD_TAG}
+                            docker push ${FRONTEND_IMAGE}:latest
+                        """
+                    } else {
+                        sh """
+                            set -e
+                            docker push ${FRONTEND_IMAGE}:${BUILD_TAG}
+                            docker push ${FRONTEND_IMAGE}:latest
+                        """
+                    }
+                }
+            }
+        }
+
+        stage('Frontend: Deploy (backend gate enforced)') {
+            when { expression { params.DEPLOY_FRONTEND } }
+            steps {
+                sshagent(credentials: [SSH_CREDS_ID]) {
+                    sh """
+                        set -e
+                        ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${DEPLOY_HOST} <<'REMOTE'
+                            set -e
+                            FRONTEND_IMAGE='${FRONTEND_IMAGE}'
+                            BUILD_TAG='${BUILD_TAG}'
+                            DEPLOY_DIR='${DEPLOY_DIR}'
+                            mkdir -p "${DEPLOY_DIR}"
+                            docker pull "${FRONTEND_IMAGE}:${BUILD_TAG}"
+                            docker tag "${FRONTEND_IMAGE}:${BUILD_TAG}" "${FRONTEND_IMAGE}:latest"
+                            docker compose -f "${DEPLOY_DIR}/customer-app-frontend.yml" up -d --no-deps --remove-orphans
+                        REMOTE
+                    """
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            emailext (
+                subject: "[Jenkins] SUCCESS: customer_app ${env.BUILD_TAG}",
+                body: "Build and deployment succeeded for customer_app. Job: ${env.BUILD_URL}\nBranch: ${env.GIT_BRANCH}\n",
+                to: "${EMAIL_RECIPIENTS}"
+            )
+        }
+        failure {
+            emailext (
+                subject: "[Jenkins] FAILURE: customer_app ${env.BUILD_TAG}",
+                body: "Build or deployment failed for customer_app. Job: ${env.BUILD_URL}\nBranch: ${env.GIT_BRANCH}\n",
+                to: "${EMAIL_RECIPIENTS}"
+            )
+        }
+        cleanup {
+            sh 'docker image prune -af || true'
+        }
+    }
+}
