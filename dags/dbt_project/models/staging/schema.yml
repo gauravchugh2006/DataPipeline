@@ -50,6 +50,19 @@ models:
   - name: stg_support_interactions
     columns:
       - name: interaction_id
+  - name: stg_support_cases
+    columns:
+      - name: case_id
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        tests:
+          - not_null
+
+  - name: stg_logistics_delivery_status
+    columns:
+      - name: shipment_id
         tests:
           - not_null
           - unique
@@ -71,3 +84,17 @@ models:
       - name: awarded_at
         tests:
           - not_null
+
+  - name: stg_logistics_stockist_inventory
+    columns:
+      - name: stockist_id
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_logistics_distributor_master
+    columns:
+      - name: distributor_id
+        tests:
+          - not_null
+          - unique

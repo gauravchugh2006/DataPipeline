@@ -7,4 +7,12 @@ export default defineConfig({
     port: 5173,
     host: true,
   },
+    port: Number(process.env.PORT || 4173),
+    proxy: {
+      "/api": {
+        target: process.env.CAFE_BACKEND_URL || "http://localhost:4000",
+        changeOrigin: true
+      }
+    }
+  }
 });
