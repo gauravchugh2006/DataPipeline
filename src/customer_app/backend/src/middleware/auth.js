@@ -1,4 +1,7 @@
 import jwt from "jsonwebtoken";
+import { logWarn } from "../utils/logger.js";
+
+const AUTH_HEADER = "x-admin-role";
 
 const decodeToken = (authorization) => {
   if (!authorization) {
@@ -45,23 +48,21 @@ export const authenticateOptional = () => {
     }
     next();
   };
-const { logWarn } = require("../utils/logger");
+};
 
-const AUTH_HEADER = "x-admin-role";
-
-const authenticateOptionalUser = (req, _res, next) => {
+export const authenticateOptionalUser = (req, _res, next) => {
   const role = req.headers[AUTH_HEADER] || req.headers[AUTH_HEADER.toUpperCase()];
   const userId = req.headers["x-admin-user"] || req.headers["x-admin-user".toUpperCase()];
   if (role || userId) {
     req.user = {
       id: userId || "anonymous",
-      role: Array.isArray(role) ? role[0] : role
+      role: Array.isArray(role) ? role[0] : role,
     };
   }
   next();
 };
 
-const requireRole = (...allowedRoles) => (req, res, next) => {
+export const requireRole = (...allowedRoles) => (req, res, next) => {
   authenticateOptionalUser(req, res, () => {
     const role = req.user?.role;
     if (!role) {
@@ -76,9 +77,4 @@ const requireRole = (...allowedRoles) => (req, res, next) => {
 
     next();
   });
-};
-
-module.exports = {
-  authenticateOptionalUser,
-  requireRole
 };

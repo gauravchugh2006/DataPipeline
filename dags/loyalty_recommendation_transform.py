@@ -11,7 +11,6 @@ import boto3
 import pandas as pd
 from sqlalchemy import create_engine, text
 
-
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
@@ -27,6 +26,8 @@ LOYALTY_EXPORT_KEY = os.getenv(
 )
 LOOKBACK_DAYS = int(os.getenv("LOYALTY_LOOKBACK_DAYS", "45"))
 RECOMMENDATION_LIMIT = int(os.getenv("LOYALTY_RECOMMENDATION_LIMIT", "500"))
+
+LOYALTY_SEGMENT_DEFAULT = "generalist"
 
 
 def resolve_postgres_conn() -> str:
@@ -55,7 +56,7 @@ def _load_dataframe(engine, table: str) -> pd.DataFrame:
         try:
             df = pd.read_sql(query, conn)
         except Exception as exc:  # pragma: no cover - dependent on infra
-            logger.error("Failed to load dataset %%s: %%s", table, exc)
+            logger.error("Failed to load dataset %s: %s", table, exc)
             raise
     if df.empty:
         logger.warning("Dataset %s is empty", table)
@@ -176,13 +177,15 @@ def run_loyalty_recommendation_transform(**_context):
             lambda rows: _serialize_add_ons(rows.to_dict("records"))
         )
         affinity_summary = affinity_sorted.groupby("customer_id").first().reset_index()
-        affinity_summary = affinity_summary[[
-            "customer_id",
-            "product_id",
-            "add_on_name",
-            "affinity_score",
-            "primary_category",
-        ]]
+        affinity_summary = affinity_summary[
+            [
+                "customer_id",
+                "product_id",
+                "add_on_name",
+                "affinity_score",
+                "primary_category",
+            ]
+        ]
         affinity_summary.rename(
             columns={
                 "product_id": "primary_add_on_id",
@@ -288,29 +291,12 @@ def run_loyalty_recommendation_transform(**_context):
     logger.info("Loyalty recommendation transformation completed")
 
 
-if __name__ == "__main__":  # pragma: no cover
-    run_loyalty_recommendation_transform()
-"""Transformations that create the mart_loyalty_recommendations table.
-
-The scoring logic is intentionally lightweight so the unit tests and
-local Airflow runs complete quickly.  In production, the scoring logic
-would likely execute within a dedicated notebook or model serving
-platform.
-"""
-
-from __future__ import annotations
-
-import pandas as pd
-
-LOYALTY_SEGMENT_DEFAULT = "generalist"
-
-
 def score_recommendations(
     purchases: pd.DataFrame,
     affinity: pd.DataFrame,
     reminder_preferences: pd.DataFrame,
 ) -> pd.DataFrame:
-    """Return a scored recommendation DataFrame."""
+    """Return a scored recommendation DataFrame for lightweight workflows."""
 
     merged = purchases.merge(affinity, on="product_id", how="left")
     merged["segment"] = merged["segment"].fillna(LOYALTY_SEGMENT_DEFAULT)
@@ -349,7 +335,9 @@ def score_recommendations(
         }
     )
 
-    enriched["recommendation_id"] = pd.util.hash_pandas_object(enriched[["customer_id", "product_id", "order_id"]])
+    enriched["recommendation_id"] = pd.util.hash_pandas_object(
+        enriched[["customer_id", "product_id", "order_id"]]
+    )
     enriched["recommendation_created_at"] = pd.Timestamp.utcnow()
 
     columns = [
@@ -373,4 +361,4 @@ def score_recommendations(
     return result
 
 
-__all__ = ["score_recommendations"]
+__all__ = ["run_loyalty_recommendation_transform", "score_recommendations"]
