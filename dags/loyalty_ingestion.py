@@ -1,16 +1,22 @@
-"""Helpers for loading loyalty source data into the raw warehouse schema."""
+"""Helpers for loading loyalty source data into the raw warehouse schema.
+
+The module supports pulling CSV extracts from MinIO (or a local fallback)
+into the raw Postgres schema so downstream DAGs can hydrate marts. It also
+exposes lightweight helpers for tests that need DataFrames or MinIO payloads
+without touching the database.
+"""
 from __future__ import annotations
 
 import logging
 import os
+import pathlib
 from io import BytesIO
-from typing import Any, Dict
+from typing import Any, Dict, Iterable
 
 import boto3
 import pandas as pd
 from airflow.exceptions import AirflowSkipException
 from sqlalchemy import create_engine, text
-
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -130,22 +136,6 @@ def ingest_dataset(dataset_name: str) -> None:
     logger.info("Loaded %s rows into %s.%s", len(df), RAW_SCHEMA, table)
 
 
-__all__ = ["ingest_dataset"]
-"""Helper utilities for ingesting loyalty related source feeds.
-
-The module loads sample CSV extracts into pandas DataFrames so the
-loyalty recommendation DAG can hydrate staging tables in Postgres or
-MinIO.  Each loader accepts a base path, defaulting to the repository
-`dags/data_source` directory so Airflow and tests can share fixtures.
-"""
-
-from __future__ import annotations
-
-import pathlib
-from typing import Dict, Iterable
-
-import pandas as pd
-
 DEFAULT_SOURCE_DIR = pathlib.Path(__file__).resolve().parent / "data_source"
 
 
@@ -197,6 +187,7 @@ def to_minio_payload(frame: pd.DataFrame, bucket: str, prefix: str) -> Dict[str,
 
 
 __all__ = [
+    "ingest_dataset",
     "load_recent_purchases",
     "load_reminder_preferences",
     "load_product_affinity",
