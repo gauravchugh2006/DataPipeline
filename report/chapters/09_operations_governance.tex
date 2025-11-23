@@ -4,7 +4,7 @@ The automation stack integrates Jenkins pipelines, GitHub Actions, and Terraform
 
 \begin{figure}[H]
     \centering
-\begin{tikzpicture}[node distance=2.2cm,>=Stealth,thick]
+\begin{tikzpicture}[node distance=2.2cm,>=Stealth,thick,every node/.style={align=center}]
         \tikzstyle{stage}=[rectangle, rounded corners=2mm, draw=green!60!black, fill=green!10, minimum width=3.2cm, minimum height=1cm]
         \tikzstyle{arrow}=[->, line width=0.8pt, color=green!60!black]
         \node[stage] (commit) {Code Commit};
