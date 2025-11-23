@@ -1,0 +1,59 @@
+\chapter{Detail Data Pipeline Design (Medallion + DDD)}\label{chap:medallion-ddd}
+This chapter deepens the Medallion design already adopted in the platform by grounding it in domain-driven design (DDD), PySpark notebooks that run identically on Databricks (Azure) and Amazon EMR/Spark, and the role of the \texttt{customer\_app} services as Gold-layer consumers. The intent is to enrich the report without altering the existing architecture or Terraform modules—AWS continues to operate as before while Azure gains first-class, configuration-driven support.
+
+\section{Design principles applied across Bronze \textrightarrow{} Silver \textrightarrow{} Gold}
+\begin{itemize}
+    \item \textbf{Idempotency and replayability:} Incremental PySpark reads watermark on \texttt{updated\_at} in the source CSVs (\emph{orders}, \emph{products}), allowing Bronze files in S3/ADLS to be reprocessed safely after schema drift. Airflow replays a failed Silver task without duplicating records.
+    \item \textbf{Schema evolution with contracts:} Expectations (Great Expectations or PySpark asserts) enforce required columns and types. When a new \texttt{discount\_code} column appears in Bronze, the contract routes it to an exception quarantine so downstream joins remain stable.
+    \item \textbf{Observability and lineage:} Task-level row counts, anomaly flags, and OpenLineage events are emitted from Airflow to DataHub regardless of cloud. This lets support teams trace a KPI tile in the React admin grid back to the originating Bronze file.
+    \item \textbf{Security and governance:} Least-privilege IAM/RBAC policies on S3/ADLS containers, KMS/Key Vault-backed secrets, and table-level ACLs in Redshift/Synapse/Databricks SQL guarantee PII isolation while keeping the API/React contracts intact.
+    \item \textbf{Performance-aware modeling:} Partition pruning on event dates and Z-ordering (Delta Lake) or clustered indexes (Postgres) are applied before the Gold marts feed low-latency endpoints such as \texttt{/api/trust/metrics}.
+\end{itemize}
+
+\section{Bronze layer: raw, immutable capture}
+\begin{itemize}
+    \item \textbf{Storage targets:} S3 buckets (AWS) or ADLS Gen2 containers (Azure) named per domain (e.g., \texttt{bronze/orders/}, \texttt{bronze/products/}). Terraform variables (\texttt{cloud\_provider}, \texttt{azure\_storage\_account\_name}, \texttt{azure\_container\_name}) share the same interface as the S3 module so Jenkins jobs stay unchanged.
+    \item \textbf{Processing:} PySpark ingestion notebooks mount the storage endpoint (\texttt{s3a://} or \texttt{abfss://}) and land partitioned Parquet/CSV. Azure runs the same notebook on Databricks via the REST API called from Airflow; AWS can execute on EMR or managed Spark clusters.
+    \item \textbf{Sample data path:} The synthetic \texttt{orders.csv} under \texttt{dags/data\_source/} is copied verbatim to \texttt{bronze/orders/2024/05/}. No cleansing occurs; duplicate \texttt{order\_id} values remain for downstream deduplication.
+    \item \textbf{Why it matters:} Guarantees reproducibility. If a pipeline later rejects an order with a malformed \texttt{customer\_id}, operators can replay the Bronze file without data loss.
+\end{itemize}
+
+\section{Silver layer: validated, conformed data}
+\begin{itemize}
+    \item \textbf{Transformations:} Type casting, null handling, timezone normalisation, deduplication on business keys (\texttt{order\_id} with latest \texttt{updated\_at}), and referential checks against \texttt{customers} and \texttt{products}. Delta Lake on Databricks adds ACID merges and time travel; Postgres staging tables mirror the schema for AWS continuity.
+    \item \textbf{Quality controls:} Expectations assert non-null \texttt{total\_amount}, valid \texttt{currency} codes, and SKU conformity. Violations are written to a \texttt{silver\_rejects} table for triage.
+    \item \textbf{Sample progression:} A Bronze record with \texttt{currency = "EUR"} and missing \texttt{discount\_code} becomes a Silver row with standardised timestamps, defaulted \texttt{discount\_code = NULL}, and harmonised currency symbols. Duplicate \texttt{order\_id} entries collapse to the freshest update.
+    \item \textbf{Why it matters:} Produces trustworthy, join-ready tables for dbt and PySpark. The customer loyalty notebook can safely join \texttt{orders} and \texttt{customers} without guarding every column for nulls.
+\end{itemize}
+
+\section{Gold layer: curated marts for analytics and applications}
+\begin{itemize}
+    \item \textbf{Transformations:} Aggregations, dimensional modeling, and feature engineering. Examples include \texttt{mart\_daily\_revenue} (revenue by channel/region), \texttt{mart\_trust\_scores} (sustainability signals per product), and \texttt{mart\_loyalty\_recommendations} (bundle and cadence suggestions).
+    \item \textbf{Serving contracts:} dbt models define schemas consumed by the FastAPI/Express layer and Power BI/Tableau. Schemas double as contracts for the React admin tiles and CSV exports exposed by \texttt{customer\_app}.
+    \item \textbf{Sample usage:} The Gold trust mart materialises a KPI where bamboo cutlery and organic beans earn a higher score; the frontend renders this in the transparency panel, while the backend exports the same view via \texttt{/api/trust/metrics/export}.
+    \item \textbf{Why it matters:} Aligns business logic across channels. The same Gold mart powers executive dashboards, SLA alerts, and the customer-facing transparency feed without duplicating calculations.
+\end{itemize}
+
+\section{customer\_app architecture and its role in the pipeline}
+\begin{itemize}
+    \item \textbf{Technical architecture:} A Vite/React frontend calls an Express API backed by MySQL for operational data and Postgres/Databricks SQL for Gold marts. Docker Compose orchestrates local services; Terraform + Jenkins deploy the containers to ECS Fargate (AWS) or Azure Container Apps/App Service.
+    \item \textbf{Data interactions:} Admin grids (products, customers, orders) and transparency panels pull from \texttt{mart\_daily\_revenue} and \texttt{mart\_trust\_scores}. Loyalty reminders use \texttt{mart\_loyalty\_recommendations} to queue notifications. All endpoints remain stable because the Medallion interfaces do not change between clouds.
+    \item \textbf{Observability hooks:} The API logs lineage-friendly event IDs for every mart query; Airflow correlates these with task runs so support engineers can trace UI anomalies back to data loads.
+    \item \textbf{Resilience pattern:} If Databricks is unreachable during an Azure rollout, the API fails over to cached Postgres snapshots while Airflow replays the failed notebook, preserving UX continuity without architectural changes.
+\end{itemize}
+
+\section{Cloud deployment parity (AWS and Azure)}
+\begin{itemize}
+    \item \textbf{Terraform reusability:} The existing modules accept a \texttt{cloud\_provider} toggle. Azure-specific variables (Databricks workspace URL, storage account, container names) mirror the AWS contract so Jenkins pipelines and the \texttt{Jenkinsfile} remain unchanged.
+    \item \textbf{Databricks integration:} Airflow uses the Databricks Submit Run API to execute the same PySpark notebooks that populate Bronze/Silver/Gold in ADLS Gen2. On AWS, the same notebooks run on EMR or Spark-on-ECS via identical parameters.
+    \item \textbf{CI/CD continuity:} Jenkins continues to lint, test, and build images before invoking Terraform. Azure credentials (ARM service principal + Databricks PAT) are injected as credential bindings, but pipeline stages and approvals mirror the AWS flow.
+\end{itemize}
+
+\section{Challenges and resolutions}
+\begin{itemize}
+    \item \textbf{Schema drift in Bronze feeds:} Unexpected optional fields (e.g., \texttt{discount\_code}) were isolated via schema-on-read and contracts, preventing Silver joins from breaking. Bronze quarantine folders and Great Expectations checkpoints keep a copy of non-conforming rows so data engineers can reprocess once upstream fixes land. Replay of Bronze files confirmed the guardrail and produced identical Silver outputs on both clouds.
+    \item \textbf{Cross-cloud secret management:} Mapped AWS Secrets Manager keys to Azure Key Vault secrets through Terraform variables so the same environment names load in both clouds. A rotation drill refreshed the Databricks PAT and the AWS access key in the same Jenkins run, proving the \texttt{Jenkinsfile} needed no edits and that notebooks continued to read from \texttt{abfss://} and \texttt{s3a://} without interruption.
+    \item \textbf{Databricks/S3 parity:} Ensured notebooks accept storage URIs as parameters, letting ADLS Gen2 mounts and S3 buckets share code. Small test ingestions with the sample \texttt{orders.csv} validated that partitioning and deduplication logic behaved identically. A canary DAG compared row counts and hash totals between the two clouds to prove semantic equivalence before rolling out to production.
+    \item \textbf{Customer app latency:} Gold marts were Z-ordered (Delta) and indexed (Postgres) to keep React KPI tiles under 200ms. Cache headers were introduced at the API layer to absorb transient Azure notebook delays without diverging from AWS behaviour. Synthetic journeys using the sample basket data confirmed the UI stayed responsive even when Spark jobs were retried.
+    \item \textbf{Operational recovery:} Failed Silver validations previously required manual cleanup. A runbook-backed Airflow task now purges partial Silver outputs, replays the Bronze partition, and re-runs dbt to rebuild the Gold mart, keeping the Medallion contract consistent. This was tested with a corrupted \texttt{orders.csv} row to show deterministic recovery steps.
+\end{itemize}

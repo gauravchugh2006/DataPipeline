@@ -34,6 +34,22 @@ models:
           - not_null
           - unique
 
+  - name: stg_deliveries
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          - unique
+      - name: promised_delivery_ts
+        tests:
+          - not_null
+      - name: actual_delivery_ts
+        tests:
+          - not_null
+
+  - name: stg_support_interactions
+    columns:
+      - name: interaction_id
   - name: stg_support_cases
     columns:
       - name: case_id
@@ -51,6 +67,21 @@ models:
           - not_null
           - unique
       - name: order_id
+        tests:
+          - not_null
+      - name: csr_id
+        tests:
+          - not_null
+
+  - name: stg_csr_badges
+    columns:
+      - name: csr_id
+        tests:
+          - not_null
+      - name: badge_type
+        tests:
+          - not_null
+      - name: awarded_at
         tests:
           - not_null
 

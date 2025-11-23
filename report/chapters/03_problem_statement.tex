@@ -1,0 +1,35 @@
+\chapter{Problem Statement}
+\section{Business Challenges}
+The ecommerce organisation faced three interlinked pain points:
+\begin{enumerate}
+    \item \textbf{Latency of Insight:} Daily merchandising stand-ups relied on reports generated 12 hours after trading, limiting the ability to respond to viral campaigns or supply disruptions.
+    \item \textbf{Data Trust Deficit:} Multiple versions of metrics such as ``net revenue'' or ``available-to-promise inventory'' existed across departments because transformations were implemented in siloed spreadsheets and SQL scripts.
+    \item \textbf{Operational Fragility:} Batch jobs executed on virtual machines without observability or automated recovery. Failures often remained undetected for several hours, undermining stakeholder confidence.
+\end{enumerate}
+
+\section{Research Problem}
+The validated research problem is expressed as follows:
+\begin{quote}
+\emph{How can the ecommerce organisation design a resilient, cloud-agnostic data platform that delivers sub-three-minute KPI refreshes, enforces data quality at scale, and democratises governed insights across internal and external channels while minimising total cost of ownership?}
+\end{quote}
+
+This problem intersects technology, process, and organisational dimensions. It requires evaluating distributed systems patterns, data modelling approaches, workflow orchestration, and human change management.
+
+\section{Scope and Constraints}
+\begin{itemize}
+    \item \textbf{In Scope:} Real-time ingestion, streaming/batch harmonisation, curated dimensional models, self-service analytics, observability, \gls{ci}/\gls{cd}, cost governance, and dual-cloud deployment patterns.
+    \item \textbf{Out of Scope:} Re-architecting transactional order management systems, implementing advanced machine learning pipelines, and replacing legacy ERP integrations.
+    \item \textbf{Constraints:} Student subscription limits on \gls{aws} and \gls{az}, anonymisation of customer data to satisfy GDPR, and 24-week delivery horizon aligned to the MSc internship calendar.
+\end{itemize}
+
+\section{Success Criteria}
+Success metrics were defined collaboratively with the steering committee:
+\begin{itemize}
+    \item KPI dashboards refresh within a median of 120 seconds and a 95th percentile of 150 seconds.
+    \item Data quality rules (completeness, schema compliance, referential integrity) achieve 99\% daily pass rates.
+    \item Deployment automation reduces manual effort per release from four hours to under 30 minutes.
+    \item Stakeholder Net Promoter Score for data products improves from \(-12\) to +32 within three months of go-live.
+\end{itemize}
+
+\section{Design Philosophy Constraints}
+Beyond resource and timeline limitations, the steering committee imposed explicit design philosophy constraints rooted in operational experience. Pipelines must be idempotent so that retries triggered by Airflow or Step Functions do not inflate fact tables. Observability and lineage metadata must be captured in every environment so audits can reconstruct KPI provenance within minutes. Modularity was mandated to ensure that incremental launches across regions re-use the same ingestion templates and policy controls. These constraints justified the creation of Chapter~\ref{chap:data-manifesto}, where each manifesto principle is linked to a measurable risk mitigation for latency, compliance, or customer trust.

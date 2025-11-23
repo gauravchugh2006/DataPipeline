@@ -1,0 +1,107 @@
+\documentclass[a4paper,11pt,oneside]{book}
+
+% Packages
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{pdflscape}
+\usepackage{tcolorbox}
+\usepackage{fancyhdr}
+\usepackage{afterpage}
+\usepackage{eso-pic}
+\usepackage{pdfpages}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{glossaries}
+\usepackage{csquotes}
+\usepackage[backend=biber,style=ieee]{biblatex}
+\usepackage{rotating}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{todonotes}
+\usepackage{adjustbox}
+
+\pgfplotsset{compat=1.18}
+
+\setstretch{1.2}
+\setlist{leftmargin=1.25cm}
+\graphicspath{{figures/}{../}}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!60!black,
+    citecolor=blue!60!black,
+    urlcolor=blue!60!black,
+    pdfauthor={Gaurav Chugh},
+    pdftitle={Ecommerce Data Pipeline and Real-Time KPI Platform}
+}
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\addbibresource{references.bib}
+
+\makeglossaries
+\input{glossary}
+\input{acronyms}
+
+\begin{document}
+
+% Cover page with letterhead background
+\AddToShipoutPictureBG*{
+  \AtPageUpperLeft{\raisebox{-\height}{\includegraphics[width=\paperwidth]{figures/aivancity_letterhead.pdf}}}
+}
+
+\frontmatter
+\input{chapters/cover}
+\afterpage{\AddToShipoutPictureBG*{}}
+
+\input{chapters/declaration}
+\input{chapters/acknowledgements}
+\input{chapters/abstract}
+\input{chapters/ai_acknowledgement}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\printglossary[title=Glossary]
+\printglossary[type=\acronymtype,title=List of Acronyms]
+
+\mainmatter
+\input{chapters/01_introduction}
+\input{chapters/02_company_context}
+\input{chapters/03_problem_statement}
+\input{chapters/04_literature_review}
+\input{chapters/05_methodology}
+\input{chapters/06_architecture}
+\input{chapters/06a_detail_data_pipeline_design}
+\input{chapters/07_data_engineering_manifesto}
+\input{chapters/07_data_management}
+\input{chapters/08_analytics_delivery}
+\input{chapters/09_operations_governance}
+\input{chapters/10_results_evaluation}
+\input{chapters/11_recommendations_future}
+\input{chapters/12_conclusion}
+
+\backmatter
+\printbibliography
+
+\appendix
+\input{appendices/ai_prompts}
+\input{appendices/additional_assets}
+\input{appendices/manifesto_assets}
+
+\end{document}

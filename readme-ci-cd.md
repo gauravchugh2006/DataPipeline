@@ -95,6 +95,54 @@ GitHub Repository Structure:
     └─ Deployment: MANUAL APPROVAL REQUIRED → DEPLOY to Prod EC2
 ```
 
+### Azure expansion (keeps AWS flow intact)
+
+The Terraform/Jenkins design also supports Azure so you can migrate without
+rewriting the CI/CD logic:
+
+1. Add `cloud_provider = "azure"` plus `azure_subscription_id`,
+   `azure_resource_group`, `azure_storage_account_name`, `azure_databricks_workspace`,
+   and container names to the environment-specific `terraform.tfvars` files.
+2. Create a Databricks personal access token (PAT) and an Azure service
+   principal with Storage Blob Data Contributor permissions.  Store both in
+   Jenkins credentials (secret text + ARM service principal binding) and reuse
+   the existing credentials IDs inside the Jenkinsfile.
+3. Implement `terraform/modules/azure` mirroring the AWS outputs (`jenkins_public_ip`,
+   `storage_account_urls`, `databricks_workspace_url`).  The Jenkins stages can
+   continue to call `terraform output -json` to discover endpoints.
+4. Update the Airflow connections (in ECS or Azure App Services) to use the
+   Databricks REST API, pointing ingestion notebooks to ADLS Gen2 Bronze paths
+   (`abfss://bronze@<storage-account>.dfs.core.windows.net/orders/`).  Silver and
+   Gold jobs run as PySpark notebooks registered in the same workspace.
+5. Keep the Docker build/push/test stages untouched so both AWS ECS tasks and
+   Azure Container Apps/App Service containers pull the same images.  Branch
+   protection and SonarQube gates remain identical across clouds.
+
+#### Azure CI/CD validation checklist
+
+- Confirm the `cloud_provider` variable switches to `azure` in the `qa` and
+  `main` workspaces before running `terraform apply`.
+- Seed Databricks secrets (`jdbc_url`, `warehouse_token`) and map them to the
+  same names used in AWS SSM/Secrets Manager so the application containers do
+  not require new environment variables.
+- Run a dry-run of the Medallion flow by submitting the PySpark notebook that
+  ingests `orders.csv` into ADLS Bronze, advances to Silver deduplication, and
+  materialises `mart_daily_revenue` for the `customer_app` dashboards. Verify the
+  same Jenkins stages (lint → test → build → plan → apply) complete without
+  edits.
+
+#### Common migration challenges and mitigations
+
+- **Databricks vs. EMR semantics**: mitigated by parameterising storage URIs and
+  using Delta Lake features (time travel, merges) that match the AWS glue jobs.
+- **Credential drift across clouds**: avoided by keeping variable names and
+  Jenkins credential IDs identical; Terraform maps them to Key Vault or Secrets
+  Manager behind the scenes.
+- **Data contract enforcement**: Great Expectations/PySpark asserts run in both
+  environments, quarantining malformed Bronze rows (e.g., missing `customer_id`)
+  before they reach the Silver zone and keeping Gold marts consistent for the
+  frontend KPIs.
+
 ---
 
 ## Key Components
@@ -132,6 +180,16 @@ GitHub Repository Structure:
 - **Production-grade Jenkinsfile** (declarative pipeline)
 - **GitHub webhook integration** (automatic trigger on push)
 - **Docker Hub registry** (image storage and versioning)
+
+### customer_app CI/CD
+
+- A dedicated **customer_app Jenkinsfile** now lives in `src/customer_app/Jenkinsfile` so the frontend and backend can be built
+  and deployed independently of the core data platform pipeline.
+- Two boolean parameters (`DEPLOY_BACKEND`, `DEPLOY_FRONTEND`) let you run only the layers you need. The frontend deploy stage
+  runs **only after a successful backend health check**, preventing stale UI releases when the API is down.
+- The pipeline tags images with `<build-number>-<commit>` plus `latest`, pushes to the configured registry (AWS ECR by default),
+  and executes remote `docker compose` updates via SSH using `customer-app-backend.yml` and `customer-app-frontend.yml` on the
+  target host.
 
 ---
 

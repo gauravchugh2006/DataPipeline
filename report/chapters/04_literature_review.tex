@@ -1,0 +1,18 @@
+\chapter{Literature Review}
+\section{Data Platform Architecture}
+Recent literature emphasises modular architectures that separate ingestion, processing, storage, and serving layers. Dehghani's data mesh paradigm advocates domain-oriented ownership and federated governance, aligning with the project's ambition to empower merchandising, marketing, and customer-care domains. Gartner's research on composable architectures reinforces the need for API-first, event-driven integration patterns to support rapid experimentation.
+
+\section{Real-Time Analytics}
+Stonebraker's work on streaming databases and research on Lambda/Kappa architectures highlight the tension between batch consistency and streaming latency. Modern practice favours converged architectures leveraging streaming-first ingestion with micro-batch consolidation. Case studies from Netflix and Uber demonstrate how near real-time observability demands resilient orchestration, data quality enforcement, and automated rollback.
+
+\section{Automation and DevOps}
+Forsgren et al. (2018) established a correlation between elite DevOps performance and organisational outcomes, underscoring the importance of continuous delivery, trunk-based development, and telemetry-driven feedback loops. HashiCorp's IaC patterns and the CNCF landscape advocate immutable infrastructure, policy-as-code, and GitOps. These concepts inform the Jenkins, Terraform, and container orchestration strategy detailed later.
+
+\section{Governance and Ethics}
+Academic discourse on data ethics stresses transparent data lineage, consent management, and algorithmic accountability. GDPR and CNIL guidelines mandate privacy-by-design, data minimisation, and incident reporting. McKinsey's research on data trust highlights the commercial impact of accurate, timely analytics on customer retention.
+
+\section{Business Intelligence Adoption}
+Studies by Forrester and IDC highlight that BI adoption hinges on relevant KPIs, intuitive visualisation, and proactive alerts. Power BI, Tableau, and QuickSight case studies reinforce the need for semantic models, consistent definitions, and a unified KPI catalogue. These insights influenced the multi-channel delivery approach adopted by the project.
+
+\section{Design Principles for Data Engineering}
+The manifesto introduced later in the report synthesises recurring principles extracted from academic and industry sources. Dehghani's articulation of domain-oriented ownership and federated governance stresses the importance of metadata-driven contracts between producers and consumers.\cite{dehghani2022datamesh} Forsgren et al. demonstrate that elite delivery teams pair automation with rigorous observability, providing empirical evidence that telemetry-rich pipelines improve both stability and throughput.\cite{forsgren2018accelerate} Stonebraker's requirements for stream processors reinforce idempotency and exactly-once semantics as prerequisites for trustworthy real-time analytics.\cite{stonebraker2018} Complementary research from McKinsey and Gartner links data trust to sustained business impact, highlighting governance, cataloguing, and clear ownership as non-negotiable.\cite{mckinseyDataTrust2022,gartnerComposable2023} These works collectively inform the twenty principles framed in Chapter~\ref{chap:data-manifesto}, ensuring the manifesto is grounded in both scientific literature and enterprise practice.

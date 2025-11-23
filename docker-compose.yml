@@ -1,23 +1,27 @@
 version: '3.8'
 
 networks:
+  datahubnetwork:
+    driver: bridge
   default:
     name: datahub_network
 
 # Define the custom Airflow settings that will be reused (the anchor must be defined first)
 x-airflow-common: &airflow-common
-  image: apache/airflow:2.3.4-python3.10
+  image: apache/airflow:2.3.4-python3.10        # Use the same version as your primary Airflow service
   environment:
     - AIRFLOW__CORE__EXECUTOR=LocalExecutor
     - AIRFLOW__CORE__FERNET_KEY=ehE_UybKeIGETmag57Fy1MBeAIQRWDt7NS9zcl017Yg=
-    - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres_airflow/airflow
+    - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://${AIRFLOW_DB_USER:-airflow}:${AIRFLOW_DB_PASSWORD:?AIRFLOW_DB_PASSWORD not set}@postgres_airflow/airflow
     - AIRFLOW__CORE__LOAD_EXAMPLES=True
+    - AIRFLOW__CORE__BASE_LOG_FOLDER=/opt/airflow/logs  # ← CRITICAL!
     - AIRFLOW__CORE__DAGS_ARE_PAUSED_CREATION=False
     - AIRFLOW__CORE__LOGGING_LEVEL=INFO
     - AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK=True
     - AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow/dags
     - AIRFLOW__WEBSERVER__WEB_SERVER_PORT=8082
     - AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG=1
+    - AIRFLOW_HOME=/opt/airflow
     - _PIP_ADDITIONAL_REQUIREMENTS=pandas==2.0.3 psycopg2-binary==2.9.5 boto3==1.26.76 dbt-core==1.4.5 dbt-postgres==1.4.5 minio==7.1.13
   volumes:
     - ./dags:/opt/airflow/dags:rw
@@ -25,6 +29,11 @@ x-airflow-common: &airflow-common
     - ./airflow-data/plugins:/opt/airflow/plugins:rw
     - ./airflow-data/airflow.cfg:/opt/airflow/airflow.cfg:rw
     - ./dbt_profiles:/opt/airflow/.dbt:rw
+    - ./docker-compose.yml:/opt/airflow/docker/docker-compose.yml:ro
+    - ./security-reports:/opt/airflow/security-reports:rw
+    - /var/run/docker.sock:/var/run/docker.sock:ro
+  # Add user specification to fix permissions
+  user: "${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-50000}"
 
 services:
 
@@ -33,8 +42,8 @@ services:
     image: postgres:15
     container_name: postgres_airflow
     environment:
-      POSTGRES_USER: airflow
-      POSTGRES_PASSWORD: airflow
+      POSTGRES_USER: ${AIRFLOW_DB_USER:-airflow}
+      POSTGRES_PASSWORD: ${AIRFLOW_DB_PASSWORD:?AIRFLOW_DB_PASSWORD not set}
       POSTGRES_DB: airflow
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "airflow"]
@@ -47,6 +56,8 @@ services:
       - "5439:5432"
     volumes:
       - postgres_airflow_data:/var/lib/postgresql/data
+    networks:
+      - datahubnetwork
 
   ### 🚀 Redis for Airflow Caching ###
   redis:
@@ -61,39 +72,19 @@ services:
       retries: 50
       start_period: 30s
     restart: always
-
-  ### 🚀 Apache Airflow ###
-  airflow:
-    image: apache/airflow:2.3.4-python3.10
-    container_name: airflow
-    restart: always
-    environment:
-      AIRFLOW__CORE__EXECUTOR: LocalExecutor
-      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres_airflow/airflow
-      AIRFLOW__CORE__LOAD_EXAMPLES: "true"
-    depends_on:
-      - postgres_airflow
-    ports:
-      - "8082:8082"
-    volumes:
-      - ./dags:/opt/airflow/dags
-      - ./airflow-data/logs:/opt/airflow/logs
-      - ./airflow-data/plugins:/opt/airflow/plugins
-      - ./airflow-data/airflow.cfg:/opt/airflow/airflow.cfg
-      - ./dbt_profiles:/opt/airflow/.dbt
-    command: webserver
+    networks:
+      - datahubnetwork
 
   # ✅ Airflow Init Service (runs once after everything is set up)
   airflow-init:
-    image: apache/airflow:2.3.4-python3.10       # Use the same version as your primary Airflow service
-    container_name: airflow_init
-    restart: "no"                   # Do not restart—run once and exit
-    environment:
-      AIRFLOW__CORE__EXECUTOR: LocalExecutor
-      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres_airflow/airflow
-      AIRFLOW__CORE__LOAD_EXAMPLES: "true"
+    <<: *airflow-common
+    container_name: airflow-init
+    restart: no  # Run once and exit
+    depends_on:
+      postgres_airflow:
+        condition: service_healthy # Wait for Postgres_Airflow DB to be ready
     command: >
-      bash -cx '
+      bash -c '
       echo "Waiting for Postgres to be ready...";
       until pg_isready -h postgres_airflow -p 5432 -U airflow; do
         echo "Postgres not ready yet, sleeping 5 seconds...";
@@ -101,13 +92,32 @@ services:
       done;
       echo "Postgres is ready. Initializing Airflow DB...";
       airflow db init;
-      echo "Airflow DB initialized. Creating admin user...";
+      echo "Airflow DB initialized. Creating default admin users...";
       airflow users create --username airflow --firstname Air --lastname Flow --role Admin --email airflow@example.com -p airflow || true;
-      echo "Airflow initialization tasks complete."'
+      airflow users create --username admin --firstname Admin --lastname user --role Admin --email admin@example.com -p admin || true;
+      echo "Airflow initialization tasks complete."
+      '
+    networks:
+      - datahubnetwork
+ 
+  ### 🚀 Apache Airflow ###
+  airflow:
+    <<: *airflow-common
+    container_name: airflow
+    restart: always
     depends_on:
+      airflow-init:
+        condition: service_completed_successfully  # Wait for init to complete
       postgres_airflow:
         condition: service_healthy
- 
+      redis:
+        condition: service_healthy
+    ports:
+      - "8082:8082"
+    command: webserver
+    networks:
+      - datahubnetwork
+
   ### 🐳 Airflow Scheduler service ###
   airflow-scheduler:
     <<: *airflow-common
@@ -116,11 +126,13 @@ services:
     restart: always
     depends_on:
       airflow-init:
-        condition: service_completed_successfully
+        condition: service_completed_successfully # Wait for init to complete
       postgres_airflow:
         condition: service_healthy
       redis:
         condition: service_healthy
+    networks:
+      - datahubnetwork
 
   ### 🛠️ MinIO (S3-compatible Object Storage) ###
   minio:
@@ -135,14 +147,16 @@ services:
       - "9001:9001"  # → Connects to container port 9001 (Console) / Admin Dashboard
     volumes:
       - minio_data:/data
+    networks:
+      - datahubnetwork
 
   ### 🗃️ PostgreSQL for Metadata (DBT, DataHub) ###
   postgres_dw:
     image: postgres:15
     container_name: postgres_dw
     environment:
-      POSTGRES_USER: dwh_user
-      POSTGRES_PASSWORD: dwh_password
+      POSTGRES_USER: ${POSTGRES_DWH_USER:-dwh_user}
+      POSTGRES_PASSWORD: ${POSTGRES_DWH_PASSWORD:?POSTGRES_DWH_PASSWORD not set}
       POSTGRES_DB: datamart
     healthcheck:
      test: ["CMD-SHELL", "pg_isready -U dwh_user -d datamart -h localhost || exit 1"]
@@ -152,9 +166,11 @@ services:
      start_period: 30s
     restart: always
     ports:
-      - "5432:5432"
+      - "5542:5432"
     volumes:
       - postgres_dw_data:/var/lib/postgresql/data
+    networks:
+      - datahubnetwork
 
   ### 🧪 SonarQube for Code Quality Analysis (SAST) ###
   sonarqube:
@@ -166,25 +182,28 @@ services:
     environment:
       SONAR_JDBC_URL: jdbc:postgresql://postgres_sonar:5432/sonar
       SONAR_JDBC_USERNAME: sonar    # ← This is the DATABASE user
-      SONAR_JDBC_PASSWORD: sonar    # ← This is the DATABASE password
-      SONARQUBE_JDBC_USERNAME: sonar
-      SONARQUBE_JDBC_PASSWORD: sonar
+      SONAR_JDBC_PASSWORD: ${SONAR_DB_PASSWORD:?SONAR_DB_PASSWORD not set}    # ← This is the DATABASE password
+      SONARQUBE_JDBC_USERNAME: ${SONAR_DB_USER:-sonar}
+      SONARQUBE_JDBC_PASSWORD: ${SONAR_DB_PASSWORD:?SONAR_DB_PASSWORD not set}
+      SONARQUBE_ADMIN_PASSWORD: admin
     # Add this to set a custom admin password:
     # Note: This only works on first initialization, before password is set
     # SONARQUBE_ADMIN_PASSWORD: your_secure_password (default is user 'admin' and password 'admin')
     ports:
       - "9003:9000"  # ✅ Host port 9003 → Container port 9000 (SonarQube Web Interface)
+    networks:
+      - datahubnetwork
 
   ### 🐘 PostgreSQL for SonarQube ###
   postgres_sonar:
     image: postgres:15
     container_name: sonar-postgres-db
     environment:
-      POSTGRES_USER: sonar
-      POSTGRES_PASSWORD: sonar
-      POSTGRES_DB: sonar
+      POSTGRES_USER: ${SONAR_DB_USER:-sonar}
+      POSTGRES_PASSWORD: ${SONAR_DB_PASSWORD:?SONAR_DB_PASSWORD not set}
+      POSTGRES_DB: ${SONAR_DB_NAME:-sonar}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U sonar -d sonar -h localhost || exit 1"]
+      test: ["CMD-SHELL", "pg_isready -U sonar -d sonar -h localhost"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -194,6 +213,8 @@ services:
       - "5433:5432"
     volumes:
       - sonar_postgres_data:/var/lib/postgresql/data
+    networks:
+      - datahubnetwork
   
   ### 🛡️ OWASP ZAP Baseline Scan ###
   zap-baseline:
@@ -201,17 +222,24 @@ services:
     depends_on:
       - airflow
     working_dir: /zap/wrk
-    command: >
+    restart: "no"
+    environment:
+      ZAP_BASELINE_TARGET: ${ZAP_BASELINE_TARGET:-http://airflow:8082}
+      ZAP_REPORTS_DIR: /zap/wrk/security-reports
+      ZAP_CONFIG_FILE: /zap/wrk/zap-baseline.conf
+    entrypoint: >
+      sh -c "mkdir -p ${ZAP_REPORTS_DIR} &&
       zap-baseline.py
-      -t http://airflow:8082
-      -r zap-baseline.html
-      -J zap-report.json
-      -x zap-report.xml
-      -c zap-baseline.conf
-      -m 5
+      -t ${ZAP_BASELINE_TARGET}
+      -r ${ZAP_REPORTS_DIR}/zap-baseline.html
+      -J ${ZAP_REPORTS_DIR}/zap-report.json
+      -x ${ZAP_REPORTS_DIR}/zap-report.xml
+      -c ${ZAP_CONFIG_FILE}
+      -m 5"
     volumes:
-      - ./security-reports:/zap/wrk
-    profiles: ["zap"]
+      - ./security-reports:/zap/wrk/security-reports
+      - ./zap-baseline.conf:/zap/wrk/zap-baseline.conf
+##    profiles: ["zap"]
 
   ### 🛡️ OWASP ZAP Full Scan (DAST) ###
   zap-full:
@@ -225,11 +253,10 @@ services:
       -r zap-full.html
       -J zap-full.json
       -x zap-full.xml
-      --time 20
-      -m 5
+      -m 10
     volumes:
       - ./security-reports:/zap/wrk
-    profiles: ["zap"]
+#    profiles: ["zap"]
 
   ### 🧠 Neo4j Graph Database ###
   neo4j:
@@ -252,6 +279,8 @@ services:
       - "7687:7687"
     volumes:
       - neo4j_data:/data
+    networks:
+      - datahubnetwork
 
   ### 🔍 Zookeeper (Kafka Dependency) ###
   zookeeper:
@@ -272,6 +301,8 @@ services:
     volumes:
       - zkdata:/var/lib/zookeeper/data
       - zklogs:/var/lib/zookeeper/log
+    networks:
+      - datahubnetwork
 
   ### 🔥 Kafka (Broker for DataHub) ###
   broker:
@@ -302,6 +333,8 @@ services:
       - "9092:9092"
     volumes:
       - broker:/var/lib/kafka/data/
+    networks:
+      - datahubnetwork
 
   ### 📜 Schema Registry (Ensures Consistent Message Formats) ###
   schema-registry:
@@ -314,6 +347,8 @@ services:
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: broker:29092
     ports:
       - "8081:8081"
+    networks:
+      - datahubnetwork
 
   ### 🔍 DataHub Core Components ###
   datahub-gms:
@@ -324,8 +359,8 @@ services:
       DATAHUB_GMS_PORT: 8080
       DATAHUB_SECRET: YouKnowNothing
       KAFKA_BOOTSTRAP_SERVER: broker:29092
-      EBEAN_DATASOURCE_USERNAME: dwh_user
-      EBEAN_DATASOURCE_PASSWORD: dwh_password
+      EBEAN_DATASOURCE_USERNAME: ${POSTGRES_DWH_USER:-dwh_user}
+      EBEAN_DATASOURCE_PASSWORD: ${POSTGRES_DWH_PASSWORD:?POSTGRES_DWH_PASSWORD not set}
       EBEAN_DATASOURCE_HOST: postgres_dw
       EBEAN_DATASOURCE_PORT: 5432
       EBEAN_DATASOURCE_URL: jdbc:postgresql://postgres_dw:5432/datamart
@@ -333,13 +368,16 @@ services:
       NEO4J_HOST: neo4j:7687
       NEO4J_URI: bolt://neo4j:7687
       NEO4J_USERNAME: neo4j
-      NEO4J_PASSWORD: datahub
+      NEO4J_PASSWORD: ${NEO4J_PASSWORD:-datahub}
     ports:
       - "8080:8080"
     depends_on:
       - postgres_dw
       - broker
+    networks:
+      - datahubnetwork
 
+  ### 🌐 DataHub Actions Service ###
   datahub-actions:
     image: acryldata/datahub-actions:head
     container_name: datahub-actions
@@ -350,7 +388,10 @@ services:
       KAFKA_BOOTSTRAP_SERVER: broker:29092
     depends_on:
       - datahub-gms
+    networks:
+      - datahubnetwork
 
+  ### 🌐 DataHub Frontend React ###
   datahub-frontend-react:
     image: acryldata/datahub-frontend-react:head
     container_name: datahub-frontend-react
@@ -362,6 +403,8 @@ services:
       DATAHUB_SECRET: YouKnowNothing
     ports:
       - "9002:9002"
+    networks:
+      - datahubnetwork
 
 volumes:
   broker:

@@ -1,0 +1,5 @@
+delivery_id,order_id,distributor_id,delivery_status,status_timestamp,delivery_agent_id,sla_due_date,estimated_delivery_date,actual_delivery_date,delivery_zone
+D001,1001,DIS001,Delivered,2024-04-02 10:00:00,AG01,2024-04-02,2024-04-02,2024-04-02,North
+D002,1002,,Out for Delivery,2024-04-03 12:00:00,AG02,2024-04-03,2024-04-04,2024-04-05,East
+D003,1003,DIS002,Delivered Late,2024-04-04 08:00:00,AG01,2024-04-04,2024-04-05,2024-04-07,South
+D004,1004,DIS001,In Transit,2024-04-04 18:00:00,AG03,2024-04-06,2024-04-06,,Central

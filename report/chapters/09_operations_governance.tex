@@ -1,0 +1,67 @@
+\chapter{Operations, Automation, and Governance}
+\section{Continuous Integration and Delivery}
+The automation stack integrates Jenkins pipelines, GitHub Actions, and Terraform Cloud. Figure~\ref{fig:cicd-flow} illustrates the deployment flow.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance=2.2cm,>=stealth',thick]
+        \tikzstyle{stage}=[rectangle, rounded corners=2mm, draw=green!60!black, fill=green!10, minimum width=3.2cm, minimum height=1cm]
+        \tikzstyle{arrow}=[->, line width=0.8pt, color=green!60!black]
+        \node[stage] (commit) {Code Commit};
+        \node[stage, right=2.8cm of commit] (ci) {Static Analysis\\Unit Tests};
+        \node[stage, right=2.8cm of ci] (package) {Container Build\\Artifact Publish};
+        \node[stage, right=2.8cm of package] (plan) {Terraform Plan\\Peer Review};
+        \node[stage, right=2.8cm of plan] (deploy) {Blue/Green Deploy\\Automated Tests};
+        \draw[arrow] (commit) -- (ci);
+        \draw[arrow] (ci) -- (package);
+        \draw[arrow] (package) -- (plan);
+        \draw[arrow] (plan) -- (deploy);
+    \end{tikzpicture}
+    \caption{CI/CD orchestration flow}
+    \label{fig:cicd-flow}
+\end{figure}
+
+Pipelines enforce branch protection, automated linting (Flake8, ESLint), infrastructure policy checks (OPA), and integration tests using docker-compose replicas of Airflow, dbt, and FastAPI services.
+
+\section{Security and Compliance}
+\begin{itemize}
+    \item \textbf{Identity:} AWS IAM and Azure Active Directory enforce least privilege via role-based access control and Just-In-Time elevation.
+    \item \textbf{Secrets:} AWS Secrets Manager and Azure Key Vault integrate with Terraform and Jenkins, ensuring rotation and auditability.
+    \item \textbf{Network:} Private subnets, Transit Gateway connectivity, and Azure ExpressRoute secure data flows between clouds and on-premises systems.
+    \item \textbf{Compliance:} Automated evidence collection via Cloud Custodian and Azure Policy supports ISO/IEC 27001 controls and GDPR records of processing.
+\end{itemize}
+
+\section{Observability}
+Metrics, logs, and traces feed into a consolidated telemetry platform:
+\begin{itemize}
+    \item Prometheus-compatible metrics exported by Airflow, dbt, and FastAPI.
+    \item Structured logs shipped to Amazon CloudWatch Logs and Azure Monitor, enriched with correlation IDs.
+    \item Distributed tracing via OpenTelemetry integrated with Datadog APM for end-to-end request visualisation.
+    \item Business KPIs surfaced in Grafana dashboards, offering single-pane-of-glass visibility for Site Reliability Engineers.
+\end{itemize}
+
+\section{Risk Management}
+\begin{table}[H]
+    \centering
+    \caption{Risk register snapshot}
+    \label{tab:risk}
+    \begin{tabular}{p{3.5cm}p{3cm}p{2cm}p{6cm}}
+        \toprule
+        \textbf{Risk} & \textbf{Impact} & \textbf{Likelihood} & \textbf{Mitigation} \\
+        \midrule
+        Cloud quota exhaustion & High & Medium & Implement proactive quota monitoring, automated support tickets, and synthetic load forecasting.
+\\
+        Data privacy breach & Critical & Low & Enforce encryption, tokenisation, DLP scanning, and privacy impact assessments per release.
+\\
+        Vendor lock-in & Medium & Medium & Maintain abstraction layers, dual-provider IaC modules, and periodic portability drills.
+\\
+        Observability blind spots & Medium & Medium & Expand OpenTelemetry coverage, enforce logging standards, and run chaos engineering game days.
+\\
+        Skills gap for advanced analytics & Medium & High & Launch enablement sessions, create playbooks, and sponsor certifications.
+\\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\section{Cost Governance}
+FinOps practices incorporate tagging, cost allocation, and budget alerts. Monthly reviews evaluate service utilisation, reserved instance coverage, and rightsizing opportunities. Non-production environments power down automatically outside business hours, delivering a 32\% reduction in monthly run rate.

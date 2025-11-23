@@ -28,6 +28,8 @@ docker-compose.override.yml
 
 # PostgreSQL database dumps & temp files
 *.sql
+!src/customer_app/backend/sql/*.sql
+!src/customer_app/backend/sql/**/*.sql
 !dags/dbt_project/models/**/*.sql
 *.db
 *.sqlite
@@ -68,6 +70,10 @@ package-lock.json
 # Git ignored system files
 .DS_Store
 Thumbs.db
+# Ignore large report assets tracked outside the repo
+report/figures/EcommerceDatapipeline-AWS-Deployment.png
+report/figures/Ecommerce-ETL-Orchestration.png
+report/figures/aivancity_letterhead.pdf
 # Ignore logs and temporary files
 logs/
 *.log
@@ -85,3 +91,15 @@ dags/dbt_project/logs/dbt.log
 .scannerwork/**/out/
 .sonar/**/reports/
 .sonar/**/out/
+dags/data_source/
+dags/data_source/**
+dags/data_source/sample_data.csv
+dags/data_source/customers_source.csv
+dags/data_source/sample_data.csv
+security-reports/
+security-reports/**
+security-reports/zap-full.html
+security-reports/zap-full.json
+security-reports/zap-full.xml
+security-reports/zap.out
+dags/data_source/customers_source.csv

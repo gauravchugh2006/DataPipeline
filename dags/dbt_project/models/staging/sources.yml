@@ -8,6 +8,12 @@ sources:
       - name: products
       - name: payments
       - name: customers_source
+      - name: delivery_status_feed
+      - name: distributor_master
+      - name: stockist_inventory_snapshot
+      - name: deliveries
+      - name: support_interactions
+      - name: csr_badges
       - name: support_cases
       - name: logistics_delivery_status
       - name: logistics_stockist_inventory
