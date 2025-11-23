@@ -4,7 +4,7 @@ The solution follows a hub-and-spoke dimensional model anchored on the \texttt{f
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[>=stealth', node distance=2.5cm]
+    \begin{tikzpicture}[>=Stealth, node distance=2.5cm]
         \tikzstyle{entity}=[rectangle, draw=blue!70, rounded corners=2mm, thick, minimum width=2.8cm, minimum height=1cm, fill=blue!5]
         \node[entity] (customer) {dim\_customer};
         \node[entity, below=1.4cm of customer] (order) {fact\_order};
