@@ -4,13 +4,15 @@ The project followed a mixed-methods approach blending qualitative stakeholder r
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[node distance=2.2cm,>=Stealth,thick]
-        \tikzstyle{phase}=[rectangle, rounded corners, minimum width=3.5cm, minimum height=1.2cm, draw=blue!60, fill=blue!10]
-        \tikzstyle{arrow}=[->, line width=1pt, color=blue!70]
+    \begin{tikzpicture}[node distance=2.2cm,>=Stealth,thick,every node/.style={align=center}]
+        \tikzset{
+            phase/.style={rectangle, rounded corners, minimum width=3.5cm, minimum height=1.2cm, draw=blue!60, fill=blue!10},
+            arrow/.style={->, line width=1pt, color=blue!70}
+        }
         \node[phase] (discovery) {Discovery\\Stakeholder Interviews\\Data Audit};
-        \node[phase, right of=discovery, xshift=2.5cm] (design) {Design\\Target Architecture\\Experiment Plan};
-        \node[phase, right of=design, xshift=2.5cm] (build) {Implementation\\IaC \& Pipelines\\Data Products};
-        \node[phase, right of=build, xshift=2.5cm] (validate) {Validation\\Performance Tests\\User Adoption};
+        \node[phase, right=2.5cm of discovery] (design) {Design\\Target Architecture\\Experiment Plan};
+        \node[phase, right=2.5cm of design] (build) {Implementation\\IaC \& Pipelines\\Data Products};
+        \node[phase, right=2.5cm of build] (validate) {Validation\\Performance Tests\\User Adoption};
         \draw[arrow] (discovery) -- (design);
         \draw[arrow] (design) -- (build);
         \draw[arrow] (build) -- (validate);
@@ -43,7 +45,7 @@ To align with the MSc reporting standards, three diagrams were embedded at the e
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[node distance=2.8cm, every node/.style={rectangle, draw, rounded corners, fill=blue!5, minimum width=3.5cm, minimum height=1cm}]
+    \begin{tikzpicture}[node distance=2.8cm, every node/.style={rectangle, draw, rounded corners, fill=blue!5, minimum width=3.5cm, minimum height=1cm,align=center}]
         \node (customers) {Customers\\\scriptsize customer\_id, loyalty\_tier};
         \node[below of=customers] (orders) {Orders\\\scriptsize order\_id, customer\_id, status};
         \node[below of=orders] (orderitems) {Order Items\\\scriptsize order\_id, sku, qty};
@@ -62,7 +64,7 @@ To align with the MSc reporting standards, three diagrams were embedded at the e
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[>=Stealth, node distance=2.5cm]
+    \begin{tikzpicture}[>=Stealth, node distance=2.5cm, every node/.style={align=center}]
         \tikzstyle{actor}=[draw, thick, rounded corners=2mm, minimum width=1.8cm, minimum height=0.8cm, align=center, fill=gray!10];
         \tikzstyle{usecase}=[ellipse, draw, thick, minimum width=3.4cm, minimum height=1cm, align=center, fill=orange!10];
         \node[actor] (merch) {Merchandising Lead};
@@ -87,7 +89,7 @@ To align with the MSc reporting standards, three diagrams were embedded at the e
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[node distance=2.4cm]
+    \begin{tikzpicture}[node distance=2.4cm, every node/.style={align=center}]
         \tikzstyle{block}=[rectangle, draw, rounded corners=3pt, align=center, fill=green!10, minimum width=3.6cm, minimum height=1cm];
         \tikzstyle{edge}=[->, thick];
         \node[block] (sources) {Event Streams\\Batch Feeds};

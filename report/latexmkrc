@@ -1,0 +1,13 @@
+# latexmk configuration to ensure bibliography and glossaries build correctly
+add_cus_dep('glo', 'gls', 0, 'makeglossaries');
+add_cus_dep('acn', 'acr', 0, 'makeglossaries');
+
+$clean_ext .= ' %R.acn %R.acr %R.alg %R.glo %R.gls %R.glg %R.ist';
+
+# Use biber for biblatex backend
+$pdf_mode = 1;
+$biber = 'biber %O %B';
+
+# Force glossaries and bibliography on every run to avoid missing files
+$makeindex = 'makeglossaries %O %S';
+
