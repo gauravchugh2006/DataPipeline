@@ -1,0 +1,107 @@
+@startuml
+!theme plain
+title <b><size:16>Figure 5.4: Data Engineering Lifecycle – Cross-Cloud Orchestration (AWS + Azure)</size></b>
+top to bottom direction
+skinparam pageSize A4
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam dpi 150
+
+skinparam rectangle {
+  FontColor black
+  FontSize 11
+  FontName Helvetica
+  BorderColor #999999
+}
+skinparam package {
+  FontStyle bold
+  FontColor black
+  FontSize 13
+  BackgroundColor #FAFAFA
+  BorderColor #999999
+}
+skinparam nodesep 30
+skinparam ranksep 50
+
+' ================== COLOR PALETTE ==================
+!define AWS_ORANGE #F9D7A8
+!define AZURE_BLUE #A8C9F9
+!define PURPLE #E0C7FF
+!define GREEN #C4F1C3
+!define YELLOW #FFF1A8
+!define BLUE #B6E2FF
+!define RED #F9C1C1
+!define GRAY #EAEAEA
+
+' ================== STRUCTURE ==================
+package "Data Sources" #FFFFFF {
+  rectangle "Streaming Events\\n(Kafka / Kinesis)" as STREAM #F9D7A8
+  rectangle "Operational DBs\\n(PostgreSQL, MySQL, CosmosDB)" as OLTP #A8C9F9
+  rectangle "3rd-Party APIs\\n(CRM, Payment, IoT)" as API #E0C7FF
+}
+
+package "Ingestion Layer" #FFFFFF {
+  rectangle "Batch Ingestion\\n(AWS Glue, Azure Data Factory)" as BATCH #FFF1A8
+  rectangle "Real-Time Streams\\n(Kinesis, Event Hubs)" as REALTIME #F9D7A8
+  rectangle "Change Data Capture (CDC)\\nDebezium / DMS" as CDC #B6E2FF
+}
+
+package "Processing & Transformation" #FFFFFF {
+  rectangle "ETL/ELT Pipelines\\n(Spark / Databricks / Glue)" as ETL #BFE3E0
+  rectangle "Data Quality Validation\\n(Great Expectations)" as DQ #C4F1C3
+  rectangle "Schema Enforcement\\n(AWS Glue Catalog / Purview)" as SCHEMA #A8C9F9
+}
+
+package "Storage & Curation" #FFFFFF {
+  rectangle "Bronze Zone\\nRaw Data Lake" as BRONZE #FFE2B0
+  rectangle "Silver Zone\\nCleaned & Conformed" as SILVER #D7E8FF
+  rectangle "Gold Zone\\nAggregated / Business Ready" as GOLDZONE #FFF1A8
+}
+
+package "Analytics & Serving" #FFFFFF {
+  rectangle "BI Dashboards\\n(Power BI / QuickSight)" as BI #FFF1A8
+  rectangle "ML Feature Store\\n(SageMaker / Azure ML)" as MLFS #C4F1C3
+  rectangle "Data API Layer\\n(GraphQL / REST)" as API_LAYER #C8E4FF
+}
+
+package "Orchestration & Automation" #FFFFFF {
+  rectangle "Airflow / MWAA\\nDAG Scheduling" as AIRFLOW #B6E2FF
+  rectangle "Dagster / Prefect\\nDataOps Automation" as DAGSTER #E0C7FF
+  rectangle "CI/CD Pipeline\\n(Jenkins + GitHub Actions)" as CICD #EAEAEA
+}
+
+package "Governance & Observability" #FFFFFF {
+  rectangle "Data Catalog\\n(AWS Glue / Purview)" as CATALOG #A8C9F9
+  rectangle "Data Lineage\\n(OpenLineage / DataHub)" as LINEAGE #E0C7FF
+  rectangle "Monitoring & Alerts\\n(Prometheus / Grafana / CloudWatch)" as MON #F9C1C1
+}
+
+' ================== FLOW CONNECTIONS ==================
+STREAM -[#FFB366]-> REALTIME
+OLTP -[#7BAAF7]-> BATCH
+API -[#B388EB]-> BATCH
+OLTP -[#7BAAF7]-> CDC
+
+REALTIME -[#FFB366]-> ETL
+BATCH -[#7BAAF7]-> ETL
+CDC -[#7BAAF7]-> ETL
+
+ETL -[#6AC36A]-> DQ
+DQ -[#6AC36A]-> SCHEMA
+SCHEMA -[#7BAAF7]-> BRONZE
+BRONZE -[#7BAAF7]-> SILVER
+SILVER -[#E5B000]-> GOLDZONE
+
+GOLDZONE -[#E5B000]-> BI
+GOLDZONE -[#6AC36A]-> MLFS
+MLFS -[#7BAAF7]-> API_LAYER
+
+AIRFLOW -[#7BAAF7]-> ETL
+AIRFLOW -[#7BAAF7]-> DQ
+DAGSTER -[#B388EB]-> AIRFLOW
+CICD -[#A0A0A0]-> AIRFLOW
+
+CATALOG -[#7BAAF7]-> LINEAGE
+LINEAGE -[#B388EB]-> MON
+MON -[#E57373]-> STORAGE
+@enduml

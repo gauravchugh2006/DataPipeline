@@ -4,16 +4,26 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {5.1}{\ignorespaces Iterative research and delivery methodology}}{9}{figure.caption.9}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Logical entity-relationship schema used for bronze and silver modelling}}{10}{figure.caption.10}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Use case diagram linking personas to data platform capabilities}}{11}{figure.caption.11}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces AWS and Airflow orchestration view used during methodology validation}}{11}{figure.caption.12}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Deployed architecture overview}}{11}{figure.caption.10}%
-\contentsline {figure}{\numberline {6.2}{\ignorespaces End-to-end orchestration blueprint}}{12}{figure.caption.11}%
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Platform use case diagram}}{13}{figure.caption.12}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Deployed architecture overview}}{13}{figure.caption.13}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces End-to-end orchestration blueprint}}{14}{figure.caption.14}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Platform use case diagram}}{16}{figure.caption.15}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {7.1}{\ignorespaces Core entities in the ecommerce data model}}{14}{figure.caption.13}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {8.1}{\ignorespaces Median KPI refresh latency before and after implementation}}{18}{figure.caption.16}%
+\contentsline {figure}{\numberline {8.1}{\ignorespaces Poster-ready summary of manifesto pillars}}{24}{figure.caption.16}%
+\contentsline {figure}{\numberline {8.2}{\ignorespaces Reliability impact of manifesto adoption}}{24}{figure.caption.17}%
+\contentsline {figure}{\numberline {8.3}{\ignorespaces Manifesto-aligned medallion responsibilities}}{24}{figure.caption.18}%
+\contentsline {figure}{\numberline {8.4}{\ignorespaces Tooling stack underpinning manifesto principles}}{25}{figure.caption.19}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {9.1}{\ignorespaces CI/CD orchestration flow}}{20}{figure.caption.17}%
+\contentsline {figure}{\numberline {9.1}{\ignorespaces Core entities in the ecommerce data model}}{26}{figure.caption.20}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {10.1}{\ignorespaces Median KPI refresh latency before and after implementation}}{30}{figure.caption.23}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {11.1}{\ignorespaces CI/CD orchestration flow}}{32}{figure.caption.24}%
+\addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

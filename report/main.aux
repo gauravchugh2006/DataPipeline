@@ -20,6 +20,7 @@
 \@writefile{toc}{\contentsline {section}{\numberline {1.1}Context}{1}{section.1.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {1.2}Project Motivation}{1}{section.1.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {1.3}Research Questions}{1}{section.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.4}Data Engineering Vision}{2}{section.1.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {chapter}{\numberline {2}Host Organisation and Industry Context}{3}{chapter.2}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
@@ -36,6 +37,7 @@
 \@writefile{toc}{\contentsline {section}{\numberline {3.2}Research Problem}{5}{section.3.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {3.3}Scope and Constraints}{5}{section.3.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {3.4}Success Criteria}{6}{section.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.5}Design Philosophy Constraints}{6}{section.3.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {chapter}{\numberline {4}Literature Review}{7}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
@@ -43,7 +45,18 @@
 \@writefile{toc}{\contentsline {section}{\numberline {4.2}Real-Time Analytics}{7}{section.4.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {4.3}Automation and DevOps}{7}{section.4.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {4.4}Governance and Ethics}{7}{section.4.4}\protected@file@percent }
+\abx@aux@cite{0}{dehghani2022datamesh}
+\abx@aux@segm{0}{0}{dehghani2022datamesh}
+\abx@aux@cite{0}{forsgren2018accelerate}
+\abx@aux@segm{0}{0}{forsgren2018accelerate}
+\abx@aux@cite{0}{stonebraker2018}
+\abx@aux@segm{0}{0}{stonebraker2018}
+\abx@aux@cite{0}{mckinseyDataTrust2022}
+\abx@aux@segm{0}{0}{mckinseyDataTrust2022}
+\abx@aux@cite{0}{gartnerComposable2023}
+\abx@aux@segm{0}{0}{gartnerComposable2023}
 \@writefile{toc}{\contentsline {section}{\numberline {4.5}Business Intelligence Adoption}{8}{section.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.6}Design Principles for Data Engineering}{8}{section.4.6}\protected@file@percent }
 \@writefile{toc}{\contentsline {chapter}{\numberline {5}Methodology}{9}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
@@ -52,100 +65,156 @@
 \newlabel{fig:research-methodology}{{5.1}{9}{Iterative research and delivery methodology}{figure.caption.9}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {5.2}Data Collection}{9}{section.5.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {5.3}Data Processing and Tooling}{10}{section.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.4}Validation Approach}{10}{section.5.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.5}Limitations}{10}{section.5.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Target Architecture}{11}{chapter.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Logical entity-relationship schema used for bronze and silver modelling}}{10}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:er-schema}{{5.2}{10}{Logical entity-relationship schema used for bronze and silver modelling}{figure.caption.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces Use case diagram linking personas to data platform capabilities}}{11}{figure.caption.11}\protected@file@percent }
+\newlabel{fig:methodology-usecase}{{5.3}{11}{Use case diagram linking personas to data platform capabilities}{figure.caption.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces AWS and Airflow orchestration view used during methodology validation}}{11}{figure.caption.12}\protected@file@percent }
+\newlabel{fig:aws-dataflow}{{5.4}{11}{AWS and Airflow orchestration view used during methodology validation}{figure.caption.12}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Validation Approach}{11}{section.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.5}Limitations}{12}{section.5.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Target Architecture}{13}{chapter.6}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}High-Level Design}{11}{section.6.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces Deployed architecture overview}}{11}{figure.caption.10}\protected@file@percent }
-\newlabel{fig:deployment}{{6.1}{11}{Deployed architecture overview}{figure.caption.10}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Solution Blueprint}{12}{section.6.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces End-to-end orchestration blueprint}}{12}{figure.caption.11}\protected@file@percent }
-\newlabel{fig:orchestration}{{6.2}{12}{End-to-end orchestration blueprint}{figure.caption.11}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.3}Use Case Diagram}{12}{section.6.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces Platform use case diagram}}{13}{figure.caption.12}\protected@file@percent }
-\newlabel{fig:usecase}{{6.3}{13}{Platform use case diagram}{figure.caption.12}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.4}Non-Functional Considerations}{13}{section.6.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {7}Data Modelling and Management}{14}{chapter.7}\protected@file@percent }
+\newlabel{chap:target-architecture}{{6}{13}{Target Architecture}{chapter.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}High-Level Design}{13}{section.6.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces Deployed architecture overview}}{13}{figure.caption.13}\protected@file@percent }
+\newlabel{fig:deployment}{{6.1}{13}{Deployed architecture overview}{figure.caption.13}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Solution Blueprint}{14}{section.6.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces End-to-end orchestration blueprint}}{14}{figure.caption.14}\protected@file@percent }
+\newlabel{fig:orchestration}{{6.2}{14}{End-to-end orchestration blueprint}{figure.caption.14}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}Terraform portability and Databricks alignment}{15}{section.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.4}Use Case Diagram}{15}{section.6.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces Platform use case diagram}}{16}{figure.caption.15}\protected@file@percent }
+\newlabel{fig:usecase}{{6.3}{16}{Platform use case diagram}{figure.caption.15}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.5}Non-Functional Considerations}{16}{section.6.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.6}DataOps and Automation Practices}{17}{section.6.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.7}Governance Framework Integration}{17}{section.6.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {7}Detail Data Pipeline Design (Medallion + DDD)}{18}{chapter.7}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {7.1}Conceptual Data Model}{14}{section.7.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {7.1}{\ignorespaces Core entities in the ecommerce data model}}{14}{figure.caption.13}\protected@file@percent }
-\newlabel{fig:erdiagram}{{7.1}{14}{Core entities in the ecommerce data model}{figure.caption.13}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {7.2}Sample Data Design Highlights}{14}{section.7.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7.3}Entity Catalogue}{15}{section.7.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {7.1}{\ignorespaces Primary entities and business rationale}}{15}{table.caption.14}\protected@file@percent }
-\newlabel{tab:entities}{{7.1}{15}{Primary entities and business rationale}{table.caption.14}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {7.4}Master Data and Data Quality}{15}{section.7.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7.5}Metadata and Lineage}{16}{section.7.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {8}Analytics Delivery and Visualisation}{17}{chapter.8}\protected@file@percent }
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {8.1}Multi-Channel Insight Delivery}{17}{section.8.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {8.2}KPI Catalogue}{17}{section.8.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {8.1}{\ignorespaces Headline KPIs and refresh characteristics}}{18}{table.caption.15}\protected@file@percent }
-\newlabel{tab:kpi}{{8.1}{18}{Headline KPIs and refresh characteristics}{table.caption.15}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {8.3}Performance Benchmarking}{18}{section.8.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {8.1}{\ignorespaces Median KPI refresh latency before and after implementation}}{18}{figure.caption.16}\protected@file@percent }
-\newlabel{fig:latency}{{8.1}{18}{Median KPI refresh latency before and after implementation}{figure.caption.16}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {8.4}Dashboard Design Principles}{18}{section.8.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {8.5}Distribution and Automation}{19}{section.8.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {9}Operations, Automation, and Governance}{20}{chapter.9}\protected@file@percent }
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {9.1}Continuous Integration and Delivery}{20}{section.9.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {9.1}{\ignorespaces CI/CD orchestration flow}}{20}{figure.caption.17}\protected@file@percent }
-\newlabel{fig:cicd-flow}{{9.1}{20}{CI/CD orchestration flow}{figure.caption.17}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {9.2}Security and Compliance}{20}{section.9.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {9.3}Observability}{20}{section.9.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {9.4}Risk Management}{21}{section.9.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {9.1}{\ignorespaces Risk register snapshot}}{21}{table.caption.18}\protected@file@percent }
-\newlabel{tab:risk}{{9.1}{21}{Risk register snapshot}{table.caption.18}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {9.5}Cost Governance}{21}{section.9.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {10}Results and Evaluation}{22}{chapter.10}\protected@file@percent }
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {10.1}Technical Outcomes}{22}{section.10.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {10.1}{\ignorespaces Summary of technical results}}{22}{table.caption.19}\protected@file@percent }
-\newlabel{tab:results}{{10.1}{22}{Summary of technical results}{table.caption.19}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {10.2}Business Impact}{22}{section.10.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {10.3}User Adoption}{23}{section.10.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {10.4}Evaluation Against Research Questions}{23}{section.10.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {10.5}Limitations and Future Evaluation}{23}{section.10.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {11}Recommendations and Roadmap}{24}{chapter.11}\protected@file@percent }
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {11.1}Prioritised Recommendations}{24}{section.11.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {11.1}{\ignorespaces Recommendation roadmap}}{24}{table.caption.20}\protected@file@percent }
-\newlabel{tab:recommendations}{{11.1}{24}{Recommendation roadmap}{table.caption.20}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {11.2}Generalisability}{24}{section.11.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {11.3}Strategic Outlook}{25}{section.11.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {12}Conclusion}{26}{chapter.12}\protected@file@percent }
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {chapter}{Generative AI Usage Documentation}{27}{appendix*.21}\protected@file@percent }
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{app:ai-prompts}{{12}{27}{Generative AI Usage Documentation}{appendix*.21}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {.1}Prompt Catalogue}{27}{section.Alph0.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Sample AI prompts}}{27}{table.caption.22}\protected@file@percent }
-\newlabel{tab:ai-prompts}{{1}{27}{Sample AI prompts}{table.caption.22}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {.2}Human Validation}{27}{section.Alph0.2}\protected@file@percent }
+\newlabel{chap:medallion-ddd}{{7}{18}{Detail Data Pipeline Design (Medallion + DDD)}{chapter.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.1}Design principles applied across Bronze \textrightarrow {} Silver \textrightarrow {} Gold}{18}{section.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.2}Bronze layer: raw, immutable capture}{19}{section.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.3}Silver layer: validated, conformed data}{19}{section.7.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.4}Gold layer: curated marts for analytics and applications}{19}{section.7.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.5}customer\_app architecture and its role in the pipeline}{20}{section.7.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.6}Cloud deployment parity (AWS and Azure)}{20}{section.7.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.7}Challenges and resolutions}{21}{section.7.7}\protected@file@percent }
 \gdef \LT@i {\LT@entry 
+    {1}{97.35826pt}\LT@entry 
+    {1}{154.26378pt}\LT@entry 
+    {1}{211.16928pt}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {8}Data Engineering Manifesto}{22}{chapter.8}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{chap:data-manifesto}{{8}{22}{Data Engineering Manifesto}{chapter.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8.1}Purpose and Scope}{22}{section.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8.2}Principle Catalogue}{22}{section.8.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {8.1}{\ignorespaces Data Engineering Manifesto principles}}{22}{table.8.1}\protected@file@percent }
+\newlabel{tab:manifesto-principles}{{8.1}{22}{Data Engineering Manifesto principles}{table.8.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8.3}Visual Charter}{23}{section.8.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8.1}{\ignorespaces Poster-ready summary of manifesto pillars}}{24}{figure.caption.16}\protected@file@percent }
+\newlabel{fig:manifesto-graphic}{{8.1}{24}{Poster-ready summary of manifesto pillars}{figure.caption.16}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8.4}Performance and Reliability Insights}{24}{section.8.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8.2}{\ignorespaces Reliability impact of manifesto adoption}}{24}{figure.caption.17}\protected@file@percent }
+\newlabel{fig:reliability-plot}{{8.2}{24}{Reliability impact of manifesto adoption}{figure.caption.17}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8.5}Data Product Maturity Model}{24}{section.8.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8.3}{\ignorespaces Manifesto-aligned medallion responsibilities}}{24}{figure.caption.18}\protected@file@percent }
+\newlabel{fig:medallion}{{8.3}{24}{Manifesto-aligned medallion responsibilities}{figure.caption.18}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8.6}Governance and Observability Stack}{24}{section.8.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8.4}{\ignorespaces Tooling stack underpinning manifesto principles}}{25}{figure.caption.19}\protected@file@percent }
+\newlabel{fig:governance-stack}{{8.4}{25}{Tooling stack underpinning manifesto principles}{figure.caption.19}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8.7}Adoption Guidance}{25}{section.8.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {9}Data Modelling and Management}{26}{chapter.9}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {9.1}Conceptual Data Model}{26}{section.9.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9.1}{\ignorespaces Core entities in the ecommerce data model}}{26}{figure.caption.20}\protected@file@percent }
+\newlabel{fig:erdiagram}{{9.1}{26}{Core entities in the ecommerce data model}{figure.caption.20}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {9.2}Sample Data Design Highlights}{26}{section.9.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9.3}Entity Catalogue}{27}{section.9.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {9.1}{\ignorespaces Primary entities and business rationale}}{27}{table.caption.21}\protected@file@percent }
+\newlabel{tab:entities}{{9.1}{27}{Primary entities and business rationale}{table.caption.21}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {9.4}Master Data and Data Quality}{27}{section.9.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9.5}Metadata and Lineage}{28}{section.9.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {10}Analytics Delivery and Visualisation}{29}{chapter.10}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {10.1}Multi-Channel Insight Delivery}{29}{section.10.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {10.2}KPI Catalogue}{29}{section.10.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {10.1}{\ignorespaces Headline KPIs and refresh characteristics}}{30}{table.caption.22}\protected@file@percent }
+\newlabel{tab:kpi}{{10.1}{30}{Headline KPIs and refresh characteristics}{table.caption.22}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {10.3}Performance Benchmarking}{30}{section.10.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {10.1}{\ignorespaces Median KPI refresh latency before and after implementation}}{30}{figure.caption.23}\protected@file@percent }
+\newlabel{fig:latency}{{10.1}{30}{Median KPI refresh latency before and after implementation}{figure.caption.23}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {10.4}Dashboard Design Principles}{30}{section.10.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {10.5}Distribution and Automation}{31}{section.10.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {11}Operations, Automation, and Governance}{32}{chapter.11}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {11.1}Continuous Integration and Delivery}{32}{section.11.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {11.1}{\ignorespaces CI/CD orchestration flow}}{32}{figure.caption.24}\protected@file@percent }
+\newlabel{fig:cicd-flow}{{11.1}{32}{CI/CD orchestration flow}{figure.caption.24}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {11.2}Security and Compliance}{32}{section.11.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {11.3}Observability}{32}{section.11.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {11.4}Risk Management}{33}{section.11.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {11.1}{\ignorespaces Risk register snapshot}}{33}{table.caption.25}\protected@file@percent }
+\newlabel{tab:risk}{{11.1}{33}{Risk register snapshot}{table.caption.25}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {11.5}Cost Governance}{33}{section.11.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {12}Results and Evaluation}{34}{chapter.12}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {12.1}Technical Outcomes}{34}{section.12.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {12.1}{\ignorespaces Summary of technical results}}{34}{table.caption.26}\protected@file@percent }
+\newlabel{tab:results}{{12.1}{34}{Summary of technical results}{table.caption.26}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {12.2}Business Impact}{34}{section.12.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {12.3}User Adoption}{35}{section.12.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {12.4}Evaluation Against Research Questions}{35}{section.12.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {12.5}Manifesto Adoption Effects}{35}{section.12.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {12.6}Limitations and Future Evaluation}{35}{section.12.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {13}Recommendations and Roadmap}{36}{chapter.13}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {13.1}Prioritised Recommendations}{36}{section.13.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {13.1}{\ignorespaces Recommendation roadmap}}{36}{table.caption.27}\protected@file@percent }
+\newlabel{tab:recommendations}{{13.1}{36}{Recommendation roadmap}{table.caption.27}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {13.2}Generalisability}{36}{section.13.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {13.3}Strategic Outlook}{37}{section.13.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {14}Conclusion}{38}{chapter.14}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {chapter}{Generative AI Usage Documentation}{39}{appendix*.28}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{app:ai-prompts}{{14}{39}{Generative AI Usage Documentation}{appendix*.28}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {.1}Prompt Catalogue}{39}{section.Alph0.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Sample AI prompts}}{39}{table.caption.29}\protected@file@percent }
+\newlabel{tab:ai-prompts}{{1}{39}{Sample AI prompts}{table.caption.29}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {.2}Human Validation}{39}{section.Alph0.2}\protected@file@percent }
+\gdef \LT@ii {\LT@entry 
     {1}{97.35826pt}\LT@entry 
     {1}{97.35826pt}\LT@entry 
     {1}{154.26378pt}\LT@entry 
     {1}{97.35826pt}}
-\@writefile{toc}{\contentsline {chapter}{Additional Artefacts}{28}{appendix*.23}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{Additional Artefacts}{40}{appendix*.30}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {.3}Runbook Excerpt}{28}{section.Alph0.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {.4}Data Dictionary Snapshot}{28}{section.Alph0.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Illustrative data dictionary entries}}{28}{table.Alph0.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {.5}Environment Inventory}{29}{section.Alph0.5}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Infrastructure components per environment}}{29}{table.caption.24}\protected@file@percent }
-\newlabel{tab:inventory}{{3}{29}{Infrastructure components per environment}{table.caption.24}{}}
-\abx@aux@read@bbl@mdfivesum{nohash}
+\@writefile{toc}{\contentsline {section}{\numberline {.3}Runbook Excerpt}{40}{section.Alph0.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {.4}Data Dictionary Snapshot}{40}{section.Alph0.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Illustrative data dictionary entries}}{40}{table.Alph0.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {.5}Environment Inventory}{41}{section.Alph0.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Infrastructure components per environment}}{41}{table.caption.31}\protected@file@percent }
+\newlabel{tab:inventory}{{3}{41}{Infrastructure components per environment}{table.caption.31}{}}
+\@writefile{toc}{\contentsline {chapter}{Manifesto Assets and Tools}{42}{appendix*.32}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{app:manifesto-assets}{{.5}{42}{Manifesto Assets and Tools}{appendix*.32}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {.6}Tooling Footprint}{42}{section.Alph0.6}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Tools used to operationalise the manifesto}}{42}{table.caption.33}\protected@file@percent }
+\newlabel{tab:manifesto-tools}{{4}{42}{Tools used to operationalise the manifesto}{table.caption.33}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {.7}Glossary Supplement}{42}{section.Alph0.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {.8}Poster and Diagram Instructions}{43}{section.Alph0.8}\protected@file@percent }
+\abx@aux@read@bbl@mdfivesum{5D0D039BF84E4F45A7144D280F172F5D}
 \abx@aux@read@bblrerun
-\gdef \@abspage@last{37}
+\gdef \@abspage@last{53}

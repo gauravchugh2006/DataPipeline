@@ -1,0 +1,64 @@
+@startuml
+!theme mars
+title Ecommerce Data Pipeline - Medallion Architecture
+
+skinparam component style rectangle
+
+package "Data Sources" {
+  [Real-Time Order Stream] as RT_ORDER
+  [PostgreSQL/RDS DB (Customers, Products)] as RDS
+}
+
+' Medallion Architecture Layers
+
+package "1. Bronze Layer (Raw Data Lake)" as Bronze {
+  component [Raw Order Events] as RAW_EVENTS
+  component [Raw Dimension Tables] as RAW_DIM
+}
+
+package "2. Silver Layer (Cleaned & Conformed)" as Silver {
+  component [Cleaned Customers] as C_CUST
+  component [Cleaned Products] as C_PROD
+  component [Cleaned Orders] as C_ORDER
+  component [Order Line Items] as OLI
+}
+
+package "3. Gold Layer (Business & AI Ready)" as Gold {
+  component [Real-Time KPIs] as RT_KPI
+  component [Daily Customer Metrics] as DAILY_METRICS
+  component [ML Feature Store] as ML_FEAT
+}
+
+package "Consumption Layer" {
+  [Business Dashboards] as DASH
+  [Advanced Analytics Engine] as ANALYTICS
+  [AI/ML Models] as ML_MODELS
+}
+
+' Data Flow
+
+' Ingestion to Bronze (Landing Zone)
+RT_ORDER --> RAW_EVENTS : Real-time Ingestion (Kafka/Stream)
+RDS --> RAW_DIM : Batch Load/CDC
+
+' Bronze to Silver (Cleaning, Deduplication, Validation)
+RAW_EVENTS --> C_ORDER : Stream Processing (Enrichment)
+RAW_DIM --> C_CUST : Cleaning & Conforming
+RAW_DIM --> C_PROD : Cleaning & Conforming
+RAW_EVENTS --> OLI : Normalization
+
+' Silver to Gold (Aggregation & Feature Engineering)
+C_ORDER --> RT_KPI : Real-time Aggregation
+OLI --> RT_KPI : Real-time Aggregation
+C_CUST --> DAILY_METRICS : Daily Aggregation
+C_ORDER --> DAILY_METRICS : Daily Aggregation
+C_CUST --> ML_FEAT : Feature Engineering
+C_PROD --> ML_FEAT : Feature Engineering
+OLI --> ML_FEAT : Feature Engineering
+
+' Gold to Consumption
+RT_KPI --> DASH : (Low Latency)
+DAILY_METRICS --> ANALYTICS
+ML_FEAT --> ML_MODELS
+
+@enduml

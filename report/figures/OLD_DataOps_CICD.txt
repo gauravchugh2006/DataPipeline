@@ -1,0 +1,73 @@
+@startuml
+!theme plain
+title <b><size:16>Figure 6.x: Secure DataOps CI/CD Pipeline – Jenkins + SonarQube + ZAP + Airflow + AWS</size></b>
+
+left to right direction
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam dpi 150
+skinparam rectangle {
+  FontColor black
+  FontSize 11
+  FontName Helvetica
+  BorderColor #999999
+}
+skinparam package {
+  FontStyle bold
+  FontColor black
+  FontSize 13
+  BackgroundColor #FAFAFA
+  BorderColor #999999
+}
+
+!define BLUE #B6E2FF
+!define GREEN #C4F1C3
+!define ORANGE #F9D7A8
+!define YELLOW #FFF1A8
+!define PURPLE #E0C7FF
+!define RED #F9C1C1
+!define GRAY #EAEAEA
+
+' === PIPELINE STAGES ===
+
+package "Source Control (GitHub)" #FFFFFF {
+  rectangle "Feature Branch / Pull Request" as GIT #B6E2FF
+  rectangle "main branch (protected)" as MAIN #A8C9F9
+}
+
+package "Continuous Integration (Jenkins)" #FFFFFF {
+  rectangle "Build & Unit Tests" as BUILD #C4F1C3
+  rectangle "Static Code Analysis (SonarQube)" as SONAR #E0C7FF
+  rectangle "Dependency & License Scan" as SCAN #FFF1A8
+}
+
+package "Continuous Security (ZAP)" #FFFFFF {
+  rectangle "Baseline Scan (DAST)" as ZAPBASE #F9D7A8
+  rectangle "Full Security Scan (ZAP)" as ZAPFULL #F9C1C1
+}
+
+package "Continuous Deployment (CD)" #FFFFFF {
+  rectangle "Airflow DAG Trigger / MWAA" as AIRFLOW #B6E2FF
+  rectangle "Deploy to AWS S3 / ECR / Lambda" as AWSDEPLOY #C4F1C3
+  rectangle "CloudFormation Change Set" as CFSET #FFF1A8
+}
+
+package "Monitoring & Feedback" #FFFFFF {
+  rectangle "CloudWatch / Prometheus Metrics" as MON #F9C1C1
+  rectangle "Data Quality Alerts / Slack Webhook" as ALERTS #E0C7FF
+}
+
+' === FLOW ===
+GIT -[#7BAAF7]-> BUILD
+BUILD -[#6AC36A]-> SONAR
+SONAR -[#E5B000]-> SCAN
+SCAN -[#FFB366]-> ZAPBASE
+ZAPBASE -[#E57373]-> ZAPFULL
+ZAPFULL -[#6AC36A]-> AIRFLOW
+AIRFLOW -[#7BAAF7]-> CFSET
+CFSET -[#6AC36A]-> AWSDEPLOY
+AWSDEPLOY -[#E57373]-> MON
+MON -[#B388EB]-> ALERTS
+ALERTS -[#999999,dashed]-> GIT : Feedback Loop
+
+@enduml

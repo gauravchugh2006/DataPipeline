@@ -2362,6 +2362,11 @@
     <bcf:datasource type="file" datatype="bibtex" glob="false">references.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
+    <bcf:citekey order="1" intorder="1">dehghani2022datamesh</bcf:citekey>
+    <bcf:citekey order="2" intorder="1">forsgren2018accelerate</bcf:citekey>
+    <bcf:citekey order="3" intorder="1">stonebraker2018</bcf:citekey>
+    <bcf:citekey order="4" intorder="1">mckinseyDataTrust2022</bcf:citekey>
+    <bcf:citekey order="4" intorder="2">gartnerComposable2023</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
