@@ -60,9 +60,15 @@
 
 \begin{document}
 
-% Cover page with letterhead background
-\AddToShipoutPictureBG*{
-  \AtPageUpperLeft{\raisebox{-\height}{\includegraphics[width=\paperwidth]{figures/aivancity_letterhead.pdf}}}
+% Cover page with letterhead background (leverages provided PDF if present)
+\IfFileExists{figures/Aivancity_letterhead.pdf}{%
+  \AddToShipoutPictureBG*{
+    \AtPageUpperLeft{\raisebox{-\height}{\includegraphics[width=\paperwidth]{figures/Aivancity_letterhead.pdf}}}
+  }
+}{
+  \AddToShipoutPictureBG*{
+    \AtPageUpperLeft{\raisebox{-\height}{\fbox{\parbox{\paperwidth}{\centering Add Aivancity letterhead to \texttt{report/figures} to render the official cover}}}}
+  }
 }
 
 \frontmatter

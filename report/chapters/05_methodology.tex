@@ -110,6 +110,21 @@ To align with the MSc reporting standards, three diagrams were embedded at the e
     \label{fig:aws-dataflow}
 \end{figure}
 
+\section{Lifecycle alignment with the extended artefacts}
+\begin{figure}[H]
+    \centering
+    \IfFileExists{figures/DataEngineeringLifeCycle_png.png}{\includegraphics[width=0.92\textwidth]{figures/DataEngineeringLifeCycle_png.png}}{\fbox{\parbox{0.9\textwidth}{\centering Add \texttt{DataEngineeringLifeCycle\_png.png} to \texttt{report/figures} to render the lifecycle illustration}}}
+    \caption{Data engineering lifecycle emphasising iterative discovery, design, build, and validation}
+    \label{fig:data-engineering-lifecycle}
+\end{figure}
+
+\noindent The colourful lifecycle diagram above is lifted from the updated 63-page companion report to provide a visual bridge between the methodology narrative and the supplementary artefacts. Key takeaways reinforced in the latest appendix materials include:
+\begin{itemize}
+    \item \textbf{Closed feedback loops:} each sprint returns insights from observability and user adoption back into discovery, matching the cadence described in \texttt{Ecommerce\_DataPipelineSolution\_2025\_report\_v2.pdf}.
+    \item \textbf{Persona alignment:} workshops highlighted in the slide deck \texttt{Ecommerce Data Pipeline for Real-Time KPI Intelligence\_v2.pptx} informed the transition criteria between lifecycle phases.
+    \item \textbf{Toolchain checkpoints:} Jenkins, Airflow, and dbt validation gates are pinned to the design-to-build and build-to-validate hand-offs, mirroring the DataOps diagram embedded in Appendix~\ref{app:manifesto-assets}.
+\end{itemize}
+
 \begin{tcolorbox}[title=Supplementary Diagram Placement Guide,colback=blue!5,colframe=blue!60!black]
 High-resolution templates matching the MSc house style can be downloaded and substituted if colour imagery is required:
 \begin{itemize}
