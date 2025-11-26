@@ -26,6 +26,12 @@ DataPipeline/
 └── tests/                     # Pytest coverage for key pipeline helpers
 ```
 
+Additional architecture/context references:
+
+* `docs/real_time_kpi_pipeline.md` – interview-ready summary that maps the
+  real-time KPI pipeline narrative (AWS + Azure, medallion layers, Airflow/dbt,
+  observability) to this repository’s components.
+
 The generated project report now ships as LaTeX and PDF artefacts so the
 contents remain text-based and easy to version control:
 
